@@ -14,11 +14,20 @@
       .hover {
         fill: #69b3a2;
       }
+      div.tooltip {
+        position: absolute;
+        visibility: hidden;
+        font-size: 100%;
+        color: #333333;
+        background-color: #e6e6e6;
+        opacity: .95;
+        padding: 5px;
+      }
     </style>
   </head>
   <body>
     <h2>Países, Instituições e Autores que estão abordando a Integração Humano-Computador (HInt)</h2>
-    <h2></h2>
+    <div class='tooltip'></div>
     <script>
       const width = 900
       const height = 600
@@ -48,11 +57,17 @@
               return '#7c1010'
           })
           .on('mouseover', function (svgElement, data) {
-            d3.select('h2').text(data.properties.name);
             d3.select(this).attr('class', 'country hover')
+            d3.select('.tooltip')
+              .style('visibility','visible')
+              .style('top', svgElement.pageY + 10 + 'px')
+              .style('left', svgElement.pageX + 10 + 'px')
+              .html('<strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
           })
           .on('mouseout', function (d) {
             d3.select(this).attr('class', 'country')
+            d3.select('.tooltip')
+              .style('visibility','hidden')
           })
       })
     </script>
