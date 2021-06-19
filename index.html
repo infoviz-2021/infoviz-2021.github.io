@@ -43,10 +43,9 @@
           .join('path')
           .attr('d', geoPath)
           .attr('class', 'country')
-          .attr('fill', function (svgElement, data) {
-            if (data.articles > 0)
+          .style('fill', function (svgElement) {
+            if (svgElement.properties.articles > 0)
               return '#7c1010'
-            return '#aaa'
           })
           .on('mouseover', function (svgElement, data) {
             d3.select('h2').text(data.properties.name);
