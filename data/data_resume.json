@@ -1,0 +1,202 @@
+[
+    {   
+        "id":1,
+        "title":"Human-computer integration",
+        "reference":"Umer Farooq and Jonathan Grudin. 2016. Human-computer integration. <i>interactions</i> 23, 6 (November-December 2016), 26–32. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3001896",
+        "citation": "Farooq and Grudin, 2016",
+        "base":"ACM",
+        "focus":"GR",
+        "contribution":["RF", "AD"],
+        "impact":["DD", "DA", "DT"]
+    },
+    {   
+        "id":2,
+        "title":"Next Steps for Human-Computer Integration",
+        "reference":"Florian Floyd Mueller, Pedro Lopes, Paul Strohmeier, Wendy Ju, Caitlyn Seim, Martin Weigel, Suranga Nanayakkara, Marianna Obrist, Zhuying Li, Joseph Delfa, Jun Nishida, Elizabeth M. Gerber, Dag Svanaes, Jonathan Grudin, Stefan Greuter, Kai Kunze, Thomas Erickson, Steven Greenspan, Masahiko Inami, Joe Marshall, Harald Reiterer, Katrin Wolf, Jochen Meyer, Thecla Schiphorst, Dakuo Wang, and Pattie Maes. 2020. Next Steps for Human-Computer Integration. In <i>Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems</i> (<i>CHI '20</i>). Association for Computing Machinery, New York, NY, USA, 1–15. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376242",
+        "citation": "Mueller et al., 2020",
+        "base":"ACM",
+        "focus":"GR",
+        "contribution":["RF", "AD"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {   
+        "id":4,
+        "title":"Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "reference":"Josh Andres, m.c. schraefel, Nathan Semertzidis, Brahmi Dwivedi, Yutika C. Kulwe, Juerg von Kaenel, and Florian Floyd Mueller. 2020. Introducing Peripheral Awareness as a Neurological State for Human-computer Integration. In <i>Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems</i> (<i>CHI '20</i>). Association for Computing Machinery, New York, NY, USA, 1–13. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376128",
+        "citation": "Andres et al., 2020",
+        "base":"ACM",
+        "focus": "ES",
+        "contribution":["RF", "AD", "EE"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {   
+        "id":5,
+        "title":"Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "reference":"Lauren M. Britton and Bryan Semaan. 2017. Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration. <i>Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems</i>. Association for Computing Machinery, New York, NY, USA, 2499–2510. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3025453.3025629",
+        "citation": "Britton and Semaan, 2017",
+        "base":"ACM",
+        "focus": "ES",
+        "contribution":["RF", "AD", "EE"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":6,
+        "title":"Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "reference":"Jeffrey C. F. Ho. 2018. Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability. In <i>Proceedings of the Sixth International Symposium of Chinese CHI</i> (<i>ChineseCHI '18</i>). Association for Computing Machinery, New York, NY, USA, 95–99. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3202667.3202680",
+        "citation": "Ho, 2018",
+        "base":"ACM",
+        "focus": "GE",
+        "contribution":["RF","AD","EG"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":7,
+        "title":"The Guts Game: Towards Designing Ingestible Games",
+        "reference":"Zhuying Li, Rakesh Patibanda, Felix Brandmueller, Wei Wang, Kyle Berean, Stefan Greuter, and Florian 'Floyd' Mueller. 2018. The Guts Game: Towards Designing Ingestible Games. In <i>Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play</i> (<i>CHI PLAY '18</i>). Association for Computing Machinery, New York, NY, USA, 271–283. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242681",
+        "citation": "Li et al., 2018",
+        "base":"ACM",
+        "focus": "ES",
+        "contribution":["RF", "EE"],
+        "impact":["DD", "DA"]
+    },
+    {
+        "id":8,
+        "title":"Co-riding With My eBike to Get Green Lights",
+        "reference":"Josh Andres, Tuomas Kari, Juerg von Kaenel, and Florian 'Floyd' Mueller. 2019. \"Co-riding With My eBike to Get Green Lights\". In <i>Proceedings of the 2019 on Designing Interactive Systems Conference</i> (<i>DIS '19</i>). Association for Computing Machinery, New York, NY, USA, 1251–1263. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3322276.3322307",
+        "citation": "Andres et al., 2019",
+        "base":"ACM",
+        "focus": "ES",
+        "contribution":["RF", "AD", "EE"],
+        "impact":["IM"]
+    },
+    {
+        "id":11,
+        "title":"The future's hybrid nature",
+        "reference":"Verena Fuchsberger. 2019. The future's hybrid nature. <i>interactions</i> 26, 4 (July-August 2019), 26–31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3328481",
+        "citation": "Fuchsberger, 2019",
+        "base":"ACM",
+        "focus":"GR",
+        "contribution":["RF","AD", "EG"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":14,
+        "title":"\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "reference":"Josh Andres, Julian de Hoog, and Florian 'Floyd' Mueller. 2018. \"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion. In <i>Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play</i> (<i>CHI PLAY '18</i>). Association for Computing Machinery, New York, NY, USA, 19–31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242688",
+        "citation": "Andres et al., 2018",
+        "base":"ACM",
+        "focus": "ES",
+        "contribution":["RF","AD", "EE"],
+        "impact":["IM", "DD", "DA"]
+    },
+    {
+        "id":16,
+        "title":"A Survey of Incorporating Affective Computing for Human-System Co-adaptation",
+        "reference":"Mohammed Alharbi and Shihong Huang. 2020. A Survey of Incorporating Affective Computing for Human-System Co-adaptation. <i>Proceedings of the 2020 The 2nd World Symposium on Software Engineering</i>. Association for Computing Machinery, New York, NY, USA, 72–79. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3425329.3425343",
+        "citation": "Alharbi and Huang, 2020",
+        "base":"ACM",
+        "focus": "GE",
+        "contribution":["AD"],
+        "impact":["DD", "DA"]
+    },
+    {
+        "id":17,
+        "title":"Embracing Companion Technologies",
+        "reference":"Jasmin Niess and Paweł W. Woźniak. 2020. Embracing Companion Technologies. <i>Proceedings of the 11th Nordic Conference on Human-Computer Interaction: Shaping Experiences, Shaping Society</i>. Association for Computing Machinery, New York, NY, USA, Article 31, 1–11. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3419249.3420134",
+        "citation": "Niess and Woźniak, 2020",
+        "base":"ACM",
+        "focus": "GE",
+        "contribution":["RF","AD"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":19,
+        "title":"Human-Engaged Computing: the future of Human-Computer Interaction",
+        "reference":"Ren, X., Silpasuwanchai, C. & Cahill, J. Human-Engaged Computing: the future of Human–Computer Interaction. CCF Trans. Pervasive Comp. Interact. 1, 47–68 (2019). https://doi.org/10.1007/s42486-019-00007-0",
+        "citation": "Ren et al., 2019",
+        "base":"Springer Link",
+        "focus": "GE",
+        "contribution":["RF","AD", "EG"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":22,
+        "title":"Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "reference":"Dengel A., Devillers L., Schaal L.M. (2021) Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics. In: Braunschweig B., Ghallab M. (eds) Reflections on Artificial Intelligence for Humanity. Lecture Notes in Computer Science, vol 12600. Springer, Cham. https://doi.org/10.1007/978-3-030-69128-8_13",
+        "base":"Springer Link",
+        "citation": "Dengel et al., 2021",
+        "focus":"GR",
+        "contribution":["RF","AD", "EG"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":23,
+        "title":"Human augmentation: Past, present and future",
+        "reference":"Roope Raisamo, Ismo Rakkolainen, Päivi Majaranta, Katri Salminen, Jussi Rantala, Ahmed Farooq, Human augmentation: Past, present and future, International Journal of Human-Computer Studies, Volume 131, 2019, Pages 131-143, ISSN 1071-5819, https://doi.org/10.1016/j.ijhcs.2019.05.008.",
+        "citation": "Raisamo et al., 2019",
+        "base":"Science Direct",
+        "focus": "ES",
+        "contribution":["RF", "AD", "EE"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":24,
+        "title":"Engineering human-in-the-loop interactions in cyber-physical systems",
+        "reference":"Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, Engineering human-in-the-loop interactions in cyber-physical systems, Information and Software Technology, Volume 126, 2020, 106349, ISSN 0950-5849, https://doi.org/10.1016/j.infsof.2020.106349.",
+        "citation": "Gil et al., 2020",
+        "base":"Science Direct",
+        "focus": "ES",
+        "contribution":["AD", "EE"],
+        "impact":["DD", "DA"]
+    },
+    {
+        "id":25,
+        "title":"Designing human-in-the-loop autonomous Cyber-Physical Systems",
+        "reference":"Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, Designing human-in-the-loop autonomous Cyber-Physical Systems, International Journal of Human-Computer Studies, Volume 130, 2019, Pages 21-39, ISSN 1071-5819,https://doi.org/10.1016/j.ijhcs.2019.04.006.",
+        "citation": "Gil et al. 2019",
+        "base":"Science Direct",
+        "focus": "ES",
+        "contribution":["AD", "EE"],
+        "impact":["DD", "DA"]
+    },
+    {
+        "id":26,
+        "title":"Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "reference":"Mueller, Florian; Maes, Pattie; Grudin, Jonathan; ,Human-Computer Integration (Dagstuhl Seminar 18322),Dagstuhl Reports,8,8,,2019,Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik",
+        "citation": "Mueller et al., 2019",
+        "base":"Google Scholar",
+        "focus":"GR",
+        "contribution":["RF","AD"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":30,
+        "title":"Seven HCI grand challenges",
+        "reference":"Stephanidis, Constantine; Salvendy, Gavriel; Antona, Margherita; Chen, Jessie YC; Dong, Jianming; Duffy, Vincent G; Fang, Xiaowen; Fidopiastis, Cali; Fragomeni, Gino; Fu, Limin Paul; ,Seven HCI grand challenges,International Journal of Human–Computer Interaction,35,14,1229-1269,2019,Taylor & Francis",
+        "citation": "Stephanidis et al., 2019",
+        "base":"Google Scholar",
+        "focus":"GR",
+        "contribution":["RF","AD"],
+        "impact":["IM", "DD", "DA", "DT"]
+    },
+    {
+        "id":32,
+        "title":"Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "reference":"McKenna, H Patricia; ,\"Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities\",International Conference on Intelligent Human Systems Integration,,,1063-1068,2020,Springer",
+        "citation": "McKenna, 2020" ,
+        "base":"Google Scholar",
+        "focus": "ES",
+        "contribution":["RF","AD"],
+        "impact":["IM", "DD", "DA"]
+    },
+    {
+        "id":34,
+        "title":"Body-Borne Computers as Extensions of Self",
+        "reference":"Leigh, Sang-won; Sareen, Harpreet; Kao, Hsin-Liu Cindy; Liu, Xin; Maes, Pattie; ,Body-Borne Computers as Extensions of Self,Computers,6,1,12,2017,Multidisciplinary Digital Publishing Institute",
+        "citation": "Leigh et al., 2017",
+        "base":"Google Scholar",
+        "focus": "ES",
+        "contribution":["RF","AD"],
+        "impact":["IM", "DD", "DA", "DT"]
+    }
+]
