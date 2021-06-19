@@ -36,15 +36,20 @@
       const geoPath = d3.geoPath()
         .projection(projection)
       
-      d3.json('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson').then(function (data) {
+      d3.json('https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/world.json').then(function (data) {
         svg.append('g')
           .selectAll('path')
           .data(data.features)
           .join('path')
           .attr('d', geoPath)
           .attr('class', 'country')
+          .attr('fill', function (svgElement, data) {
+            if (data.articles > 0)
+              return '#7c1010'
+            return '#aaa'
+          })
           .on('mouseover', function (svgElement, data) {
-            d3.select("h2").text(data.properties.name);
+            d3.select('h2').text(data.properties.name);
             d3.select(this).attr('class', 'country hover')
           })
           .on('mouseout', function (d) {
