@@ -17,6 +17,8 @@
     </style>
   </head>
   <body>
+    <h2>Países, Instituições e Autores que estão abordando a Integração Humano-Computador (HInt)</h2>
+    <h2></h2>
     <script>
       const width = 900
       const height = 600
@@ -29,22 +31,26 @@
       const projection = d3
         .geoNaturalEarth1()
         .scale(width / 1.3 / Math.PI)
-        .translate([width / 2, height / 2]);
-
+        .translate([width / 2, height / 2])
+      
+      const geoPath = d3.geoPath()
+        .projection(projection)
+      
       d3.json('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson').then(function (data) {
         svg.append('g')
           .selectAll('path')
           .data(data.features)
           .join('path')
-          .attr('d', d3.geoPath().projection(projection))
+          .attr('d', geoPath)
           .attr('class', 'country')
-          .on('mouseover', function (d) {
+          .on('mouseover', function (svgElement, data) {
+            d3.select("h2").text(data.properties.name);
             d3.select(this).attr('class', 'country hover')
           })
           .on('mouseout', function (d) {
             d3.select(this).attr('class', 'country')
           })
-      });
+      })
     </script>
   </body>
 </html>
