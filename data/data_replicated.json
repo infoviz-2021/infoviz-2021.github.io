@@ -1,0 +1,1460 @@
+[
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "IM"
+    },     
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "30",
+        "title": "Seven HCI grand challenges",
+        "citation": "Stephanidis et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "IM"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DD"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DA"
+    }, 
+    {
+        "id": "19",
+        "title": "Human-Engaged Computing: the future of Human-Computer Interaction",
+        "citation": "Ren et al., 2019",
+        "year": "2019",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DT"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "IM"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "23",
+        "title": "Human augmentation: Past, present and future",
+        "citation": "Raisamo et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DT"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "17",
+        "title": "Embracing Companion Technologies",
+        "citation": "Niess and Woźniak, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "2",
+        "title": "Next Steps for Human-Computer Integration",
+        "citation": "Mueller et al., 2020",
+        "year": "2020",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "26",
+        "title": "Human-Computer Integration (Report from Dagstuhl Seminar)",
+        "citation": "Mueller et al., 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "32",
+        "title": "Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",
+        "citation": "McKenna, 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "7",
+        "title": "The Guts Game: Towards Designing Ingestible Games",
+        "citation": "Li et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "7",
+        "title": "The Guts Game: Towards Designing Ingestible Games",
+        "citation": "Li et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "7",
+        "title": "The Guts Game: Towards Designing Ingestible Games",
+        "citation": "Li et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "7",
+        "title": "The Guts Game: Towards Designing Ingestible Games",
+        "citation": "Li et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "34",
+        "title": "Body-Borne Computers as Extensions of Self",
+        "citation": "Leigh et al., 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "IM"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DD"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DA"
+    }, 
+    {
+        "id": "6",
+        "title": "Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability.",
+        "citation": "Ho, 2018",
+        "year": "2018",
+        "focus": "GE",
+        "contribution": "EG",
+        "impact": "DT"
+    }, 
+    {
+        "id": "24",
+        "title": "Engineering human-in-the-loop interactions in cyber-physical systems",
+        "citation": "Gil et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "24",
+        "title": "Engineering human-in-the-loop interactions in cyber-physical systems",
+        "citation": "Gil et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "24",
+        "title": "Engineering human-in-the-loop interactions in cyber-physical systems",
+        "citation": "Gil et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "24",
+        "title": "Engineering human-in-the-loop interactions in cyber-physical systems",
+        "citation": "Gil et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "25",
+        "title": "Designing human-in-the-loop autonomous Cyber-Physical Systems",
+        "citation": "Gil et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "25",
+        "title": "Designing human-in-the-loop autonomous Cyber-Physical Systems",
+        "citation": "Gil et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "25",
+        "title": "Designing human-in-the-loop autonomous Cyber-Physical Systems",
+        "citation": "Gil et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "25",
+        "title": "Designing human-in-the-loop autonomous Cyber-Physical Systems",
+        "citation": "Gil et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "IM"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DD"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DA"
+    }, 
+    {
+        "id": "11",
+        "title": "The future's hybrid nature",
+        "citation": "Fuchsberger, 2019",
+        "year": "2019",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DT"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "1",
+        "title": "Human-computer integration",
+        "citation": "Farooq and Grudin, 2016",
+        "year": "2016",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "IM"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DD"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DA"
+    }, 
+    {
+        "id": "22",
+        "title": "Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics",
+        "citation": "Dengel et al., 2021",
+        "year": "2021",
+        "focus": "GR",
+        "contribution": "EG",
+        "impact": "DT"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "IM"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "5",
+        "title": "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration.",
+        "citation": "Britton and Semaan, 2017",
+        "year": "2017",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DT"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DT"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DT"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "IM"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "4",
+        "title": "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration",
+        "citation": "Andres et al., 2020",
+        "year": "2020",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DT"
+    }, 
+    {
+        "id": "8",
+        "title": "Co-riding With My eBike to Get Green Lights",
+        "citation": "Andres et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "8",
+        "title": "Co-riding With My eBike to Get Green Lights",
+        "citation": "Andres et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "8",
+        "title": "Co-riding With My eBike to Get Green Lights",
+        "citation": "Andres et al., 2019",
+        "year": "2019",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "IM"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "IM"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DD"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "RF",
+        "impact": "DA"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "IM"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "AD",
+        "impact": "DA"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "IM"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DD"
+    }, 
+    {
+        "id": "14",
+        "title": "\"I had super-powers when eBike riding\" Towards Understanding the Design of Integrated Exertion",
+        "citation": "Andres et al., 2018",
+        "year": "2018",
+        "focus": "ES",
+        "contribution": "EE",
+        "impact": "DA"
+    }, 
+    {
+        "id": "16",
+        "title": "A Survey of Incorporating Affective Computing for Human-System Co-adaptation",
+        "citation": "Alharbi and Huang, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DD"
+    }, 
+    {
+        "id": "16",
+        "title": "A Survey of Incorporating Affective Computing for Human-System Co-adaptation",
+        "citation": "Alharbi and Huang, 2020",
+        "year": "2020",
+        "focus": "GE",
+        "contribution": "AD",
+        "impact": "DA"
+    }
+]
