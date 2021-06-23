@@ -1,0 +1,30 @@
+/* Seguindo os princípios de OOCSS (CSS Orientado a Objetos), aqui é onde iremos ter nossos pequenos "objetos", 
+que nada mais são que pequenos pedaços da interface, em geral, padrões que se repetem por todo o site e que podem 
+ter ou não uma camada visual por cima.
+Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento, só é permitido também o uso de classes. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px black solid;
+}
+
+.card__header {
+  display: flex;
+  min-height: 30px;
+  padding: 1em;
+  font-size: 0.5rem;
+  line-height: 1;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.card__body {
+  display: flex;
+  padding: 3px;
+  width: 100%;
+  height: 100%;
+}
