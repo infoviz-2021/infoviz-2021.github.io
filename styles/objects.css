@@ -24,7 +24,6 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
 
 .card__body {
   display: flex;
-  padding: 3px;
-  width: 100%;
-  height: 100%;
+  padding: 0.5em;
+  overflow: hidden;
 }

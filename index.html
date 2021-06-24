@@ -14,23 +14,30 @@
   </head>
   <body>
     <main>
-      <div class="card country-card">
+      <section class="card country-card">
         <div class="card__header">
           <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT)</h2>
         </div>
         <div class="card__body">
-          <div class="countries-map"></div>
-          <div class="country-details"></div>
-          <div class="tooltip"></div>
+          <div class="card__body__countries">
+            <div class="card__body__countries__map"></div>
+            <div class="card__body__countries__details">
+              <h5>Institutions</h5>
+              <div class="card__body__countries__details__institutions"></div>
+              <h5>Authors</h5>
+              <div class="card__body__countries__details__authors"></div>
+            </div>
+            <div class="tooltip"></div>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
 
     <script>
       const width = '500'
       const height = '300'
 
-      const svg = d3.select('.countries-map')
+      const svg = d3.select('.card__body__countries__map')
         .append('svg')
         .attr("viewBox", `0 0 ${width} ${height}`)
       
@@ -67,8 +74,25 @@
               .style('visibility','hidden')
           })
           .on('click', function(svgElement, data) {
-            d3.select('.country-card')
-              .classed('.country-card-on')
+            d3.select('.card__body__countries__details__institutions > ul')
+              .remove()
+
+            d3.select('.card__body__countries__details__institutions')
+              .append('ul')
+              .selectAll('li')
+              .data(data.properties.institutions)
+              .join('li')
+              .text(institution => institution)
+
+            d3.select('.card__body__countries__details__authors > ul')
+              .remove()
+
+            d3.select('.card__body__countries__details__authors')
+              .append('ul')
+              .selectAll('li')
+              .data(data.properties.authors)
+              .join('li')
+              .text(author => author)
           })
       })
     </script>

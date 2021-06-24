@@ -5,12 +5,31 @@ mas respeitando as regras do RSCSS de especificidade e também não colocando po
 que engessem muito o componente a ponto dele não ser reutilizável.
 Normalmente, aqui ficarão listas específicas como de produtos, cards específicos como aqueles incluindo imagens, etc */
 
-.country-card {
-  height: 300px;
-  width: 400px;
+.card__body__countries {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
 }
 
-.countries-map {
-  height: 100%;
-  width: 100%;
+.card__body__countries__map {
+  display: flex;
+  min-width: 70vw;
+}
+
+.card__body__countries__details {
+  font-family: Roboto, sans-serif;
+  font-size: 0.75rem;
+  padding: 0 1em;
+}
+
+.card__body__countries__details ul {
+  list-style-type: none;
+}
+
+.card__body__countries__details__institutions {
+  font-size: 0.75rem;
+}
+
+.card__body__countries__details__authors {
+  font-size: 0.75rem;
 }
