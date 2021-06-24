@@ -23,9 +23,15 @@
             <div class="card__body__countries__map"></div>
             <div class="card__body__countries__details">
               <h5>Institutions</h5>
-              <div class="card__body__countries__details__institutions"></div>
+              <div class="card__body__countries__details__institutions">
+                <ul class="card__body__countries__details__institutions__list"></ul>
+                <button type="button" class="card__body__countries__details__institutions__button">More</button>
+              </div>
               <h5>Authors</h5>
-              <div class="card__body__countries__details__authors"></div>
+              <div class="card__body__countries__details__authors">
+                <ul class="card__body__countries__details__authors__list"></ul>
+                <button type="button" class="card__body__countries__details__authors__button">More</button>
+              </div>
             </div>
             <div class="tooltip"></div>
           </div>
@@ -74,26 +80,30 @@
               .style('visibility','hidden')
           })
           .on('click', function(svgElement, data) {
-            d3.select('.card__body__countries__details__institutions > ul')
-              .remove()
-
-            d3.select('.card__body__countries__details__institutions')
-              .append('ul')
+            d3.select('.card__body__countries__details__institutions__list')
               .selectAll('li')
               .data(data.properties.institutions)
               .join('li')
               .text(institution => institution)
-
-            d3.select('.card__body__countries__details__authors > ul')
-              .remove()
-
-            d3.select('.card__body__countries__details__authors')
-              .append('ul')
+            
+            d3.select('.card__body__countries__details__authors__list')
               .selectAll('li')
               .data(data.properties.authors)
               .join('li')
               .text(author => author)
           })
+      })
+
+      const institutionMoreButton = document.querySelector('.card__body__countries__details__institutions__button')
+      institutionMoreButton.addEventListener('click', () => {
+        const institutionsList = document.querySelector('.card__body__countries__details__institutions__list')
+        institutionsList.classList.toggle('card__body__countries__details__institutions__list--open')
+      })
+
+      const authorsMoreButton = document.querySelector('.card__body__countries__details__authors__button')
+      authorsMoreButton.addEventListener('click', () => {
+        const authorsList = document.querySelector('.card__body__countries__details__authors__list')
+        authorsList.classList.toggle('card__body__countries__details__authors__list--open')
       })
     </script>
   </body>

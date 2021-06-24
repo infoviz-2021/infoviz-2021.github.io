@@ -26,10 +26,31 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   list-style-type: none;
 }
 
+.card__body__countries__details button {
+  border: none;
+  background: none;
+}
+
 .card__body__countries__details__institutions {
   font-size: 0.75rem;
 }
 
+.card__body__countries__details__institutions__list li:nth-child(n+6) {
+  display: none;
+}
+
+.card__body__countries__details__institutions__list--open li:nth-child(n+6) {
+  display: list-item;
+}
+
 .card__body__countries__details__authors {
   font-size: 0.75rem;
+}
+
+.card__body__countries__details__authors__list li:nth-child(n+6) {
+  display: none;
+}
+
+.card__body__countries__details__authors__list--open li:nth-child(n+6) {
+  display: list-item;
 }
