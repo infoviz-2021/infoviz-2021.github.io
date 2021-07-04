@@ -1,0 +1,24 @@
+main {
+  display: flex;
+  margin: 8px;
+}
+.country {
+  stroke: #fff;
+  fill: #aaa;
+}
+.hover {
+  fill: #69b3a2;
+}
+div.tooltip {
+  position: absolute;
+  visibility: hidden;
+  font-size: 100%;
+  color: #333333;
+  background-color: #e6e6e6;
+  opacity: 0.95;
+  padding: 5px;
+}
+h2 {
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+}

@@ -1,3 +1,9 @@
+## Style Guides
+
+In this project we're adopting:
+
+- `BEM` design methodology for CSS styles
+
 ## References
 - https://github.com/holtzy/D3-graph-gallery
 - https://github.com/maptimelex/d3-mapping
