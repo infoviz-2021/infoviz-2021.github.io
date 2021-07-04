@@ -4,19 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <title>Trabalho de InfoViz - Visualização 8</title>
     <style>
+
       div.tooltip {
         position: absolute;
         visibility: hidden;
-        font-size: 90%;
+        font-size: 65%;
         font-family: sans-serif;
         color: #333333;
         background-color: #f8f8f8;
         opacity: .95;
         padding: 5px;
         border-radius: 3px;
+        stroke: #1b3978;
+        stroke-width: 1.5px;
+
       }
 
       div.observation {
@@ -49,7 +54,6 @@
   <h2 class="text-title">Foco/Objetivo da Iniciativa x Tipo de Contribuição</h2>
   <!-- Add 2 buttons -->
   <p class= "normal-text">Order by: </p>
-  <button class= "normal-text" onclick="update('id')">Id</button>
   <button class= "normal-text" onclick="update('author')">Authors</button>
   <button class= "normal-text" onclick="update('year')">Years</button>
   <button class= "normal-text" onclick="update('focus')">Focus</button>
@@ -59,12 +63,37 @@
   <div class='tooltip'></div>
   <div class='observation'></div>
   <script>
-function update(orderBy){
     // set the dimensions and margins of the graph
     var margin = {top: 30, right: 400, bottom: 100, left: 200},
-        width = 1200 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
-    
+            width = 1200 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
+
+
+    //Legend
+    var keys = [
+      { "key": "GR", "name":"General / All-purpose"},
+      { "key": "GE", "name":"General with an emphasis on some attribute " },
+      { "key": "ES", "name":"Specific"}
+    ]; 
+     
+    //Contribution label
+    var contribution = [
+      { "key": "AD", "name":"Agenda de Desafios   " },
+      { "key": "RF", "name":"Reflexões sobre HInt "},
+      { "key": "EG", "name":"Estratégias de Design"},
+      { "key": "EE", "name":"Estratégias de Design"}
+    ];
+
+    /* //Contribution label
+     var contribution = [
+      { "key": "AD", "name":"Agenda de Desafios e Pesquisas Futuras sobre HInt no âmbito de IHC" },
+      { "key": "RF", "name":"Reflexões sobre HInt no âmbito de IHC"},
+      { "key": "EG", "name":"Modelo/Estratégias de Design e/ou Avaliação de IHC focado em HInt no geral"},
+      { "key": "EE", "name":"Modelo/Estratégias de Design e/ou Avaliação de IHC focado em HInt em um contexto/domínio específico"}
+    ];*/
+
+  function update(orderBy){
+   
     d3.select("#my_dataviz").remove();
     
     // append the svg object to the body of the page
@@ -77,39 +106,25 @@ function update(orderBy){
         .append("g")
         .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
-
+          
     // Initialize the X axis
     var x = d3.scaleBand()
       .range([ 0, width ])
-      .padding(0.1);
+      .padding(0.2);
 
     var xAxis = svg.append("g")
       .attr("class", "myXaxis normal-text")
       .attr("transform", "translate(0," + height + ")")
-      
 
     // Initialize the Y axis
     var y = d3.scaleBand()
       .range([ height, 0])
-      .padding(0.5);
+      .padding(0.6);
 
     var yAxis = svg.append("g")
       .attr("class", "myYaxis normal-text")
       
-    //Legend
-    var keys = [
-      { "key": "GR", "name":"Geral"},
-      { "key": "GE", "name":"Geral com enfâse em algum atributo" },
-      { "key": "ES", "name":"Específico"}
-    ]; 
-     
-    //Contribution label
-    var contribution = [
-      { "key": "AD", "name":"Agenda de Desafios e Pesquisas Futuras sobre HInt no âmbito de IHC" },
-      { "key": "RF", "name":"Reflexões sobre HInt no âmbito de IHC"},
-      { "key": "EG", "name":"Modelo/Estratégias de Design e/ou Avaliação de IHC focado em HInt no geral"},
-      { "key": "EE", "name":"Modelo/Estratégias de Design e/ou Avaliação de IHC focado em HInt em um contexto/domínio específico"}
-    ];
+  
 
     d3.select(".observation")
     .selectAll("p")
@@ -124,7 +139,7 @@ function update(orderBy){
         .range(d3.schemeSet2);
   
       //Read the data
-      var url = "https://raw.githubusercontent.com/elizabethduane/infoviz-2021.github.io/master/data/data_replicated.json";
+      var url = "https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/data/data_replicated.json";
       
       d3.json(url).then(function (data) {
         //sort data by citation
@@ -133,28 +148,47 @@ function update(orderBy){
         //sort data by year
         if(orderBy === 'year')
           sortedData = data.slice().sort((a, b) => d3.ascending(a.year, b.year) || d3.descending(a.citation, b.citation))
-        else if(orderBy === 'id')
-          sortedData = data.slice().sort((a, b) => d3.descending(parseInt(a.id), parseInt(b.id)))
         else if(orderBy === 'focus')
           sortedData = data.slice().sort((a, b) => d3.ascending(a.focus, b.focus))
       
           // Add X axis
-          x.domain(contribution.map(function(d){return d.key}))
+          x.domain(contribution.map(function(d){return d.key}));
 
-          xAxis.call(d3.axisBottom(x).tickSize(0))
-          .append("text")
-            .attr("y", height+40)
-            .attr("x", width/2)
-            .attr("text-anchor", "middle")
-            .attr("stroke", "black")
-            .text("Year");
+          xAxis.call(d3.axisBottom(x).tickSize(0));
           
           //xAxis.transition().duration(500).call(d3.axisBottom(x))
 
-          svg.append("text")
-          .text("Tipo de Contribuição")
+          /*svg.selectAll("text")
+          .data(contribution)
+          .enter()
+          .append("text")
+          .text(function (d){return d.key + " = " + d.name})
             .attr("x", width-160)
             .attr("y", height+50) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("text-anchor", "left")
+            .attr("font-size", "16px")
+            .attr("font-weight", "bold")
+            .attr("font-family", "sans-serif")
+            .style("alignment-baseline", "middle")
+            .style("fill", "#444444")*/
+
+          // Add one dot in the legend for each name.
+          svg.selectAll()
+          .data(contribution)
+          .enter()
+          .append("text")
+              .attr("x", function(d,i){ return (width/8) + i*(width/4)})
+              .attr("y", height+35) // 100 is where the first dot appears. 25 is the distance between dots
+              .text(function(d){ return d.name})
+              .attr("class", function(d) { return "normal-text"})
+              .attr("text-anchor", "middle")
+              .style("alignment-baseline", "middle")
+       
+
+          svg.append("text")
+          .text("Tipo de Contribuição")
+            .attr("x", width/2-80)
+            .attr("y", height+90) // 100 is where the first dot appears. 25 is the distance between dots
             .attr("text-anchor", "left")
             .attr("font-size", "16px")
             .attr("font-weight", "bold")
@@ -164,21 +198,21 @@ function update(orderBy){
             
           // Add Y axis
           y.domain(sortedData.map(function(d){ 
-            return "#" + d.id +" "+d.citation
+            return d.citation
           }));
           yAxis.call(d3.axisLeft(y).tickSize(0));
           //yAxis.transition().duration(500).call(d3.axisLeft(y));
 
           // variable u: map data to existing rect
           var u = svg.selectAll("rect")
-            .data(sortedData, function(d) {return d.contribution+':'+"#" + d.id +" "+d.citation;})
+            .data(sortedData, function(d) {return d.contribution + ':' + d.citation;})
 
           u.enter()
           .append("rect")
           .merge(u)
           .attr("class", function(d) { return "myArea " + d.focus })
           .attr("x", function(d) { return x(d.contribution) })
-          .attr("y", function(d) { return y("#" + d.id +" "+ d.citation) })
+          .attr("y", function(d) { return y(d.citation) })
           .attr("width", x.bandwidth() )
           .attr("height", y.bandwidth() )
           .attr("rx", 5)
@@ -188,7 +222,7 @@ function update(orderBy){
             d3.select(this)
               .transition()     // adds animation
               .duration(400)
-              .attr("y", function(d) { return y("#" + d.id +" "+d.citation) - 3})
+              .attr("y", function(d) { return y(d.citation) - 3})
               .attr("height", y.bandwidth() + 6)
               
             //Get Focus and Contribution description
@@ -201,7 +235,8 @@ function update(orderBy){
               .style('left', e.pageX + 10 + 'px')
               .html('<strong>Title: </strong>'+ d.title + 
                     '</br><strong>Focus: </strong>' + foundF.name + 
-                    '</br><strong>Contribution: </strong>' + foundC.name)
+                    '</br><strong>Contribution: </strong>' + foundC.name +
+                    '</br><strong>Congress: </strong>' + foundC.name)
           })
           .on("mouseleave", function (e, d){
               d3.select('.tooltip')
@@ -211,7 +246,7 @@ function update(orderBy){
                 .transition()     // adds animation
                 .duration(400)
                   .attr("height", y.bandwidth())
-                  .attr("y", function(d) { return y("#" + d.id +" "+d.citation) })
+                  .attr("y", function(d) { return y(d.citation) })
           })
 
         })
@@ -223,7 +258,10 @@ function update(orderBy){
 
     // What to do when one group is hovered
     var highlight = function(e,d){
-      console.log(d)
+      //set font label to bold
+      d3.selectAll(".label-"+d.key)
+      .attr("font-weight", "bold")
+
       // reduce opacity of all groups
       d3.selectAll(".myArea").style("opacity", .05)
       // expect the one that is hovered
@@ -232,6 +270,11 @@ function update(orderBy){
 
     // And when it is not hovered anymore
     var noHighlight = function(e,d){
+
+      //set font label to normal
+      d3.selectAll(".label-"+d.key)
+      .attr("font-weight", "normal")
+
       d3.selectAll(".myArea").style("opacity", 1)
     }
    
@@ -244,7 +287,7 @@ function update(orderBy){
     var xAlign = 650
 
     svg.append("text")
-    .text("Foco/Objetivo da Publicação")
+    .text("Publication focus")
       .attr("x", xAlign)
       .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
       .attr("text-anchor", "left")
@@ -278,7 +321,7 @@ function update(orderBy){
         .attr("y", function(d,i){ return 35 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", function(d){ return color(d.key)})
         .text(function(d){ return d.name})
-        .attr('class', 'normal-text')
+        .attr("class", function(d) { return "normal-text label-" + d.key })
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle")
         .on("mouseover", highlight)
@@ -289,7 +332,6 @@ function update(orderBy){
   // Initialize plot
   update('author');
 
-  
   </script>
 </body>
 </html>
