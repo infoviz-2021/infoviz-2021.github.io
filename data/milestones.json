@@ -1,7 +1,27 @@
 [
-  { "year": 1960, "title": "J. C. R. Licklider. Man-computer symbiosis. Transactions on Human Factors in Electronics Vol. HFE-1, (1960), 4–11." },
-  { "year": 2016, "title": "Umer Farooq and Jonathan Grudin. 2016. Human-computer integration. Interactions. 23, 6 (November-December 2016), 26–32. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3001896" },
-  { "year": 2017, "title": "Umer Farooq and Jonathan T. Grudin. 2017. Paradigm Shift from Human Computer Interaction to Integration. In Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems (CHI EA &#39;17). Association for Computing Machinery, New York, NY, USA, 1360–1363. DOI:https://doi.org/10.1145/3027063.3049285" },
-  { "year": 2019, "title": "Florian Mueller, Pattie Maes, and Jonathan Grudin. 2019. Human-Computer Integration (Dagstuhl Seminar 18322),Dagstuhl Reports,8,8,,2019,Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik" },
-  { "year": 2020, "title": "Florian Floyd Mueller, Pedro Lopes, Paul Strohmeier, Wendy Ju, Caitlyn Seim, Martin Weigel, Suranga Nanayakkara, Marianna Obrist, Zhuying Li, Joseph Delfa, Jun Nishida, Elizabeth M. Gerber, Dag Svanaes, Jonathan Grudin, Stefan Greuter, Kai Kunze, Thomas Erickson, Steven Greenspan, Masahiko Inami, Joe Marshall, Harald Reiterer, Katrin Wolf, Jochen Meyer, Thecla Schiphorst, Dakuo Wang, and Pattie Maes. 2020. Next Steps for Human-Computer Integration. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI &#39;20). Association for Computing Machinery, New York, NY, USA, 1–15. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376242" }
+  { 
+    "year": 1960, 
+    "title": "J. C. R. Licklider. Man-computer symbiosis. Transactions on Human Factors in Electronics Vol. HFE-1, (1960), 4–11." ,
+    "milestone": "O termo “Integração” é usado para descrever uma possível (i.e., futura) relação simbiótica entre humanos e tecnologias (Transactions on Human Factors in Electronics"
+  },
+  {
+    "year": 2016,
+    "title": "Umer Farooq and Jonathan Grudin. 2016. Human-computer integration. Interactions. 23, 6 (November-December 2016), 26–32. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3001896",
+    "milestone": "O termo “Integração” é usado para caracterizar uma nova era entre humanos e tecnologias, a era da Integração Humano- Computador (Revista Interactions)"
+  },
+  {
+    "year": 2017,
+    "title": "Umer Farooq and Jonathan T. Grudin. 2017. Paradigm Shift from Human Computer Interaction to Integration. In Proceedings of the 2017 CHI Conference Extended Abstracts on Human Factors in Computing Systems (CHI EA &#39;17). Association for Computing Machinery, New York, NY, USA, 1360–1363. DOI:https://doi.org/10.1145/3027063.3049285",
+    "milestone": "Iniciam as discussões sobre abordar a Integração Humano- Computador não apenas como uma nova era, mas como uma possível troca de paradigma de IHC (CHI’17)"
+  },
+  {
+    "year": 2019,
+    "title": "Florian Mueller, Pattie Maes, and Jonathan Grudin. 2019. Human-Computer Integration (Dagstuhl Seminar 18322),Dagstuhl Reports,8,8,,2019,Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik",
+    "milestone": "A Integração Humano-Computador é discutida como um paradigma emergente que estende, mas não substitui a área de IHC (Dagstuhl Seminar 18322)"
+  },
+  {
+    "year": 2020,
+    "title": "Florian Floyd Mueller, Pedro Lopes, Paul Strohmeier, Wendy Ju, Caitlyn Seim, Martin Weigel, Suranga Nanayakkara, Marianna Obrist, Zhuying Li, Joseph Delfa, Jun Nishida, Elizabeth M. Gerber, Dag Svanaes, Jonathan Grudin, Stefan Greuter, Kai Kunze, Thomas Erickson, Steven Greenspan, Masahiko Inami, Joe Marshall, Harald Reiterer, Katrin Wolf, Jochen Meyer, Thecla Schiphorst, Dakuo Wang, and Pattie Maes. 2020. Next Steps for Human-Computer Integration. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI &#39;20). Association for Computing Machinery, New York, NY, USA, 1–15. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376242",
+    "milestone": "A Integração Humano-Computador é formalmente definida e caracterizada como um paradigma emergente da área de IHC (CHI’20)"
+  }
 ]
