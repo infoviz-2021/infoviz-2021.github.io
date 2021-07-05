@@ -64,10 +64,11 @@
           .attr('class', 'country')
           .style('fill', function (svgElement) {
             if (svgElement.properties.articles > 0)
-              return '#7c1010'
+              return '#6f42c1'
           })
           .on('mouseover', function (svgElement, data) {
             d3.select(this).attr('class', 'country hover')
+            d3.select(this).style('fill', '#6610f2')
             d3.select('.tooltip')
               .style('visibility','visible')
               .style('top', svgElement.pageY + 10 + 'px')

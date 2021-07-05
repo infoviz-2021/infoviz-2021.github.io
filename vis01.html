@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/d3-milestones/build/d3-milestones.css" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/d3-milestones/build/d3-milestones.min.js"></script>
+  </head>
+  <body>
+    <div id="timeline"></div>
+
+    <script>
+      d3.json('https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/data/milestones.json', function (data) {
+        console.log(data)
+      });
+
+      milestones('#timeline')
+        .mapping({
+          timestamp: 'year',
+          text: 'title',
+        })
+        .parseTime('%Y')
+        .aggregateBy('year')
+        .render([
+          { year: 789, title: 'Vikings begin attacks on England.' },
+          { year: 840, title: 'Vikings found Dublin in Ireland.' },
+          { year: 1050, title: 'The city of Oslo is founded in Norway.' },
+          { year: 1066, title: 'Battle of Hastings.' },
+        ]);
+    </script>
+  </body>
+</html>
