@@ -19,20 +19,30 @@
       </div>
       <div class="card__body">
         <div class="timeline-milestones">
-          <div class="timeline-milestones__milestone">
-            <span data-year="1960" data-description="O termo “Integração” é usado para descrever uma possível (i.e., futura) relação simbiótica entre humanos e tecnologias (Transactions on Human Factors in Electronics"></span>
+          <div class="timeline-milestones__milestone timeline-milestones__milestone--active">
+            <span class="timeline-milestones__milestone__year">1960</span>
+            <span class="timeline-milestones__milestone__title">Primeiro uso do termo HInt</span>
+            <span class="timeline-milestones__milestone__description">O termo “Integração” é usado para descrever uma possível (i.e., futura) relação simbiótica entre humanos e tecnologias (Transactions on Human Factors in Electronics</span>
           </div>
           <div class="timeline-milestones__milestone">
-            <span data-year="2016" data-description="O termo “Integração” é usado para caracterizar uma nova era entre humanos e tecnologias, a era da Integração Humano- Computador (Revista Interactions)"></span>
-          </div>
-          <div class="timeline-milestones__milestone active">
-            <span data-year="2017" data-description="Iniciam as discussões sobre abordar a Integração Humano- Computador não apenas como uma nova era, mas como uma possível troca de paradigma de IHC (CHI’17)"></span>
-          </div>
-          <div class="timeline-milestones__milestone">
-            <span data-year="2019" data-description="A Integração Humano-Computador é discutida como um paradigma emergente que estende, mas não substitui a área de IHC (Dagstuhl Seminar 18322)"></span>
+            <span class="timeline-milestones__milestone__year">2016</span>
+            <span class="timeline-milestones__milestone__title">Caracterização do termo HInt</span>
+            <span class="timeline-milestones__milestone__description">O termo “Integração” é usado para caracterizar uma nova era entre humanos e tecnologias, a era da Integração Humano-Computador (Revista Interactions)</span>
           </div>
           <div class="timeline-milestones__milestone">
-            <span data-year="2020" data-description="A Integração Humano-Computador é formalmente definida e caracterizada como um paradigma emergente da área de IHC (CHI’20)"></span>
+            <span class="timeline-milestones__milestone__year">2017</span>
+            <span class="timeline-milestones__milestone__title">Inicio das discurssões como paradígma</span>
+            <span class="timeline-milestones__milestone__description">Iniciam as discussões sobre abordar a Integração Humano-Computador não apenas como uma nova era, mas como uma possível troca de paradigma de IHC (CHI’17)</span>
+          </div>
+          <div class="timeline-milestones__milestone">
+            <span class="timeline-milestones__milestone__year">2019</span>
+            <span class="timeline-milestones__milestone__title">HInt como uma extensão de IHC</span>
+            <span class="timeline-milestones__milestone__description">A Integração Humano-Computador é discutida como um paradigma emergente que estende, mas não substitui a área de IHC (Dagstuhl Seminar 18322)</span>
+          </div>
+          <div class="timeline-milestones__milestone">
+            <span class="timeline-milestones__milestone__year">2020</span>
+            <span class="timeline-milestones__milestone__title">Definição como paradígma</span>
+            <span class="timeline-milestones__milestone__description">A Integração Humano-Computador é formalmente definida e caracterizada como um paradigma emergente da área de IHC (CHI’20)</span>
           </div>
         </div>
       </div>
@@ -44,11 +54,11 @@
       inputs.forEach(function (input, key) {
         input.addEventListener('mouseover', function (event) {
           const target = event.target
-          target.classList.add('active')  
+          target.classList.add('timeline-milestones__milestone--active')  
 
           inputs.forEach(function(otherInput, otherKey) {
             if (key != otherKey) {
-              otherInput.classList.remove('active')
+              otherInput.classList.remove('timeline-milestones__milestone--active')
             }
           })
         })
