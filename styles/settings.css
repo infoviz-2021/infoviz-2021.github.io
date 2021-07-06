@@ -3,4 +3,11 @@ Em geral, são as variáveis globais que vão definir cores,
 espaçamentos e outras configurações desejadas para o 
 funcionamento do seu framework em si */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+  --font-family-theme: Roboto, sans-serif;
+  --primary: #007bff;
+  --white: #fff;
+}
+

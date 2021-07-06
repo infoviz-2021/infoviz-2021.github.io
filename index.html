@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
     <link rel="stylesheet" href="styles/objects.css">
     <link rel="stylesheet" href="styles/components.css">
@@ -13,99 +14,13 @@
     <title>Trabalho de InfoViz</title>
   </head>
   <body>
+    <header>
+      <h1>HInt within the HCI scope</h1>
+      <h4>A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</h4>
+      <span>By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</span>
+    </header>
     <main>
-      <section class="card country-card">
-        <div class="card__header">
-          <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT)</h2>
-        </div>
-        <div class="card__body">
-          <div class="card__body__countries">
-            <div class="card__body__countries__map"></div>
-            <div class="card__body__countries__details">
-              <h5>Institutions</h5>
-              <div class="card__body__countries__details__institutions">
-                <ul class="card__body__countries__details__institutions__list"></ul>
-                <button type="button" class="card__body__countries__details__institutions__button">More</button>
-              </div>
-              <h5>Authors</h5>
-              <div class="card__body__countries__details__authors">
-                <ul class="card__body__countries__details__authors__list"></ul>
-                <button type="button" class="card__body__countries__details__authors__button">More</button>
-              </div>
-            </div>
-            <div class="tooltip"></div>
-          </div>
-        </div>
-      </section>
+      
     </main>
-
-    <script>
-      const width = '500'
-      const height = '300'
-
-      const svg = d3.select('.card__body__countries__map')
-        .append('svg')
-        .attr("viewBox", `0 0 ${width} ${height}`)
-      
-      const projection = d3
-        .geoNaturalEarth1()
-        .scale(width / 1.3 / Math.PI)
-        .translate([width / 2, height / 2])
-      
-      const geoPath = d3.geoPath()
-        .projection(projection)
-      
-      d3.json('https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/data/countries.json').then(function (data) {
-        svg.append('g')
-          .selectAll('path')
-          .data(data.features)
-          .join('path')
-          .attr('d', geoPath)
-          .attr('class', 'country')
-          .style('fill', function (svgElement) {
-            if (svgElement.properties.articles > 0)
-              return '#6f42c1'
-          })
-          .on('mouseover', function (svgElement, data) {
-            d3.select(this).attr('class', 'country hover')
-            d3.select(this).style('fill', '#6610f2')
-            d3.select('.tooltip')
-              .style('visibility','visible')
-              .style('top', svgElement.pageY + 10 + 'px')
-              .style('left', svgElement.pageX + 10 + 'px')
-              .html('<strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
-          })
-          .on('mouseout', function (d) {
-            d3.select(this).attr('class', 'country')
-            d3.select('.tooltip')
-              .style('visibility','hidden')
-          })
-          .on('click', function(svgElement, data) {
-            d3.select('.card__body__countries__details__institutions__list')
-              .selectAll('li')
-              .data(data.properties.institutions)
-              .join('li')
-              .text(institution => institution)
-            
-            d3.select('.card__body__countries__details__authors__list')
-              .selectAll('li')
-              .data(data.properties.authors)
-              .join('li')
-              .text(author => author)
-          })
-      })
-
-      const institutionMoreButton = document.querySelector('.card__body__countries__details__institutions__button')
-      institutionMoreButton.addEventListener('click', () => {
-        const institutionsList = document.querySelector('.card__body__countries__details__institutions__list')
-        institutionsList.classList.toggle('card__body__countries__details__institutions__list--open')
-      })
-
-      const authorsMoreButton = document.querySelector('.card__body__countries__details__authors__button')
-      authorsMoreButton.addEventListener('click', () => {
-        const authorsList = document.querySelector('.card__body__countries__details__authors__list')
-        authorsList.classList.toggle('card__body__countries__details__authors__list--open')
-      })
-    </script>
   </body>
 </html>
