@@ -1,0 +1,17 @@
+[
+    {"evento": "CCF Transactions on Pervasive Computing and Interaction" , "artigos": ["Human-Engaged Computing: the future of Human-Computer Interaction"] , "quantidade": 1},
+    {"evento": "CHI PLAY" , "artigos": ["The Guts Game: Towards Designing Ingestible Games", "I had super-powers when eBike riding - Towards Understanding the Design of Integrated Exertion"] , "quantidade": 2},
+    {"evento": "Chinese CHI" , "artigos": ["Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability."] , "quantidade": 1},
+    {"evento": "Computers (Journal)" , "artigos": ["Body-Borne Computers as Extensions of Self"] , "quantidade": 1},
+    {"evento": "Dagstuhl Seminar 18322" , "artigos": ["Human-Computer Integration (Report from Dagstuhl Seminar)"] , "quantidade": 1},
+    {"evento": "Designing Interactive Systems Conference (DIS)" , "artigos": ["Co-riding With My eBike to Get Green Lights"] , "quantidade": 1},
+    {"evento": "Information and Software Technology" , "artigos": ["Engineering human-in-the-loop interactions in cyber-physical systems"] , "quantidade": 1},
+    {"evento": "Interactions (Revista)" , "artigos": ["Human-computer integration", "The future's hybrid nature"] , "quantidade": 2},
+    {"evento": "International Conference on Intelligent Human Systems Integration (IHSI)" , "artigos": ["Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities"] , "quantidade": 1},
+    {"evento": "International Journal of Human–Computer Interaction" , "artigos": ["Seven HCI grand challenges"] , "quantidade": 1},
+    {"evento": "International Journal of Human–Computer Studies" , "artigos": ["Human augmentation: Past, present and future", "Designing human-in-the-loop autonomous Cyber-Physical Systems"] , "quantidade": 2},
+    {"evento": "Nordic Conference on Human-Computer Interaction (NordiCHI ’20)" , "artigos": ["Embracing Companion Technologies"] , "quantidade": 1},
+    {"evento": "Reflections on Artificial Intelligence for Humanity (Book)" , "artigos": ["Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics"] , "quantidade": 1},
+    {"evento": "SIGCHI" , "artigos": ["Next Steps for Human-Computer Integration", "Introducing Peripheral Awareness as a Neurological State for Human-computer Integration", "Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration."] , "quantidade": 3},
+    {"evento": "World Symposium on Software Engineering" , "artigos": ["A Survey of Incorporating Affective Computing for Human-System Co-adaptation"] , "quantidade": 1}
+]
