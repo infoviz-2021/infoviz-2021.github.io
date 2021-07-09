@@ -27,3 +27,7 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   padding: 0.5em;
   overflow: hidden;
 }
+
+.card__body--no-overflow {
+  overflow: visible;
+}

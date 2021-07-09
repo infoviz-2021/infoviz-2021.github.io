@@ -90,8 +90,14 @@ h1 span {
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__description {
-  font-size: 14px;
-  visibility: visible;
+  font-size: 12px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 4em 0.5em 3.5em;
+  border-radius: 0px 0px 84px 84px;
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height .15s ease-in;
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__year {
@@ -106,16 +112,15 @@ h1 span {
 
 .timeline-milestones__milestone .timeline-milestones__milestone__description {
   position: absolute;
-  visibility: hidden;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
   margin: 0 auto;
-  bottom: 160px;
-  width: 200px;
+  top: 78px;
+  width: 150px;
   font-size: 13px;
-  text-align: left;
-}
-
-.timeline-milestones__milestone .timeline-milestones__milestone__description a {
-  text-decoration: none;
+  text-align: center;
+  transition: max-height .15s ease-out;
 }
 
 .timeline-milestones__milestone .timeline-milestones__milestone__year {
@@ -129,6 +134,7 @@ h1 span {
   font-size: 13px;
   margin: 0.5em 1em;
   font-weight: 300;
+  z-index: 1;
 }
 
 @media (min-width: 1250px) {
