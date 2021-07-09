@@ -16,14 +16,35 @@ main {
 }
 
 div.tooltip {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   visibility: hidden;
   font-size: 100%;
   color: #333333;
   background-color: #e6e6e6;
-  opacity: 0.95;
-  padding: 5px;
+  opacity: 0.9;
+  padding: 0.3em;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
 }
+
+.country-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.country-title__name {
+  margin-left: 0.3em;
+}
+
+.country-academic-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3em;
+}
+
 h2 {
   font-family: Roboto, sans-serif;
   font-weight: 100;
@@ -32,7 +53,7 @@ h2 {
 .flag {
   position: relative;
   background-repeat: no-repeat;
-  height: 2em;
+  height: 1.5em;
   width: 2em;
   display: inline-block;
 }

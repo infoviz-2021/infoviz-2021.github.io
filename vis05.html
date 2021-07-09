@@ -68,13 +68,21 @@
               return 'country'
           })
           .on('mouseover', function (svgElement, data, key) {
-            console.log(svgElement, data)
             d3.select(this).attr('class', 'country hover')
             d3.select('.tooltip')
               .style('visibility','visible')
               .style('top', svgElement.pageY + 10 + 'px')
               .style('left', svgElement.pageX + 10 + 'px')
-              .html('<span class="flag ' + data.id + '-flag"></span><strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
+              .html(`
+                <div class="country-title">
+                  ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}
+                  <span class="country-title__name"><strong>${data.properties.name}</strong></span>
+                </div>
+                <div class="country-academic-info">
+                  <span>Total institutions: ${(data.properties.institutions ? data.properties.institutions.length : 0)}</span>
+                  <span>Total authors: ${(data.properties.authors ? data.properties.authors.length : 0)}</span>
+                </div>
+              `)
           })
           .on('mouseout', function (d) {
             d3.select(this).attr('class', function (svgElement) {
