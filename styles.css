@@ -6,9 +6,15 @@ main {
   stroke: #fff;
   fill: #aaa;
 }
-.hover {
-  fill: #69b3a2;
+
+.country-highlighted {
+  fill: var(--purple);
 }
+
+.hover {
+  fill: var(--dark-purple);
+}
+
 div.tooltip {
   position: absolute;
   visibility: hidden;

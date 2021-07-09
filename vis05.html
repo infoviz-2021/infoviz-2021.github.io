@@ -61,14 +61,14 @@
           .data(data.features)
           .join('path')
           .attr('d', geoPath)
-          .attr('class', 'country')
-          .style('fill', function (svgElement) {
+          .attr('class', function (svgElement) {
             if (svgElement.properties.articles > 0)
-              return '#6f42c1'
+              return 'country country-highlighted'
+            else 
+              return 'country'
           })
           .on('mouseover', function (svgElement, data) {
             d3.select(this).attr('class', 'country hover')
-            d3.select(this).style('fill', '#6610f2')
             d3.select('.tooltip')
               .style('visibility','visible')
               .style('top', svgElement.pageY + 10 + 'px')
@@ -76,7 +76,12 @@
               .html('<strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
           })
           .on('mouseout', function (d) {
-            d3.select(this).attr('class', 'country')
+            d3.select(this).attr('class', function (svgElement) {
+              if (svgElement.properties.articles > 0)
+                return 'country country-highlighted'
+              else 
+                return 'country'
+            })
             d3.select('.tooltip')
               .style('visibility','hidden')
           })
