@@ -54,13 +54,14 @@
       inputs.forEach(function (input, key) {
         input.addEventListener('mouseover', function (event) {
           const target = event.target
-          target.classList.add('timeline-milestones__milestone--active')  
-
-          inputs.forEach(function(otherInput, otherKey) {
-            if (key != otherKey) {
-              otherInput.classList.remove('timeline-milestones__milestone--active')
-            }
-          })
+          if (target.classList.contains('timeline-milestones__milestone')) {
+            target.classList.add('timeline-milestones__milestone--active')  
+            inputs.forEach(function(otherInput, otherKey) {
+              if (key != otherKey) {
+                otherInput.classList.remove('timeline-milestones__milestone--active')
+              }
+            })
+          }
         })
       })
     </script>
