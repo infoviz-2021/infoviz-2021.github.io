@@ -9,6 +9,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  position: relative;
 }
 
 .card__body__countries__map {
@@ -53,4 +54,36 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__authors__list--open li:nth-child(n+6) {
   display: list-item;
+}
+
+.card__body__countries__legends {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 0.5em;
+  bottom: 0px;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
+}
+
+.card__body__countries__legends__legend {
+  display: flex;
+  flex-direction: row;
+}
+
+.card__body__countries__legends__legend__sign {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.card__body__countries__legends__legend__sign--purple {
+  background-color: var(--purple);
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.card__body__countries__legends__legend__description {
+  margin-left: 0.3em;
 }
