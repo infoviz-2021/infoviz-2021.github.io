@@ -67,13 +67,14 @@
             else 
               return 'country'
           })
-          .on('mouseover', function (svgElement, data) {
+          .on('mouseover', function (svgElement, data, key) {
+            console.log(svgElement, data)
             d3.select(this).attr('class', 'country hover')
             d3.select('.tooltip')
               .style('visibility','visible')
               .style('top', svgElement.pageY + 10 + 'px')
               .style('left', svgElement.pageX + 10 + 'px')
-              .html('<strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
+              .html('<span class="flag ' + data.id + '-flag"></span><strong>' + data.properties.name + '</strong><br />Artigos: ' + (data.properties.articles ? data.properties.articles : 0))
           })
           .on('mouseout', function (d) {
             d3.select(this).attr('class', function (svgElement) {
