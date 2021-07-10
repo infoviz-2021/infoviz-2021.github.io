@@ -33,7 +33,7 @@
                 <button type="button" class="card__body__countries__details__authors__button">More</button>
               </div>
             </div>
-            <div class="tooltip"></div>
+            <div class="card__body__countries__tooltip"></div>
             <div class="card__body__countries__legends">
               <div class="card__body__countries__legends__legend">
                 <div class="card__body__countries__legends__legend__sign">
@@ -79,7 +79,7 @@
           })
           .on('mouseover', function (svgElement, data, key) {
             d3.select(this).attr('class', 'country hover')
-            d3.select('.tooltip')
+            d3.select('.card__body__countries__tooltip')
               .style('visibility','visible')
               .style('top', svgElement.pageY + 10 + 'px')
               .style('left', svgElement.pageX + 10 + 'px')
@@ -101,7 +101,7 @@
               else 
                 return 'country'
             })
-            d3.select('.tooltip')
+            d3.select('.card__body__countries__tooltip')
               .style('visibility','hidden')
           })
           .on('click', function(svgElement, data) {

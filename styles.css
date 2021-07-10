@@ -15,7 +15,7 @@ main {
   fill: var(--dark-purple);
 }
 
-div.tooltip {
+div.card__body__countries__tooltip {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -27,6 +27,7 @@ div.tooltip {
   padding: 0.3em;
   font-family: var(--font-family-theme);
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .country-title {
