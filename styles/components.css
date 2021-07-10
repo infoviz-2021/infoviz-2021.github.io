@@ -19,7 +19,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details {
-  font-family: Roboto, sans-serif;
+  font-family: var(--font-family-theme);
   font-size: 0.75rem;
   padding: 0 1em;
 }
@@ -55,6 +55,12 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__header__title strong {
   margin-right: 0.3em;
+}
+
+.card__body__countries__details__header__title__highlight {
+  color: var(--cornflower-blue);
+  font-weight: 700;
+  white-space: normal;
 }
 
 .card__body__countries__details__body {
