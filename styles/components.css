@@ -10,6 +10,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   flex-direction: row;
   flex-grow: 1;
   position: relative;
+  color: var(--gray);
 }
 
 .card__body__countries__map {
@@ -73,31 +74,23 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   content: '';
   display: block;
   position: absolute;
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   height: 100%;
   width: 1.5px;
   right: 0px;
   top: 0px;
 }
 
-.card__body__countries__details__institutions__list li:nth-child(n+6) {
-  display: none;
-}
-
-.card__body__countries__details__institutions__list--open li:nth-child(n+6) {
-  display: list-item;
+.card__body__countries__details__institutions__title strong {
+  color: var(--dark-purple);
 }
 
 .card__body__countries__details__authors {
   font-size: 0.75rem;
 }
 
-.card__body__countries__details__authors__list li:nth-child(n+6) {
-  display: none;
-}
-
-.card__body__countries__details__authors__list--open li:nth-child(n+6) {
-  display: list-item;
+.card__body__countries__details__authors__title strong {
+  color: var(--dark-magenta);
 }
 
 .card__body__countries__legends {
@@ -121,8 +114,8 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   height: 1em;
 }
 
-.card__body__countries__legends__legend__sign--purple {
-  background-color: var(--purple);
+.card__body__countries__legends__legend__sign--light-purple {
+  background-color: var(--light-purple);
   display: inline-block;
   height: 100%;
   width: 100%;

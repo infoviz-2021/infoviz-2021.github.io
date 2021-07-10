@@ -8,11 +8,11 @@ main {
 }
 
 .country-highlighted {
-  fill: var(--purple);
+  fill: var(--light-purple);
 }
 
 .hover {
-  fill: var(--dark-purple);
+  fill: var(--purple);
 }
 
 div.card__body__countries__tooltip {

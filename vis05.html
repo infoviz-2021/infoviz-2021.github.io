@@ -25,14 +25,12 @@
               <div class="card__body__countries__details__header"></div>
               <div class="card__body__countries__details__body">
                 <div class="card__body__countries__details__institutions">
-                  <h5>Institutions</h5>
+                  <div class="card__body__countries__details__institutions__title"></div>
                   <ul class="card__body__countries__details__institutions__list"></ul>
-                  <button type="button" class="card__body__countries__details__institutions__button">More</button>
                 </div>
                 <div class="card__body__countries__details__authors">
-                  <h5>Authors</h5>
+                  <div class="card__body__countries__details__authors__title"></div>
                   <ul class="card__body__countries__details__authors__list"></ul>
-                  <button type="button" class="card__body__countries__details__authors__button">More</button>
                 </div>
               </div>
             </div>
@@ -40,7 +38,7 @@
             <div class="card__body__countries__legends">
               <div class="card__body__countries__legends__legend">
                 <div class="card__body__countries__legends__legend__sign">
-                  <span class="card__body__countries__legends__legend__sign--purple"></span>
+                  <span class="card__body__countries__legends__legend__sign--light-purple"></span>
                 </div>
                 <div class="card__body__countries__legends__legend__description">
                   Country with at least one author and institution exploring the HInt
@@ -118,12 +116,19 @@
                     <strong>Country:</strong> ${data.properties.name} (${data.id}) - Publication's total: ${data.properties.articles} of 20
                   </span>
                 `)
+              d3.select('.card__body__countries__details__institutions__title')
+                .html(`
+                  <span><strong>Institutions - Total: ${data.properties.institutions.length}</strong> of 66</span>
+                `)
               d3.select('.card__body__countries__details__institutions__list')
                 .selectAll('li')
                 .data(data.properties.institutions)
                 .join('li')
                 .text(institution => institution)
-              
+              d3.select('.card__body__countries__details__authors__title')
+                .html(`
+                  <span><strong>Authors - Total: ${data.properties.authors.length}</strong> of 98</span>
+                `)
               d3.select('.card__body__countries__details__authors__list')
                 .selectAll('li')
                 .data(data.properties.authors)
