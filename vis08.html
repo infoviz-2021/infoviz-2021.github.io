@@ -6,66 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <title>Trabalho de InfoViz - Visualização 8</title>
-    <style>
-
-      div.tooltip {
-        position: absolute;
-        visibility: hidden;
-        font-size: 65%;
-        font-family: sans-serif;
-        color: #333333;
-        background-color: #f8f8f8;
-        opacity: .95;
-        padding: 5px;
-        border-radius: 3px;
-        stroke: #1b3978;
-        stroke-width: 1.5px;
-
-      }
-
-      div.observation {
-        position: absolute;
-        visibility: hidden;
-        font-size: 90%;
-        font-family: sans-serif;
-        color: #333333;
-        background-color: #f8f8f8;
-        opacity: .95;
-        padding: 5px;
-        border-radius: 3px;
-      }
-    
-      .normal-text{
-        font-size: 14px;
-        font-family: sans-serif;
-        color: #333333;
-      }
-
-      .text-title{
-        font-size: 18px;
-        font-family: sans-serif;
-        color: #333333;
-      }
-
-    </style>
+    <link rel="stylesheet" href="vis06-08-styles.css">
+    <title>Trabalho de InfoViz - Vis08</title>
   </head>
   <body>
     <h2 class="text-title">Publication focus per contribution type </h2>
     <!-- Add 2 buttons -->
-    <p class= "normal-text">Order by: </p>
-    <button class= "normal-text" onclick="update('author')">Authors</button>
-    <button class= "normal-text" onclick="update('year')">Years</button>
-    <button class= "normal-text" onclick="update('focus')">Focus</button>
+    <p>Order by: </p>
+    <button onclick="update('author')">Authors</button>
+    <button onclick="update('year')">Years</button>
+    <button onclick="update('focus')">Focus</button>
 
     <!-- Create a div where the graph will take place -->
     <div id="my_dataviz"></div>
     <div class='tooltip'></div>
     <div class='observation'></div>
+    
     <script>
       // set the dimensions and margins of the graph
-      var margin = {top: 30, right: 400, bottom: 100, left: 200},
-              width = 1200 - margin.left - margin.right,
+      var margin = {top: 30, right: 600, bottom: 100, left: 200},
+              width = 1300 - margin.left - margin.right,
               height = 600 - margin.top - margin.bottom;
 
 
@@ -113,7 +73,7 @@
         .padding(0.2);
 
       var xAxis = svg.append("g")
-        .attr("class", "myXaxis normal-text")
+        .attr("class", "myXaxis text-axis")
         .attr("transform", "translate(0," + height + ")")
 
       // Initialize the Y axis
@@ -122,9 +82,8 @@
         .padding(0.6);
 
       var yAxis = svg.append("g")
-        .attr("class", "myYaxis normal-text")
+        .attr("class", "myYaxis text-axis")
         
-    
 
       d3.select(".observation")
       .selectAll("p")
@@ -139,7 +98,7 @@
           .range(d3.schemeSet2);
     
         //Read the data
-        var url = "https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/data/data_replicated.json";
+        var url = "data/data_vis08.json";
         
         d3.json(url).then(function (data) {
           //sort data by citation
@@ -172,15 +131,15 @@
               .style("alignment-baseline", "middle")
               .style("fill", "#444444")*/
 
-            // Add one dot in the legend for each name.
+            // axix x
             svg.selectAll()
             .data(contribution)
             .enter()
             .append("text")
+                .attr("class", "text-axis")
                 .attr("x", function(d,i){ return (width/8) + i*(width/4)})
                 .attr("y", height+35) // 100 is where the first dot appears. 25 is the distance between dots
                 .text(function(d){ return d.name})
-                .attr("class", function(d) { return "normal-text"})
                 .attr("text-anchor", "middle")
                 .style("alignment-baseline", "middle")
         
@@ -218,10 +177,11 @@
             .attr("rx", 5)
             .attr("ry", 5)
             .style("fill", function(d) { return color(d.focus)} )
-            .on("mouseover", function(e,d) {
+            .on("mouseover", function(e,d) {  
               d3.select(this)
+                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
                 .transition()     // adds animation
-                .duration(400)
+                .duration(100)
                 .attr("y", function(d) { return y(d.citation) - 3})
                 .attr("height", y.bandwidth() + 6)
                 
@@ -238,13 +198,15 @@
                       '</br><strong>Contribution: </strong>' + foundC.name +
                       '</br><strong>Congress: </strong>' + foundC.name)
             })
-            .on("mouseleave", function (e, d){
+            .on("mouseleave", function (e, d){  
                 d3.select('.tooltip')
                   .style('visibility','hidden')
+
                 d3.select(this)
                   .style("stroke", "none")
+                  .style("fill", function(d) { return color(d.focus)} )
                   .transition()     // adds animation
-                  .duration(400)
+                  .duration(100)
                     .attr("height", y.bandwidth())
                     .attr("y", function(d) { return y(d.citation) })
             })
@@ -262,6 +224,9 @@
         d3.selectAll(".label-"+d.key)
         .attr("font-weight", "bold")
 
+        console.log(d)
+        d3.select(".label-rect"+d.key)
+        .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
         // reduce opacity of all groups
         d3.selectAll(".myArea").style("opacity", .05)
         // expect the one that is hovered
@@ -275,19 +240,23 @@
         d3.selectAll(".label-"+d.key)
         .attr("font-weight", "normal")
 
+        d3.select(".label-rect"+d.key)
+        .style("fill", function(d) { return color(d.key)} )
+
         d3.selectAll(".myArea").style("opacity", 1)
       }
     
-      /*******
+      /**************************************************************
        LEGEND 
-      ********/
+      ***************************************************************/
 
       // Add one dot in the legend for each name.
       var size = 20
-      var xAlign = 650
+      var xAlign = 520
 
-      svg.append("text")
+     /* svg.append("text")
       .text("Publication focus")
+        .attr("class", "text-legend")
         .attr("x", xAlign)
         .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("text-anchor", "left")
@@ -296,12 +265,13 @@
         .attr("font-weight", "bold")
         .style("alignment-baseline", "middle")
         .style("fill", "#444444")
-    
+    */
 
       svg.selectAll("myrect")
       .data(keys)
       .enter()
       .append("rect")
+          .attr("class", function(d) { return "label-rect" + d.key })
           .attr("x", xAlign)
           .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("width", size)
@@ -317,11 +287,10 @@
       .data(keys)
       .enter()
       .append("text")
+          .attr("class", function(d) { return "text-legend label-" + d.key })
           .attr("x", xAlign + size*1.2)
           .attr("y", function(d,i){ return 35 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
-          .style("fill", function(d){ return color(d.key)})
           .text(function(d){ return d.name})
-          .attr("class", function(d) { return "normal-text label-" + d.key })
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .on("mouseover", highlight)

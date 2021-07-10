@@ -9,32 +9,9 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src= "https://d3js.org/d3-interpolate.v1.min.js"> </script>
     <script src= "https://d3js.org/d3-scale-chromatic.v1.min.js"> </script>
-    <link href="https://allfont.net/allfont.css?fonts=roboto-medium" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="vis06-08-styles.css">
     <title>Trabalho de InfoViz - Visualização 6</title>
-    <style>
-
-      .links line {
-        stroke: #aaa;
-      }
-
-      .nodes circle {
-        pointer-events: all;
-        stroke: "black";
-        stroke-width: 1.5px;
-      }
-      .normal-text{
-          font-size: 14px;
-          font-family: sans-serif;
-          color: #333333;
-        }
-
-      .text-title{
-        font-size: 18px;
-        font-family: sans-serif;
-        color: #333333;
-      }
-
-    </style>
   </head>
   <body>
     <h2 class="text-title">Authors' relationship network </h2>
@@ -59,8 +36,8 @@
     //bgcolor = d3.rgb("#de88af")
     //bgcolor = d3.rgb("#8e7bd7")
     //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
-    //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
-    fill = [bgcolor, bgcolor,bgcolor,bgcolor];
+    fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
+    //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
 
      // cor padrão: #8e7bd7
      // cor de destaque: #6443ea
@@ -77,21 +54,23 @@
 
     //Focus
     var keys = [
-        { "key": "GR", "name":"General / All-purpose"},
-        { "key": "GE", "name":"General with an emphasis on some attribute " },
-        { "key": "ES", "name":"Specific"}
+        { "key": "GR", "name":"Focus on HInt from a general perspective (FGR)"},
+        { "key": "GE", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
+        { "key": "ES", "name":"Focus on HInt in a specific domain or context of use (FS)"}
       ]; 
+
+ 
 
     // Color scale: give me a focus, I return a color
     const colorPaper = d3.scaleOrdinal()
           .domain(keys.map(function(d){return d.key}))
           .range(d3.schemeSet2);
 
-    d3.json("data/network.json", function(error, data) {
+    d3.json("data/data_vis06.json", function(error, data) {
       if (error) throw error;
       
-      const nodes = data.nodes.map(d => Object.create(d))
-      const links = data.links.map(d => Object.create(d))
+      const nodes = data.nodes//.map(d => Object.create(d))
+      const links = data.links//.map(d => Object.create(d))
 
       const nodes_paper = nodes.filter(d => d.type =="paper")
       const nodes_author = nodes.filter(d => d.type =="author")
@@ -105,6 +84,7 @@
         linkedByIndex[`${d.source},${d.target}`] = 1;
       });
 
+      var click_loked = false
       
       /*const simulation = d3.forceSimulation(nodes)
         .force("link", d3.forceLink(links).id(d => d.id).strength(0.2).distance(80))
@@ -132,6 +112,22 @@
         .force("x", d3.forceX())
         .force("y", d3.forceY())
         .force("center", d3.forceCenter((width/2), (height / 2)))
+        .force('collision', d3.forceCollide().radius(function(d) {
+          if(d.type === "author")
+            return radius * (d.qt+2);
+          return 20;
+        }));
+
+        var simulation_detail = d3.forceSimulation()
+        .force("charge", d3.forceManyBody().strength(-100))
+        .force("link", d3.forceLink().id(d => d.id).strength(0.2).distance(50))
+        .force("x", d3.forceX())
+        .force("y", d3.forceY())
+        .force("center", function(d){ 
+          if(d.type == "paper")
+            return d3.forceCenter((width/2), (height / 2))
+          return d3.forceCenter((width/4), (height / 2))
+        })
         .force('collision', d3.forceCollide().radius(function(d) {
           if(d.type === "author")
             return radius * (d.qt+2);
@@ -171,7 +167,7 @@
         .style("stroke", "#aaa")
         .attr("stroke-opacity", 0.3)
       
-
+    /**************************** AUTHOR'S NODE *********************************/
       var node = svg.append("g")
           .attr("class", "nodes")
           //.attr("stroke", "#555")
@@ -184,8 +180,9 @@
             //.attr("fill", function(d){ return (color(d.qt))})
             .attr("stroke",function(d){ return d3.rgb(color(d.qt)).darker(2)})
             .style("cursor", "pointer")
-            .on('mouseover.fade', fade(0.1))
-            .on('mouseout.fade', fade(1))
+            .on('mouseover', fade(0.1))
+            .on('mouseout', fade(1))
+            .on("click", function(d) { return updateDetail(d)})
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
@@ -204,8 +201,8 @@
             //.attr("fill", function(d){ return (color(d.qt))})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(2)})
             .style("cursor", "pointer")
-            .on('mouseover.fade', fade(0.1))
-            .on('mouseout.fade', fade(1))
+            .on('mouseover', fade(0.1))
+            .on('mouseout', fade(1))
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
@@ -222,8 +219,8 @@
           .attr('font-size',12)
           .attr('font-size',12)
         // .call(drag(simulation))
-        .on('mouseover.fade', fade(0.1))
-        .on('mouseout.fade', fade(1))
+        .on('mouseover', fade(0.1))
+        .on('mouseout', fade(1))
         .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
@@ -260,24 +257,41 @@
           .attr("visibility", "hidden");
       }
 
+      function updateDetail(d,i) {
+
+          d3.select("#my_dataviz").remove();
+          author_founded = node.filter(e => isConnected(d, e))
+          paper_founded = node_paper.filter(e => isConnected(d, e))
+          link_founded = link.filter(o => (o.source === d || o.target === d))
+    
+          console.log(author_founded)
+          console.log(paper_founded)
+          console.log(paper_founded)
+
+
+      }
+
+
+      /*********************************** FILTER AUTHOR *******************************************/
 
       function fade(opacity) {
-
-        return d => {   
-          node.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
-          node_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
-        // textElems.style('visibility', function (o) { return isConnected(d, o) ? "visible" : "hidden" }); 
-          textElems.style('visibility', function (o) { return d == o ? "visible" : "hidden" }); //return isConnected(d, o) ? "visible" : "hidden" }
-          link.style('stroke-opacity', o => (o.source === d || o.target === d ? 1 : opacity));
-
-          if(opacity === 1){
-            node.style('opacity', 1)
-            node_paper.style('opacity', 1)
-            textElems.style('visibility', 'hidden')
-            link.style('stroke-opacity', 0.3)
+         
       
-          }
-        };
+            return d => {   
+              node.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
+              node_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
+            // textElems.style('visibility', function (o) { return isConnected(d, o) ? "visible" : "hidden" }); 
+              textElems.style('visibility', function (o) { return d == o ? "visible" : "hidden" }); //return isConnected(d, o) ? "visible" : "hidden" }
+              link.style('stroke-opacity', o => (o.source === d || o.target === d ? 1 : opacity));
+
+              if(opacity === 1){
+                node.style('opacity', 1)
+                node_paper.style('opacity', 1)
+                textElems.style('visibility', 'hidden')
+                link.style('stroke-opacity', 0.3)
+          
+              }
+            };
         }
 
         function isConnected(a, b) {
@@ -303,6 +317,8 @@
 
 
     });
+
+    
 
 
       /*******

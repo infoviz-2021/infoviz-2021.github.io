@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+    font-family: Roboto, sans-serif;
+    color: #343a40;
+}
+
+.text-legend{
+    font-size: .80rem;
+}
+
+.text-title{
+    font-size: 1.5rem;
+}
+
+.text-axis {
+    font-size: .80rem;
+}
+
+.links line {
+stroke: #aaa;
+}
+
+.nodes circle {
+pointer-events: all;
+stroke: "black";
+stroke-width: 1.5px;
+}
+
+.toolTip {
+    position: absolute;
+    display: none;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #6F257F;
+    padding: 14px;
+    text-align: center;
+}
+
+div.tooltip {
+    position: absolute;
+    visibility: hidden;
+    min-width: 100px;
+    max-width: 400px;
+    height: auto;
+    font-size: 80%;
+    background-color: #fff;
+    opacity: .95;
+    padding: 10px;   
+    border: 1px solid #343a40;;
+
+  }
+
+  div.observation {
+    position: absolute;
+    visibility: hidden;
+    font-size: 90%;
+    font-family: sans-serif;
+    color: #333333;
+    background-color: #f8f8f8;
+    opacity: .95;
+    padding: 5px;
+    border-radius: 3px;
+  }
