@@ -32,8 +32,52 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   background: none;
 }
 
+.card__body__countries__details__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card__body__countries__details__header__flag {
+  position: relative;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 2em;
+  display: inline-block;
+}
+
+.card__body__countries__details__header__title {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.3em;
+}
+
+.card__body__countries__details__header__title strong {
+  margin-right: 0.3em;
+}
+
+.card__body__countries__details__body {
+  display: flex;
+  flex-direction: row;
+  margin-top: .5em;
+}
+
 .card__body__countries__details__institutions {
   font-size: 0.75rem;
+  position: relative;
+  margin-right: 1em;
+  padding-right: 0.5em;
+}
+
+.card__body__countries__details__institutions::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: var(--gray);
+  height: 100%;
+  width: 1.5px;
+  right: 0px;
+  top: 0px;
 }
 
 .card__body__countries__details__institutions__list li:nth-child(n+6) {
