@@ -22,22 +22,23 @@
           <div class="card__body__countries">
             <div class="card__body__countries__map"></div>
             <div class="card__body__countries__details">
-              <h5>Institutions</h5>
-              <div class="card__body__countries__details__institutions">
-                <ul class="card__body__countries__details__institutions__list"></ul>
-                <button type="button" class="card__body__countries__details__institutions__button">More</button>
-              </div>
-              <h5>Authors</h5>
-              <div class="card__body__countries__details__authors">
-                <ul class="card__body__countries__details__authors__list"></ul>
-                <button type="button" class="card__body__countries__details__authors__button">More</button>
+              <div class="card__body__countries__details__header"></div>
+              <div class="card__body__countries__details__body">
+                <div class="card__body__countries__details__institutions">
+                  <div class="card__body__countries__details__institutions__title"></div>
+                  <ul class="card__body__countries__details__institutions__list"></ul>
+                </div>
+                <div class="card__body__countries__details__authors">
+                  <div class="card__body__countries__details__authors__title"></div>
+                  <ul class="card__body__countries__details__authors__list"></ul>
+                </div>
               </div>
             </div>
             <div class="card__body__countries__tooltip"></div>
             <div class="card__body__countries__legends">
               <div class="card__body__countries__legends__legend">
                 <div class="card__body__countries__legends__legend__sign">
-                  <span class="card__body__countries__legends__legend__sign--purple"></span>
+                  <span class="card__body__countries__legends__legend__sign--light-purple"></span>
                 </div>
                 <div class="card__body__countries__legends__legend__description">
                   Country with at least one author and institution exploring the HInt
@@ -78,21 +79,23 @@
               return 'country'
           })
           .on('mouseover', function (svgElement, data, key) {
-            d3.select(this).attr('class', 'country hover')
-            d3.select('.card__body__countries__tooltip')
-              .style('visibility','visible')
-              .style('top', svgElement.pageY + 10 + 'px')
-              .style('left', svgElement.pageX + 10 + 'px')
-              .html(`
-                <div class="country-title">
-                  ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}
-                  <span class="country-title__name"><strong>${data.properties.name}</strong></span>
-                </div>
-                <div class="country-academic-info">
-                  <span>Total of institutions: ${(data.properties.institutions ? data.properties.institutions.length : 0)}</span>
-                  <span>Total of authors: ${(data.properties.authors ? data.properties.authors.length : 0)}</span>
-                </div>
-              `)
+            if (data.properties.articles > 0) {
+              d3.select(this).attr('class', 'country hover')
+              d3.select('.card__body__countries__tooltip')
+                .style('visibility','visible')
+                .style('top', svgElement.pageY + 10 + 'px')
+                .style('left', svgElement.pageX + 10 + 'px')
+                .html(`
+                  <div class="country-title">
+                    ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}
+                    <span class="country-title__name"><strong>${data.properties.name}</strong></span>
+                  </div>
+                  <div class="country-academic-info">
+                    <span>Total of institutions: ${(data.properties.institutions ? data.properties.institutions.length : 0)}</span>
+                    <span>Total of authors: ${(data.properties.authors ? data.properties.authors.length : 0)}</span>
+                  </div>
+                `)
+            }
           })
           .on('mouseout', function (d) {
             d3.select(this).attr('class', function (svgElement) {
@@ -105,17 +108,33 @@
               .style('visibility','hidden')
           })
           .on('click', function(svgElement, data) {
-            d3.select('.card__body__countries__details__institutions__list')
-              .selectAll('li')
-              .data(data.properties.institutions)
-              .join('li')
-              .text(institution => institution)
-            
-            d3.select('.card__body__countries__details__authors__list')
-              .selectAll('li')
-              .data(data.properties.authors)
-              .join('li')
-              .text(author => author)
+            if (data.properties.articles > 0) {
+              d3.select('.card__body__countries__details__header')
+                .html(`
+                  <span class="card__body__countries__details__header__flag ${data.id}-flag"></span>
+                  <span class="card__body__countries__details__header__title">
+                    <strong>Country:</strong> ${data.properties.name} (${data.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Publication's total: ${data.properties.articles}</span>&nbsp;of 20
+                  </span>
+                `)
+              d3.select('.card__body__countries__details__institutions__title')
+                .html(`
+                  <span><strong>Institutions - Total: ${data.properties.institutions.length}</strong> of 66</span>
+                `)
+              d3.select('.card__body__countries__details__institutions__list')
+                .selectAll('li')
+                .data(data.properties.institutions)
+                .join('li')
+                .text(institution => institution)
+              d3.select('.card__body__countries__details__authors__title')
+                .html(`
+                  <span><strong>Authors - Total: ${data.properties.authors.length}</strong> of 98</span>
+                `)
+              d3.select('.card__body__countries__details__authors__list')
+                .selectAll('li')
+                .data(data.properties.authors)
+                .join('li')
+                .text(author => author)
+            }
           })
       })
 

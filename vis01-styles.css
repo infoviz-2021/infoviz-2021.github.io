@@ -38,7 +38,7 @@ h1 span {
   display: flex;
   width: 150px;
   height: 150px;
-  background-color: var(--dark-purple);
+  background-color: var(--purple);
   position: relative;
   border-radius: 50%;
   margin: 0 15px;
@@ -59,7 +59,7 @@ h1 span {
   z-index: -1;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--dark-purple);
+  background-color: var(--purple);
   width: 4vw;
   height: 5px;
   max-width: 50px;
@@ -74,15 +74,15 @@ h1 span {
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active {
-  background-color: var(--dark-purple);
+  background-color: var(--purple);
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active::before {
-  background-color: var(--dark-purple);
+  background-color: var(--purple);
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active::after {
-  background-color: var(--dark-purple);
+  background-color: var(--purple);
 }
 
 .timeline-milestones__milestone.timeline-milestones__milestone--active span {
@@ -101,7 +101,7 @@ h1 span {
 .timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone,
 .timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::before,
 .timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::after {
-  background-color: var(--purple);
+  background-color: var(--light-purple);
 }
 
 .timeline-milestones__milestone .timeline-milestones__milestone__description {

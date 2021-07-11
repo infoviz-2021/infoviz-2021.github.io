@@ -10,6 +10,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   flex-direction: row;
   flex-grow: 1;
   position: relative;
+  color: var(--gray);
 }
 
 .card__body__countries__map {
@@ -18,7 +19,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details {
-  font-family: Roboto, sans-serif;
+  font-family: var(--font-family-theme);
   font-size: 0.75rem;
   padding: 0 1em;
 }
@@ -32,28 +33,70 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   background: none;
 }
 
+.card__body__countries__details__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card__body__countries__details__header__flag {
+  position: relative;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 2em;
+  display: inline-block;
+}
+
+.card__body__countries__details__header__title {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.3em;
+}
+
+.card__body__countries__details__header__title strong {
+  margin-right: 0.3em;
+}
+
+.card__body__countries__details__header__title__highlight {
+  color: var(--cornflower-blue);
+  font-weight: 700;
+  white-space: normal;
+}
+
+.card__body__countries__details__body {
+  display: flex;
+  flex-direction: row;
+  margin-top: .5em;
+}
+
 .card__body__countries__details__institutions {
   font-size: 0.75rem;
+  position: relative;
+  margin-right: 1em;
+  padding-right: 0.5em;
 }
 
-.card__body__countries__details__institutions__list li:nth-child(n+6) {
-  display: none;
+.card__body__countries__details__institutions::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: var(--light-gray);
+  height: 100%;
+  width: 1.5px;
+  right: 0px;
+  top: 0px;
 }
 
-.card__body__countries__details__institutions__list--open li:nth-child(n+6) {
-  display: list-item;
+.card__body__countries__details__institutions__title strong {
+  color: var(--dark-purple);
 }
 
 .card__body__countries__details__authors {
   font-size: 0.75rem;
 }
 
-.card__body__countries__details__authors__list li:nth-child(n+6) {
-  display: none;
-}
-
-.card__body__countries__details__authors__list--open li:nth-child(n+6) {
-  display: list-item;
+.card__body__countries__details__authors__title strong {
+  color: var(--dark-magenta);
 }
 
 .card__body__countries__legends {
@@ -77,8 +120,8 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   height: 1em;
 }
 
-.card__body__countries__legends__legend__sign--purple {
-  background-color: var(--purple);
+.card__body__countries__legends__legend__sign--light-purple {
+  background-color: var(--light-purple);
   display: inline-block;
   height: 100%;
   width: 100%;
