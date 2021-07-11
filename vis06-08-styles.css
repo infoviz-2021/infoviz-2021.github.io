@@ -17,6 +17,11 @@ body {
     font-size: .80rem;
 }
 
+.text-tooltip {
+    font-size: .50rem;
+    stroke: steelblue"
+}
+
 .links line {
 stroke: #aaa;
 }
@@ -47,7 +52,7 @@ div.tooltip {
     font-size: 80%;
     background-color: #fff;
     opacity: .95;
-    padding: 10px;   
+    padding: 2px;   
     border: 1px solid #343a40;;
 
   }

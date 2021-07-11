@@ -11,7 +11,7 @@
     <script src= "https://d3js.org/d3-scale-chromatic.v1.min.js"> </script>
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="vis06-08-styles.css">
-    <title>Trabalho de InfoViz - Visualização 6</title>
+    <title>HInt - Scientific production and publishing partners</title>
   </head>
   <body>
     
@@ -34,7 +34,7 @@
     //bgcolor = d3.rgb("#de88af")
     //bgcolor = d3.rgb("#8e7bd7")
     //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
-    fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
+    fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
     //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
 
      // cor padrão: #8e7bd7
@@ -48,10 +48,11 @@
 
     //Focus
     var keys = [
-        { "key": "GR", "name":"Focus on HInt from a general perspective (FGR)"},
-        { "key": "GE", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
-        { "key": "ES", "name":"Focus on HInt in a specific domain or context of use (FS)"}
+        { "key": "FGR", "name":"Focus on HInt from a general perspective (FGR)"},
+        { "key": "FGQA", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
+        { "key": "FS", "name":"Focus on HInt in a specific domain or context of use (FS)"}
       ]; 
+
 
  
       // Color scale: give me a focus, I return a color
@@ -239,8 +240,8 @@
                   .attr("r", radius * author.qt)
                   .attr("cx", author_position[0])
                   .attr("cy", author_position[1])
-                  .attr("fill", d3.rgb(color(author.qt)).darker(0.5))
-                  .attr("stroke",d3.rgb(color(author.qt)).darker(2))
+                  .attr("fill", color(author.qt))
+                  .attr("stroke",d3.rgb(color(author.qt)).darker(0.5))
                   .style("cursor", "pointer")
                  
 
@@ -264,8 +265,10 @@
                   .attr("height", paper_size.h)
                   .attr("x", xCenter.paper )
                   .attr("y", d => (yPaper(d.id) - paper_size.h/2))
-                  .style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
-                  .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(2)})
+                  //.style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
+                  //.style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(2)})
+                  .style("fill",  function(d){ return colorPaper(d.focus)})
+                  .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
                   .attr("rx", 1)
                   .attr("ry", 1)
                   .style("cursor", "pointer")
@@ -284,8 +287,10 @@
                   .attr("r", function(d){ return radius *  d.qtPartner})
                   .attr("cx", xCenter.partner)
                   .attr("cy", d => yPartner(d.id))
-                  .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
-                  .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
+                 // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
+                 // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
+                  .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0)})
+                  .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
                   .style("cursor", "pointer")
                   .on('mouseover', fade(0.2))
                   .on('mouseout', fade(1))
