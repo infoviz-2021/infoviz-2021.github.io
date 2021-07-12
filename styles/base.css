@@ -13,3 +13,27 @@ h1, h2, h3, h4, h5, h6,
 span {
   font-family: var(--font-family-theme);
 }
+
+.default-font-family{
+  font-family: var(--font-family-theme);
+}
+
+.text-color{
+  color: var(--dark-gray);
+}
+
+.background-color{
+  background-color: var(--white);
+}
+
+.text-title{
+  font-size: var(--title-font-size);
+}
+
+.text-caption{
+  font-size: var(--caption-font-size);
+}
+
+.text-axis{
+  font-size: var(--axis-font-size);
+}

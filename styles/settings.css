@@ -7,6 +7,9 @@ funcionamento do seu framework em si */
 
 :root {
   --font-family-theme: Roboto, sans-serif;
+  --title-font-size: 1.5rem;
+  --caption-font-size: 0.85rem;
+  --axis-font-size: .85rem;
   --primary: #007bff;
   --white: #fff;
   --light-purple: #8e7bd7;

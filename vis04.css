@@ -32,7 +32,22 @@ body {
     min-width: 80px;
     height: auto;
     background: none repeat scroll 0 0 #ffffff;
-    border: 1px solid #6F257F;
+    border: 1px solid black;
     padding: 14px;
     text-align: center;
+    color: var(--dark-gray);
+    font-size: var(--caption-font-size);
+    font-family: var(--font-family-theme);
+}
+
+.card__header__vis04{
+    display: flex;
+    min-height: 30px;
+    padding: 1em;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
 }
