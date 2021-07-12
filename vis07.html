@@ -10,15 +10,15 @@
       <link rel="stylesheet" href="styles/objects.css">
       <link rel="stylesheet" href="styles/components.css">
       <link rel="stylesheet" href="vis04.css">
-      <title>Distribution of initiatives that address Human-Computer Interaction</title>
+      <title>Number and focus of publications per year</title>
    </head>
    <body>
       <section>
          <div>
-            <div class="">
-               <h2>Distribution of initiatives that address Human-Computer Interaction</h2>
+            <div class="card__header__vis04!">
+               <h2>Number and focus of publications per year</h2>
             </div>
-            <div class="">
+            <div>
                <svg width="960" height="500"></svg>
             </div>
          </div>
@@ -50,7 +50,7 @@
         if (error) throw error;
 
         var keys = data.columns.slice(1);
-        keys.pop()
+        var total = keys.pop()
 
         // data.sort(function(a, b) { return b.total - a.total; });
         x.domain(data.map(function(d) { return d.Ano; }));
@@ -68,10 +68,11 @@
             .attr("x", function(d) { return x(d.data.Ano); })
             .attr("y", function(d) { return y(d[1]); })
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-            .attr("width", x.bandwidth());
+            .attr("width", x.bandwidth())
+            .attr("class", "text-axis default-font-family text-color")
 
         g.append("g")
-            .attr("class", "axis")
+            .attr("class", "text-axis default-font-family text-color")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x));
 
@@ -81,6 +82,7 @@
                     "translate(" + (width/2) + " ," + 
                                 (height + margin.top + 10) + ")")
             .style("text-anchor", "middle")
+            .attr("class", "text-axis default-font-family text-color")
             .text("Year");
 
         g.append("text")
@@ -89,25 +91,37 @@
             .attr("x",0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
+            .attr("class", "text-axis default-font-family text-color")
             .text("Number of Publications");  
 
         g.append("g")
-            .attr("class", "axis")
             .call(d3.axisLeft(y).ticks(null, "s"))
             .append("text")
             .attr("x", 2)
             .attr("y", y(y.ticks().pop()) + 0.5)
             .attr("dy", "0.32em")
             .attr("fill", "#000")
-            .attr("text-anchor", "start");
+            .attr("text-anchor", "start")
+            .attr("class", "text-axis default-font-family text-color")
             // .text("Number of Published Articles");
 
+        // Add the line
+        svg.append("path")
+            .datum(data.total)
+            .attr("fill", "none")
+            .attr("stroke", "#69b3a2")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) { return x(d.date) })
+                .y(function(d) { return y(d.value) })
+            )
+            console.log(data)
+
         var legend = g.append("g")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 10)
+            .attr("class", "text-axis default-font-family text-color")
             .attr("text-anchor", "end")
             .selectAll("g")
-            .data(keys.slice().reverse())
+            .data(keys.slice())
             .enter().append("g")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
