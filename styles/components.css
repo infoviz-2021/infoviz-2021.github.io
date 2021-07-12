@@ -4,6 +4,10 @@ o máximo possível, para ter muitos objetos reutilizáveis e genéricos, aqui n
 mas respeitando as regras do RSCSS de especificidade e também não colocando positions ou outras propriedades 
 que engessem muito o componente a ponto dele não ser reutilizável.
 Normalmente, aqui ficarão listas específicas como de produtos, cards específicos como aqueles incluindo imagens, etc */
+.card .card__header {
+  font-family: var(--font-family-theme);
+  font-size: 1.5rem;
+}
 
 .card__body__countries {
   display: flex;
