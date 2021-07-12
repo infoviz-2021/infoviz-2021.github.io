@@ -21,7 +21,10 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__details {
   font-family: var(--font-family-theme);
   font-size: 0.75rem;
+  line-height: 1.25em;
   padding: 0 1em;
+  display: flex;
+  flex-direction: column;
 }
 
 .card__body__countries__details ul {
