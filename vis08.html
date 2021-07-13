@@ -12,8 +12,8 @@
   <body>
     <h2 class="text-title">Publication focus per contribution type </h2>
     <!-- Add 3 radios -->
-      <div class = "text-legend">
-        <strong>Publication order by:</strong>
+      <div class="text-legend">
+        <strong>Order publication by:</strong>
         <input type="radio" id="author"
           name="order" value="author" onclick="update('author')">
         <label for="author" onclick="update('author')">Authors</label>
@@ -33,24 +33,36 @@
     <div id="focus_legend"></div>
     <div id="my_dataviz"></div>
     <div class='tooltip'></div>
+    <div class='labelX'></div>
     
     <script>
       // set the dimensions and margins of the graph
-      var margin = {top: 20, right: 600, bottom: 120, left: 200},
-              width = 1400 - margin.left - margin.right,
-              height = 600 - margin.top - margin.bottom;
-
-
+      var margin = {top: 20, right: 180, bottom: 110, left: 200},
+              width = 1000 - margin.left - margin.right,
+              height = 580 - margin.top - margin.bottom;
 
 
       //Legend
-      var keys = [
+     /* var keys = [
         { "key": "GR", "name":"Focus on HInt from a general perspective (FGR)"},
-        { "key": "GE", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA) " },
+        { "key": "GE", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
         { "key": "ES", "name":"Focus on HInt in a specific domain or context of use (FS)"}
-      ];
+      ]; */
 
-
+        //Legend
+        var keys = [
+        { "key": "GR", "name":"from a general perspective (FGR)"},
+        { "key": "GE", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+        { "key": "ES", "name":"in a specific domain or context of use (FS)"}
+      ]; 
+      
+      //Contribution label
+     /* var contribution = [
+        { "key": "AD", "name":"Agenda de Desafios" },
+        { "key": "RF", "name":"Reflexões sobre HInt "},
+        { "key": "EG", "name":"Estratégias de Design"},
+        { "key": "EE", "name":"Estratégias de Design"}
+      ];*/
 
        //Contribution label
       var contribution = [
@@ -60,10 +72,23 @@
         { "key": "SE", "name":"Design or evaluation strategies focused on HInt in a specific context or domain"}
       ];
 
+ 
+
     function update(orderBy){
     
       d3.select("#my_dataviz").remove();
+      d3.selectAll("#focus_legend").remove();
       d3.selectAll(".label-axisX").remove();
+
+      var svg_legend = d3.select("body")
+        .append("div")
+        .attr("id", "focus_legend")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", 60)
+        .append("g")
+        .attr("transform",
+                "translate(" + 10 + "," + 10 + ")");
 
       // append the svg object to the body of the page
       var svg = d3.select("body")
@@ -139,52 +164,37 @@
             //https://codepen.io/chrisgannon/pen/YWgbYz
 
             for(i in contribution){
-              console.log(i)
 
               d3.select("body")
               .append("div")
                 .attr("class","label-axisX text-axis")
-                .style("left", i*((width/4) )  + 210 + "px"  )
-                .style("top", height + 135 + "px") // 100 is where the first dot appears. 25 is the distance between dots
+                .style("left", x(contribution[i].key) + margin.left -5+ "px"  )
+                .style("top", height + 190 + "px") // 100 is where the first dot appears. 25 is the distance between dots
                 .style("text-align", "center")
                 .html(contribution[i].name)
                 .style("text-anchor", "center")
                 .style('position','absolute')
-                .style("max-width", (width/4) + "px")
+                .style("max-width", (width/4)-10 + "px")
             }
            
-
-           // console.log(contribution)
-            /*d3.select("body")
-            .data(contribution)
-            .enter()
-            .append("div")
-                .attr("class","label-axisX")
-                .style('visibility','visible')
-                .style("left", function(d,i){ console.log(i); return ((i+1)*(width/4) + 95) + "px" } )
-                .style("top", height + 200 + "px") // 100 is where the first dot appears. 25 is the distance between dots
-                .html(d => d.name)
-                .style('position','absolute')
-                .style("max-width",function(){return (width/4) + "px"});*/
-        
-
-            svg.append("text")
-            .text("Contribution types ")
-              .attr("x", width/2-80)
-              .attr("y", height+100) // 100 is where the first dot appears. 25 is the distance between dots
-              .attr("text-anchor", "left")
-              .style("alignment-baseline", "middle")
+    
+         // Y axis label:
+          svg.append("text")
+              .attr("text-anchor", "end")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -margin.left+20)
+              .attr("x", -height/2+50)
+              .text("Publication")
              
 
+          // Add X axis label:
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width/2-80)
+                .attr("y", height+100)
+                .attr("text-anchor", "left")
+                .text("Contribution types");
 
-           /* d3.selectAll('l')
-              .style('visibility','visible')
-              .style('top', e.pageY + 10 + 'px')
-              .style('left', e.pageX + 10 + 'px')
-              .html('<strong>Title: </strong>'+ d.title + 
-                    '</br><strong>Focus: </strong>' + foundF.name + 
-                    '</br><strong>Contribution: </strong>' + foundC.name +
-                    '</br><strong>Congress: </strong>' + foundC.name)  */
               
             // Add Y axis
             y.domain(sortedData.map(function(d){ 
@@ -208,7 +218,7 @@
             .attr("height", y.bandwidth() )
             .attr("rx", 5)
             .attr("ry", 5)
-            .style("fill", function(d) { console.log(d.focus); return color(d.focus)} )
+            .style("fill", function(d) {return color(d.focus)} )
             .on("mouseover", function(e,d) {  
               d3.select(this)
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
@@ -283,32 +293,31 @@
        LEGEND 
       ***************************************************************/
 
-       // Add one dot in the legend for each name.
+      // Add one dot in the legend for each name.
       var size = 20
-      var xAlign = 600
+      var xAlign = -10
+      var yAlign = 40 
 
-     /* svg.append("text")
-      .text("Publication focus")
+      svg_legend.append("text")
+      .text("Publication focus on HInt:")
         .attr("class", "text-legend")
         .attr("x", xAlign)
-        .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("y", yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("text-anchor", "left")
-        .attr("font-size", "16px")
-        .attr("font-family", "sans-serif")
         .attr("font-weight", "bold")
         .style("alignment-baseline", "middle")
-        .style("fill", "#444444")
-    */
+    
 
-      svg.selectAll("myrect")
+    svg_legend.selectAll("myrect")
       .data(keys)
       .enter()
       .append("rect")
           .attr("class", function(d) { return "label-rect" + d.key })
-          .attr("x", xAlign)
-          .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("x", function (d,i) { return xAlign + (i == 2 ? i*340:i*230)})
+         // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", yAlign)
           .attr("width", size)
-          .attr("height", size)
+          .attr("height", size/2)
           .attr("rx", 5)
           .attr("ry", 5)
           .style("fill", function(d){ return color(d.key)})
@@ -316,13 +325,14 @@
           .on("mouseleave", noHighlight)
 
       // Add one dot in the legend for each name.
-      svg.selectAll("mylabels")
+      svg_legend.selectAll("mylabels")
       .data(keys)
       .enter()
       .append("text")
           .attr("class", function(d) { return "text-legend label-" + d.key })
-          .attr("x", xAlign + size*1.2)
-          .attr("y", function(d,i){ return 35 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("x", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
+          //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", yAlign + size/4) 
           .text(function(d){ return d.name})
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
