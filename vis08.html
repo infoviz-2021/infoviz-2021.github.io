@@ -131,7 +131,6 @@
           data = file.data
           papers = file.papers
           
-          console.log(papers)
           //sort data by citation
           var sortedData = data.slice().sort((a, b) => d3.descending(a.citation, b.citation) || d3.ascending(a.year, b.year))
     
@@ -236,7 +235,7 @@
               const foundF = keys.find(element => element.key == d.focus);
               const foundAuthors = papers.find(element => element.id == "id" + d.id).authors
               
-              surnames = ""
+              surnames =  "<strong>Authors: </strong>"
               surnames_arr = []
               //more than 3 authors
               for(i in foundAuthors){
@@ -246,9 +245,9 @@
               surnames_arr = surnames_arr.slice().sort((a, b) => d3.ascending(a, b))
 
               if(surnames_arr.length === 1){
-                surnames = surnames_arr[0]
+                surnames = "<strong>Author: </strong>" + surnames_arr[0]
               }else if(surnames_arr.length === 2){
-                surnames = surnames_arr[0] + " and " + surnames_arr[1] 
+                surnames += surnames_arr[0] + " and " + surnames_arr[1] 
               }else{
                 //more than 3 authors
                 for(i in surnames_arr){
@@ -266,8 +265,8 @@
                 .html('<strong>Publication title: </strong>'+ d.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundF.name + 
                       '</br><strong>Contribution: </strong>' + foundC.name +
-                      '</br><strong>Event/Forum: </strong>' + foundC.name + 
-                      '</br><strong>Authors: </strong>' + surnames)
+                      '</br><strong>Event/Forum: </strong>' + "-" + 
+                      '</br>' + surnames)
             })
             .on("mouseleave", function (e, d){  
 
