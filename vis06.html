@@ -192,7 +192,6 @@
             //.style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(1.5)})
             .style("fill",  function(d){ return colorPaper(d.focus)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
-            .style("cursor", "pointer")
             .on('mouseover', fade(0.1))
             .on('mouseout', fade(1))
             .call(d3.drag()
@@ -206,7 +205,7 @@
         .data(nodes_author)
         .enter()
         .append('text')
-          .text(d => `${d.id} (#${d.qt})`)
+          .text(d => `${d.id} (#publication: ${d.qt})`)
           .style("text-shadow","1px 1px 2px #aaa")
           .attr("fill", "#343a40")
           .attr("font-weight","bold")
@@ -269,9 +268,9 @@
           }*/
           
           if(d.type == "paper"){
-            content = `<strong>Title: </strong>${d.title} 
+            content = `<strong>Publication title: </strong>${d.title} 
                        <br> <strong>Focus:</strong> ${d.focus}
-                       <br> <strong>#Authors:</strong> ${d.qt} `
+                       <br> <strong>#authors:</strong> ${d.qt} `
           }
        
           d3.select('.tooltip')

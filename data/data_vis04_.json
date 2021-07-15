@@ -12,6 +12,6 @@
     {"evento": "International Journal of Human–Computer Studies" , "artigos": ["Human augmentation: Past, present and future", "<br> Designing human-in-the-loop autonomous Cyber-Physical Systems"] , "quantidade": 2},
     {"evento": "Nordic Conference on Human-Computer Interaction (NordiCHI)" , "artigos": ["Embracing Companion Technologies"] , "quantidade": 1},
     {"evento": "Reflections on Artificial Intelligence for Humanity" , "artigos": ["Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics"] , "quantidade": 1},
-    {"evento": "SIG (CHI)" , "artigos": ["Next Steps for Human-Computer Integration", "<br> Introducing Peripheral Awareness as a Neurological State for Human-computer Integration", "<br> Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration"] , "quantidade": 3},
+    {"evento": "Conference on Human Factors in Computing Systems (CHI)" , "artigos": ["Next Steps for Human-Computer Integration", "<br> Introducing Peripheral Awareness as a Neurological State for Human-computer Integration", "<br> Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration"] , "quantidade": 3},
     {"evento": "World Symposium on Software Engineering (WSSE)" , "artigos": ["A Survey of Incorporating Affective Computing for Human-System Co-adaptation"] , "quantidade": 1}
 ]
