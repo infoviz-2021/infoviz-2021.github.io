@@ -125,9 +125,13 @@
           .range(d3.schemeSet2);
     
         //Read the data
-        var url = "data/data_vis08.json";
+        var url = "data/data_vis08b.json";
         
-        d3.json(url).then(function (data) {
+        d3.json(url).then(function (file) {
+          data = file.data
+          papers = file.papers
+          
+          console.log(papers)
           //sort data by citation
           var sortedData = data.slice().sort((a, b) => d3.descending(a.citation, b.citation) || d3.ascending(a.year, b.year))
     
@@ -169,7 +173,7 @@
               .append("div")
                 .attr("class","label-axisX text-axis")
                 .style("left", x(contribution[i].key) + margin.left -5+ "px"  )
-                .style("top", height + 190 + "px") // 100 is where the first dot appears. 25 is the distance between dots
+                .style("top", height + 195 + "px") // 100 is where the first dot appears. 25 is the distance between dots
                 .style("text-align", "center")
                 .html(contribution[i].name)
                 .style("text-anchor", "center")
@@ -230,16 +234,40 @@
               //Get Focus and Contribution description
               const foundC = contribution.find(element => element.key == d.contribution);
               const foundF = keys.find(element => element.key == d.focus);
+              const foundAuthors = papers.find(element => element.id == "id" + d.id).authors
+              
+              surnames = ""
+              surnames_arr = []
+              //more than 3 authors
+              for(i in foundAuthors){
+                surnames_arr.push(surname(foundAuthors[i].trim()))
+              }
+
+              surnames_arr = surnames_arr.slice().sort((a, b) => d3.ascending(a, b))
+
+              if(surnames_arr.length === 1){
+                surnames = surnames_arr[0]
+              }else if(surnames_arr.length === 2){
+                surnames = surnames_arr[0] + " and " + surnames_arr[1] 
+              }else{
+                //more than 3 authors
+                for(i in surnames_arr){
+                  surnames += surnames_arr[i] + ","
+                }
+
+                surnames = surnames.substring(0,surnames.length - 1)
+              }
 
               d3.select('.tooltip')
                 .style('visibility','visible')
-                .style('top', e.pageY + 10 + 'px')
+                .style('top', function(){ return ( e.pageY < (height + 50) ?  e.pageY + 10 : e.pageY - 80 ) + 'px'} )
                 .style('left', e.pageX + 10 + 'px')
+                //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ d.title + 
-                      '</br><strong>Focus: </strong>' + foundF.name + 
+                      '</br><strong>Focus: </strong> HInt ' + foundF.name + 
                       '</br><strong>Contribution: </strong>' + foundC.name +
                       '</br><strong>Event/Forum: </strong>' + foundC.name + 
-                      '</br><strong>Authors: </strong>' + foundC.authors)
+                      '</br><strong>Authors: </strong>' + surnames)
             })
             .on("mouseleave", function (e, d){  
 
@@ -257,6 +285,19 @@
 
           })
           .catch(err => console.log(err));
+
+
+      /********************************* NAMES ******************************************/
+      var surname = function(author_name){
+
+          //separete names
+          names = author_name.split(" ")  
+
+          last = " " + names.pop() +", "
+          first_letter = names[0][0] + "."
+
+          return (last + first_letter)
+      }
 
       //////////
       // HIGHLIGHT GROUP //
@@ -289,9 +330,10 @@
         d3.selectAll(".myArea").style("opacity", 1)
       }
     
-      /**************************************************************
-       LEGEND 
-      ***************************************************************/
+    
+      /***************************************  LEGEND ******************************************/
+     
+      
 
       // Add one dot in the legend for each name.
       var size = 20
@@ -343,6 +385,7 @@
       
     // Initialize plot
     update('year');
+
 
     </script>
   </body>
