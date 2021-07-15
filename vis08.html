@@ -16,7 +16,7 @@
         <strong>Order publication by:</strong>
         <input type="radio" id="author"
           name="order" value="author" onclick="update('author')">
-        <label for="author" onclick="update('author')">Authors</label>
+        <label for="author" onclick="update('author')">Citation</label>
     
         <input type="radio" id="focus"
           name="order" value="focus" onclick="update('focus')">
@@ -233,22 +233,22 @@
               //Get Focus and Contribution description
               const foundC = contribution.find(element => element.key == d.contribution);
               const foundF = keys.find(element => element.key == d.focus);
-              const foundAuthors = papers.find(element => element.id == "id" + d.id).authors
+              const foundPaper= papers.find(element => element.id == "id" + d.id)
               
               surnames =  "<strong>Authors: </strong>"
               surnames_arr = []
               //more than 3 authors
-              for(i in foundAuthors){
-                surnames_arr.push(surname(foundAuthors[i].trim()))
+              for(i in foundPaper.authors){
+                surnames_arr.push(surname(foundPaper.authors[i].trim()))
               }
 
-              surnames_arr = surnames_arr.slice().sort((a, b) => d3.ascending(a, b))
+             // surnames_arr = surnames_arr.slice().sort((a, b) => d3.ascending(a, b))
 
               if(surnames_arr.length === 1){
                 surnames = "<strong>Author: </strong>" + surnames_arr[0]
-              }else if(surnames_arr.length === 2){
-                surnames += surnames_arr[0] + " and " + surnames_arr[1] 
-              }else{
+              }//else if(surnames_arr.length === 2){
+                //surnames += surnames_arr[0] + " and " + surnames_arr[1] 
+              else{
                 //more than 3 authors
                 for(i in surnames_arr){
                   surnames += surnames_arr[i] + ","
@@ -264,8 +264,8 @@
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ d.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundF.name + 
-                      '</br><strong>Contribution: </strong>' + foundC.name +
-                      '</br><strong>Event/Forum: </strong>' + "-" + 
+                      '</br><strong>Contribution: </strong>' + foundC.name + " (" + foundC.key + ")"+
+                      '</br><strong>Event/Forum: </strong>' + foundPaper.event +
                       '</br>' + surnames)
             })
             .on("mouseleave", function (e, d){  
