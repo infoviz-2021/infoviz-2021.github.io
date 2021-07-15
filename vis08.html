@@ -14,9 +14,9 @@
     <!-- Add 3 radios -->
       <div class="text-legend">
         <strong>Order publication by:</strong>
-        <input type="radio" id="author"
-          name="order" value="author" onclick="update('author')">
-        <label for="author" onclick="update('author')">Citation</label>
+        <input type="radio" id="citation"
+          name="order" value="citation" onclick="update('citation')">
+        <label for="citation" onclick="update('citation')">Citation</label>
     
         <input type="radio" id="focus"
           name="order" value="focus" onclick="update('focus')">
@@ -131,15 +131,21 @@
           data = file.data
           papers = file.papers
           
-          //sort data by citation
-          var sortedData = data.slice().sort((a, b) => d3.descending(a.citation, b.citation) || d3.ascending(a.year, b.year))
-    
           //sort data by year
-          if(orderBy === 'year')
-            sortedData = data.slice().sort((a, b) => d3.ascending(a.year, b.year) || d3.descending(a.citation, b.citation))
-          else if(orderBy === 'focus')
+          var sortedData = data.slice().sort((a, b) => d3.ascending(a.year, b.year) || d3.descending(a.citation, b.citation))
+          var mouseYSpace = 80
+          var limitHeight = 50
+    
+          //sort data by citation
+          if(orderBy === 'citation'){
+            sortedData = data.slice().sort((a, b) => d3.descending(a.citation, b.citation) || d3.ascending(a.year, b.year))
+            mouseYSpace = 150
+            limitHeight = 60
+          }else if(orderBy === 'focus'){
             sortedData = data.slice().sort((a, b) => d3.ascending(a.focus, b.focus))
-        
+            mouseYSpace = 90
+            limitHeight = 50
+          }
             // Add X axis
             x.domain(contribution.map(function(d){return d.key}));
 
@@ -246,20 +252,24 @@
 
               if(surnames_arr.length === 1){
                 surnames = "<strong>Author: </strong>" + surnames_arr[0]
-              }//else if(surnames_arr.length === 2){
-                //surnames += surnames_arr[0] + " and " + surnames_arr[1] 
-              else{
-                //more than 3 authors
+              }else{
+                //more authors
                 for(i in surnames_arr){
-                  surnames += surnames_arr[i] + ","
+    
+                  if(i == surnames_arr.length - 2)
+                    surnames += surnames_arr[i] + " and "
+                  else
+                    surnames += surnames_arr[i] + ","
+                    
                 }
-
+                
+                //eliminate the last ","
                 surnames = surnames.substring(0,surnames.length - 1)
               }
 
               d3.select('.tooltip')
                 .style('visibility','visible')
-                .style('top', function(){ return ( e.pageY < (height + 50) ?  e.pageY + 10 : e.pageY - 80 ) + 'px'} )
+                .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
                 .style('left', e.pageX + 10 + 'px')
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ d.title + 
