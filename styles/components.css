@@ -81,6 +81,14 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-top: .5em;
 }
 
+.card__body__countries__details__click-to-display-info {
+  
+}
+
+.card__body__countries__details__click-to-display-info--hidden {
+  display: none;
+}
+
 .card__body__countries__details__institutions {
   font-size: 0.75rem;
   position: relative;

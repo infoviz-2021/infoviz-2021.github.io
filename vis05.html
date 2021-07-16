@@ -37,6 +37,9 @@
             <div class="card__body__countries__details">
               <div class="card__body__countries__details__header"></div>
               <div class="card__body__countries__details__body">
+                <div class="card__body__countries__details__click-to-display-info">
+                  <p>To see the institutions and authors list of a country, click on the desired country in the map</p>
+                </div>
                 <div class="card__body__countries__details__institutions">
                   <div class="card__body__countries__details__institutions__title"></div>
                   <ul class="card__body__countries__details__institutions__list"></ul>
@@ -160,6 +163,8 @@
                     accumulator.push(current)
                   return accumulator
                 }, [])
+                const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
+                detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
                 d3.select('.card__body__countries__details__header')
                   .html(`
                     <span class="card__body__countries__details__header__flag ${countrySelected.id}-flag"></span>
