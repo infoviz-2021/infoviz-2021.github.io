@@ -72,7 +72,7 @@
       const geoPath = d3.geoPath()
         .projection(projection)
       
-      d3.json('https://raw.githubusercontent.com/infoviz-2021/infoviz-2021.github.io/main/data/countries-institutions-authors.json').then(function (institutionsAuthorsList) {
+      d3.json('./data/countries-institutions-authors.json').then(function (institutionsAuthorsList) {
         d3.json('./data/countries.json').then(function (mapFeatures) {
           svg.append('g')
             .selectAll('path')
