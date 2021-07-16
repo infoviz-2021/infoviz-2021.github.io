@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="data/keys.js"></script>
     <link rel="stylesheet" href="vis06-08-styles.css">
     <title>Trabalho de InfoViz - Vis08</title>
+
   </head>
   <body>
     <h2 class="text-title">Publication focus per contribution type </h2>
+    
     <!-- Add 3 radios -->
       <div class="text-legend">
         <strong>Order publication by:</strong>
@@ -36,101 +39,80 @@
     <div class='labelX'></div>
     
     <script>
+
       // set the dimensions and margins of the graph
       var margin = {top: 20, right: 180, bottom: 110, left: 200},
               width = 1000 - margin.left - margin.right,
               height = 580 - margin.top - margin.bottom;
 
+      // Initialize plot
+      update('year');
 
-      //Legend
-     /* var keys = [
-        { "key": "GR", "name":"Focus on HInt from a general perspective (FGR)"},
-        { "key": "GE", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
-        { "key": "ES", "name":"Focus on HInt in a specific domain or context of use (FS)"}
-      ]; */
-
-        //Legend
-        var keys = [
-        { "key": "GR", "name":"from a general perspective (FGR)"},
-        { "key": "GE", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
-        { "key": "ES", "name":"in a specific domain or context of use (FS)"}
-      ]; 
+      function update(orderBy){
       
-      //Contribution label
-     /* var contribution = [
-        { "key": "AD", "name":"Agenda de Desafios" },
-        { "key": "RF", "name":"Reflexões sobre HInt "},
-        { "key": "EG", "name":"Estratégias de Design"},
-        { "key": "EE", "name":"Estratégias de Design"}
-      ];*/
+        d3.select("#my_dataviz").remove();
+        d3.selectAll("#focus_legend").remove();
+        d3.selectAll(".label-axisX").remove();
 
-       //Contribution label
-      var contribution = [
-        { "key": "CA", "name":"Challenges agenda for HInt within the HCI scope" },
-        { "key": "RF", "name":"Reflections about HInt impacts within the HCI scope"},
-        { "key": "SG", "name":"Design or evaluation strategies focused on HInt in general"},
-        { "key": "SE", "name":"Design or evaluation strategies focused on HInt in a specific context or domain"}
-      ];
-
- 
-
-    function update(orderBy){
-    
-      d3.select("#my_dataviz").remove();
-      d3.selectAll("#focus_legend").remove();
-      d3.selectAll(".label-axisX").remove();
-
-      var svg_legend = d3.select("body")
-        .append("div")
-        .attr("id", "focus_legend")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", 70)
-        .append("g")
-        .attr("transform",
-                "translate(" + 10 + "," + 10 + ")");
-
-      // append the svg object to the body of the page
-      var svg = d3.select("body")
+        
+        //legend: append the svg object to the body of the page
+        var svg_legend = d3.select("body")
           .append("div")
-          .attr("id","my_dataviz")
+          .attr("id", "focus_legend")
           .append("svg")
           .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+          .attr("height", 70)
           .append("g")
           .attr("transform",
-                  "translate(" + margin.left + "," + margin.top + ")");
-            
-      // Initialize the X axis
-      var x = d3.scaleBand()
-        .range([ 0, width ])
-        .padding(0.2);
+                  "translate(" + 10 + "," + 10 + ")");
 
-      var xAxis = svg.append("g")
-        .attr("class", "myXaxis text-axis")
-        .attr("transform", "translate(0," + height + ")")
+        //graph: append the svg object to the body of the page
+        var svg = d3.select("body")
+            .append("div")
+            .attr("id","my_dataviz")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+              
+        // Initialize the X axis
+        var x = d3.scaleBand()
+          .range([ 0, width ])
+          .padding(0.2);
 
-      // Initialize the Y axis
-      var y = d3.scaleBand()
-        .range([ height, 0])
-        .padding(0.6);
+        var xAxis = svg.append("g")
+          .attr("class", "myXaxis text-axis")
+          .attr("transform", "translate(0," + height + ")")
 
-      var yAxis = svg.append("g")
-        .attr("class", "myYaxis text-axis")
+        // Initialize the Y axis
+        var y = d3.scaleBand()
+          .range([height, 0])
+          .padding(0.6);
+
+        var yAxis = svg.append("g")
+          .attr("class", "myYaxis text-axis")
+        
+         // Color scale: give me a focus, I return a color
+        var color = d3.scaleOrdinal()
+            .domain(keys.map(d => d.key))
+            .range(d3.schemeSet2);
+        
+        var focus = d3.scaleOrdinal()
+          .domain(keys.map( d => d.key))
+          .range(keys.map(d=> d.abbreviation))
       
-
-      // Color scale: give me a focus, I return a color
-      var color = d3.scaleOrdinal()
-          .domain(keys.map(function(d){return d.key}))
-          .range(d3.schemeSet2);
-    
         //Read the data
-        var url = "data/data_vis08b.json";
+        var url = "data/data_vis08.json";
         
         d3.json(url).then(function (file) {
-          data = file.data
-          papers = file.papers
           
+          //get data relation citation x contribution
+          data = file.data
+          //get papers info
+          papers = file.papers
+
           //sort data by year
           var sortedData = data.slice().sort((a, b) => d3.ascending(a.year, b.year) || d3.descending(a.citation, b.citation))
           var mouseYSpace = 80
@@ -142,141 +124,101 @@
             mouseYSpace = 150
             limitHeight = 60
           }else if(orderBy === 'focus'){
-            sortedData = data.slice().sort((a, b) => d3.ascending(a.focus, b.focus))
+             //sort data by focus
+            sortedData = data.slice().sort((a, b) => d3.descending(a.focus, b.focus))
             mouseYSpace = 90
             limitHeight = 50
           }
-            // Add X axis
-            x.domain(contribution.map(function(d){return d.key}));
 
-            xAxis.call(d3.axisBottom(x).tickSize(0));
-            
-            //xAxis.transition().duration(500).call(d3.axisBottom(x))
-/*
-            svg.selectAll("text")
-            .data(contribution)
-            .enter()
-            .append("text")
-            .text(function (d){return d.key + " = " + d.name})
-              .attr("x", width-160)
-              .attr("y", height+50) // 100 is where the first dot appears. 25 is the distance between dots
+          // Add X axis
+          x.domain(contributions.map(d => d.key));
+          xAxis.call(d3.axisBottom(x).tickSize(0));
+
+          //Add contribution description on X axis
+          contributions.forEach(c => {
+            d3.select("body")
+            .append("div")
+              .attr("class","label-axisX text-axis")
+              .style("left", x(c.key) + margin.left -5+ "px"  )
+              .style("top", height + 195 + "px") // 100 is where the first dot appears. 25 is the distance between dots
+              .style("text-align", "center")
+              .html(c.name)
+              .style("text-anchor", "center")
+              .style('position','absolute')
+              .style("max-width", (width/4)-10 + "px")
+          })
+
+          // Add X axis title
+          svg.append("text")
+              .attr("text-anchor", "end")
+              .attr("x", width/2-80)
+              .attr("y", height+100)
               .attr("text-anchor", "left")
-              .attr("font-size", "16px")
-              .attr("font-weight", "bold")
-              .attr("font-family", "sans-serif")
-              .style("alignment-baseline", "middle")
-              .style("fill", "#444444")
-              */
+              .text("Contribution types");
 
-              /************************************** Axis X *********************************/
-            // axix x
-            //https://codepen.io/chrisgannon/pen/YWgbYz
 
-            for(i in contribution){
+          // Add Y axis
+          y.domain(sortedData.map(d => d.citation));
 
-              d3.select("body")
-              .append("div")
-                .attr("class","label-axisX text-axis")
-                .style("left", x(contribution[i].key) + margin.left -5+ "px"  )
-                .style("top", height + 195 + "px") // 100 is where the first dot appears. 25 is the distance between dots
-                .style("text-align", "center")
-                .html(contribution[i].name)
-                .style("text-anchor", "center")
-                .style('position','absolute')
-                .style("max-width", (width/4)-10 + "px")
-            }
-           
-    
-         // Y axis label:
+          yAxis.call(d3.axisLeft(y).tickSize(0));
+
+          // Y axis title:
           svg.append("text")
               .attr("text-anchor", "end")
               .attr("transform", "rotate(-90)")
               .attr("y", -margin.left+20)
               .attr("x", -height/2+50)
               .text("Publication")
-             
 
-          // Add X axis label:
-            svg.append("text")
-                .attr("text-anchor", "end")
-                .attr("x", width/2-80)
-                .attr("y", height+100)
-                .attr("text-anchor", "left")
-                .text("Contribution types");
 
+          // variable u: map data to existing rect
+          var u = svg.selectAll("rect")
+            .data(sortedData, function(d) {return d.contribution + ':' + d.citation;})
+
+          u.enter()
+          .append("rect")
+          .merge(u)
+          .attr("class", function(d) { return "myArea " + focus(d.focus) })
+          .attr("x", function(d) { return x(d.contribution) })
+          .attr("y", function(d) { return y(d.citation) })
+          .attr("width", x.bandwidth() )
+          .attr("height", y.bandwidth() )
+          .attr("rx", 4)
+          .attr("ry", 4)
+          .style("fill", function(d) {return color(d.focus)})
+          .on("mouseover", function(e,d) {  
+
+            //change rect color
+            d3.select(this)
+              .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+              .transition()     // adds animation
+              .duration(100)
+              .attr("y", function(d) { return y(d.citation) - 3})
+              .attr("height", y.bandwidth() + 6)
               
-            // Add Y axis
-            y.domain(sortedData.map(function(d){ 
-              return d.citation
-            }));
-
-            yAxis.call(d3.axisLeft(y).tickSize(0));
-            //yAxis.transition().duration(500).call(d3.axisLeft(y));
-
-            // variable u: map data to existing rect
-            var u = svg.selectAll("rect")
-              .data(sortedData, function(d) {return d.contribution + ':' + d.citation;})
-
-            u.enter()
-            .append("rect")
-            .merge(u)
-            .attr("class", function(d) { return "myArea " + d.focus })
-            .attr("x", function(d) { return x(d.contribution) })
-            .attr("y", function(d) { return y(d.citation) })
-            .attr("width", x.bandwidth() )
-            .attr("height", y.bandwidth() )
-            .attr("rx", 5)
-            .attr("ry", 5)
-            .style("fill", function(d) {return color(d.focus)} )
-            .on("mouseover", function(e,d) {  
-              d3.select(this)
-                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
-                .transition()     // adds animation
-                .duration(100)
-                .attr("y", function(d) { return y(d.citation) - 3})
-                .attr("height", y.bandwidth() + 6)
-                
               //Get Focus and Contribution description
-              const foundC = contribution.find(element => element.key == d.contribution);
-              const foundF = keys.find(element => element.key == d.focus);
-              const foundPaper= papers.find(element => element.id == "id" + d.id)
-              
-              surnames =  "<strong>Authors: </strong>"
-              surnames_arr = []
-              //more than 3 authors
-              for(i in foundPaper.authors){
-                surnames_arr.push(surname(foundPaper.authors[i].trim()))
+              const foundContribution = contributions.find(element => element.key == d.contribution);
+              const foundFocus = keys.find(element => element.key == d.focus);
+              const foundPaper= papers.find(element => element.id === d.id)
+            
+              authors =  "<strong>Authors: </strong>"
+
+              if(foundPaper.qt_author === 1){
+                authors = "<strong>Author: </strong>" 
               }
 
-             // surnames_arr = surnames_arr.slice().sort((a, b) => d3.ascending(a, b))
-
-              if(surnames_arr.length === 1){
-                surnames = "<strong>Author: </strong>" + surnames_arr[0]
-              }else{
-                //more authors
-                for(i in surnames_arr){
-    
-                  if(i == surnames_arr.length - 2)
-                    surnames += surnames_arr[i] + " and "
-                  else
-                    surnames += surnames_arr[i] + ","
-                    
-                }
-                
-                //eliminate the last ","
-                surnames = surnames.substring(0,surnames.length - 1)
-              }
+              authors += foundPaper.citation_order
 
               d3.select('.tooltip')
                 .style('visibility','visible')
                 .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
                 .style('left', e.pageX + 10 + 'px')
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
-                .html('<strong>Publication title: </strong>'+ d.title + 
-                      '</br><strong>Focus: </strong> HInt ' + foundF.name + 
-                      '</br><strong>Contribution: </strong>' + foundC.name + " (" + foundC.key + ")"+
+                .html('<strong>Publication title: </strong>'+ foundPaper.title + 
+                      '</br><strong>Focus: </strong> HInt ' + foundFocus.name + " (" + foundFocus.abbreviation + ")"+
+                      '</br><strong>Contribution: </strong>' + foundContribution.name + " (" + foundContribution.key + ")"+
                       '</br><strong>Event/Forum: </strong>' + foundPaper.event +
-                      '</br>' + surnames)
+                      '</br>' + authors)
             })
             .on("mouseleave", function (e, d){  
 
@@ -292,109 +234,88 @@
                     .attr("y", function(d) { return y(d.citation) })
             })
 
-          })
-          .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err)); //end d3.json reading
 
+        /****************************************** HIGHLIGHT ***************************************/
 
-      /********************************* NAMES ******************************************/
-      var surname = function(author_name){
+        // What to do when one group is hovered
+        var highlight = function(e,d){
+          //set font label to bold
+          d3.selectAll(".label-"+d.abbreviation)
+          .attr("font-weight", "bold")
 
-          //separete names
-          names = author_name.split(" ")  
+          d3.select(".label-rect"+d.abbreviation)
+          .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
+          // reduce opacity of all groups
+          d3.selectAll(".myArea").style("opacity", .05)
+          // expect the one that is hovered
+          d3.selectAll("."+d.abbreviation).style("opacity", 1)
+        }
 
-          last = " " + names.pop() +", "
-          first_letter = names[0][0] + "."
+        // And when it is not hovered anymore
+        var noHighlight = function(e,d){
 
-          return (last + first_letter)
-      }
+          //set font label to normal
+          d3.selectAll(".label-"+d.abbreviation)
+          .attr("font-weight", "normal")
 
-      //////////
-      // HIGHLIGHT GROUP //
-      //////////
+          d3.select(".label-rect"+d.abbreviation)
+          .style("fill", function(d) { return color(d.key)} )
 
-      // What to do when one group is hovered
-      var highlight = function(e,d){
-        //set font label to bold
-        d3.selectAll(".label-"+d.key)
-        .attr("font-weight", "bold")
-
-        d3.select(".label-rect"+d.key)
-        .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
-        // reduce opacity of all groups
-        d3.selectAll(".myArea").style("opacity", .05)
-        // expect the one that is hovered
-        d3.selectAll("."+d.key).style("opacity", 1)
-      }
-
-      // And when it is not hovered anymore
-      var noHighlight = function(e,d){
-
-        //set font label to normal
-        d3.selectAll(".label-"+d.key)
-        .attr("font-weight", "normal")
-
-        d3.select(".label-rect"+d.key)
-        .style("fill", function(d) { return color(d.key)} )
-
-        d3.selectAll(".myArea").style("opacity", 1)
-      }
-    
-    
-      /***************************************  LEGEND ******************************************/
-     
+          d3.selectAll(".myArea").style("opacity", 1)
+        }
       
+      
+        /****************************************** LEGEND  *****************************************/
 
-      // Add one dot in the legend for each name.
-      var size = 20
-      var xAlign = -10
-      var yAlign = 40 
+        // Add one dot in the legend for each name.
+        var size = 20
+        var xAlign = -10
+        var yAlign = 40 
 
-      svg_legend.append("text")
-      .text("Publication focus on HInt:")
-        .attr("class", "text-legend")
-        .attr("x", xAlign)
-        .attr("y", yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots
-        .attr("text-anchor", "left")
-        .attr("font-weight", "bold")
-        .style("alignment-baseline", "middle")
-    
-
-    svg_legend.selectAll("myrect")
-      .data(keys)
-      .enter()
-      .append("rect")
-          .attr("class", function(d) { return "label-rect" + d.key })
-          .attr("x", function (d,i) { return xAlign + (i == 2 ? i*340:i*230)})
-         // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-          .attr("y", yAlign)
-          .attr("width", size)
-          .attr("height", size/2)
-          .attr("rx", 5)
-          .attr("ry", 5)
-          .style("fill", function(d){ return color(d.key)})
-          .on("mouseover", highlight)
-          .on("mouseleave", noHighlight)
-
-      // Add one dot in the legend for each name.
-      svg_legend.selectAll("mylabels")
-      .data(keys)
-      .enter()
-      .append("text")
-          .attr("class", function(d) { return "text-legend label-" + d.key })
-          .attr("x", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
-          //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-          .attr("y", yAlign + size/4) 
-          .text(function(d){ return d.name})
+        svg_legend.append("text")
+        .text("Publication focus on HInt:")
+          .attr("class", "text-legend")
+          .attr("x", xAlign)
+          .attr("y", yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
+          .attr("font-weight", "bold")
           .style("alignment-baseline", "middle")
-          .on("mouseover", highlight)
-          .on("mouseleave", noHighlight)
-
-    }
       
-    // Initialize plot
-    update('year');
 
+        svg_legend.selectAll("myrect")
+          .data(keys)
+          .enter()
+          .append("rect")
+              .attr("class", function(d) { return "label-rect" + d.abbreviation })
+              .attr("x", function (d,i) { return xAlign + (i == 2 ? i*340:i*230)})
+            // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+              .attr("y", yAlign)
+              .attr("width", size)
+              .attr("height", size/2)
+              .attr("rx", 5)
+              .attr("ry", 5)
+              .style("fill", function(d){ return color(d.key)})
+              .on("mouseover", highlight)
+              .on("mouseleave", noHighlight)
+
+          // Add text in the legend for each name.
+          svg_legend.selectAll("mylabels")
+          .data(keys)
+          .enter()
+          .append("text")
+              .attr("class", function(d) { return "text-legend label-" + d.abbreviation })
+              .attr("x", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
+              //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+              .attr("y", yAlign + size/4) 
+              .text(function(d){ return d.name + " (" + d.abbreviation + ")"})
+              .attr("text-anchor", "left")
+              .style("alignment-baseline", "middle")
+              .on("mouseover", highlight)
+              .on("mouseleave", noHighlight)
+
+      } //end function update()
 
     </script>
   </body>
