@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
     <link rel="stylesheet" href="styles/objects.css">
     <link rel="stylesheet" href="styles/components.css">
@@ -16,7 +17,7 @@
     <main>
       <section class="card country-card">
         <div class="card__header">
-          <span>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT)</span>
+          <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT)</h2>
         </div>
         <div class="card__body">
           <div class="card__body__countries">
@@ -73,6 +74,7 @@
             .data(mapFeatures.features)
             .join('path')
             .attr('d', geoPath)
+            .attr('data-selected', false)
             .attr('class', function (svgElement) {
               if (svgElement.properties.articles > 0)
                 return 'country country-highlighted'
@@ -99,18 +101,39 @@
               }
             })
             .on('mouseout', function (event) {
-              d3.select(this).attr('class', function (svgElement) {
-                if (svgElement.properties.articles > 0)
-                  return 'country country-highlighted'
-                else 
-                  return 'country'
-              })
+              const countryTarget = event.target
+              if (countryTarget.dataset.selected === 'false') {
+                d3.select(this).attr('class', function (svgElement) {
+                  if (svgElement.properties.articles > 0)
+                    return 'country country-highlighted'
+                  else 
+                    return 'country'
+                })
+              }
               d3.select('.card__body__countries__tooltip')
                 .style('visibility','hidden')
             })
-            .on('click', function(svgElement, data) {
-              const countrySelected = data
-              if (data.properties.articles > 0) {
+            .on('click', function(event, svgElement) {
+              if (svgElement.properties.articles > 0) {
+                const countryTarget = event.target
+                d3.selectAll('[data-selected=true]')
+                  .attr('data-selected', false)
+                  .attr('class', 'country country-highlighted')
+                d3.select(this).attr('data-selected', true)
+                d3.select(this).attr('class', function (svgElement) {
+                  if (countryTarget.dataset.selected === 'false') {
+                    if (svgElement.properties.articles > 0)
+                      return 'country hover'
+                    else 
+                      return 'country'
+                  } else {
+                    if (svgElement.properties.articles > 0)
+                      return 'country hover'
+                    else 
+                      return 'country'
+                  }
+                })
+                const countrySelected = svgElement
                 const institutionAuthorsByCountry = institutionsAuthorsList.filter(function (institutionAuthor) {
                   if (institutionAuthor.code === countrySelected.id) {
                     return institutionAuthor
@@ -139,7 +162,7 @@
                   .html(`
                     <span class="card__body__countries__details__header__flag ${countrySelected.id}-flag"></span>
                     <span class="card__body__countries__details__header__title">
-                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Publication's total: ${data.properties.articles}</span>&nbsp;of 20
+                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Publication's total: ${svgElement.properties.articles}</span>&nbsp;of 20
                     </span>
                   `)
                 d3.select('.card__body__countries__details__institutions__title')
