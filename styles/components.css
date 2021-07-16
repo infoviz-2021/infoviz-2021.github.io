@@ -17,6 +17,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   color: var(--gray);
 }
 
+.card__body__countries__group {
+  display: flex;
+  flex-direction: column;
+}
+
 .card__body__countries__map {
   display: flex;
   min-width: 70vw;
@@ -120,7 +125,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__legends {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: relative;
   padding: 0.5em;
   bottom: 0px;
   font-family: var(--font-family-theme);
