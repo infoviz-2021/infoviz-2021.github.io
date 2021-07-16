@@ -117,12 +117,23 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   cursor: pointer;
 }
 
+.card__body__countries__details__institutions__list--highlighted {
+  color: var(--purple);
+  font-weight: 700;
+}
+
 .card__body__countries__details__authors {
   font-size: 0.75rem;
 }
 
 .card__body__countries__details__authors__title strong {
   color: var(--dark-magenta);
+}
+
+.card__body__countries__details__authors__list li:hover {
+  color: var(--purple);
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .card__body__countries__details__authors__list--highlighted {
