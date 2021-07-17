@@ -7,6 +7,12 @@ header {
   flex-direction: column;
   background-color: var(--primary);
   color: var(--white);
+  padding: 1em;
+  line-height: 1.25rem;
+}
+
+.header__authors {
+  font-size: 12px;
 }
 
 h1, h2, h3, h4, h5, h6, p,
