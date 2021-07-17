@@ -15,7 +15,6 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   display: flex;
   min-height: 30px;
   padding: 1em;
-  font-size: 0.5rem;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
