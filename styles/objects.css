@@ -146,8 +146,24 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   text-align: center;
 }
 
-.stats__stat__value__numeric.stats__stat__value__numeric--dark-cornflower-blue {
+.stats__stat.stats__stat--light-cornflower-blue
+.stats__stat__value__numeric {
   color: var(--dark-cornflower-blue);
+}
+
+.stats__stat.stats__stat--light-purple-3
+.stats__stat__value__numeric {
+  color: var(--dark-purple-3);
+}
+
+.stats__stat.stats__stat--light-magenta-3
+.stats__stat__value__numeric {
+  color: var(--dark-magenta-2);
+}
+
+.stats__stat.stats__stat--light-blue
+.stats__stat__value__numeric, .stats__stat__value__description {
+  color: var(--dark-blue-2);
 }
 
 .stats__stat__value__text {
@@ -159,6 +175,11 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   text-align: center;
 }
 
-.stats__stat__value__text.stats__stat__value__text--dark-blue {
-  color: var(--dark-blue);
+.stats__stat__value__text.stats__stat__value__text--dark-blue-2 {
+  color: var(--dark-blue-2);
+}
+
+.stats__stat__value__description {
+  font-size: 11px;
+  text-align: center;
 }

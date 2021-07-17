@@ -108,7 +108,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details__institutions__title strong {
-  color: var(--dark-purple);
+  color: var(--dark-purple-3);
 }
 
 .card__body__countries__details__institutions__list li:hover {
@@ -127,7 +127,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details__authors__title strong {
-  color: var(--dark-magenta);
+  color: var(--dark-magenta-2);
 }
 
 .card__body__countries__details__authors__list li:hover {
@@ -179,7 +179,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .stats__stat__value.stats__stat__value--database {
-  color: var(--dark-purple);
+  color: var(--dark-purple-3);
   text-align: left;
   margin-left: 1em;
   width: 80%;
