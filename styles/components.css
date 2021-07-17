@@ -220,6 +220,28 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   width: 80%;
 }
 
+.home__body__overview-and-wordcloud {
+  display: flex;
+  flex-direction: row;
+}
+
+.home__body__overview-and-wordcloud__overview {
+  max-width: 50%;
+}
+
+.home__body__overview-and-wordcloud__overview img {
+  width: 100%;
+}
+
+.home__body__overview-and-wordcloud__wordcloud {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-color: black;
+  border-style: dotted;
+}
+
 .timeline-milestones {
   display: flex;
   justify-content: center;
