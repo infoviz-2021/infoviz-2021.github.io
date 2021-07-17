@@ -229,6 +229,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   max-width: 50%;
 }
 
+.home__body__overview-and-wordcloud__overview h2 {
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+}
+
 .home__body__overview-and-wordcloud__overview img {
   width: 100%;
 }
