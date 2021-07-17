@@ -173,51 +173,21 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-left: 0.3em;
 }
 
-.home__body__stats__stat__slr__total {
-  background-color: var(--light-cornflower-blue);
-}
-
-.home__body__stats__stat__slr__total .stats__stat__title {
-  font-size: 1.25rem;
-}
-
-.home__body__stats__stat__slr__total .stats__stat__value {
-  color: var(--dark-cornflower-blue);
-  font-size: 3rem;
-}
-
-.home__body__stats__stat__slr__period {
-  background-color: var(--light-blue);
-}
-
-.home__body__stats__stat__slr__period .stats__stat__title {
-  font-size: 1.25rem;
-  width: 63%;
-}
-
-.home__body__stats__stat__slr__period .stats__stat__value {
-  font-size: 1.25rem;
-  color: var(--dark-blue);
-  text-align: center;
-  width: 37%;
-}
-
-.home__body__stats__stat__slr__databases {
-  background-color: #d9d2e9ff;
-}
-
-.home__body__stats__stat__slr__databases .stats__stat__title {
+.stats__stat__title.home__body__stats__stat__slr__databases {
   font-size: 1.25rem;
   width: 20%;
 }
 
-.home__body__stats__stat__slr__databases .stats__stat__value {
-  font-size: 1rem;
-  font-weight: 500;
+.stats__stat__value.stats__stat__value--database {
   color: var(--dark-purple);
   text-align: left;
   margin-left: 1em;
   width: 80%;
+}
+
+.stats__stat__value__text.stats__stat__value__text--database {
+  font-weight: 500;
+  font-size: 1rem;
 }
 
 .home__body__overview-and-wordcloud {

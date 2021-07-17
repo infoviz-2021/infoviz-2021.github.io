@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
@@ -22,22 +21,28 @@
     </header>
     <main>
       <section class="stats">
-        <div class="stats__stat home__body__stats__stat__slr__total">
-          <div class="stats__stat__title home__body__stats__stat__slr__total__title">SLR Analyzed Publications</div>
-          <div class="stats__stat__value home__body__stats__stat__slr__total__description">20</div>
-        </div>
-        <div class="stats__stat home__body__stats__stat__slr__period">
-          <div class="stats__stat__title">Systematic Literature Review (SLR) Period</div>
-          <div class="stats__stat__value">Jan, 2015<br>to<br>Jan, 2021</div>
-        </div>
-        <div class="stats__stat home__body__stats__stat__slr__databases">
-          <div class="stats__stat__title">SLR Data Bases</div>
+        <div class="stats__stat stats__stat--light-cornflower-blue">
+          <div class="stats__stat__title">SLR Analyzed Publications</div>
           <div class="stats__stat__value">
-            ACM Digital Library
-            <br>IEEE Xplore Digital Library
-            <br>SpringerLink
-            <br>Science Direct
-            <br>Google Scholar
+            <span class="stats__stat__value__numeric stats__stat__value__numeric--dark-cornflower-blue">20</span>
+          </div>
+        </div>
+        <div class="stats__stat stats__stat--light-blue">
+          <div class="stats__stat__title">Systematic Literature Review (SLR) Period</div>
+          <div class="stats__stat__value">
+            <span class="stats__stat__value__text stats__stat__value__text--dark-blue stats__stat__value__text--center">Jan, 2015<br>to<br>Jan, 2021</span>
+          </div>
+        </div>
+        <div class="stats__stat stats__stat--light-purple-3">
+          <div class="stats__stat__title home__body__stats__stat__slr__databases">SLR Data Bases</div>
+          <div class="stats__stat__value stats__stat__value--database">
+            <span class="stats__stat__value__text stats__stat__value__text--database">
+              ACM Digital Library
+              <br>IEEE Xplore Digital Library
+              <br>SpringerLink
+              <br>Science Direct
+              <br>Google Scholar
+            </span>
           </div>
         </div>
       </section>

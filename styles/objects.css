@@ -109,12 +109,56 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   padding: 0.5em 1.5em;
   align-items: center;
   margin: 0 1em;
+  color: var(--dark-grey);
+}
+
+.stats__stat.stats__stat--light-cornflower-blue {
+  background-color: var(--light-cornflower-blue);
+}
+
+.stats__stat.stats__stat--light-blue {
+  background-color: var(--light-blue);
+}
+
+.stats__stat.stats__stat--light-purple-3 {
+  background-color: var(--light-purple-3);
+}
+
+.stats__stat.stats__stat--light-magenta-3 {
+  background-color: var(--light-magenta-3);
 }
 
 .stats__stat__title {
   color: var(--dark-grey);
+  font-size: 1.25rem;
+  width: 63%;
 }
 
 .stats__stat__value {  
+  display: flex;
+  flex-direction: column;
+  width: 37%;
+}
+
+.stats__stat__value__numeric {
   font-weight: 700;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.stats__stat__value__numeric.stats__stat__value__numeric--dark-cornflower-blue {
+  color: var(--dark-cornflower-blue);
+}
+
+.stats__stat__value__text {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.stats__stat__value__text.stats__stat__value__text--center {
+  text-align: center;
+}
+
+.stats__stat__value__text.stats__stat__value__text--dark-blue {
+  color: var(--dark-blue);
 }
