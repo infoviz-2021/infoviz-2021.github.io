@@ -219,3 +219,123 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-left: 1em;
   width: 80%;
 }
+
+.timeline-milestones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 100px;
+  max-width: 1000px;
+  position: relative;
+  margin: 180px auto 1em;
+}
+
+.timeline-milestones__milestone {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  background-color: var(--purple);
+  position: relative;
+  border-radius: 50%;
+  margin: 0 15px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.timeline-milestones__milestone:hover {
+  cursor: pointer;
+}
+
+.timeline-milestones__milestone::before,
+.timeline-milestones__milestone::after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--purple);
+  width: 4vw;
+  height: 5px;
+  max-width: 50px;
+}
+
+.timeline-milestones__milestone::before {
+  left: calc(-4vw + 12.5px);
+}
+
+.timeline-milestones__milestone::after {
+  right: calc(-4vw + 12.5px);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active::before {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active::after {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active span {
+  font-weight: 400;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__description {
+  font-size: 14px;
+  visibility: visible;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__year {
+  font-size: 25px;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone,
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::before,
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::after {
+  background-color: var(--light-purple);
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__description {
+  position: absolute;
+  visibility: hidden;
+  margin: 0 auto;
+  bottom: 160px;
+  width: 200px;
+  font-size: 13px;
+  text-align: left;
+  font-family: var(--font-family-theme);
+  max-height: 150px;
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__description a {
+  text-decoration: none;
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__year {
+  font-size: 20px;
+  color: #ecf0f1;
+}
+
+.timeline-milestones__milestone__title {
+  color: #ecf0f1;
+  text-align: center;
+  font-size: 13px;
+  margin: 0.5em 1em;
+  font-weight: 300;
+}
+
+@media (min-width: 1250px) {
+  .timeline-milestones__milestone::before {
+    left: -37.5px;
+  }
+
+  .timeline-milestones__milestone::after {
+    right: -37.5px;
+  }
+}

@@ -6,8 +6,7 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  border: 1px black solid;
+  margin: 1em;
 }
 
 .card__header {
@@ -16,9 +15,10 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   padding: 1em;
   font-size: 0.5rem;
   line-height: 1;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   align-items: center;
+  justify-content: center;
 }
 
 .card__body {
@@ -94,6 +94,8 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   display: flex;
   flex-direction: row;
   font-family: var(--font-family-theme);
+  width: 100%;
+  justify-content: center;
 }
 
 .stats__stat {

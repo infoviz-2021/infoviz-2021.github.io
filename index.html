@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/objects.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles.css">
+
     <title>Trabalho de InfoViz</title>
   </head>
   <body>
@@ -40,6 +41,41 @@
           </div>
         </div>
       </section>
+
+      <section class="card">
+        <div class="card__header">
+          <h2>Milestones that contributed to the proposal of HInt paradigm</h2>
+        </div>
+        <div class="card__body card__body--no-overflow ">
+          <div class="timeline-milestones">
+            <div class="timeline-milestones__milestone timeline-milestones__milestone--active">
+              <span class="timeline-milestones__milestone__year">1960</span>
+              <span class="timeline-milestones__milestone__title">Forecast of Integrated Future</span>
+              <span class="timeline-milestones__milestone__description"><h5>Event:</h5>The "Integration" term was used to describe a possible (i.e., future) symbiotic relationship between humans and technologies (Licklider, 1960).<br><a href="https://cmapspublic2.ihmc.us/rid=1SYWT9889-6BM9HX-3GVD/Licklider%20-%20Man-Computer%20Symbiosis.pdf" target="_blank">See reference</a></span>
+            </div>
+            <div class="timeline-milestones__milestone">
+              <span class="timeline-milestones__milestone__year">2016</span>
+              <span class="timeline-milestones__milestone__title">Definition of HInt era</span>
+              <div class="timeline-milestones__milestone__description"><h5>Event:</h5> The "Integration" term was used to characterize a new era between humans and technologies, the Human-Computer Integration (HInt) era (Farooq and Grudin, 2016).<br><a href="https://dl.acm.org/doi/10.1145/3001896" target="_blank">See reference</a></div>
+            </div>
+            <div class="timeline-milestones__milestone">
+              <span class="timeline-milestones__milestone__year">2017</span>
+              <span class="timeline-milestones__milestone__title">The new era presents as a potential paradigm</span>
+              <div class="timeline-milestones__milestone__description"><h5>Event:</h5> Researchers started the discussions to define Human-Computer Integration (HInt) not only as a new era, but as a possible paradigm shift from Human-Computer Interaction (HCI) to HInt (Farooq and Grudin, 2017).<br><a href="https://dl.acm.org/doi/10.1145/3027063.3049285" target="_blank">See reference</a></div>
+            </div>
+            <div class="timeline-milestones__milestone">
+              <span class="timeline-milestones__milestone__year">2019</span>
+              <span class="timeline-milestones__milestone__title">Proposal of HInt as an extension of HCI</span>
+              <div class="timeline-milestones__milestone__description"><h5>Event:</h5> Human-Computer Integration (HInt) was discussed as an emerging paradigm that extends but does not replace the Human-Computer Interaction (HCI) area (Mueller el al, 2019).<br><a href="https://drops.dagstuhl.de/opus/volltexte/2019/10234/pdf/dagrep_v008_i008_p018_18322.pdf" target="_blank">See reference</a></div>
+            </div>
+            <div class="timeline-milestones__milestone">
+              <span class="timeline-milestones__milestone__year">2020</span>
+              <span class="timeline-milestones__milestone__title">Formal definition of the HInt paradigm</span>
+              <div class="timeline-milestones__milestone__description"><h6>Event:</h6> Human-Computer Integration (HInt) was formally defined and characterized as an emerging paradigm in the Human-Computer Interaction (HCI) area (Mueller el al, 2020).<br><a href="https://dl.acm.org/doi/10.1145/3313831.3376242" target="_blank">See reference</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   
     <!-- Links only for test-->
@@ -52,5 +88,22 @@
     <a href="vis07.html">Vis07 - Distribution of initiatives that address Human-Computer Interaction</a><br>
     <a href="vis08.html">Vis08 - Publication focus per contribution type</a><br>
 
+    <script>
+      const inputs = document.querySelectorAll('.timeline-milestones__milestone')
+
+      inputs.forEach(function (input, key) {
+        input.addEventListener('mouseover', function (event) {
+          const target = event.target
+          if (target.classList.contains('timeline-milestones__milestone')) {
+            target.classList.add('timeline-milestones__milestone--active')  
+            inputs.forEach(function(otherInput, otherKey) {
+              if (key != otherKey) {
+                otherInput.classList.remove('timeline-milestones__milestone--active')
+              }
+            })
+          }
+        })
+      })
+    </script>
   </body>
 </html>
