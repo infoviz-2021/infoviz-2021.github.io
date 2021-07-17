@@ -96,15 +96,16 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   font-family: var(--font-family-theme);
   width: 100%;
   justify-content: center;
+  margin: 1em;
 }
 
 .stats__stat {
   display: flex;
   flex-direction: row;
-  height: 150px;
+  max-height: 150px;
   width: 300px;
   border-radius: 1em;
-  padding: 1.5em;
+  padding: 0.5em 1.5em;
   align-items: center;
   margin: 0 1em;
 }
