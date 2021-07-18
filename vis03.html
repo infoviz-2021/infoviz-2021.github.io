@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="styles/settings.css">
+      <link rel="stylesheet" href="styles/base.css">
+      <link rel="stylesheet" href="styles/generic.css">
+      <link rel="stylesheet" href="styles/objects.css">
+      <link rel="stylesheet" href="styles/components.css">
+      <link rel="stylesheet" href="vis04.css">
+      <title>Areas and domains which partner technologies can be used</title>
+   </head>
+   <body>
+      <section>
+         <div>
+            <div class="card__header__vis04">
+               <h2 class="text-title text-color">Areas and domains which partner technologies can be used</h2>
+            </div>
+            <div id="my_dataviz">
+               <!-- <svg width="960" height="500"></svg> -->
+            </div>
+         </div>
+      </section>
+      <script src="https://d3js.org/d3.v6.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+      <script>
+        var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+        var colors = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var myWords =[{word:"Transport", size:19, color:"#b5de2b", context:"Veículo Semiautônomo; eBike Inteligente"},
+                        {word:"context", size:15, color:"#b5de2b", context:"Robos Inteligentes"},
+                        {word:"Health and Well-being", size:15, color:"#b5de2b", context:"Apps para monitoramento de saúde e bem estar"},
+                        {word:"Self Organization", size:13, color:"#b5de2b", context:"Despertador Inteligente"},
+                        {word:"Communication", size:13, color:"#b5de2b", context:"Gerenciador de e-mail Inteligente"},
+                        {word:"Informacional", size:11, color:"#b5de2b", context:"Sistemas de recomendação de notícias; Sistemas de previsão e alerta de congestionamento ou condições climáticas; Chatbot Inteligente"},
+                        {word:"Exertion", size:9, color:"#b5de2b", context:"eBike Inteligente"},
+                        {word:"Entertainment", size:6, color:"#b5de2b", context:"Sistemas de recomendação de vídeos, filmes, músicas; Jogos de Realidade Aumentada; Jogos de Realidade Virtual"},
+                        {word:"Social", size:5, color:"#b5de2b", context:"Sistemas de recomendação de contatos em mídias sociais"},
+                        {word:"Event Management", size:4, color:"#b5de2b", context:"Reescalonamento de Eventos Inteligente"},
+                        {word:"Educational", size:4, color:"#b5de2b", context:"Jogos Educacionais de Realidade Aumentada"},
+                        {word:"Smart Environment", size:3, color:"#b5de2b", context:"Smart House"},
+                        {word:"e-Commerce", size:2, color:"#b5de2b", context:"Sistemas de recomendação de produtos/serviços"},]
+
+        // set the dimensions and margins of the graph
+        var margin = {top: 1, right: 1, bottom: 1, left: 1},
+            width = 950 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        function fillColor(d,i){
+            return d.color;
+        }
+
+        // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+        // Wordcloud features that are different from one word to the other must be here
+        var layout = d3.layout.cloud()
+            .size([width, height])
+            .words(myWords.map(function(d) { return {text: d.word, size:d.size, color:d.color, context:d.context,}; }))
+            .padding(1)        //space between words
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .fontSize(function(d) { return d.size + 30; })      // font size of words
+            .on("end", draw);
+        layout.start();
+
+        // This function takes the output of 'layout' above and draw the words
+        // Wordcloud features that are THE SAME from one word to the other can be here
+        function draw(words) {
+        svg
+            .append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) { return d.size; })
+            .style("fill", (d, i) => colors(i))
+            .attr("text-anchor", "middle")
+            .attr("size", function(d) { return d.size - 20; })
+            .attr("context", function(d) { return d.context; })
+            .style("font-family", "Impact")
+            .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) { return d.text; })
+            .on("mousemove", function(e){
+                    const[x, y] = d3.pointer(event);
+                    tooltip
+                        .style("left", e.x + "px")
+                        .style("top", e.y + "px")
+                        .style("display", "inline-block")
+                        .attr("class", "toolTip")
+                        .html('<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 
+                              '</br><strong>HInt technology example: </strong>' + e.srcElement.getAttribute('context')
+                        );
+                  })
+            .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
+        }
+      </script>
+   </body>
+</html>

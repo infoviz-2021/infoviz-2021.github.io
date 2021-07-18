@@ -38,6 +38,7 @@ body {
     color: var(--dark-gray);
     font-size: var(--caption-font-size);
     font-family: var(--font-family-theme);
+    text-align: left;
 }
 
 .card__header__vis04{
