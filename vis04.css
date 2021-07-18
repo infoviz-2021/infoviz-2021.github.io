@@ -1,15 +1,4 @@
-body {
-    margin: 15px;
-    background-color: #F1F3F3;
-    font-family: Roboto, sans-serif;
-    font-weight: 400;
-    color: #424949;
-    background-color: #ecf0f1;
-    padding: 0 25px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
+
 .bar {
     fill: #8e7bd7;
 }

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="styles/settings.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/generic.css" />
+    <link rel="stylesheet" href="styles/objects.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="vis04.css" />
+    <title>Trabalho de InfoViz</title>
+  </head>
+  <body>
+    <header>
+      <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
+      <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
+      <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
+    </header>
+    <main>
+      <div class="container">
+        <section class="stats">
+          <div class="stats__stat stats__stat--light-cornflower-blue">
+            <div class="stats__stat__title">SLR Analyzed Publications</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">20</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-blue">
+            <div class="stats__stat__title">Events and forums of Publications</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">15</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__header">
+            <h2>Events and Forums in which the analyzed publications were published</h2>
+          </div>
+          <div class="card__body">
+            <svg width="960" height="500"></svg>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      var svg = d3.select('svg'),
+        margin = { top: 20, right: 20, bottom: 30, left: 530 },
+        width = +svg.attr('width') - margin.left - margin.right,
+        height = +svg.attr('height') - margin.top - margin.bottom;
+
+      var tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
+      var x = d3.scaleLinear().range([0, width]);
+      var y = d3.scaleBand().range([height, 0]);
+
+      var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      d3.json('/data/data_vis04_.json', function (error, data) {
+        if (error) throw error;
+
+        data.sort(function (a, b) {
+          return a.quantidade - b.quantidade;
+        });
+
+        x.domain([
+          0,
+          d3.max(data, function (d) {
+            return d.quantidade;
+          }),
+        ]);
+        y.domain(
+          data.map(function (d) {
+            return d.evento;
+          })
+        ).padding(0.1);
+
+        // X axis
+        g.append('g')
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + height + ')')
+          .attr('class', 'text-caption text-color default-font-family')
+          .call(d3.axisBottom(x).ticks(3));
+        //   .tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+
+        // Y axis
+        g.append('g').attr('class', 'y axis').attr('class', 'text-caption default-font-family text-color').call(d3.axisLeft(y));
+
+        g.append('text')
+          .attr('transform', 'translate(' + width / 2 + ' ,' + (height + margin.top + 10) + ')')
+          .attr('class', 'text-axis default-font-family text-color')
+          .style('text-anchor', 'middle')
+          .text('Number of Publications');
+
+        g.append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 0 - margin.left)
+          .attr('x', 0 - height / 2)
+          .attr('dy', '1em')
+          .attr('class', 'text-axis default-font-family text-color')
+          .style('text-anchor', 'middle')
+          .text('Events and Foruns');
+
+        g.selectAll('.bar')
+          .data(data)
+          .enter()
+          .append('rect')
+          .attr('class', 'bar text-caption default-font-family')
+          .attr('x', 3)
+          .attr('height', y.bandwidth())
+          .attr('y', function (d) {
+            return y(d.evento);
+          })
+          .attr('width', function (d) {
+            return x(d.quantidade);
+          })
+          .on('mousemove', function (d) {
+            tooltip
+              .style('left', d3.event.pageX - 50 + 'px')
+              .style('top', d3.event.pageY - 70 + 'px')
+              .style('display', 'inline-block')
+              .attr('class', 'toolTip')
+              .html(d.artigos);
+          })
+          .on('mouseout', function (d) {
+            tooltip.style('display', 'none').attr('class', 'tollTip');
+          });
+      });
+    </script>
+  </body>
+</html>
