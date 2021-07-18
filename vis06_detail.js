@@ -1,8 +1,8 @@
 var margin = {top: 20, right: 200, bottom: 20, left: 10},
               width = 1280 - margin.left - margin.right,
-              height = 800 - margin.top - margin.bottom
+              height = 700 - margin.top - margin.bottom
 
-const radius_detail = 8;
+const radius_detail = 5;
 //const color = d3.scaleOrdinal(d3.schemeSet2);
 // bgcolor = d3.rgb(d3.schemeSet2[5])
 bgcolor = d3.rgb("#f6cb55") //tom de amarelo
@@ -91,6 +91,8 @@ function updateDetail(author_name){
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .style("display","block")
+      .style("margin", "auto")
       .append("g")
       .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
@@ -151,8 +153,8 @@ function updateDetail(author_name){
 
         //define centers
         const spacing = {h:250, v:120}
-        const paper_size = {w: 350, h:90}
-        const shift_x = 0
+        const paper_size = {w: 300, h:70}
+        const shift_x = width/15
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
         const bandY = {'paper' : author.paper.length, 'partner': author_partner.length }
 
@@ -297,7 +299,7 @@ function updateDetail(author_name){
                   .style("fill",  "white")
     
 
-                 //create papers nodes
+              //create papers nodes
               var node_paper = svg.append("g")
                 .attr("class", "node rect")
                 .selectAll("rect")
@@ -322,7 +324,7 @@ function updateDetail(author_name){
                 .data(nodes_paper)
                 .enter()
                 .append('text')
-                  .attr("class", function(d) { return "label-paper-" + d.id })
+                  .attr("class", function(d) { return "text-legend label-paper-" + d.id })
                   .attr("x",  xCenter.paper +  paper_size.w/2)
                   .attr("y",  d=> (yPaper(d.id) - paper_size.h/2))
                   .attr("text-anchor","middle")
@@ -336,12 +338,12 @@ function updateDetail(author_name){
 
                   textElement = d3.selectAll(".label-paper-" + d.id)
 
-                  tspan = breakText(d.title, 50)
+                  tspan = breakText(d.title, 45)
 
                   if(tspan.length > 4){
                     textElement.append("tspan")
                     .text(d.title)
-                    .attr("dy","2em")
+                    .attr("dy","2.0em")
                     .style("font-weight","bold")
                   }else{
                     for(j in tspan){
@@ -355,8 +357,8 @@ function updateDetail(author_name){
 
                   textElement.append("tspan")
                       .text("Year: " + d.year)
-                      .attr("dy","2em")
-                      .style("font-size","1.05rem")
+                      .attr("dy","1.5em")
+                      //.style("font-size","1.05rem")
                       .attr("x",xCenter.paper + paper_size.w/2)
 
                 })
@@ -385,6 +387,7 @@ function updateDetail(author_name){
           .data(nodes_partner)
           .enter()
           .append("text")
+            .attr("class","text-legend")
             .attr("x", function(d){ return xCenter.partner + (radius_detail*d.qtPartner) + 10} )
             .attr("y", function(d){ return(yPartner(d.id) + radius_detail/2)})
             .text(d => surname(d.id.trim()))

@@ -59,8 +59,9 @@
             <h2 class="text-title">Authors' relationship network </h2>
           </div>
           <div class="card__body">
-            <svg id="my_dataviz" width="1100" height="680"></svg>
+            <svg id="my_dataviz"></svg>
             <div id="my_dataviz_detail"></div>
+            <div class='tooltip'></div>
           </div>
         </section>
       </div>
@@ -68,13 +69,25 @@
 
     <script>
 
+      
+
+      var margin = {top: 50, right: 130, bottom: 10, left: 10},
+                  width = 1435 - margin.left - margin.right,
+                  height = 700 - margin.top - margin.bottom
+
       var svg = d3.select("#my_dataviz")
+      .attr("width", width)
+      .attr("height", height)
 
-      var margin = {top: 50, right: 200, bottom: 10, left: 10},
-                  width = 1200 - margin.left - margin.right,
-                  height = 800 - margin.top - margin.bottom
-
-
+      /*svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("fill", "none")
+      .attr("stroke", "blue")*/
+    
+      
       /*var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
           .force("charge", d3.forceManyBody())
@@ -495,7 +508,7 @@
 
         // Add one dot in the legend for each name.
         var size = 15
-        var xAlign = 800
+        var xAlign = width - margin.right
         var yAlign = 10
 
         svg.append("text")
@@ -554,16 +567,13 @@
         yAlign = 10
 
         svg.append("text")
-        .text("Publication focus on HInt")
+        .text("Publication focus on HInt:")
           .attr("class", "text-legend")
           .attr("x", xAlign)
           .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
-          .attr("font-size", "16px")
-          .attr("font-family", "sans-serif")
           .attr("font-weight", "bold")
-          .style("alignment-baseline", "middle")
-          .style("fill", "#444444")
+     
 
         yAlign += 15  
         svg.selectAll("myrect")
