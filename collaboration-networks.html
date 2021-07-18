@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/generic.css">
+    <link rel="stylesheet" href="styles/objects.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="vis06-08-styles.css">
+
+    <title>Trabalho de InfoViz</title>
+  </head>
+  <body>
+    <header>
+      <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h4>
+      <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
+      <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
+    </header>
+    <main>
+      <div class="container">
+        <section class="stats">
+          <div class="stats__stat stats__stat--light-cornflower-blue">
+            <div class="stats__stat__title">SLR Analyzed Publications</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">20</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-blue">
+            <div class="stats__stat__title">Countries exploring HInt</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">16</span>
+              <span class="stats__stat__value__description">16 (8.2%) of 195 countries in the world</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-purple-3">
+            <div class="stats__stat__title">Institutions exploring HInt around the world</div>
+            <div class="stats__stat__value home__body__stats__stat__slr__total__description">
+              <span class="stats__stat__value__numeric">66</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-magenta-3">
+            <div class="stats__stat__title">Authors exploring HInt around the world</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">100</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__header">
+            <h2 class="text-title">Authors' relationship network </h2>
+          </div>
+          <div class="card__body">
+            <svg width="1100" height="680"></svg>
+            <div class='tooltip'></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+
+      var svg = d3.select("svg")
+  
+      var margin = {top: 50, right: 200, bottom: 10, left: 10},
+                  width = 1200 - margin.left - margin.right,
+                  height = 800 - margin.top - margin.bottom
+  
+  
+      /*var simulation = d3.forceSimulation()
+          .force("link", d3.forceLink().id(function(d) { return d.id; }))
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));*/
+  
+      const radius = 25;
+      //const color = d3.scaleOrdinal(d3.schemeSet2);
+     // bgcolor = d3.rgb(d3.schemeSet2[5])
+      bgcolor = d3.rgb("#f6cb55") //tom de amarelo
+      //bgcolor = d3.rgb("#de88af")
+      //bgcolor = d3.rgb("#8e7bd7")
+      //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
+      //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
+      fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
+      //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
+  
+       // cor padrão: #8e7bd7
+       // cor de destaque: #6443ea
+    
+  
+      //Focus
+      var keys = [
+          { "key": "FGR", "name":"Focus on HInt from a general perspective (FGR)"},
+          { "key": "FGQA", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
+          { "key": "FS", "name":"Focus on HInt in a specific domain or context of use (FS)"}
+        ]; 
+  
+     
+  
+      // Color scale: give me a quantity, I return a color
+      const color = d3.scaleOrdinal()
+          .domain([1,2,3,6])
+          .range(fill);
+          //.range(d3.schemeSet2);
+  
+      // Color scale: give me a focus, I return a color
+      const colorPaper = d3.scaleOrdinal()
+          .domain(keys.map(function(d){return d.key}))
+          .range(d3.schemeSet2);
+  
+      var size = 15;
+  
+    
+  
+      /************************************ READ DATA ******************************************/
+  
+      d3.json("data/data_vis06.json", function(error, data) {
+        if (error) throw error;
+        
+        const nodes = data.nodes//.map(d => Object.create(d))
+        const links = data.links//.map(d => Object.create(d))
+  
+        const nodes_paper = nodes.filter(d => d.type =="paper")
+        const nodes_author = nodes.filter(d => d.type =="author")
+  
+        const links_paper = links.filter(d => d.source.length < 5)
+        const links_author = links.filter(d => d.source.length > 4)
+  
+        //include active property
+        links_paper.forEach(o => o.active = false)
+  
+        const linkedByIndex = [];
+  
+        links.forEach(function(d) {
+          linkedByIndex[`${d.source},${d.target}`] = 1;
+        });
+  
+        var click_loked = false
+        
+  
+        var simulation = d3.forceSimulation()
+        .force("charge", d3.forceManyBody().strength(-80))
+        .force("link", d3.forceLink().id(d => d.id).strength(0.3).distance(50))
+        .force("x", d3.forceX())
+        .force("y", d3.forceY())
+        .force("center", d3.forceCenter((width/2), (height / 2)))
+        .force('collision', d3.forceCollide().radius(function(d) {
+          if(d.type === "author")
+            return Math.sqrt(radius * (d.qt+2));
+          return 20;
+        }));
+  
+  
+        var link = svg.append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .enter().append("line")
+          .attr("class", function(d) { 
+  
+            if(d.source.length < 5){
+              //get souce node focus properties
+              const getnode = nodes_paper.filter(e => e.id === d.source)[0]
+              return "myArea " + getnode.focus;
+            }
+          })
+          .style("stroke", function(d){ 
+            if(d.source.length < 5){
+              //get souce node focus properties
+              const getnode = nodes_paper.filter(e => e.id === d.source)[0]
+              return colorPaper(getnode.focus);
+            }
+            return "#aaa";
+          })
+          .attr("stroke-opacity", function(d){ 
+            if(d.source.length < 5)
+              return 0.5;
+            return 0.3;
+          })
+          .attr("stroke-width", function(d){ 
+            if(d.source.length < 5)
+              return 2;
+            return 1;
+          }) ;
+          //.attr("stroke-width", d => Math.sqrt(d.qt) / 2); ;
+        
+      /**************************** AUTHOR'S NODE *********************************/
+      var node = svg.append("g")
+          .attr("class", "nodes")
+          //.attr("stroke", "#555")
+          .selectAll("circle")
+          .data(nodes_author)
+          .enter()
+          .append("circle")
+            .attr("class", function(d){
+              //find focus paper 
+              name_class = "myArea qt-" + d.qt;
+  
+              const getnode = nodes_paper.filter(e => d.paper.includes(e.id))
+              
+              getnode.forEach(e => (name_class = name_class + " " +e.focus))
+             // console.log("class node:", name_class)
+              return name_class;
+  
+            })
+            .attr("r", function(d){ return Math.sqrt(radius * d.qt)})
+            //.attr("fill", function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
+            .attr("fill", function(d){ return (color(d.qt))})
+            .attr("stroke",function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
+            .style("cursor", "pointer")
+            .on('mouseover', fade(0.1))
+            .on('mouseout', fade(1))
+            .on("click", function(d) {
+             // http://bootboxjs.com/
+              location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+            })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+  
+        var node_paper = svg.append("g")
+            .attr("class", "nodes").selectAll("rect")
+            .data(nodes_paper)
+            .enter()
+            .append("rect")
+              .attr("class", function(d) { return "myArea " + d.focus})
+              .attr("width", size)
+              .attr("height", size)
+              .attr("rx", 1)
+              .attr("ry", 1)
+             // .style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
+              //.style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(1.5)})
+              .style("fill",  function(d){ return colorPaper(d.focus)})
+              .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
+              .on('mouseover', fade(0.1))
+              .on('mouseout', fade(1))
+              .call(d3.drag()
+                  .on("start", dragstarted)
+                  .on("drag", dragged)
+                  .on("end", dragended));  
+                  
+  
+        var textElems = svg.append('g')
+          .selectAll('text')
+          .data(nodes_author)
+          .enter()
+          .append('text')
+            .text(d => `${d.id} (#publication: ${d.qt})`)
+            .style("text-shadow","1px 1px 2px #aaa")
+            .attr("fill", "#343a40")
+            .attr("font-weight","bold")
+            .attr("font-size",".80rem")
+            .on('mouseover', fade(0.1))
+            .on('mouseout', fade(1))
+  
+        simulation
+            .nodes(nodes)
+            .on("tick", ticked);
+  
+       /* simulation.force("link")
+            .links(links_author);*/
+        
+        simulation.force("link")
+            .links(links_paper);
+  
+        function ticked() {
+          link
+              .attr("x1", function(d) {return d.source.x; })
+              .attr("y1", function(d) {return d.source.y;})
+              .attr("x2", function(d) { return d.target.x; })
+              .attr("y2", function(d) { return d.target.y; });
+  
+          node
+              .attr("cx", function(d) { return d.x; })
+              .attr("cy", function(d) { return d.y; });
+  
+          node_paper
+            .attr("x", function(d) { return ( d.x - size/2); })
+            .attr("y", function(d) { return ( d.y - size/2); });
+          
+          textElems
+            .attr("x", d => d.x + 10)
+            .attr("y", d => d.y -10)
+            .attr("visibility", "hidden");
+        }
+  
+        function updateDetail(d,i) {
+  
+            d3.select("#my_dataviz").remove();
+            author_founded = node.filter(e => isConnected(d, e))
+            paper_founded = node_paper.filter(e => isConnected(d, e))
+            link_founded = link.filter(o => (o.source === d || o.target === d))
+      
+            console.log(author_founded)
+            console.log(paper_founded)
+            console.log(paper_founded)
+  
+        }
+  
+        function tooltip(d, visibility){
+          if(visibility === "hidden"){
+            d3.select('.tooltip')
+                  .style('visibility', 'hidden')
+          }else{
+           /* if(d.type == "author"){
+              content = `<strong>Name: </strong>${d.id} <br> 
+                         <strong>#Paper:</strong> ${d.qt}`
+            }*/
+            
+            if(d.type == "paper"){
+              content = `<strong>Publication title: </strong>${d.title} 
+                         <br> <strong>Focus:</strong> ${d.focus}
+                         <br> <strong>#authors:</strong> ${d.qt} `
+            }
+         
+            d3.select('.tooltip')
+                  .style('visibility', 'visible')
+                  .style('top', d3.event.y + 10 + 'px')
+                  .style('left',d3.event.x + 10 + 'px')
+                  .html(content)
+          }
+        }
+  
+  
+        /*********************************** FILTER AUTHOR *******************************************/
+  
+    /*    function handleNodeMouseOver(d){
+      let currentNode = d3.select(this);
+      let currentData = currentNode.datum();
+      
+      currentData.fx = currentData.x;
+      currentData.fy = currentData.y;
+      currentNode.datum(currentData);
+      
+      currentNode.attr("r", 20);
+      
+      sim.force("charge", d3.forceManyBody().strength(d =>  d === currentNode.datum() ? -500:-40));
+      sim.alphaTarget(0.3).restart();
+     }
+    
+      function handleNodeMouseOut(d){
+        let currentNode = d3.select(this);
+        let currentData = currentNode.datum();
+      
+        currentData.fx = null;
+        currentData.fy = null;
+        currentNode.datum(currentData);
+        
+        currentNode.attr("r", 5);
+        sim.force("charge", d3.forceManyBody().strength(-40));
+        sim.alphaTarget(0.3).restart();
+    }
+    
+    */
+  
+        function fade(opacity) {
+  
+  
+  
+          return d => {   
+  
+              if(d.type === "paper") {
+                tooltip(d, "visible")
+              }
+              node.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
+              node_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
+            // textElems.style('visibility', function (o) { return isConnected(d, o) ? "visible" : "hidden" }); 
+              textElems.style('visibility', function (o) { return d == o ? "visible" : "hidden" }); //return isConnected(d, o) ? "visible" : "hidden" }     
+              
+              if( d.type === "author"){
+  
+                //get all paper node
+  
+                author_papers = nodes_paper.filter(o => d.paper.includes(o.id));  
+  
+                author_papers.forEach( function(p){
+  
+                  link.style('stroke-opacity', function (o){ 
+                    if (o.source === p || o.target === p || o.active === true){
+                      o.active = true
+                      return 1
+                    }else{ 
+                      return opacity 
+                    }
+                  });
+                })
+  
+                if(opacity === 1){
+                  links_paper.forEach(o => o.active = false)
+                }
+  
+              }else{
+                link.style('stroke-opacity', function (o){ return (o.source === d || o.target === d ? 1 : opacity)});
+  
+              }//if-else author
+  
+              if(opacity === 1){
+                tooltip(d, "hidden")
+                
+                node.style('opacity', 1)
+                node_paper.style('opacity', 1)
+                textElems.style('visibility', 'hidden')
+                link.style('stroke-opacity', 0.5)
+  
+              }
+  
+            };
+          
+          }
+  
+          function isConnected(a, b) {
+            return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
+          }
+  
+          function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+  
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+  
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+  
+  
+      });
+  
+      /************************************************* HIGHLIGHT GROUP ****************************************************/
+          // What to do when one group is hovered
+          var highlightQt = function(d){
+  
+            // reduce opacity of all groups
+            d3.selectAll(".myArea").style("opacity", 0.1)
+  
+            //set font label to bold
+            d3.selectAll(".label-qt-"+d)
+              .attr("font-weight", "bold")
+          
+            // expect the one that is hovered
+            d3.selectAll(".qt-"+d).style("opacity", 1)
+  
+          }
+  
+          // And when it is not hovered anymore
+          var noHighlightQt = function(d){
+            //set font label to normal
+            d3.selectAll(".label-qt-"+d)
+            .attr("font-weight", "normal")
+  
+            d3.selectAll(".myArea").style("opacity", 1)
+          }
+  
+          // What to do when one group is hovered
+          var highlightFocus = function(d){
+  
+            // reduce opacity of all groups
+            d3.selectAll(".myArea").style("opacity", .1)
+              //set font label to bold
+               d3.selectAll(".label-"+d.key)
+              .attr("font-weight", "bold")
+            
+              // expect the one that is hovered
+              d3.selectAll("."+d.key).style("opacity", 1)
+  
+          }
+  
+          // And when it is not hovered anymore
+          var noHighlightFocus = function(d){
+            //set font label to normal
+            d3.selectAll(".label-"+d.key)
+            .attr("font-weight", "normal")
+  
+            d3.selectAll(".myArea").style("opacity", 1)
+  
+          
+          }
+  
+  /*********************************************** QT PUBLICATION  ***************************************************/
+  
+        // Add one dot in the legend for each name.
+        var size = 15
+        var xAlign = 800
+        var yAlign = 10
+  
+        svg.selectAll("myCircle")
+        .data([1,2,3,6])
+        .enter()
+        .append("circle")
+            .attr("class", function(d) { return "label-circle qt-" + d })
+            .attr("cx", xAlign)
+            .attr("cy", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("r", d => Math.sqrt(radius * d))
+           // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
+           // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
+            .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
+            .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
+            .on("mouseover", highlightQt)
+            .on("mouseleave", noHighlightQt)
+  
+        // Add one dot in the legend for each name.
+        svg.selectAll("mylabels")
+        .data([1,2,3,6])
+        .enter()
+        .append("text")
+          .attr("class", function(d) { return "text-legend label-qt-" + d })
+          .attr("x", xAlign + size*1.5)
+          .attr("y", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
+          .style("fill", "#343a40")
+          .text(function(d){ 
+            if(d == 1)
+              return ("Author with 0" + d + " publication")
+            return ("Author with 0" + d + " publications")
+          })
+          .attr("text-anchor", "left")
+          .style("alignment-baseline", "middle")
+          .attr("font-size", "10px")
+          .on("mouseover", highlightQt)
+          .on("mouseleave", noHighlightQt)
+  
+      /*********************************************** FOCUS LEGEND  ***************************************************/
+  
+       // Add one dot in the legend for each name.
+        size = 20
+        xAlign = 10
+        yAlign = 10
+  
+       /* svg.append("text")
+        .text("Publication focus")
+          .attr("class", "text-legend")
+          .attr("x", xAlign)
+          .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("text-anchor", "left")
+          .attr("font-size", "16px")
+          .attr("font-family", "sans-serif")
+          .attr("font-weight", "bold")
+          .style("alignment-baseline", "middle")
+          .style("fill", "#444444")
+      */
+  
+        svg.selectAll("myrect")
+        .data(keys)
+        .enter()
+        .append("rect")
+            .attr("class", function(d) { return "label-rect" + d.key })
+            .attr("x", xAlign)
+            .attr("y", function(d,i){ return yAlign + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("width", size)
+            .attr("height", size)
+            .attr("rx", 1)
+            .attr("ry", 1)
+            //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
+           // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
+            .style("fill",  function(d){ return colorPaper(d.key)})
+            .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
+            .on("mouseover", highlightFocus)
+            .on("mouseleave", noHighlightFocus)
+  
+        // Add one dot in the legend for each name.
+        svg.selectAll("mylabels")
+        .data(keys)
+        .enter()
+        .append("text")
+            .attr("class", function(d) { return "text-legend label-"+ d.key })
+            .attr("x", xAlign + size*1.2)
+            .attr("y", function(d,i){ return yAlign +2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .text(function(d){ return d.name})
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .on("mouseover", highlightFocus)
+            .on("mouseleave", noHighlightFocus)
+  
+      </script>
+
+  </body>
+</html>
