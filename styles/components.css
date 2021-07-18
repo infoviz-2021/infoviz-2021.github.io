@@ -20,11 +20,12 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__group {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .card__body__countries__map {
   display: flex;
-  min-width: 70vw;
+  min-width: 70%;
 }
 
 .card__body__countries__details {
@@ -336,4 +337,120 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   .timeline-milestones__milestone::after {
     right: -37.5px;
   }
+}
+
+.flag {
+  position: relative;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 2em;
+  display: inline-block;
+}
+
+.AUS-flag {
+  background-image: var(--australia-flag);
+}
+
+.AUT-flag {
+  background-image: var(--austria-flag);
+}
+
+.CAN-flag {
+  background-image: var(--canada-flag);
+}
+
+.CHN-flag {
+  background-image: var(--china-flag);
+}
+
+.CYP-flag {
+  background-image: var(--cyprus-flag);
+}
+
+.DNK-flag {
+  background-image: var(--denmark-flag);
+}
+
+.FIN-flag {
+  background-image: var(--finland-flag);
+}
+
+.FRA-flag {
+  background-image: var(--france-flag);
+}
+
+.DEU-flag {
+  background-image: var(--germany-flag);
+}
+
+.GRC-flag {
+  background-image: var(--greece-flag);
+}
+
+.JPN-flag {
+  background-image: var(--japan-flag);
+}
+
+.NLD-flag {
+  background-image: var(--netherlands-flag);
+}
+
+.NZL-flag {
+  background-image: var(--new-zealand-flag);
+}
+
+.ESP-flag {
+  background-image: var(--spain-flag);
+}
+
+.GBR-flag {
+  background-image: var(--uk-flag);
+}
+
+.USA-flag {
+  background-image: var(--usa-flag);
+}
+
+.card__body__countries__map .country {
+  stroke: #fff;
+  fill: #aaa;
+}
+
+.card__body__countries__map .country-highlighted {
+  fill: var(--light-purple);
+}
+
+.card__body__countries__map .hover {
+  fill: var(--purple);
+}
+
+div.card__body__countries__tooltip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  visibility: hidden;
+  font-size: 100%;
+  color: #333333;
+  background-color: #e6e6e6;
+  opacity: 0.9;
+  padding: 0.3em;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.country-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.country-title__name {
+  margin-left: 0.3em;
+}
+
+.country-academic-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3em;
 }

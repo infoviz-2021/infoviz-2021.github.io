@@ -26,6 +26,12 @@ main {
   align-items: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+}
+
 .default-font-family{
   font-family: var(--font-family-theme);
 }
