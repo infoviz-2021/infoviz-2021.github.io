@@ -152,7 +152,7 @@ function updateDetail(author_name){
         //define centers
         const spacing = {h:250, v:120}
         const paper_size = {w: 350, h:90}
-        const shift_x = 180
+        const shift_x = 0
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
         const bandY = {'paper' : author.paper.length, 'partner': author_partner.length }
 
