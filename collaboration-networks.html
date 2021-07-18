@@ -8,6 +8,7 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src= "vis06_detail.js"> </script>
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
@@ -58,8 +59,8 @@
             <h2 class="text-title">Authors' relationship network </h2>
           </div>
           <div class="card__body">
-            <svg width="1100" height="680"></svg>
-            <div class='tooltip'></div>
+            <svg id="my_dataviz" width="1100" height="680"></svg>
+            <div id="my_dataviz_detail"></div>
           </div>
         </section>
       </div>
@@ -67,21 +68,21 @@
 
     <script>
 
-      var svg = d3.select("svg")
-  
+      var svg = d3.select("#my_dataviz")
+
       var margin = {top: 50, right: 200, bottom: 10, left: 10},
                   width = 1200 - margin.left - margin.right,
                   height = 800 - margin.top - margin.bottom
-  
-  
+
+
       /*var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
           .force("charge", d3.forceManyBody())
           .force("center", d3.forceCenter(width / 2, height / 2));*/
-  
+
       const radius = 25;
       //const color = d3.scaleOrdinal(d3.schemeSet2);
-     // bgcolor = d3.rgb(d3.schemeSet2[5])
+      // bgcolor = d3.rgb(d3.schemeSet2[5])
       bgcolor = d3.rgb("#f6cb55") //tom de amarelo
       //bgcolor = d3.rgb("#de88af")
       //bgcolor = d3.rgb("#8e7bd7")
@@ -89,61 +90,61 @@
       //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
       fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
       //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
-  
-       // cor padrão: #8e7bd7
-       // cor de destaque: #6443ea
-    
-  
+
+      // cor padrão: #8e7bd7
+      // cor de destaque: #6443ea
+
+
       //Focus
       var keys = [
-          { "key": "FGR", "name":"Focus on HInt from a general perspective (FGR)"},
-          { "key": "FGQA", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
-          { "key": "FS", "name":"Focus on HInt in a specific domain or context of use (FS)"}
+          { "key": "FGR", "name":"from a general perspective (FGR)"},
+          { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+          { "key": "FS", "name":"in a specific domain or context of use (FS)"}
         ]; 
-  
-     
-  
+
+
+
       // Color scale: give me a quantity, I return a color
-      const color = d3.scaleOrdinal()
+      /* const color = d3.scaleOrdinal()
           .domain([1,2,3,6])
           .range(fill);
-          //.range(d3.schemeSet2);
-  
+          //.range(d3.schemeSet2);*/
+
       // Color scale: give me a focus, I return a color
-      const colorPaper = d3.scaleOrdinal()
+      /* const colorPaper = d3.scaleOrdinal()
           .domain(keys.map(function(d){return d.key}))
-          .range(d3.schemeSet2);
-  
+          .range(d3.schemeSet2);*/
+
       var size = 15;
-  
-    
-  
+
+
+
       /************************************ READ DATA ******************************************/
-  
+
       d3.json("data/data_vis06.json", function(error, data) {
         if (error) throw error;
         
         const nodes = data.nodes//.map(d => Object.create(d))
         const links = data.links//.map(d => Object.create(d))
-  
+
         const nodes_paper = nodes.filter(d => d.type =="paper")
         const nodes_author = nodes.filter(d => d.type =="author")
-  
+
         const links_paper = links.filter(d => d.source.length < 5)
         const links_author = links.filter(d => d.source.length > 4)
-  
+
         //include active property
         links_paper.forEach(o => o.active = false)
-  
+
         const linkedByIndex = [];
-  
+
         links.forEach(function(d) {
           linkedByIndex[`${d.source},${d.target}`] = 1;
         });
-  
+
         var click_loked = false
         
-  
+
         var simulation = d3.forceSimulation()
         .force("charge", d3.forceManyBody().strength(-80))
         .force("link", d3.forceLink().id(d => d.id).strength(0.3).distance(50))
@@ -155,15 +156,15 @@
             return Math.sqrt(radius * (d.qt+2));
           return 20;
         }));
-  
-  
+
+
         var link = svg.append("g")
           .attr("class", "links")
           .selectAll("line")
           .data(links)
           .enter().append("line")
           .attr("class", function(d) { 
-  
+
             if(d.source.length < 5){
               //get souce node focus properties
               const getnode = nodes_paper.filter(e => e.id === d.source)[0]
@@ -201,13 +202,13 @@
             .attr("class", function(d){
               //find focus paper 
               name_class = "myArea qt-" + d.qt;
-  
+
               const getnode = nodes_paper.filter(e => d.paper.includes(e.id))
               
               getnode.forEach(e => (name_class = name_class + " " +e.focus))
-             // console.log("class node:", name_class)
+            // console.log("class node:", name_class)
               return name_class;
-  
+
             })
             .attr("r", function(d){ return Math.sqrt(radius * d.qt)})
             //.attr("fill", function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
@@ -217,14 +218,15 @@
             .on('mouseover', fade(0.1))
             .on('mouseout', fade(1))
             .on("click", function(d) {
-             // http://bootboxjs.com/
-              location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+            // http://bootboxjs.com/
+            // location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+              updateDetail(d.id)
             })
             .call(d3.drag()
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended));
-  
+
         var node_paper = svg.append("g")
             .attr("class", "nodes").selectAll("rect")
             .data(nodes_paper)
@@ -235,7 +237,7 @@
               .attr("height", size)
               .attr("rx", 1)
               .attr("ry", 1)
-             // .style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
+            // .style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
               //.style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(1.5)})
               .style("fill",  function(d){ return colorPaper(d.focus)})
               .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
@@ -246,41 +248,41 @@
                   .on("drag", dragged)
                   .on("end", dragended));  
                   
-  
+
         var textElems = svg.append('g')
           .selectAll('text')
           .data(nodes_author)
           .enter()
           .append('text')
-            .text(d => `${d.id} (#publication: ${d.qt})`)
+            .text(d => { return surname(d.id.trim()) + (d.qt === 1 ? ' (#publication: ': ' (#publications: ') + `${d.qt})`})
             .style("text-shadow","1px 1px 2px #aaa")
             .attr("fill", "#343a40")
             .attr("font-weight","bold")
             .attr("font-size",".80rem")
             .on('mouseover', fade(0.1))
             .on('mouseout', fade(1))
-  
+
         simulation
             .nodes(nodes)
             .on("tick", ticked);
-  
-       /* simulation.force("link")
+
+      /* simulation.force("link")
             .links(links_author);*/
         
         simulation.force("link")
             .links(links_paper);
-  
+
         function ticked() {
           link
               .attr("x1", function(d) {return d.source.x; })
               .attr("y1", function(d) {return d.source.y;})
               .attr("x2", function(d) { return d.target.x; })
               .attr("y2", function(d) { return d.target.y; });
-  
+
           node
               .attr("cx", function(d) { return d.x; })
               .attr("cy", function(d) { return d.y; });
-  
+
           node_paper
             .attr("x", function(d) { return ( d.x - size/2); })
             .attr("y", function(d) { return ( d.y - size/2); });
@@ -290,36 +292,38 @@
             .attr("y", d => d.y -10)
             .attr("visibility", "hidden");
         }
-  
-        function updateDetail(d,i) {
-  
+
+      /* function updateDetail(d,i) {
+
             d3.select("#my_dataviz").remove();
             author_founded = node.filter(e => isConnected(d, e))
             paper_founded = node_paper.filter(e => isConnected(d, e))
             link_founded = link.filter(o => (o.source === d || o.target === d))
-      
+
             console.log(author_founded)
             console.log(paper_founded)
             console.log(paper_founded)
-  
-        }
-  
+
+        }*/
+
         function tooltip(d, visibility){
           if(visibility === "hidden"){
             d3.select('.tooltip')
                   .style('visibility', 'hidden')
           }else{
-           /* if(d.type == "author"){
+          /* if(d.type == "author"){
               content = `<strong>Name: </strong>${d.id} <br> 
-                         <strong>#Paper:</strong> ${d.qt}`
+                        <strong>#Paper:</strong> ${d.qt}`
             }*/
             
             if(d.type == "paper"){
               content = `<strong>Publication title: </strong>${d.title} 
-                         <br> <strong>Focus:</strong> ${d.focus}
-                         <br> <strong>#authors:</strong> ${d.qt} `
+                        <br> <strong>Focus:</strong> ${d.focus}<br>`
+              content += d.qt === 1 ? "<strong>#author:</strong> " : "<strong>#authors:</strong> "
+              content += d.qt
+
             }
-         
+        
             d3.select('.tooltip')
                   .style('visibility', 'visible')
                   .style('top', d3.event.y + 10 + 'px')
@@ -327,28 +331,28 @@
                   .html(content)
           }
         }
-  
-  
+
+
         /*********************************** FILTER AUTHOR *******************************************/
-  
-    /*    function handleNodeMouseOver(d){
+
+      /*    function handleNodeMouseOver(d){
       let currentNode = d3.select(this);
       let currentData = currentNode.datum();
-      
+
       currentData.fx = currentData.x;
       currentData.fy = currentData.y;
       currentNode.datum(currentData);
-      
+
       currentNode.attr("r", 20);
-      
+
       sim.force("charge", d3.forceManyBody().strength(d =>  d === currentNode.datum() ? -500:-40));
       sim.alphaTarget(0.3).restart();
-     }
-    
+      }
+
       function handleNodeMouseOut(d){
         let currentNode = d3.select(this);
         let currentData = currentNode.datum();
-      
+
         currentData.fx = null;
         currentData.fy = null;
         currentNode.datum(currentData);
@@ -356,16 +360,14 @@
         currentNode.attr("r", 5);
         sim.force("charge", d3.forceManyBody().strength(-40));
         sim.alphaTarget(0.3).restart();
-    }
-    
-    */
-  
+      }
+
+      */
+
         function fade(opacity) {
-  
-  
-  
+
           return d => {   
-  
+
               if(d.type === "paper") {
                 tooltip(d, "visible")
               }
@@ -375,13 +377,13 @@
               textElems.style('visibility', function (o) { return d == o ? "visible" : "hidden" }); //return isConnected(d, o) ? "visible" : "hidden" }     
               
               if( d.type === "author"){
-  
+
                 //get all paper node
-  
+
                 author_papers = nodes_paper.filter(o => d.paper.includes(o.id));  
-  
+
                 author_papers.forEach( function(p){
-  
+
                   link.style('stroke-opacity', function (o){ 
                     if (o.source === p || o.target === p || o.active === true){
                       o.active = true
@@ -391,16 +393,16 @@
                     }
                   });
                 })
-  
+
                 if(opacity === 1){
                   links_paper.forEach(o => o.active = false)
                 }
-  
+
               }else{
                 link.style('stroke-opacity', function (o){ return (o.source === d || o.target === d ? 1 : opacity)});
-  
+
               }//if-else author
-  
+
               if(opacity === 1){
                 tooltip(d, "hidden")
                 
@@ -408,94 +410,105 @@
                 node_paper.style('opacity', 1)
                 textElems.style('visibility', 'hidden')
                 link.style('stroke-opacity', 0.5)
-  
+
               }
-  
+
             };
           
           }
-  
+
           function isConnected(a, b) {
             return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
           }
-  
+
           function dragstarted(d) {
         if (!d3.event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
       }
-  
+
       function dragged(d) {
         d.fx = d3.event.x;
         d.fy = d3.event.y;
       }
-  
+
       function dragended(d) {
         if (!d3.event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
       }
-  
-  
+
+
       });
-  
+
       /************************************************* HIGHLIGHT GROUP ****************************************************/
           // What to do when one group is hovered
           var highlightQt = function(d){
-  
+
             // reduce opacity of all groups
             d3.selectAll(".myArea").style("opacity", 0.1)
-  
+
             //set font label to bold
             d3.selectAll(".label-qt-"+d)
               .attr("font-weight", "bold")
           
             // expect the one that is hovered
             d3.selectAll(".qt-"+d).style("opacity", 1)
-  
+
           }
-  
+
           // And when it is not hovered anymore
           var noHighlightQt = function(d){
             //set font label to normal
             d3.selectAll(".label-qt-"+d)
             .attr("font-weight", "normal")
-  
+
             d3.selectAll(".myArea").style("opacity", 1)
           }
-  
+
           // What to do when one group is hovered
           var highlightFocus = function(d){
-  
+
             // reduce opacity of all groups
             d3.selectAll(".myArea").style("opacity", .1)
               //set font label to bold
-               d3.selectAll(".label-"+d.key)
+              d3.selectAll(".label-"+d.key)
               .attr("font-weight", "bold")
             
               // expect the one that is hovered
               d3.selectAll("."+d.key).style("opacity", 1)
-  
+
           }
-  
+
           // And when it is not hovered anymore
           var noHighlightFocus = function(d){
             //set font label to normal
             d3.selectAll(".label-"+d.key)
             .attr("font-weight", "normal")
-  
+
             d3.selectAll(".myArea").style("opacity", 1)
-  
+
           
           }
-  
-  /*********************************************** QT PUBLICATION  ***************************************************/
-  
+
+      /*********************************************** QT PUBLICATION  ***************************************************/
+
         // Add one dot in the legend for each name.
         var size = 15
         var xAlign = 800
         var yAlign = 10
-  
+
+        svg.append("text")
+        .text("Author with:")
+          .attr("class", "text-legend")
+          .attr("x", xAlign)
+          .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("text-anchor", "left")
+          .attr("font-weight", "bold")
+          .style("alignment-baseline", "middle")
+        
+        yAlign += 20
+        xAlign += 5
         svg.selectAll("myCircle")
         .data([1,2,3,6])
         .enter()
@@ -504,13 +517,14 @@
             .attr("cx", xAlign)
             .attr("cy", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
             .attr("r", d => Math.sqrt(radius * d))
-           // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
-           // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
+          // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
+          // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
             .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
             .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
-            .on("mouseover", highlightQt)
-            .on("mouseleave", noHighlightQt)
-  
+          //  .on("mouseover", highlightQt)
+        //   .on("mouseleave", noHighlightQt)
+
+
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
         .data([1,2,3,6])
@@ -522,35 +536,36 @@
           .style("fill", "#343a40")
           .text(function(d){ 
             if(d == 1)
-              return ("Author with 0" + d + " publication")
-            return ("Author with 0" + d + " publications")
+              return ("0" + d + " publication")//return ("Author with 0" + d + " publication")
+            return ("0" + d + " publications")// ("Author with 0" + d + " publications")
           })
+          .style("cursor", "default")
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .attr("font-size", "10px")
-          .on("mouseover", highlightQt)
-          .on("mouseleave", noHighlightQt)
-  
+        //  .on("mouseover", highlightQt)
+      //   .on("mouseleave", noHighlightQt)
+
       /*********************************************** FOCUS LEGEND  ***************************************************/
-  
-       // Add one dot in the legend for each name.
+
+      // Add one dot in the legend for each name.
         size = 20
         xAlign = 10
         yAlign = 10
-  
-       /* svg.append("text")
-        .text("Publication focus")
+
+        svg.append("text")
+        .text("Publication focus on HInt")
           .attr("class", "text-legend")
           .attr("x", xAlign)
-          .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
           .attr("font-size", "16px")
           .attr("font-family", "sans-serif")
           .attr("font-weight", "bold")
           .style("alignment-baseline", "middle")
           .style("fill", "#444444")
-      */
-  
+
+        yAlign += 15  
         svg.selectAll("myrect")
         .data(keys)
         .enter()
@@ -563,12 +578,12 @@
             .attr("rx", 1)
             .attr("ry", 1)
             //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
-           // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
+          // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
-  
+
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
         .data(keys)
@@ -580,6 +595,7 @@
             .text(function(d){ return d.name})
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
+            .style("cursor", "default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
   
