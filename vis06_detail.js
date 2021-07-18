@@ -265,7 +265,7 @@ function updateDetail(author_name){
             .style("cursor", "pointer")
             .on("click", function() {
             // http://bootboxjs.com/
-              location.href = "vis06.html";
+              location.href = "https://infoviz-2021.github.io/vis06.html";
             })
            
 
@@ -278,7 +278,7 @@ function updateDetail(author_name){
             .style("cursor", "pointer")
             .on("click", function() {
             // http://bootboxjs.com/
-              location.href = "vis06.html";
+              location.href = "https://infoviz-2021.github.io/vis06.html";
             })
            
 
