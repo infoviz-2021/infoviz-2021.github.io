@@ -9,18 +9,22 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src= "https://d3js.org/d3-interpolate.v1.min.js"> </script>
     <script src= "https://d3js.org/d3-scale-chromatic.v1.min.js"> </script>
+    <script src= "vis06_detail.js"> </script>
+    <script src= "data/keys.js"> </script>
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="vis06-08-styles.css">
     <title>HInt - Authors' relationship network</title>
   </head>
   <body>
-    <h2 class="text-title">Authors' relationship network </h2>
-    <svg width="1100" height="680"></svg>
+    <h2 class="text-title">Authors' collaboration network </h2>
+    <svg id="my_dataviz" width="1100" height="680"></svg>
+    <div id="my_dataviz_detail"></div>
+
     <div class='tooltip'></div>
 
     <script>
 
-    var svg = d3.select("svg")
+    var svg = d3.select("#my_dataviz")
 
     var margin = {top: 50, right: 200, bottom: 10, left: 10},
                 width = 1200 - margin.left - margin.right,
@@ -49,23 +53,23 @@
 
     //Focus
     var keys = [
-        { "key": "FGR", "name":"Focus on HInt from a general perspective (FGR)"},
-        { "key": "FGQA", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
-        { "key": "FS", "name":"Focus on HInt in a specific domain or context of use (FS)"}
+        { "key": "FGR", "name":"from a general perspective (FGR)"},
+        { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+        { "key": "FS", "name":"in a specific domain or context of use (FS)"}
       ]; 
 
    
 
     // Color scale: give me a quantity, I return a color
-    const color = d3.scaleOrdinal()
+   /* const color = d3.scaleOrdinal()
         .domain([1,2,3,6])
         .range(fill);
-        //.range(d3.schemeSet2);
+        //.range(d3.schemeSet2);*/
 
     // Color scale: give me a focus, I return a color
-    const colorPaper = d3.scaleOrdinal()
+   /* const colorPaper = d3.scaleOrdinal()
         .domain(keys.map(function(d){return d.key}))
-        .range(d3.schemeSet2);
+        .range(d3.schemeSet2);*/
 
     var size = 15;
 
@@ -171,7 +175,8 @@
           .on('mouseout', fade(1))
           .on("click", function(d) {
            // http://bootboxjs.com/
-            location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+           // location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+            updateDetail(d.id)
           })
           .call(d3.drag()
               .on("start", dragstarted)
@@ -205,7 +210,7 @@
         .data(nodes_author)
         .enter()
         .append('text')
-          .text(d => `${d.id} (#publication: ${d.qt})`)
+          .text(d => { return surname(d.id.trim()) + (d.qt === 1 ? ' (#publication: ': ' (#publications: ') + `${d.qt})`})
           .style("text-shadow","1px 1px 2px #aaa")
           .attr("fill", "#343a40")
           .attr("font-weight","bold")
@@ -244,7 +249,7 @@
           .attr("visibility", "hidden");
       }
 
-      function updateDetail(d,i) {
+     /* function updateDetail(d,i) {
 
           d3.select("#my_dataviz").remove();
           author_founded = node.filter(e => isConnected(d, e))
@@ -255,7 +260,7 @@
           console.log(paper_founded)
           console.log(paper_founded)
 
-      }
+      }*/
 
       function tooltip(d, visibility){
         if(visibility === "hidden"){
@@ -269,8 +274,10 @@
           
           if(d.type == "paper"){
             content = `<strong>Publication title: </strong>${d.title} 
-                       <br> <strong>Focus:</strong> ${d.focus}
-                       <br> <strong>#authors:</strong> ${d.qt} `
+                       <br> <strong>Focus:</strong> ${d.focus}<br>`
+            content += d.qt === 1 ? "<strong>#author:</strong> " : "<strong>#authors:</strong> "
+            content += d.qt
+
           }
        
           d3.select('.tooltip')
@@ -314,8 +321,6 @@
   */
 
       function fade(opacity) {
-
-
 
         return d => {   
 
@@ -449,6 +454,17 @@
       var xAlign = 800
       var yAlign = 10
 
+      svg.append("text")
+      .text("Author with:")
+        .attr("class", "text-legend")
+        .attr("x", xAlign)
+        .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("text-anchor", "left")
+        .attr("font-weight", "bold")
+        .style("alignment-baseline", "middle")
+       
+      yAlign += 20
+      xAlign += 5
       svg.selectAll("myCircle")
       .data([1,2,3,6])
       .enter()
@@ -461,9 +477,10 @@
          // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
           .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
           .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
-          .on("mouseover", highlightQt)
-          .on("mouseleave", noHighlightQt)
+        //  .on("mouseover", highlightQt)
+       //   .on("mouseleave", noHighlightQt)
 
+   
       // Add one dot in the legend for each name.
       svg.selectAll("mylabels")
       .data([1,2,3,6])
@@ -475,14 +492,15 @@
         .style("fill", "#343a40")
         .text(function(d){ 
           if(d == 1)
-            return ("Author with 0" + d + " publication")
-          return ("Author with 0" + d + " publications")
+            return ("0" + d + " publication")//return ("Author with 0" + d + " publication")
+          return ("0" + d + " publications")// ("Author with 0" + d + " publications")
         })
+        .style("cursor", "default")
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle")
         .attr("font-size", "10px")
-        .on("mouseover", highlightQt)
-        .on("mouseleave", noHighlightQt)
+      //  .on("mouseover", highlightQt)
+     //   .on("mouseleave", noHighlightQt)
 
     /*********************************************** FOCUS LEGEND  ***************************************************/
 
@@ -491,19 +509,19 @@
       xAlign = 10
       yAlign = 10
 
-     /* svg.append("text")
-      .text("Publication focus")
+      svg.append("text")
+      .text("Publication focus on HInt")
         .attr("class", "text-legend")
         .attr("x", xAlign)
-        .attr("y", 10) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("text-anchor", "left")
         .attr("font-size", "16px")
         .attr("font-family", "sans-serif")
         .attr("font-weight", "bold")
         .style("alignment-baseline", "middle")
         .style("fill", "#444444")
-    */
-
+    
+      yAlign += 15  
       svg.selectAll("myrect")
       .data(keys)
       .enter()
@@ -533,6 +551,7 @@
           .text(function(d){ return d.name})
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
+          .style("cursor", "default")
           .on("mouseover", highlightFocus)
           .on("mouseleave", noHighlightFocus)
 
