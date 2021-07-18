@@ -10,50 +10,85 @@
     <link rel="stylesheet" href="styles/generic.css">
     <link rel="stylesheet" href="styles/objects.css">
     <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles.css">
+
     <title>Trabalho de InfoViz</title>
   </head>
   <body>
+    <header>
+      <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h4>
+      <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
+      <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
+    </header>
     <main>
-      <section class="card">
-        <div class="card__header">
-          <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT) <span class="icon icon-information" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
-        </div>
-        <div class="card__body">
-          <div class="card__body__countries">
-            <div class="card__body__countries__group">
-              <div class="card__body__countries__legends">
-                <div class="card__body__countries__legends__legend">
-                  <div class="card__body__countries__legends__legend__sign">
-                    <span class="card__body__countries__legends__legend__sign--light-purple"></span>
-                  </div>
-                  <div class="card__body__countries__legends__legend__description">
-                    Country with at least one author and institution exploring the HInt
-                  </div>
-                </div>
-              </div>
-              <div class="card__body__countries__map"></div>
+      <div class="container">
+        <section class="stats">
+          <div class="stats__stat stats__stat--light-cornflower-blue">
+            <div class="stats__stat__title">SLR Analyzed Publications</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">20</span>
             </div>
-            <div class="card__body__countries__details">
-              <div class="card__body__countries__details__header"></div>
-              <div class="card__body__countries__details__body">
-                <div class="card__body__countries__details__click-to-display-info">
-                  <p>To see the institutions and authors list of a country, click on the desired country in the map</p>
-                </div>
-                <div class="card__body__countries__details__institutions">
-                  <div class="card__body__countries__details__institutions__title"></div>
-                  <ul class="card__body__countries__details__institutions__list"></ul>
-                </div>
-                <div class="card__body__countries__details__authors">
-                  <div class="card__body__countries__details__authors__title"></div>
-                  <ul class="card__body__countries__details__authors__list"></ul>
-                </div>
-              </div>
-            </div>
-            <div class="card__body__countries__tooltip"></div>
           </div>
-        </div>
-      </section>
+          <div class="stats__stat stats__stat--light-blue">
+            <div class="stats__stat__title">Countries exploring HInt</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">16</span>
+              <span class="stats__stat__value__description">16 (8.2%) of 195 countries in the world</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-purple-3">
+            <div class="stats__stat__title">Institutions exploring HInt around the world</div>
+            <div class="stats__stat__value home__body__stats__stat__slr__total__description">
+              <span class="stats__stat__value__numeric">66</span>
+            </div>
+          </div>
+          <div class="stats__stat stats__stat--light-magenta-3">
+            <div class="stats__stat__title">Authors exploring HInt around the world</div>
+            <div class="stats__stat__value">
+              <span class="stats__stat__value__numeric">100</span>
+            </div>
+          </div>
+        </section>
+  
+        <section class="card">
+          <div class="card__header">
+            <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT) <span class="icon icon-information" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
+          </div>
+          <div class="card__body">
+            <div class="card__body__countries">
+              <div class="card__body__countries__group">
+                <div class="card__body__countries__legends">
+                  <div class="card__body__countries__legends__legend">
+                    <div class="card__body__countries__legends__legend__sign">
+                      <span class="card__body__countries__legends__legend__sign--light-purple"></span>
+                    </div>
+                    <div class="card__body__countries__legends__legend__description">
+                      Country with at least one author and institution exploring the HInt
+                    </div>
+                  </div>
+                </div>
+                <div class="card__body__countries__map"></div>
+              </div>
+              <div class="card__body__countries__details">
+                <div class="card__body__countries__details__header"></div>
+                <div class="card__body__countries__details__body">
+                  <div class="card__body__countries__details__click-to-display-info">
+                    <p>To see the institutions and authors list of a country, click on the desired country in the map</p>
+                  </div>
+                  <div class="card__body__countries__details__institutions">
+                    <div class="card__body__countries__details__institutions__title"></div>
+                    <ul class="card__body__countries__details__institutions__list"></ul>
+                  </div>
+                  <div class="card__body__countries__details__authors">
+                    <div class="card__body__countries__details__authors__title"></div>
+                    <ul class="card__body__countries__details__authors__list"></ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card__body__countries__tooltip"></div>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <script>
@@ -87,12 +122,13 @@
                 return 'country'
             })
             .on('mouseover', function (svgElement, data, key) {
+              console.log(svgElement, data)
               if (data.properties.articles > 0) {
                 d3.select(this).attr('class', 'country hover')
                 d3.select('.card__body__countries__tooltip')
                   .style('visibility','visible')
-                  .style('top', svgElement.pageY + 10 + 'px')
-                  .style('left', svgElement.pageX + 10 + 'px')
+                  .style('top', svgElement.layerY + 10 + 'px')
+                  .style('left', svgElement.layerX + 10 + 'px')
                   .html(`
                     <div class="country-title">
                       ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}

@@ -7,11 +7,29 @@ header {
   flex-direction: column;
   background-color: var(--primary);
   color: var(--white);
+  padding: 1em;
+  line-height: 1.25rem;
 }
 
-h1, h2, h3, h4, h5, h6,
+.header__authors {
+  font-size: 12px;
+}
+
+h1, h2, h3, h4, h5, h6, p,
 span {
   font-family: var(--font-family-theme);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
 }
 
 .default-font-family{

@@ -4,9 +4,9 @@ o máximo possível, para ter muitos objetos reutilizáveis e genéricos, aqui n
 mas respeitando as regras do RSCSS de especificidade e também não colocando positions ou outras propriedades 
 que engessem muito o componente a ponto dele não ser reutilizável.
 Normalmente, aqui ficarão listas específicas como de produtos, cards específicos como aqueles incluindo imagens, etc */
-.card .card__header {
-  font-family: var(--font-family-theme);
+.card .card__header h2 {
   font-size: 1.5rem;
+  color: var(--dark-gray);
 }
 
 .card__body__countries {
@@ -17,9 +17,15 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   color: var(--gray);
 }
 
+.card__body__countries__group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .card__body__countries__map {
   display: flex;
-  min-width: 70vw;
+  min-width: 70%;
 }
 
 .card__body__countries__details {
@@ -65,7 +71,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details__header__title__highlight {
-  color: var(--cornflower-blue);
+  color: var(--dark-cornflower-blue);
   font-weight: 700;
   white-space: normal;
 }
@@ -74,6 +80,14 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   display: flex;
   flex-direction: row;
   margin-top: .5em;
+}
+
+.card__body__countries__details__click-to-display-info {
+  
+}
+
+.card__body__countries__details__click-to-display-info--hidden {
+  display: none;
 }
 
 .card__body__countries__details__institutions {
@@ -95,7 +109,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 }
 
 .card__body__countries__details__institutions__title strong {
-  color: var(--dark-purple);
+  color: var(--dark-purple-3);
 }
 
 .card__body__countries__details__institutions__list li:hover {
@@ -104,12 +118,23 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   cursor: pointer;
 }
 
+.card__body__countries__details__institutions__list--highlighted {
+  color: var(--purple);
+  font-weight: 700;
+}
+
 .card__body__countries__details__authors {
   font-size: 0.75rem;
 }
 
 .card__body__countries__details__authors__title strong {
-  color: var(--dark-magenta);
+  color: var(--dark-magenta-2);
+}
+
+.card__body__countries__details__authors__list li:hover {
+  color: var(--purple);
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .card__body__countries__details__authors__list--highlighted {
@@ -120,7 +145,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__legends {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: relative;
   padding: 0.5em;
   bottom: 0px;
   font-family: var(--font-family-theme);
@@ -147,4 +172,285 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__legends__legend__description {
   margin-left: 0.3em;
+}
+
+.stats__stat__title.home__body__stats__stat__slr__databases {
+  font-size: 1.25rem;
+  width: 20%;
+}
+
+.stats__stat__value.stats__stat__value--database {
+  color: var(--dark-purple-3);
+  text-align: left;
+  margin-left: 1em;
+  width: 80%;
+}
+
+.stats__stat__value__text.stats__stat__value__text--database {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.home__body__overview-and-wordcloud {
+  display: flex;
+  flex-direction: row;
+}
+
+.home__body__overview-and-wordcloud__overview {
+  max-width: 50%;
+}
+
+.home__body__overview-and-wordcloud__overview h2 {
+  font-size: 1.5rem;
+  color: var(--dark-gray);
+  line-height: 1;
+}
+
+.home__body__overview-and-wordcloud__overview img {
+  width: 100%;
+}
+
+.home__body__overview-and-wordcloud__wordcloud {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-color: black;
+  border-style: dotted;
+}
+
+.timeline-milestones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 100px;
+  max-width: 1000px;
+  position: relative;
+  margin: 180px auto 1em;
+}
+
+.timeline-milestones__milestone {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  background-color: var(--purple);
+  position: relative;
+  border-radius: 50%;
+  margin: 0 15px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.timeline-milestones__milestone:hover {
+  cursor: pointer;
+}
+
+.timeline-milestones__milestone::before,
+.timeline-milestones__milestone::after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--purple);
+  width: 4vw;
+  height: 5px;
+  max-width: 50px;
+}
+
+.timeline-milestones__milestone::before {
+  left: calc(-4vw + 12.5px);
+}
+
+.timeline-milestones__milestone::after {
+  right: calc(-4vw + 12.5px);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active::before {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active::after {
+  background-color: var(--purple);
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active span {
+  font-weight: 400;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__description {
+  font-size: 14px;
+  visibility: visible;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active .timeline-milestones__milestone__year {
+  font-size: 25px;
+}
+
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone,
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::before,
+.timeline-milestones__milestone.timeline-milestones__milestone--active ~ .timeline-milestones__milestone::after {
+  background-color: var(--light-purple);
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__description {
+  position: absolute;
+  visibility: hidden;
+  margin: 0 auto;
+  bottom: 160px;
+  width: 200px;
+  font-size: 13px;
+  text-align: left;
+  font-family: var(--font-family-theme);
+  max-height: 150px;
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__description a {
+  text-decoration: none;
+}
+
+.timeline-milestones__milestone .timeline-milestones__milestone__year {
+  font-size: 20px;
+  color: #ecf0f1;
+}
+
+.timeline-milestones__milestone__title {
+  color: #ecf0f1;
+  text-align: center;
+  font-size: 13px;
+  margin: 0.5em 1em;
+  font-weight: 300;
+}
+
+@media (min-width: 1250px) {
+  .timeline-milestones__milestone::before {
+    left: -37.5px;
+  }
+
+  .timeline-milestones__milestone::after {
+    right: -37.5px;
+  }
+}
+
+.flag {
+  position: relative;
+  background-repeat: no-repeat;
+  height: 1.5em;
+  width: 2em;
+  display: inline-block;
+}
+
+.AUS-flag {
+  background-image: var(--australia-flag);
+}
+
+.AUT-flag {
+  background-image: var(--austria-flag);
+}
+
+.CAN-flag {
+  background-image: var(--canada-flag);
+}
+
+.CHN-flag {
+  background-image: var(--china-flag);
+}
+
+.CYP-flag {
+  background-image: var(--cyprus-flag);
+}
+
+.DNK-flag {
+  background-image: var(--denmark-flag);
+}
+
+.FIN-flag {
+  background-image: var(--finland-flag);
+}
+
+.FRA-flag {
+  background-image: var(--france-flag);
+}
+
+.DEU-flag {
+  background-image: var(--germany-flag);
+}
+
+.GRC-flag {
+  background-image: var(--greece-flag);
+}
+
+.JPN-flag {
+  background-image: var(--japan-flag);
+}
+
+.NLD-flag {
+  background-image: var(--netherlands-flag);
+}
+
+.NZL-flag {
+  background-image: var(--new-zealand-flag);
+}
+
+.ESP-flag {
+  background-image: var(--spain-flag);
+}
+
+.GBR-flag {
+  background-image: var(--uk-flag);
+}
+
+.USA-flag {
+  background-image: var(--usa-flag);
+}
+
+.card__body__countries__map .country {
+  stroke: #fff;
+  fill: #aaa;
+}
+
+.card__body__countries__map .country-highlighted {
+  fill: var(--light-purple);
+}
+
+.card__body__countries__map .hover {
+  fill: var(--purple);
+}
+
+div.card__body__countries__tooltip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  visibility: hidden;
+  font-size: 100%;
+  color: #333333;
+  background-color: #e6e6e6;
+  opacity: 0.9;
+  padding: 0.3em;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.country-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.country-title__name {
+  margin-left: 0.3em;
+}
+
+.country-academic-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3em;
 }

@@ -39,16 +39,7 @@ stroke: "black";
 stroke-width: 1.5px;
 }
 
-.toolTip {
-    position: absolute;
-    display: none;
-    min-width: 80px;
-    height: auto;
-    background: none repeat scroll 0 0 #ffffff;
-    border: 1px solid #6F257F;
-    padding: 14px;
-    text-align: center;
-}
+
 
 div.tooltip {
     position: absolute;
@@ -58,8 +49,9 @@ div.tooltip {
     height: auto;
     font-size: 80%;
     background-color: #fff;
+    background: none repeat scroll 0 0 #ffffff;
     opacity: .95;
-    padding: 2px;   
+    padding: 10px;   
     border: 1px solid #343a40;;
 
   }
