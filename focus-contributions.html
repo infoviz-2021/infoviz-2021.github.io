@@ -53,7 +53,6 @@
         height = +svg.attr('height') - margin.top - margin.bottom;
 
       var tooltip = d3.select('body').append('div').attr('class', 'toolTip');
-
       var x = d3.scaleLinear().range([0, width]);
       var y = d3.scaleBand().range([height, 0]);
 
