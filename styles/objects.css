@@ -2,6 +2,49 @@
 que nada mais são que pequenos pedaços da interface, em geral, padrões que se repetem por todo o site e que podem 
 ter ou não uma camada visual por cima.
 Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento, só é permitido também o uso de classes. */
+.header__left-side {
+  margin-left: auto;
+  align-self: flex-end;
+}
+
+.header__left-side__menu {
+  display: inline-flex;
+  list-style: none;
+  height: 40px;
+  align-items: flex-end;
+}
+
+.header__left-side__menu__item {
+  cursor: pointer;
+  margin: 0 0.25em;
+  padding: .5em .5em;
+  position: relative;
+}
+
+.header__left-side__menu__item a {
+  color: var(--white);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.header__left-side__menu__item--active {
+  background-color: var(--light-blue);
+}
+
+.header__left-side__menu__item--active a {
+  color: var(--primary);
+}
+
+.header__left-side__menu__item--active:after {
+  display: block;
+  height: 1em;
+  width: 100%;
+  position: absolute;
+  background-color: var(--light-blue);
+  content: '';
+  right: 0px;
+  top: 36px; 
+}
 
 .card {
   display: flex;

@@ -462,3 +462,16 @@ div.card__body__countries__tooltip {
   flex-direction: column;
   margin-top: 0.3em;
 }
+
+.card__body__focus-of-publications__pie-graph {
+  min-width: 100%;
+}
+
+.card__body__focus-of-publications__pie-graph svg {
+  overflow: visible;
+}
+
+.card__body__focus-of-publications__pie-graph__label {
+  font-family: var(--font-family-theme);
+  font-size: 1.5rem
+}

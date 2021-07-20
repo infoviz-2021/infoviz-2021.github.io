@@ -4,11 +4,12 @@ Mas lembre-se são estilizações BÁSICAS, nada de estilizar tudo aqui! */
 
 header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: var(--primary);
   color: var(--white);
   padding: 1em;
   line-height: 1.25rem;
+  font-family: var(--font-family-theme);
 }
 
 .header__authors {
