@@ -170,13 +170,13 @@
           //.attr("fill", function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
           .attr("fill", function(d){ return (color(d.qt))})
           .attr("stroke",function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
-          .style("cursor", "pointer")
+          .style("cursor", "default")
           .on('mouseover', fade(0.1))
           .on('mouseout', fade(1))
           .on("click", function(d) {
            // http://bootboxjs.com/
            // location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
-            updateDetail(d.id)
+            //updateDetail(d.id)
           })
           .call(d3.drag()
               .on("start", dragstarted)
