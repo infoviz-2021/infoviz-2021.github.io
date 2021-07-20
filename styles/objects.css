@@ -27,6 +27,16 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   overflow: hidden;
 }
 
+.card__body--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.card__body--end {
+  justify-content: flex-end;
+}
+
+
 .card__body--no-overflow {
   overflow: visible;
 }

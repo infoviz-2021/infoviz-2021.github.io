@@ -1,13 +1,13 @@
-var margin = {top: 20, right: 200, bottom: 20, left: 10},
-              width = 1280 - margin.left - margin.right,
-              height = 700 - margin.top - margin.bottom
+var margin = {top: 50, right: 130, bottom: 10, left: 10},
+    width = 1296 - margin.left - margin.right,
+    height = 650 - margin.top - margin.bottom
 
-const radius_detail = 5;
+const radius_detail = 25;
 //const color = d3.scaleOrdinal(d3.schemeSet2);
 // bgcolor = d3.rgb(d3.schemeSet2[5])
 bgcolor = d3.rgb("#f6cb55") //tom de amarelo
 //bgcolor = d3.rgb("#de88af")
-//bgcolor = d3.rgb("#8e7bd7")
+bgcolor = d3.rgb("#e5c494")
 //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
 fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
@@ -20,14 +20,24 @@ const color = d3.scaleOrdinal()
     .domain([1,2,3,6])
     .range(fill);
     //.range(d3.schemeSet2);
+    
 
-//Focus
-var keys = [
-  { "key": "FGR", "name":"Focus on HInt from a general perspective (FGR)"},
-  { "key": "FGQA", "name":"Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)" },
-  { "key": "FS", "name":"Focus on HInt in a specific domain or context of use (FS)"}
-]; 
+    bgcolor = d3.rgb("#e5c494") //tom de amarelo
+    //bgcolor = d3.rgb("#de88af")
+    //bgcolor = d3.rgb("#8e7bd7")
+    //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
+    fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 
+
+    const colorPartner = d3.scaleOrdinal()
+    .domain([1,2,3,6])
+    .range(fill);
+  //Focus
+  var keys = [
+    { "key": "FGR", "name":"from a general perspective (FGR)"},
+    { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+    { "key": "FS", "name":"in a specific domain or context of use (FS)"}
+  ]; 
 
 
 // Color scale: give me a focus, I return a color
@@ -85,9 +95,10 @@ function updateDetail(author_name){
   d3.selectAll(".node-paper-div").remove();
 
   // append the svg object to the body of the page
-  var svg = d3.select("body")
+  var svg = d3.select(".card__body")
       .append("div")
-      .attr("id","my_dataviz_detail")
+      //.attr("id","my_dataviz_detail")
+      .attr("id","my_dataviz")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -95,7 +106,34 @@ function updateDetail(author_name){
       .style("margin", "auto")
       .append("g")
       .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
+              "translate(" + 0 + "," + 0 + ")");
+
+
+  /* svg.append("rect")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("fill", "none")
+      .attr("stroke", "blue")*/
+
+      svg
+      .append("text")
+        .text("Click on the desired author's")
+        .attr("class", "text-legend")
+        .attr("text-anchor", "end")
+        .style("opacity","0.6")
+        .attr("x", width + margin.right)
+        .attr("y", 20)
+      .append("tspan")
+        .text("node to see  publications and")
+        .attr("x",width + margin.right)
+        .attr("dy","1.2em")
+      .append("tspan")
+        .text("partnership details.")
+        .attr("x",width + margin.right)
+        .attr("dy","1.2em")
+
 
   /***************************** READ DATA ********************************/
 
@@ -152,9 +190,10 @@ function updateDetail(author_name){
          })
 
         //define centers
-        const spacing = {h:250, v:120}
-        const paper_size = {w: 300, h:70}
+        const spacing = {h:200, v:80}
+        const paper_size = {w: 250, h:70}
         const shift_x = width/15
+        const shift_y = 20
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
         const bandY = {'paper' : author.paper.length, 'partner': author_partner.length }
 
@@ -173,7 +212,7 @@ function updateDetail(author_name){
         
         // A linear scale to position the nodes on the y axis
         var yPartner = d3.scalePoint()
-          .range([initial_partner, height_partner + initial_partner])
+          .range([initial_partner + shift_y, height_partner + initial_partner])
           .domain(allPartnerName)
 
         ratioPaper = height/nodes_paper.length
@@ -259,30 +298,34 @@ function updateDetail(author_name){
         svg.append("g")
           .attr("class", "node circle author")
           .append("circle")
-            .attr("r", radius_detail * author.qt)
+            .attr("r", Math.sqrt(radius_detail * author.qt))
             .attr("cx", author_position[0])
             .attr("cy", author_position[1] )
             .attr("fill", color(author.qt))
             .attr("stroke",d3.rgb(color(author.qt)).darker(0.5))
-            .style("cursor", "pointer")
-            .on("click", function() {
-            // http://bootboxjs.com/
-              location.href = "collaboration-networks.html";
-            })
+            .style("cursor", "default")
+        
            
 
-        svg.append("text")
-        .text(surname(author.id.trim()))
-            .attr("x",  author_position[0])
-            .attr("y", author_position[1]+ radius_detail*(author.qt+3)) 
-            .style("text-anchor", "middle")
-            .style("alignment-baseline", "end")
-            .style("cursor", "pointer")
-            .on("click", function() {
-            // http://bootboxjs.com/
-              location.href = "collaboration-networks.html";
-            })
-           
+          svg.append("text")
+          .text(surname(author.id.trim()))
+              .attr("class","text-legend")
+              .attr("x",  author_position[0])
+              .attr("y", author_position[1]+ Math.sqrt(radius_detail*(author.qt)) + 20) 
+              .style("text-anchor", "middle")
+              .style("alignment-baseline", "bottom")
+              .style("cursor", "default")
+
+          svg
+            .append("svg:a").attr("xlink:href", "collaboration-networks.html")
+            .append("svg:text")
+            .text("Return to the network")
+            .attr("class","text-legend")
+            .style("text-decoration","underline")
+            .attr("y", height)
+            .attr("x", xCenter.paper + paper_size.w/2)
+            .attr("text-anchor", "middle");
+
 
           /************************** Paper Node *************************/
               
@@ -338,7 +381,7 @@ function updateDetail(author_name){
 
                   textElement = d3.selectAll(".label-paper-" + d.id)
 
-                  tspan = breakText(d.title, 45)
+                  tspan = breakText(d.title, 38)
 
                   if(tspan.length > 4){
                     textElement.append("tspan")
@@ -371,13 +414,14 @@ function updateDetail(author_name){
           .data(nodes_partner)
           .enter()
           .append("circle")
-            .attr("r", function(d){ return radius_detail *  d.qtPartner})
+            //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+            .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)})
             .attr("cx", xCenter.partner)
             .attr("cy", d => yPartner(d.id))
            // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
            // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
-            .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0)})
-            .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
+            .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
+            .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
             .style("cursor", "pointer")
             .on('mouseover', fade(0.2))
             .on('mouseout', fade(1))
@@ -388,8 +432,9 @@ function updateDetail(author_name){
           .enter()
           .append("text")
             .attr("class","text-legend")
-            .attr("x", function(d){ return xCenter.partner + (radius_detail*d.qtPartner) + 10} )
-            .attr("y", function(d){ return(yPartner(d.id) + radius_detail/2)})
+            .attr("x", function(d){ return xCenter.partner + Math.sqrt(radius_detail*d.qtPartner) + 10} )
+           // .attr("x", function(d){ return xCenter.partner + (radius_detail*d.qtPartner) + 10} )
+            .attr("y", function(d){ return(yPartner(d.id) + 5)})
             .text(d => surname(d.id.trim()))
             .style("text-anchor", "start")
             .style("alignment-baseline", "end")
@@ -455,8 +500,120 @@ function updateDetail(author_name){
 
           return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
         }
+
+        
+     
+      /*********************************************** QT PUBLICATION  ***************************************************/
+
+        // Add one dot in the legend for each name.
+        var size = 12
+        //var xAlign = width - margin.right
+        var xAlign = 10
+        var yAlign = 480
+
+        svg.append("text")
+        .text("Author with:")
+          .attr("class", "text-legend")
+          .attr("x", xAlign)
+          .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("text-anchor", "left")
+          .attr("font-weight", "bold")
+          .style("alignment-baseline", "middle")
+        
+        yAlign += 20
+        xAlign += 5
+        svg.selectAll("myCircle")
+        .data([1,2,3,6])
+        .enter()
+        .append("circle")
+            .attr("class", function(d) { return "label-circle qt-" + d })
+            .attr("cx", xAlign)
+            .attr("cy", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("r", d => Math.sqrt(radius * d))
+          // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
+          // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
+            .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
+            .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
+          //  .on("mouseover", highlightQt)
+        //   .on("mouseleave", noHighlightQt)
+
+
+        // Add one dot in the legend for each name.
+        svg.selectAll("mylabels")
+        .data([1,2,3,6])
+        .enter()
+        .append("text")
+          .attr("class", function(d) { return "text-legend label-qt-" + d })
+          .attr("x", xAlign + size*1.5)
+          .attr("y", function(d,i){ return yAlign + 5 + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
+          .style("fill", "#343a40")
+          .text(function(d){ 
+            if(d == 1)
+              return ("0" + d + " publication")//return ("Author with 0" + d + " publication")
+            return ("0" + d + " publications")// ("Author with 0" + d + " publications")
+          })
+          .style("cursor", "default")
+          .attr("text-anchor", "left")
+          .style("alignment-baseline", "middle")
+          .attr("font-size", "10px")
+        //  .on("mouseover", highlightQt)
+      //   .on("mouseleave", noHighlightQt)
+
+      /*********************************************** FOCUS LEGEND  ***************************************************/
+
+      // Add one dot in the legend for each name.
+        size = 20
+        xAlign = 10
+        yAlign = 10
+
+        svg.append("text")
+        .text("Publication focused on HInt:")
+          .attr("class", "text-legend")
+          .attr("x", xAlign)
+          .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("text-anchor", "left")
+          .attr("font-weight", "bold")
+     
+
+        yAlign += 15  
+        svg.selectAll("myrect")
+        .data(keys)
+        .enter()
+        .append("rect")
+            .attr("class", function(d) { return "label-rect" + d.key })
+            .attr("x", xAlign)
+            .attr("y", function(d,i){ return yAlign + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("width", size)
+            .attr("height", size)
+            .attr("rx", 1)
+            .attr("ry", 1)
+            //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
+          // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
+            .style("fill",  function(d){ return colorPaper(d.key)})
+            .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
+            .on("mouseover", highlightFocus)
+            .on("mouseleave", noHighlightFocus)
+
+        // Add one dot in the legend for each name.
+        svg.selectAll("mylabels")
+        .data(keys)
+        .enter()
+        .append("text")
+            .attr("class", function(d) { return "text-legend label-"+ d.key })
+            .attr("x", xAlign + size*1.4)
+            .attr("y", function(d,i){ return yAlign +2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .text(function(d){ return d.name})
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .style("cursor", "default")
+            .on("mouseover", highlightFocus)
+            .on("mouseleave", noHighlightFocus)
         
   })//end d3.json
+
+  
+
+
 
 }//end update()
 

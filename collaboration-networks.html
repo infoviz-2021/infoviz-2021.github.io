@@ -56,28 +56,71 @@
 
         <section class="card">
           <div class="card__header">
-            <h2 class="text-title">Authors' relationship network </h2>
+            <h2 class="text-title">Authors' colaboration network </h2>
           </div>
-          <div class="card__body">
+        
+          <!--div class="card__body  card__body--end ">
+            <div class = "card__body__network__details text-legend">
+              <p>Click on the desired author node to see details of publications and partnership.</p>
+            </div>
+          </div-->
+
+          <div class="card__body card__body--center">
+            
             <svg id="my_dataviz"></svg>
             <div id="my_dataviz_detail"></div>
-            <div class='tooltip'></div>
+            
           </div>
+
+          <div class='tooltip'></div>
+
         </section>
       </div>
+
+
+      
     </main>
 
     <script>
 
-      
-
-      var margin = {top: 50, right: 130, bottom: 10, left: 10},
+      /*var margin = {top: 50, right: 130, bottom: 10, left: 10},
                   width = 1435 - margin.left - margin.right,
-                  height = 700 - margin.top - margin.bottom
+                  height = 700 - margin.top - margin.bottom*/
+
+      
+      //legend: append the svg object to the body of the page
+    /*  var svg_legend = d3.select("#focus_legend")
+        .attr("width", 450)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+                "translate(" + 0 + "," + 0 + ")");*/
+
+     /* svg_legend.append("rect")
+      .attr("width", 450)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("fill", "none")
+      .attr("stroke", "blue")*/
+
 
       var svg = d3.select("#my_dataviz")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width",  width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("transform",
+                "translate(" + 0 + "," + 0 + ")");
+
+      /*svg.append("rect")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("fill", "none")
+      .attr("stroke", "red")*/
+
+      
+
 
       /*svg.append("rect")
       .attr("width", width)
@@ -96,9 +139,9 @@
       const radius = 25;
       //const color = d3.scaleOrdinal(d3.schemeSet2);
       // bgcolor = d3.rgb(d3.schemeSet2[5])
-      bgcolor = d3.rgb("#f6cb55") //tom de amarelo
-      //bgcolor = d3.rgb("#de88af")
-      //bgcolor = d3.rgb("#8e7bd7")
+     // bgcolor = d3.rgb("#f6cb55") //tom de amarelo
+      bgcolor = d3.rgb("#e5c494")
+     // bgcolor = d3.rgb("#8e7bd7")
       //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
       //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
       fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
@@ -110,12 +153,11 @@
 
       //Focus
       var keys = [
-          { "key": "FGR", "name":"from a general perspective (FGR)"},
-          { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
-          { "key": "FS", "name":"in a specific domain or context of use (FS)"}
-        ]; 
-
-
+        { "key": "FGR", "name":"from a general perspective (FGR)"},
+        { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+        { "key": "FS", "name":"in a specific domain or context of use (FS)"}
+      ]; 
+              
 
       // Color scale: give me a quantity, I return a color
       /* const color = d3.scaleOrdinal()
@@ -128,10 +170,26 @@
           .domain(keys.map(function(d){return d.key}))
           .range(d3.schemeSet2);*/
 
+     
+    svg
+      .append("text")
+        .text("Click on the desired author's")
+        .attr("class", "text-legend")
+        .attr("text-anchor", "end")
+        .style("opacity","0.6")
+        .attr("x", width + margin.right)
+        .attr("y",20)
+      .append("tspan")
+        .text("node to see  publications and")
+        .attr("x",width + margin.right)
+        .attr("dy","1.2em")
+      .append("tspan")
+        .text("partnership details.")
+        .attr("x",width + margin.right)
+        .attr("dy","1.2em")
+
       var size = 15;
-
-
-
+      var shift = {x : 80, y : 0}
       /************************************ READ DATA ******************************************/
 
       d3.json("data/data_vis06.json", function(error, data) {
@@ -159,15 +217,15 @@
         
 
         var simulation = d3.forceSimulation()
-        .force("charge", d3.forceManyBody().strength(-80))
-        .force("link", d3.forceLink().id(d => d.id).strength(0.3).distance(50))
+        .force("charge", d3.forceManyBody().strength(-60))
+        .force("link", d3.forceLink().id(d => d.id).strength(0.5).distance(50))
         .force("x", d3.forceX())
         .force("y", d3.forceY())
-        .force("center", d3.forceCenter((width/2), (height / 2)))
+        .force("center", d3.forceCenter((width/2) + shift.x, (height / 2) + shift.y))
         .force('collision', d3.forceCollide().radius(function(d) {
-          if(d.type === "author")
+         // if(d.type === "author")
             return Math.sqrt(radius * (d.qt+2));
-          return 20;
+          //return 20;
         }));
 
 
@@ -324,14 +382,14 @@
             d3.select('.tooltip')
                   .style('visibility', 'hidden')
           }else{
-          /* if(d.type == "author"){
-              content = `<strong>Name: </strong>${d.id} <br> 
-                        <strong>#Paper:</strong> ${d.qt}`
-            }*/
+        
             
             if(d.type == "paper"){
+
+              foundFocus = keys.filter(e => e.key === d.focus)[0]
+
               content = `<strong>Publication title: </strong>${d.title} 
-                        <br> <strong>Focus:</strong> ${d.focus}<br>`
+                        <br> <strong>Focus:</strong> on HInt ${foundFocus.name}<br>`
               content += d.qt === 1 ? "<strong>#author:</strong> " : "<strong>#authors:</strong> "
               content += d.qt
 
@@ -430,26 +488,26 @@
           
           }
 
-          function isConnected(a, b) {
-            return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
-          }
+            function isConnected(a, b) {
+              return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
+            }
 
-          function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-      }
+            function dragstarted(d) {
+              if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+              d.fx = d.x;
+              d.fy = d.y;
+            }
 
-      function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-      }
+            function dragged(d) {
+              d.fx = d3.event.x;
+              d.fy = d3.event.y;
+            }
 
-      function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-      }
+            function dragended(d) {
+              if (!d3.event.active) simulation.alphaTarget(0);
+              d.fx = null;
+              d.fy = null;
+            }
 
 
       });
@@ -507,9 +565,10 @@
       /*********************************************** QT PUBLICATION  ***************************************************/
 
         // Add one dot in the legend for each name.
-        var size = 15
-        var xAlign = width - margin.right
-        var yAlign = 10
+        var size = 12
+        //var xAlign = width - margin.right
+        var xAlign = 10
+        var yAlign = 480
 
         svg.append("text")
         .text("Author with:")
@@ -545,7 +604,7 @@
         .append("text")
           .attr("class", function(d) { return "text-legend label-qt-" + d })
           .attr("x", xAlign + size*1.5)
-          .attr("y", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", function(d,i){ return yAlign + 5 + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
           .style("fill", "#343a40")
           .text(function(d){ 
             if(d == 1)
@@ -567,7 +626,7 @@
         yAlign = 10
 
         svg.append("text")
-        .text("Publication focus on HInt:")
+        .text("Publication focused on HInt:")
           .attr("class", "text-legend")
           .attr("x", xAlign)
           .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
@@ -600,7 +659,7 @@
         .enter()
         .append("text")
             .attr("class", function(d) { return "text-legend label-"+ d.key })
-            .attr("x", xAlign + size*1.2)
+            .attr("x", xAlign + size*1.4)
             .attr("y", function(d,i){ return yAlign +2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
             .text(function(d){ return d.name})
             .attr("text-anchor", "left")
