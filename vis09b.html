@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="data/keys.js"></script>
+    <script src="data/keys2.js"></script>
     <link rel="stylesheet" href="vis06-08-styles.css">
     <title>Trabalho de InfoViz - Vis09</title>
 
@@ -41,15 +41,9 @@
     <script>
 
       // set the dimensions and margins of the graph
-      var margin = {top: 20, right: 180, bottom: 350, left: 200},
+      var margin = {top: 20, right: 150, bottom: 350, left: 200},
               width = 1000 - margin.left - margin.right,
-              height = 580 - margin.top - margin.bottom;
-
-              var keys = [
-                  { "key": "FGR", "name":"from a general perspective", "order":1},
-                  { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute", "order":2},
-                  { "key": "FS", "name":"in a specific domain or context of use", "order": 3}
-              ]
+              height = 480 - margin.top - margin.bottom;
 
       // Initialize plot
       update('year');
@@ -86,7 +80,7 @@
         // Initialize the X axis
         var x = d3.scaleBand()
           .range([ 0, width ])
-          .padding(0.2);
+         // .padding(0.2);
 
         var xAxis = svg.append("g")
           .attr("class", "myXaxis text-axis")
@@ -95,7 +89,7 @@
         // Initialize the Y axis
         var y = d3.scaleBand()
           .range([height, 0])
-          .padding(0.6);
+         // .padding(0.6);
 
         var yAxis = svg.append("g")
           .attr("class", "myYaxis text-axis")
@@ -109,6 +103,10 @@
           .domain(keys.map( d => d.key))
           .range(keys.map(d=> d.order))
       
+        var challengeMap = d3.scaleOrdinal()
+          .domain(impacts.map( d => d.key))
+          .range(impacts.map(d=> d.name))
+
         //Read the data
         var url = "data/data_vis09.json";
         
@@ -126,7 +124,7 @@
     
           //sort data by citation
           if(orderBy === 'citation'){
-            sortedData = data.slice().sort((a, b) => d3.descending(a.citation, b.citation) || d3.ascending(a.year, b.year))
+            sortedData = data.slice().sort((a, b) => d3.ascending(a.citation, b.citation) || d3.ascending(a.year, b.year))
             mouseYSpace = 150
             limitHeight = 60
           }else if(orderBy === 'focus'){
@@ -140,16 +138,19 @@
         //  x.domain(impacts.map(d => d.key));
          // xAxis.call(d3.axisBottom(x).tickSize(0));
 
-          // Add X axis
+         radius = 10
+         shiftAxis = {x:radius*1.5, y:radius*1.2}
+
+         // Add X axis
           x.domain(sortedData.map(d => d.citation));
           xAxis.call(d3.axisBottom(x).tickSize(0))
             .selectAll("text")
             //.attr("y", 0)
            // .attr("x", 10)
             .attr("dy", ".50em")
-            .attr("dx", ".50em")
-            .attr("transform", "rotate(90)")
-            .style("text-anchor", "start");
+            .attr("dx", "-.50em")
+            .attr("transform", "rotate(-60)")
+            .style("text-anchor", "end");
 
           //Add contribution description on X axis
         /*  contributions.forEach(c => {
@@ -169,9 +170,9 @@
           svg.append("text")
               .attr("text-anchor", "end")
               .attr("x", width/2-80)
-              .attr("y", height+100)
+              .attr("y", height+180)
               .attr("text-anchor", "left")
-              .text("Challenge type");
+              .text("Publication");
 
 
           // Add Y axis
@@ -184,7 +185,7 @@
               .attr("transform", "rotate(-90)")
               .attr("y", -margin.left+20)
               .attr("x", -height/2+50)
-              .text("Publication")
+              .text("Challenge type")
 
 
           // variable u: map data to existing rect
@@ -194,9 +195,9 @@
           u.enter()
           .append("circle")
           .merge(u)
-          .attr("class", function(d) { return "myArea " + focus(d.focus) })
-          .attr("cx", function(d) { return x(d.citation) })
-          .attr("cy", function(d) { return y(d.impact) })
+          .attr("class", function(d) { return "myArea " + d.focus })
+          .attr("cx", function(d) { return x(d.citation) + shiftAxis.x})
+          .attr("cy", function(d) { return y(d.impact) + shiftAxis.y })
           //.attr("width", x.bandwidth() )
           //.attr("height", y.bandwidth() )
           .attr("r", 10)
@@ -232,7 +233,7 @@
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ foundPaper.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundFocus.name + " (" + foundFocus.key + ")"+
-                      '</br><strong>Impact: </strong>' + foundImpact.name + " (" + foundImpact.key + ")"+
+                      '</br><strong>Challenge: </strong>' + foundImpact.name + " (" + foundImpact.key + ")"+
                       '</br><strong>Event/Forum: </strong>' + foundPaper.event +
                       '</br>' + authors)
             })
@@ -286,12 +287,12 @@
         /****************************************** LEGEND  *****************************************/
 
         // Add one dot in the legend for each name.
-        var size = 20
+        var size = 6
         var xAlign = -10
         var yAlign = 40 
 
         svg_legend.append("text")
-        .text("Publication focus on HInt:")
+        .text("Publication focused on HInt:")
           .attr("class", "text-legend")
           .attr("x", xAlign)
           .attr("y", yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots
@@ -300,14 +301,15 @@
           .style("alignment-baseline", "middle")
       
 
-        svg_legend.selectAll("myrect")
+        svg_legend.selectAll("mycircle-legend")
           .data(keys)
           .enter()
-          .append("rect")
-              .attr("class", function(d) { return "label-rect" + d.key })
-              .attr("x", function (d,i) { return xAlign + (i == 2 ? i*340:i*230)})
+          .append("circle")
+              .attr("class", function(d) { return "mycircle-legend" + d.key })
+              .attr("cx", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
             // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-              .attr("y", yAlign)
+              .attr("cy", yAlign + size/4) 
+              .attr("r",size)
               .attr("width", size)
               .attr("height", size/2)
               .attr("rx", 5)
@@ -322,7 +324,7 @@
           .enter()
           .append("text")
               .attr("class", function(d) { return "text-legend label-" + d.key })
-              .attr("x", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
+              .attr("x", function (d,i) { return xAlign + size*3 + (i == 2 ? i*340:i*230)})
               //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
               .attr("y", yAlign + size/4) 
               .text(function(d){ return d.name + " (" + d.key + ")"})
