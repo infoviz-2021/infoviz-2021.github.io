@@ -41,7 +41,7 @@
     <script>
 
       // set the dimensions and margins of the graph
-      var margin = {top: 20, right: 150, bottom: 350, left: 200},
+      var margin = {top: 20, right: 50, bottom: 350, left: 250},
               width = 1000 - margin.left - margin.right,
               height = 480 - margin.top - margin.bottom;
 
@@ -129,7 +129,7 @@
             limitHeight = 60
           }else if(orderBy === 'focus'){
              //sort data by focus
-            sortedData = data.slice().sort((a, b) => d3.descending(focus(a.focus), focus(b.focus)))
+            sortedData = data.slice().sort((a, b) => d3.ascending(focus(a.focus), focus(b.focus)))
             mouseYSpace = 90
             limitHeight = 50
           }
@@ -141,16 +141,28 @@
          radius = 10
          shiftAxis = {x:radius*1.5, y:radius*1.2}
 
+         var className = function (d){ 
+            var s = d.split(' ')
+              newClass = ""
+              s.forEach( e => newClass += e)
+              s = newClass.replace('.','').replace(',','');
+            return s
+         }
+
          // Add X axis
           x.domain(sortedData.map(d => d.citation));
           xAxis.call(d3.axisBottom(x).tickSize(0))
             .selectAll("text")
             //.attr("y", 0)
            // .attr("x", 10)
+            .attr("class", d => {return className(d)})
             .attr("dy", ".50em")
             .attr("dx", "-.50em")
-            .attr("transform", "rotate(-60)")
-            .style("text-anchor", "end");
+            .attr("transform", "rotate(-35)")
+            .style("text-anchor", "end")
+            .attr("cursor","default")
+            .on("mouseover", highlight)
+            .on("mouseleave", noHighlight);
 
           //Add contribution description on X axis
         /*  contributions.forEach(c => {
@@ -195,7 +207,7 @@
           u.enter()
           .append("circle")
           .merge(u)
-          .attr("class", function(d) { return "myArea " + d.focus })
+          .attr("class", function(d) { return "myArea " + d.focus + " circle-" +  className(d.citation)})
           .attr("cx", function(d) { return x(d.citation) + shiftAxis.x})
           .attr("cy", function(d) { return y(d.impact) + shiftAxis.y })
           //.attr("width", x.bandwidth() )
@@ -256,31 +268,58 @@
 
         /****************************************** HIGHLIGHT ***************************************/
 
+        var className = function (d){ 
+            var s = d.split(' ')
+              newClass = ""
+              s.forEach( e => newClass += e)
+              s = newClass.replace('.','').replace(',','');
+            return s
+         }
+
+
         // What to do when one group is hovered
         var highlight = function(e,d){
-          //set font label to bold
-          d3.selectAll(".label-"+d.key)
-          .attr("font-weight", "bold")
+          
+          if(typeof d == 'string'){
+            d3.select("." + className(d)).attr("font-weight", "bold")
+            d3.selectAll(".circle-" +  className(d))
+            .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
 
-          d3.select(".label-rect"+d.key)
-          .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
-          // reduce opacity of all groups
-          d3.selectAll(".myArea").style("opacity", .05)
-          // expect the one that is hovered
-          d3.selectAll("."+d.key).style("opacity", 1)
+          }else{
+            //set font label to bold
+            d3.selectAll(".label-"+d.key)
+            .attr("font-weight", "bold")
+
+            d3.select(".mycircle-legend"+d.key)
+            .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
+            // reduce opacity of all groups
+            d3.selectAll(".myArea").style("opacity", .05)
+            // expect the one that is hovered
+            d3.selectAll("."+d.key).style("opacity", 1)
+          }
+       
         }
 
         // And when it is not hovered anymore
         var noHighlight = function(e,d){
+          if(typeof d == 'string'){
+            d3.select("." + className(d)).attr("font-weight", "normal")
 
-          //set font label to normal
-          d3.selectAll(".label-"+d.key)
-          .attr("font-weight", "normal")
+            d3.selectAll(".circle-" +  className(d))
+            .style("fill", function(d) { return color(d.focus)} )
 
-          d3.select(".label-rect"+d.key)
-          .style("fill", function(d) { return color(d.key)} )
+          }else{
 
-          d3.selectAll(".myArea").style("opacity", 1)
+            //set font label to normal
+            d3.selectAll(".label-"+d.key)
+            .attr("font-weight", "normal")
+
+            d3.select(".mycircle-legend"+d.key)
+            .style("fill", function(d) { return color(d.key)} )
+        
+
+            d3.selectAll(".myArea").style("opacity", 1)
+          }
         }
       
       
@@ -323,15 +362,16 @@
           .data(keys)
           .enter()
           .append("text")
-              .attr("class", function(d) { return "text-legend label-" + d.key })
-              .attr("x", function (d,i) { return xAlign + size*3 + (i == 2 ? i*340:i*230)})
-              //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-              .attr("y", yAlign + size/4) 
-              .text(function(d){ return d.name + " (" + d.key + ")"})
-              .attr("text-anchor", "left")
-              .style("alignment-baseline", "middle")
-              .on("mouseover", highlight)
-              .on("mouseleave", noHighlight)
+            .attr("cursor","default")
+            .attr("class", function(d) { return "text-legend label-" + d.key })
+            .attr("x", function (d,i) { return xAlign + size*3 + (i == 2 ? i*340:i*230)})
+            //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("y", yAlign + size/4) 
+            .text(function(d){ return d.name + " (" + d.key + ")"})
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            .on("mouseover", highlight)
+            .on("mouseleave", noHighlight)
 
       } //end function update()
 
