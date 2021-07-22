@@ -8,7 +8,7 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src= "vis06_detail.js"> </script>
+    <script src= "collaboration-networks-detail.js"> </script>
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
@@ -56,7 +56,7 @@
 
         <section class="card">
           <div class="card__header">
-            <h2 class="text-title">Authors' colaboration network </h2>
+            <h2 class="text-title">Authors' colaboration network</h2>
           </div>
         
           <!--div class="card__body  card__body--end ">
@@ -173,18 +173,18 @@
      
     svg
       .append("text")
-        .text("Click on the desired author's")
-        .attr("class", "text-legend")
+        .text("Click on the desired author's node to see")
+        .attr("class", "text-legend icon")
         .attr("text-anchor", "end")
         .style("opacity","0.6")
         .attr("x", width + margin.right)
-        .attr("y",20)
+        .attr("y", 20)
       .append("tspan")
-        .text("node to see  publications and")
+        .text("publications and partnership details.")
         .attr("x",width + margin.right)
         .attr("dy","1.2em")
       .append("tspan")
-        .text("partnership details.")
+        .text("")
         .attr("x",width + margin.right)
         .attr("dy","1.2em")
 

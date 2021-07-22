@@ -7,7 +7,7 @@ const radius_detail = 25;
 // bgcolor = d3.rgb(d3.schemeSet2[5])
 bgcolor = d3.rgb("#f6cb55") //tom de amarelo
 //bgcolor = d3.rgb("#de88af")
-bgcolor = d3.rgb("#e5c494")
+//bgcolor = d3.rgb("#e5c494")
 //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
 fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
@@ -119,18 +119,18 @@ function updateDetail(author_name){
 
       svg
       .append("text")
-        .text("Click on the desired author's")
+        .text("Click on the desired author's node to see")
         .attr("class", "text-legend")
         .attr("text-anchor", "end")
         .style("opacity","0.6")
         .attr("x", width + margin.right)
         .attr("y", 20)
       .append("tspan")
-        .text("node to see  publications and")
+        .text("publications and partnership details.")
         .attr("x",width + margin.right)
         .attr("dy","1.2em")
       .append("tspan")
-        .text("partnership details.")
+        .text("")
         .attr("x",width + margin.right)
         .attr("dy","1.2em")
 
@@ -192,7 +192,7 @@ function updateDetail(author_name){
         //define centers
         const spacing = {h:200, v:80}
         const paper_size = {w: 250, h:70}
-        const shift_x = width/15
+        const shift_x = width/12
         const shift_y = 20
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
         const bandY = {'paper' : author.paper.length, 'partner': author_partner.length }
@@ -351,8 +351,8 @@ function updateDetail(author_name){
                 .append("rect")
                   .attr("width",  paper_size.w)
                   .attr("height", paper_size.h)
-                  .attr("rx",5)
-                  .attr("ry",5)
+                  .attr("rx",2)
+                  .attr("ry",2)
                   .attr("x", xCenter.paper)
                   .attr("y", d => (yPaper(d.id) - paper_size.h/2))
                   .style("fill",  d => colorPaperLight(d.focus))
@@ -415,17 +415,37 @@ function updateDetail(author_name){
           .enter()
           .append("circle")
             //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
-            .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)})
+            .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
             .attr("cx", xCenter.partner)
             .attr("cy", d => yPartner(d.id))
-           // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
+            .attr("fill", "white")
            // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
-            .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
-            .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
+            //.attr("fill", function(d){ return d3.rgb(colorPartner(d.qt)).darker(0)})
+            .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
             .style("cursor", "pointer")
             .on('mouseover', fade(0.2))
             .on('mouseout', fade(1))
             .on('click', d => updateDetail(d.id))
+
+          var node_partner = svg.append("g")
+          .attr("class", "node circle partner")
+          .selectAll("circle")
+            .data(nodes_partner)
+            .enter()
+            .append("circle")
+              //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+              .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+              .attr("cx", xCenter.partner)
+              .attr("cy", d => yPartner(d.id))
+             // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
+             // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
+              .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
+              .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
+              .style("cursor", "pointer")
+              .on('mouseover', fade(0.2))
+              .on('mouseout', fade(1))
+              .on('click', d => updateDetail(d.id))
+          
 
         var label_partner = svg.selectAll("mylabels")
           .data(nodes_partner)
