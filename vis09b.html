@@ -41,8 +41,8 @@
     <script>
 
       // set the dimensions and margins of the graph
-      var margin = {top: 20, right: 50, bottom: 350, left: 250},
-              width = 1000 - margin.left - margin.right,
+      var margin = {top: 20, right: 50, bottom: 350, left: 280},
+              width = 1100 - margin.left - margin.right,
               height = 480 - margin.top - margin.bottom;
 
       // Initialize plot
@@ -79,7 +79,7 @@
               
         // Initialize the X axis
         var x = d3.scaleBand()
-          .range([ 0, width ])
+          .range([0, width ])
          // .padding(0.2);
 
         var xAxis = svg.append("g")
@@ -182,14 +182,23 @@
           svg.append("text")
               .attr("text-anchor", "end")
               .attr("x", width/2-80)
-              .attr("y", height+180)
+              .attr("y", height+150)
               .attr("text-anchor", "left")
               .text("Publication");
 
 
+          sortedChallenge = impacts.slice().sort((a,b) => d3.ascending(a.order, b.order))
           // Add Y axis
-          y.domain(impacts.map(d => d.key));
-          yAxis.call(d3.axisLeft(y).tickSize(0));
+          y.domain(sortedChallenge.map(d => d.key));
+          yAxis.call(d3.axisLeft(y).tickSize(0))
+          .selectAll("text")
+            .attr("class",d => { return "axisY-" + d})
+            //.text(d => { return challengeMap(d) + ` - ${d} `})
+            .text(d => { return challengeMap(d)})
+            .attr("dx", "-0.2em")
+            .attr("cursor","default")
+            .on("mouseover", highlightAxisY)
+            .on("mouseleave", noHighlightAxisY);
 
           // Y axis title:
           svg.append("text")
@@ -207,12 +216,12 @@
           u.enter()
           .append("circle")
           .merge(u)
-          .attr("class", function(d) { return "myArea " + d.focus + " circle-" +  className(d.citation)})
+          .attr("class", function(d) { return "myArea " + d.focus + " circle-" +  className(d.citation) + " " + d.impact})
           .attr("cx", function(d) { return x(d.citation) + shiftAxis.x})
           .attr("cy", function(d) { return y(d.impact) + shiftAxis.y })
           //.attr("width", x.bandwidth() )
           //.attr("height", y.bandwidth() )
-          .attr("r", 10)
+          .attr("r", radius)
           //.attr("ry", 4)
           .style("fill", function(d) {return color(d.focus)})
           .on("mouseover", function(e,d) {  
@@ -278,13 +287,14 @@
 
 
         // What to do when one group is hovered
-        var highlight = function(e,d){
-          
-          if(typeof d == 'string'){
-            d3.select("." + className(d)).attr("font-weight", "bold")
-            d3.selectAll(".circle-" +  className(d))
-            .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+        var highlight = function(e,d){     
 
+          if(typeof d == 'string'){
+
+              d3.select("." + className(d)).attr("font-weight", "bold")
+              d3.selectAll(".circle-" +  className(d))
+                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+      
           }else{
             //set font label to bold
             d3.selectAll(".label-"+d.key)
@@ -300,13 +310,32 @@
        
         }
 
+        var highlightAxisY = function(e,d){
+          
+          d3.select(".axisY-" + d).attr("font-weight", "bold")
+          d3.selectAll("." +  d)
+          .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+       
+        }
+
+
         // And when it is not hovered anymore
         var noHighlight = function(e,d){
-          if(typeof d == 'string'){
-            d3.select("." + className(d)).attr("font-weight", "normal")
+          if(typeof d === 'string'){
+          
+            if( className(d).length > 2){
+              
+              d3.select("." + className(d)).attr("font-weight", "normal")
 
-            d3.selectAll(".circle-" +  className(d))
-            .style("fill", function(d) { return color(d.focus)} )
+              d3.selectAll(".circle-" +  className(d))
+                .style("fill", function(d) { return color(d.focus)} )
+
+            }else{
+              d3.select("." + className(d)).attr("font-weight", "normal")
+              d3.selectAll("." + d)
+              .style("fill", function(d) { return color(d.focus)} )
+            }
+
 
           }else{
 
@@ -322,7 +351,13 @@
           }
         }
       
-      
+        var noHighlightAxisY = function(e,d){
+          
+          d3.select(".axisY-" + d).attr("font-weight", "normal")
+          d3.selectAll("." +  d)
+          .style("fill", function(d) { return color(d.focus)} )
+       
+        }
         /****************************************** LEGEND  *****************************************/
 
         // Add one dot in the legend for each name.

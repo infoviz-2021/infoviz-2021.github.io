@@ -12,8 +12,8 @@ var contributions = [
 ]
 
 var impacts = [
-    { "key": "IH", "name":"HInt impacts on humans" },
-    { "key": "DC", "name":"Design challenges"},
-    { "key": "EC", "name":"Evaluation challenges"},
-    { "key": "DT", "name":"Demands for new theories and methods"}
+    { "key": "IH", "name":"HInt impacts on humans", "order":1 },
+    { "key": "DC", "name":"Design challenges","order":2},
+    { "key": "EC", "name":"Evaluation challenges","order":3},
+    { "key": "DT", "name":"Demands for new theories and methods","order":4}
   ]
