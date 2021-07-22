@@ -24,6 +24,8 @@
          </div>
       </section>
       <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
+      <script src="data/keys.js"></script>
       <script>
          var svg = d3.select("svg"),
              margin = {top: 20, right: 20, bottom: 30, left: 530},
@@ -38,13 +40,17 @@
          var g = svg.append("g")
                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
              
-         d3.json("/data/data_vis04_.json", function(error, data) {
-                 if (error) throw error;
-             
-                 data.sort(function(a, b) { return a.quantidade - b.quantidade; });
-             
-                 x.domain([0, d3.max(data, function(d) { return d.quantidade; })]);
-             y.domain(data.map(function(d) { return d.evento; })).padding(0.1);
+         d3.json("/data/data_vis08.json", function(error, data) {
+            if (error) throw error;
+         
+            var grouped = _.groupBy(data.papers, a => a.event);
+
+            var eventKeys = Object.keys(grouped)
+
+            var sortedGroup = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length)
+
+            x.domain([0, sortedGroup[0][1].length]);
+            y.domain(sortedGroup.reverse().map(function(d) { return d[0]; })).padding(0.1);
          
             // X axis
              g.append("g")
@@ -58,7 +64,7 @@
              g.append("g")
                  .attr("class", "y axis")
                  .attr("class", "text-caption default-font-family text-color")
-                 .call(d3.axisLeft(y));
+                 .call(d3.axisLeft(y).tickSize(0));
 
              g.append("text")             
                .attr("transform",
@@ -78,20 +84,28 @@
                .text("Events and Foruns");  
          
              g.selectAll(".bar")
-                  .data(data)
+                  .data(sortedGroup.reverse())
                   .enter().append("rect")
                   .attr("class", "bar text-caption default-font-family")
                   .attr("x", 3)
                   .attr("height", y.bandwidth())
-                  .attr("y", function(d) { return y(d.evento); })
-                  .attr("width", function(d) { return x(d.quantidade); })
-                  .on("mousemove", function(d){
+                  .attr("y", function(d) { return y(d[0]); })
+                  .attr("width", function(d) { return x(d[1].length); })
+                  .on("mouseover", function(d){
                      tooltip
                         .style("left", d3.event.pageX - 50 + "px")
                         .style("top", d3.event.pageY - 70 + "px")
                         .style("display", "inline-block")
                         .attr("class", "toolTip")
-                        .html(d.artigos);
+                        .html(`
+                           ${d[1].map(key => (
+                              `
+                              <br> <strong>Publication title: </strong> ${key.title}
+                              <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
+                              <br> <strong>Contribution: </strong> ${contributions.find(element => element.key == key.contribution[0]).name} (${contributions.find(element => element.key == key.contribution[0]).key})
+                              <br>`
+                           )).join('')}
+                        `);
                   })
                   .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
          });

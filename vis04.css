@@ -41,3 +41,8 @@
     white-space: nowrap;
     align-items: center;
 }
+
+.y-axis, .x-axis {
+    fill: none;
+    stroke: none;
+}
