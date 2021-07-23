@@ -28,22 +28,77 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
 }
 
 .header__left-side__menu__item--active {
-  background-color: var(--light-blue);
+  background-color: var(--light-cornflower-blue-2);
 }
 
 .header__left-side__menu__item--active a {
   color: var(--primary);
 }
 
-.header__left-side__menu__item--active:after {
+.header__left-side__menu__item--active::before {
   display: block;
   height: 1em;
   width: 100%;
   position: absolute;
-  background-color: var(--light-blue);
+  background-color: var(--light-cornflower-blue-2);
   content: '';
   right: 0px;
   top: 36px; 
+}
+
+.header__top {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 1em;
+  line-height: 1.25rem;
+}
+
+.header__submenu {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--light-cornflower-blue-2);
+  justify-content: flex-end;
+}
+
+.header__submenu__list {
+  display: inline-flex;
+  list-style: none;
+  height: 40px;
+  align-items: flex-end;
+}
+
+.header__submenu__list__item {
+  cursor: pointer;
+  margin: 0 0.25em;
+  padding: .5em .5em;
+  color: var(--white);
+  position: relative;
+}
+
+.header__submenu__list__item--active {
+  color: var(--primary);
+}
+
+.header__submenu__list__item--active::before {
+  display: block;
+  height: 0.25em;
+  width: 100%;
+  position: absolute;
+  background-color: var(--primary);
+  content: '';
+  right: 0px;
+  top: 30px;
+}
+
+.header__submenu__list__item a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.header__submenu__list__item--active a {
+  color: var(--primary);
 }
 
 .card {
@@ -51,6 +106,10 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   flex-direction: column;
   margin: 1em;
   color: var(--gray);
+}
+
+.card p {
+  text-align: justify;
 }
 
 .card__header {
