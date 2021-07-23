@@ -92,6 +92,15 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   top: 30px;
 }
 
+.header__submenu__list__item a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.header__submenu__list__item--active a {
+  color: var(--primary);
+}
+
 .card {
   display: flex;
   flex-direction: column;
