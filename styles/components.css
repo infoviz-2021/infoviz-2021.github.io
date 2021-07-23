@@ -475,3 +475,22 @@ div.card__body__countries__tooltip {
   font-family: var(--font-family-theme);
   font-size: 1.5rem
 }
+
+table {
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th {
+  cursor: pointer;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
