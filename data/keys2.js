@@ -12,8 +12,28 @@ var contributions = [
 ]
 
 var impacts = [
-    { "key": "IH", "name":"HInt impacts on humans", "order":1 },
-    { "key": "DC", "name":"Design challenges","order":2},
-    { "key": "EC", "name":"Evaluation challenges","order":3},
-    { "key": "DT", "name":"Demands for new theories and methods","order":4}
+    { 
+        "key": "IH", 
+        "name":"HInt impacts on humans", 
+        "description" : "Demands to identify and to explore the Human-Computer Integration (HInt) phenomena and effects on the individual, society and the environment", 
+        "order":1 
+    },
+    { 
+        "key": "DC", 
+        "name":"Design challenges",
+        "description": "Demands to review and to propose methods, techniques and tools to the partner technologies design centered on both Interaction and Human-Computer Integration (HInt), considering the human, cultural, social and ethic values of the users",
+        "order":2
+    },
+    { 
+        "key": "EC", 
+        "name":"Evaluation challenges",
+        "description": "Demands to review and to propose methods and techniques to the partner technologies evaluation centered on both Interaction and Human-Computer Integration (HInt), considering the human, cultural, social and ethic values of the users",
+        "order":3
+    },
+    { 
+        "key": "DT", 
+        "name":"Demands for new theories and methods",
+        "description": "Demands to review and to propose empirical and theoretical approaches (e.g., theories and methods) to design and to evaluate technologies that promote Human-Computer Integration (HInt) focused on the benefits of the partnership between humans and technologies",
+        "order":4
+    }
   ]

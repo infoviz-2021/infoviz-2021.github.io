@@ -236,12 +236,44 @@
           yAxis.call(d3.axisLeft(y).tickSize(0))
           .selectAll("text")
             .attr("class",d => { return "axisY-" + d})
-            //.text(d => { return challengeMap(d) + ` - ${d} `})
+            //.text(d => { return challengeMap(d) + `(${d}) `})
             .text(d => { return challengeMap(d)})
             .attr("dx", "-0.2em")
             .attr("cursor","default")
-            .on("mouseover", highlightAxisY)
-            .on("mouseleave", noHighlightAxisY);
+            .on("mouseover", function(e,d){
+          
+              d3.select(".axisY-" + d)
+                .attr("font-weight", "bold")
+
+              d3.selectAll("." +  d)
+                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+                        
+              //Get Contribution description
+              const foundImpact = impacts.find(element => element.key == d);
+
+              console.log(foundImpact)
+
+              d3.select('.tooltip')
+                .style('visibility','visible')
+                .style('top', e.pageY + 10  + 'px' )
+                .style('left', e.pageX + 5 + 'px')
+                .style('max-width',500)
+                //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
+               // .html('<strong>Challenge type: </strong>'+  foundImpact.name + " (" + foundImpact.key + ")"+
+               //       '</br><strong>Description: </strong>' + foundImpact.description)
+                .html('<strong>Description: </strong>' + foundImpact.description)
+          
+            })
+            .on("mouseleave", function(e,d){
+          
+              d3.select(".axisY-" + d).attr("font-weight", "normal")
+              d3.selectAll("." +  d)
+              .style("fill", function(d) { return color(d.focus)} )
+          
+
+              d3.select('.tooltip')
+                .style('visibility','hidden')
+            })
 
           // Y axis title:
           svg.append("text")
@@ -353,14 +385,7 @@
        
         }
 
-        var highlightAxisY = function(e,d){
-          
-          d3.select(".axisY-" + d).attr("font-weight", "bold")
-          d3.selectAll("." +  d)
-          .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
-       
-        }
-
+      
 
         // And when it is not hovered anymore
         var noHighlight = function(e,d){
@@ -394,13 +419,6 @@
           }
         }
       
-        var noHighlightAxisY = function(e,d){
-          
-          d3.select(".axisY-" + d).attr("font-weight", "normal")
-          d3.selectAll("." +  d)
-          .style("fill", function(d) { return color(d.focus)} )
-       
-        }
         /****************************************** LEGEND  *****************************************/
 
         // Add one dot in the legend for each name.
