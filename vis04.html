@@ -81,7 +81,7 @@
                .attr("dy", "1em")
                .attr("class", "text-axis default-font-family text-color")
                .style("text-anchor", "middle")
-               .text("Events and Foruns");  
+               .text("Events and Forums");  
          
              g.selectAll(".bar")
                   .data(sortedGroup.reverse())
@@ -98,11 +98,14 @@
                         .style("display", "inline-block")
                         .attr("class", "toolTip")
                         .html(`
+                           <strong> List of publications in this event/forum: </strong>
+                           <br>
                            ${d[1].map(key => (
                               `
                               <br> <strong>Publication title: </strong> ${key.title}
                               <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
                               <br> <strong>Contribution: </strong> ${contributions.find(element => element.key == key.contribution[0]).name} (${contributions.find(element => element.key == key.contribution[0]).key})
+                              <br> <strong>Citation: </strong> ${key.citation}
                               <br>`
                            )).join('')}
                         `);
