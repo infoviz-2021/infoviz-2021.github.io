@@ -9,6 +9,32 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   color: var(--dark-gray);
 }
 
+.card__body__challenge__group {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.card__body__challenge{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0.5em;
+  bottom: 0px;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
+}
+
+.card__body__challenge_legend{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0.5em;
+  bottom: 0px;
+  font-family: var(--font-family-theme);
+  font-size: 13px;
+}
+
 .card__body__countries {
   display: flex;
   flex-direction: row;

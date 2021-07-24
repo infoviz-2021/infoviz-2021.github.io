@@ -89,7 +89,7 @@
 // Table 
 //--------------------------------------------------------------------------------------------------------------------
 
-      var column_names = [ "Challenge", "Challenge type","#References" ];
+      var column_names = [ "Challenge", "Challenge type","Publications" ];
 
       //put challenges in select
     
@@ -126,15 +126,8 @@
                   return "240px"
               if(i == 1)  //second column
                   return "700px"
-              return "10px"  //first colums
-            })
-            .style("text-align", (d,i) => { 
-              if (i == 2)
-                return "right"
-              return "left"; 
-            })
-            .style("pointer","default");
-            
+              return "400px"  //first colums
+            });
 
         var rows;
 
@@ -436,10 +429,6 @@ function updateChart(orderBy){
               d3.select("." + className(d)).attr("font-weight", "bold")
               d3.selectAll(".circle-" +  className(d))
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
-              
-              const foundPaper= papers.find(element => element.citation === d);
-
-              updateTable(foundPaper.id,"publication")
       
           }else{
             //set font label to bold
@@ -452,8 +441,6 @@ function updateChart(orderBy){
             d3.selectAll(".myArea").style("opacity", .05)
             // expect the one that is hovered
             d3.selectAll("."+d.key).style("opacity", 1)
-
-            
           }
        
         }
@@ -476,7 +463,7 @@ function updateChart(orderBy){
               d3.selectAll("." + d)
               .style("fill", function(d) { return color(d.focus)} )
             }
-            updateTable("All","select")
+
 
           }else{
 
@@ -596,16 +583,12 @@ function updateTable(selectedOption, type) {
         })
          
         //remove last comma and space
-         arr.push(d.citations.length)
+         arr.push(text.substring(0,text.length-2))
 
         return arr;
       })
       .enter()
-      .append("td")
-      .style("text-align", (d,i) => { 
-        if (i == 2)
-          return "right"
-        return "left"; }) 
+      .append("td") 
       .html(d => d)
     })
         .catch(err => console.log(err)); //end d3.json reading

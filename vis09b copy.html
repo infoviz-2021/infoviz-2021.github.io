@@ -308,14 +308,7 @@ function updateChart(orderBy){
 
               d3.select('.tooltip')
                 .style('visibility','visible')
-               // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
-                .style('top', function(){ 
-                  
-                 // if(d.impact == "IH" || d.impact == "DC")
-               //     return  e.pageY - mouseYSpace + 'px'
-                
-                  return  e.pageY +'px'
-                 } )
+                .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
                 .style('left', .4 * e.pageX + 10 + 'px')
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ foundPaper.title + 
@@ -323,8 +316,6 @@ function updateChart(orderBy){
                       '</br><strong>Challenge: </strong>' + foundImpact.name + " (" + foundImpact.key + ")"+
                       '</br><strong>Event/Forum: </strong>' + foundPaper.event +
                       '</br>' + authors)
-                .style('min-width','200px' )
-                .style('max-width','400px' )
 
               
             
