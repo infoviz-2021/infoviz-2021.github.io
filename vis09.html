@@ -26,25 +26,25 @@
     <main>
 
       <section class="card__body__challenge__group">
-        <section class="card">
+        <section class="card" id = "challenge_graph">
           
           <div class="card__header">
             <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
           </div>
 
-          <div class="card__body__challenge__legend">
-            <strong>Order publication by:</strong>
-            <input type="radio" id="citation"
+          <div class="card__body__challenge__legend text-legend">
+            <strong style="padding-right:0.5em;">Order publication by:</strong>
+            <input type="radio" id="citation" style="padding-left:0.5em;"
               name="order" value="citation" onclick="updateChart('citation')">
-            <label for="citation" onclick="updateChart('citation')">Citation</label>
+            <label for="citation" onclick="updateChart('citation') " style="padding-left:0.2em; padding-right:0.5em;">Citation</label>
         
-            <input type="radio" id="focus"
+            <input type="radio" id="focus" 
               name="order" value="focus" onclick="updateChart('focus')">
-            <label for="focus" onclick="updateChart('focus')">Focus</label>
+            <label for="focus" onclick="updateChart('focus')" style="padding-left:0.2em; padding-right:0.5em;">Focus</label>
 
             <input type="radio" id="year"
             name="order" value="year" onclick="updateChart('year')" checked="checked">
-            <label for="year" onclick="updateChart('year')">Year</label>
+            <label for="year" onclick="updateChart('year')"  style="padding-left:0.2em;">Year</label>
 
           </div>
 
@@ -273,16 +273,17 @@ function updateChart(orderBy){
               //Get Contribution description
               const foundImpact = impacts.find(element => element.key == d);
 
+              //tooltip axis
               d3.select('.tooltip')
                 .style('visibility','visible')
                 .style('top', d == "IH" || d == "DC" ? e.pageY - 70 + 'px' : e.pageY + 'px' )
-                .style('left',0.5*e.pageX - 430 + 'px')
+                .style('left',0.5*e.pageX - 400 + 'px')
                 .style('min-width','100px' )
-                .style('max-width','340px' )
+                .style('max-width','310px' )
 
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Challenge type: </strong>'+  foundImpact.name + " (" + foundImpact.key + ")"+
-                      '</br><strong>Description: </strong>' + foundImpact.description)
+                      '</br></br><strong>Description: </strong>' + foundImpact.description)
                 //.html('<strong>Description: </strong>' + foundImpact.description)
           
             })
@@ -337,7 +338,7 @@ function updateChart(orderBy){
           //.attr("ry", 4)
           .style("fill", function(d) {return color(d.focus)})
           .on("mouseover", function(e,d) {  
-
+            
             //change rect color
             d3.select(this)
               .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
@@ -364,21 +365,31 @@ function updateChart(orderBy){
                // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
                 .style('top', function(){ 
                   
-                 // if(d.impact == "IH" || d.impact == "DC")
-                  //  return  e.pageY - mouseYSpace + 'px'
+                  if(d.impact == "IH" || d.impact == "DC")
+                    return parseInt(y(d.impact)) + 150 +'px'
                 
-                  return  e.pageY +'px'
+                  //x(d.citation)
+
+                 
+                  return  parseInt(y(d.impact)) + 270 +'px'
                   //return  '400px'
 
-                 } )
-                .style('left', parseInt(.4 * e.pageX) + 10 + 'px')
+                 })
+                .style('left', function(){
+
+                  if(x(d.citation) > 350)
+                  return parseInt(x(d.citation))-200 + 'px'
+                  
+                  return parseInt(x(d.citation)) + 150+ 'px'
+
+                })
                 .html('<strong>Publication title: </strong>'+ foundPaper.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundFocus.name + " (" + foundFocus.key + ")"+
                       '</br><strong>Challenge: </strong>' + foundImpact.name + " (" + foundImpact.key + ")"+
                       '</br><strong>Event/Forum: </strong>' + foundPaper.event +
                       '</br>' + authors)
                 .style('min-width','200px' )
-                .style('max-width','400px' )
+                .style('max-width','350px' )
 
               
             
@@ -555,7 +566,7 @@ function updateChart(orderBy){
 var column_names = [ "Challenge", "Challenge type","#Citations" ];
 
 //put challenges in select
-const allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+var allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
 
 //include option on select
 d3.select("#challenge-select")
@@ -587,7 +598,7 @@ d3.select("#challenge-select")
         if(i == 0)  //second column
             return "350px"
         if(i == 1)  //second column
-            return "200px"
+            return "180px"
         return "10px"  //last column
       })
       .style("text-align", (d,i) => { 
@@ -613,6 +624,40 @@ d3.select("#challenge-select")
 
 // A function that update the table
 function updateTable(selectedOption, type) {
+ 
+  d3.select("#challenge-select")
+    .selectAll("option")
+    .remove()
+  
+  if(type== "publication") 
+    allChallengeTypes =  ["Select an option","All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+  else{
+    if(selectedOption == "All")
+      allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+    else{
+      
+      filterImpact = impacts.filter(d => { 
+        
+        return d.name + " (" + d.key + ")" != selectedOption})
+
+      allChallengeTypes =  [selectedOption, "All"].concat(filterImpact.map(d => { 
+        return  d.name + " (" + d.key + ")"
+        
+      }
+      ));
+    }
+  }
+    
+
+  d3.select("#challenge-select")
+    .selectAll("option")
+    .data(allChallengeTypes)
+    .enter()
+    .append("option")
+      .text(d => d )
+      .attr("value",d => d)
+  
+  d3.select("#challenge-select").attr("value", selectedOption)
 
   //Read the data
  var url = "data/data_vis09.json";

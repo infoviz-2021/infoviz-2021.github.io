@@ -31,6 +31,15 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   position: relative;
 }
 
+.card__body__challenge__legend__input{
+  padding: 0.5em;
+}
+
+.card__body__challenge__legend__label{
+  padding-right:0.5em;
+  padding-left:0.2em;
+}
+
 .card__body__challenge__table__search{
   display: flex;
   flex-direction: column;

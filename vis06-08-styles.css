@@ -66,25 +66,28 @@ div.tooltip {
     top: 20px;
     border-collapse: collapse;
     margin-bottom: 20px;
+    cursor: default;
   }
+
   
-  table a:hover, a:active { text-decoration: underline; }
-  
-  table, th, td { border: 1px solid rgba(224, 224, 224, 0.842); }
+  table, th, td { border: 1px solid rgba(224, 224, 224, 0.842); cursor: default;}
   
   td, th {
     padding: 5px;
     text-align: left;
     height: 20px;
+  
   }
   
   th {
-    background-color:#8e7bd7;
+    background-color: #3C799C;
     color: white;
   }
   
   td { background-color: white; }
   
-  tr:hover td { background-color: #e2e2e2; }
+  tr:hover td { 
+    background-color:#e1e1e18c;
+  }
 
   
