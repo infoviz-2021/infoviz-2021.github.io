@@ -94,8 +94,7 @@ function updateChart(orderBy){
       
         d3.select("#svg_challenge_graph").remove();
         d3.selectAll("#svg_focus_legend").remove();
-      //  d3.selectAll(".label-axisX").remove();
-
+      
         
         //legend: append the svg object to the body of the page
         var svg_legend = d3.select("#focus_legend")
@@ -203,7 +202,11 @@ function updateChart(orderBy){
               text = ""
               const foundPaper= papers.find(element => element.citation == d);
               foundPaper.challenge_code.forEach(e => text += " " + e)
-              return "label-axisX " + className(d) + " " + text
+             
+              classImpact = ""
+              foundPaper.impact.forEach(e => classImpact += " " + e)
+
+              return "label-axisX " + className(d) + " " + text + " " + classImpact
             })
             .attr("dy", "1.2em")
             .attr("dx", "-.20em")
@@ -457,7 +460,7 @@ function updateChart(orderBy){
             d3.select(".mycircle-legend"+d.key)
             .style("fill", function(d) { return d3.rgb(color(d.key)).darker(0.5)} )
             // reduce opacity of all groups
-            d3.selectAll(".myArea").style("opacity", .05)
+            d3.selectAll(".myArea").style("opacity", .1)
             // expect the one that is hovered
             d3.selectAll("."+d.key).style("opacity", 1)
 
@@ -632,9 +635,12 @@ function updateTable(selectedOption, type) {
   if(type== "publication") 
     allChallengeTypes =  ["Select an option","All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
   else{
-    if(selectedOption == "All")
+    if(selectedOption == "All"){
       allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
-    else{
+      d3.selectAll(".label-axisX").style("opacity","1")
+      d3.selectAll(".myArea").style("opacity","1")
+
+    }else{
       
       filterImpact = impacts.filter(d => { 
         
@@ -645,6 +651,15 @@ function updateTable(selectedOption, type) {
         
       }
       ));
+    
+      var selectedKey  = selectedOption.split("(")[1].split(")")[0]
+      
+      d3.selectAll(".label-axisX").style("opacity","0.1")
+      d3.selectAll(".label-axisX." + selectedKey).style("opacity","1")
+
+      d3.selectAll(".myArea").style("opacity","0.1")
+      d3.selectAll("." + selectedKey).style("opacity","1")
+
     }
   }
     
@@ -752,17 +767,29 @@ function updateTable(selectedOption, type) {
       .attr("class", d => d.id)
       .on("mouseover", (e,d) => {
     
-        d3.selectAll(".label-axisX").style("opacity","0.2")
+        d3.selectAll(".label-axisX").style("opacity","0.1")
         d3.selectAll(".label-axisX." + d.id).style("opacity","1")
 
-        d3.selectAll(".myArea").style("opacity","0.2")
+        d3.selectAll(".myArea").style("opacity","0.1")
         d3.selectAll(".circle-" + d.id)
           .style("opacity","1")
 
       })
       .on("mouseleave", d => {
-        d3.selectAll(".label-axisX").style("opacity","1")
-        d3.selectAll(".myArea").style("opacity","1")
+
+        if(selectedOption == "All"){
+          d3.selectAll(".label-axisX").style("opacity","1")
+          d3.selectAll(".myArea").style("opacity","1")
+
+        }else{
+          d3.selectAll(".label-axisX").style("opacity","0.1")
+          d3.selectAll(".label-axisX." + selectedKey).style("opacity","1")
+
+          d3.selectAll(".myArea").style("opacity","0.1")
+          d3.selectAll("." + selectedKey).style("opacity","1")
+
+        }
+        
       })
 
       // enter td's in each row
