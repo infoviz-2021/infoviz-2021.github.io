@@ -31,6 +31,13 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   position: relative;
 }
 
+.card__body__challenge__table__search{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  display: inline-block;
+}
+
 .card__body__countries {
   display: flex;
   flex-direction: row;

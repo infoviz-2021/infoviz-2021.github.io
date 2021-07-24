@@ -57,19 +57,20 @@
 
         <section class="card__body__challenge" id= "card-table">
           <div class="card__header">
-            <h2 class="text-title">Challenge of HInt presented by the analyzed publications</h2>
+            <h2 class="text-title">Examples of HInt challenges listed by analyzed publications</h2>
           </div>
          
           <div id= "container">
             
-            <div id="FilterableTable">
+            <div class="card__body__challenge__table__search">
               <label for="challenge-select">Select challenge type:</label>
               <select id = "challenge-select" name = "challenge-select"></select> <br>
               <!--label for="challenge-search">Filter challenge:</label>
               <input id = "challenge-search" name = "challenge-search"></select> <br-->
-
             </div>
+            <div id="FilterableTable"></div>
           </div>
+
         </section>
 
       </div>
@@ -87,6 +88,7 @@
       updateChart('year');
       //var clicks = [{key: "", type: "", value: false}];
       var clicks = [];
+      var click = [];
 
 function updateChart(orderBy){
       
@@ -196,19 +198,50 @@ function updateChart(orderBy){
           x.domain(sortedData.map(d => d.citation));
           xAxis.call(d3.axisBottom(x).tickSize(0))
             .selectAll("text")
-            .attr("class", d => {return className(d)})
+            .attr("class", d => {
+              
+              text = ""
+              const foundPaper= papers.find(element => element.citation == d);
+              foundPaper.challenge_code.forEach(e => text += " " + e)
+              return "label-axisX " + className(d) + " " + text
+            })
             .attr("dy", "1.2em")
             .attr("dx", "-.20em")
             .attr("transform", "rotate(-40)")
             .style("text-anchor", "end")
-            .attr("cursor","default")
+            .attr("cursor","pointer")
             .on("mouseover", highlight)
             .on("mouseleave", noHighlight)
             .on("click", (e,d) => {
 
-              updateTable(d,"publication")
-              clicks.push({key: d, type: "publication", value: true});
+              //axis X
+              d3.selectAll(".label-axisX").attr("font-weight", "normal")
+              const foundClick = clicks.find(c => c.key === d);
 
+              if(foundClick){
+
+               // index = clicks.indexOf(foundClick);
+             //   clicks.splice(index, 1);
+               
+                clicks.pop()
+                updateTable("All","select")
+               
+              }else{
+
+                clicks.pop()
+                clicks.push({key: d, type: "publication"});
+
+               // d3.selectAll(".label-axisX").attr("font-weight", "normal")
+                d3.select("." + className(d)).attr("font-weight", "bold")
+  
+                console.log(clicks)
+              //  updateTable(clicks,"click")
+
+                updateTable(d,"publication")
+              }
+
+              
+              
             });
 
           // Add X axis title
@@ -218,7 +251,6 @@ function updateChart(orderBy){
               .attr("y", height+150)
               .attr("text-anchor", "left")
               .text("Publication");
-
 
           sortedChallenge = impacts.slice().sort((a,b) => d3.ascending(a.order, b.order))
           // Add Y axis
@@ -281,7 +313,22 @@ function updateChart(orderBy){
           u.enter()
           .append("circle")
           .merge(u)
-          .attr("class", function(d) { return "myArea " + d.focus + " circle-" +  className(d.citation) + " " + d.impact})
+          .attr("class", function(d) { 
+            text = ""
+                
+            const foundPaper= papers.find(element => element.id === d.id);
+           // console.log(d.impact)
+            foundPaper.challenge_code.forEach(e => {
+               //console.log(e)
+              if (e.substring(0,2) == d.impact)
+                 return text += " circle-" + e
+
+               return ""
+              
+            })
+
+            return "myArea " + d.focus + " circle-" +  className(d.citation) + " " + d.impact + text
+          })
           .attr("cx", function(d) { return x(d.citation) + shiftAxis.x})
           .attr("cy", function(d) { return y(d.impact) + shiftAxis.y })
           //.attr("width", x.bandwidth() )
@@ -312,24 +359,19 @@ function updateChart(orderBy){
 
               authors += foundPaper.citation_order
 
-              console.log(e.pageX, e.pageY)
-
               d3.select('.tooltip')
                 .style('visibility','visible')
                // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
-              //  .style('top', function(){ 
+                .style('top', function(){ 
                   
                  // if(d.impact == "IH" || d.impact == "DC")
-               //     return  e.pageY - mouseYSpace + 'px'
+                  //  return  e.pageY - mouseYSpace + 'px'
                 
-             //     return  e.pageY +'px'
-             //    } )
-              //  .style('left', .4 * e.pageX + 10 + 'px')
+                  return  e.pageY +'px'
+                  //return  '400px'
 
-                .style('left', '100px')
-                .style('top', '600px')
-
-                //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
+                 } )
+                .style('left', parseInt(.4 * e.pageX) + 10 + 'px')
                 .html('<strong>Publication title: </strong>'+ foundPaper.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundFocus.name + " (" + foundFocus.key + ")"+
                       '</br><strong>Challenge: </strong>' + foundImpact.name + " (" + foundImpact.key + ")"+
@@ -373,8 +415,6 @@ function updateChart(orderBy){
 // --------------------------------------------------------------------------------------------------
 //  HIGHLIGHT
 // --------------------------------------------------------------------------------------------------
-
-
         var className = function (d){ 
             var s = d.split(' ')
               newClass = ""
@@ -392,9 +432,9 @@ function updateChart(orderBy){
 
               d3.select("." + className(d)).attr("font-weight", "bold")
               d3.selectAll(".circle-" +  className(d))
-                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+                .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)})
               
-              const foundPaper= papers.find(element => element.citation === d);
+             // const foundPaper= papers.find(element => element.citation === d);
 
             //  updateTable(foundPaper.id,"publication")
       
@@ -418,25 +458,24 @@ function updateChart(orderBy){
         // And when it is not hovered anymore
         var noHighlight = function(e,d){
           if(typeof d === 'string'){
-          
-            const foundClick = clicks.find(c => c.key === d);
+        
+            if(className(d).length > 2){
 
-            if(foundClick == undefined){
-                //if is not cliked 
-
-              if(className(d).length > 2){
-                
-                d3.select("." + className(d)).attr("font-weight", "normal")
-
+                //axis X
+                d3.selectAll(".label-axisX").attr("font-weight", "normal")
+              
+                if(clicks.length > 0)
+                  d3.selectAll("." + className(clicks[0].key)).attr("font-weight", "bold")
+             
                 d3.selectAll(".circle-" +  className(d))
                   .style("fill", function(d) { return color(d.focus)} )
 
-              }else{
-                d3.select("." + className(d)).attr("font-weight", "normal")
-                d3.selectAll("." + d)
-                .style("fill", function(d) { return color(d.focus)} )
-              }
+            }else{
+              d3.select("." + className(d)).attr("font-weight", "normal")
+              d3.selectAll("." + d)
+              .style("fill", function(d) { return color(d.focus)} )
             }
+            
             // updateTable("All","select")
             
 
@@ -477,7 +516,7 @@ function updateChart(orderBy){
           .data(keys)
           .enter()
           .append("circle")
-              .attr("class", function(d) { return "mycircle-legend" + d.key })
+              .attr("class", function(d) {return "mycircle-legend" + d.key  })
              // .attr("cx", function (d,i) { return xAlign + size*1.2 + (i == 2 ? i*340:i*230)})
               .attr("cy", function(d,i){ return yAlign + i*((radius-2)*3)}) // 100 is where the first dot appears. 25 is the distance between dots
              // .attr("cy", yAlign + size/4) 
@@ -582,7 +621,44 @@ function updateTable(selectedOption, type) {
           
       data =  file.challenges;
       papers = file.papers;
+/*
+      //include the challenge code
+      papers.forEach(p => { 
+        challenge_code = []
 
+        data.forEach( d => {
+         
+          citations = d.citations;
+
+          citations.forEach(c => {
+            if(p.id == c)
+              challenge_code.push(d.id)
+
+          })
+
+        })
+
+        p.challenge_code = challenge_code;
+      
+      })
+     
+      d3.select("body").
+      data(papers).append("p").text(d => d)
+
+      papers.forEach(d => {
+
+        text = '"challenge_code": [';
+
+        d.challenge_code.forEach( e =>{
+          text += '"' + e + "',"
+        })
+        text += "]"
+
+        d3.select("body")
+        .append("p").text(d.id + " - " + text)
+
+      })
+*/
       data.forEach(d => d.name +=  " (" + d.challenge_type + ")")
 
       //remove actual rows
@@ -598,20 +674,51 @@ function updateTable(selectedOption, type) {
       }else if(type === "publication"){
 
           const foundPaper = papers.filter(p => p.citation == selectedOption)[0]
-          console.log(foundPaper)
           dataFilter = data.filter(function(d){return d.citations.includes(foundPaper.id)})
-      }
-      if(type === "id"){
+      }else if(type === "id"){
 
         if(typeof d === 'number')
           dataFilter = data.filter(function(d){return d.citations.includes(selectedOption)})
+     
+      }else if(type === "click"){
+
+        console.log(selectedOption)
+
+        dataFilter = []
+
+        selectedOption.forEach(s => { 
+          const foundPaper = papers.filter(p => p.citation == s.key)[0]
+          dataFilter = dataFilter.concat( data.filter( function(d){
+          
+            return d.citations.includes(foundPaper.id)
+          }))     
+        })
+
+        dataFilter = new Set(dataFilter)
+
+        console.log(dataFilter)
+
       }
         
-
       // data bind and enter the rows
       rows = table.select("tbody").selectAll("tr")
       .data(dataFilter).enter()
-      .append("tr");
+      .append("tr")
+      .attr("class", d => d.id)
+      .on("mouseover", (e,d) => {
+    
+        d3.selectAll(".label-axisX").style("opacity","0.2")
+        d3.selectAll(".label-axisX." + d.id).style("opacity","1")
+
+        d3.selectAll(".myArea").style("opacity","0.2")
+        d3.selectAll(".circle-" + d.id)
+          .style("opacity","1")
+
+      })
+      .on("mouseleave", d => {
+        d3.selectAll(".label-axisX").style("opacity","1")
+        d3.selectAll(".myArea").style("opacity","1")
+      })
 
       // enter td's in each row
       row_entries = rows.selectAll("td")
