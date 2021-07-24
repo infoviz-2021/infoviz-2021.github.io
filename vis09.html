@@ -4,79 +4,169 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="data/keys2.js"></script>
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/generic.css">
+    <link rel="stylesheet" href="styles/objects.css">
+    <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="vis06-08-styles.css">
+  
     <title>Trabalho de InfoViz - Vis09</title>
 
   </head>
-  <body>
-   
-    <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
-    <!-- Add 3 radios -->
-      <div class="text-legend">
-        <strong>Order publication by:</strong>
-        <input type="radio" id="citation"
-          name="order" value="citation" onclick="update('citation')">
-        <label for="citation" onclick="update('citation')">Citation</label>
-    
-        <input type="radio" id="focus"
-          name="order" value="focus" onclick="update('focus')">
-        <label for="focus" onclick="update('focus')">Focus</label>
 
-        <input type="radio" id="year"
-        name="order" value="year" onclick="update('year')" checked="checked">
-        <label for="year" onclick="update('year')">Year</label>
+
+  <body>
+
+    <main>
+
+        <section class="card">
+          <div class="card__header">
+            <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
+          </div>
+
+          <div class="card__body">
+            <strong>Order publication by:</strong>
+            <input type="radio" id="citation"
+              name="order" value="citation" onclick="updateChart('citation')">
+            <label for="citation" onclick="updateChart('citation')">Citation</label>
+        
+            <input type="radio" id="focus"
+              name="order" value="focus" onclick="updateChart('focus')">
+            <label for="focus" onclick="updateChart('focus')">Focus</label>
+
+            <input type="radio" id="year"
+            name="order" value="year" onclick="updateChart('year')" checked="checked">
+            <label for="year" onclick="updateChart('year')">Year</label>
+
+          </div>
+
+            <!-- Create a div where vis. will take place -->
+            <svg id="focus_legend"></svg>
+            <div id="challenge_graph"></div>
+            <div class='tooltip'></div>
+
+        </section>
+
+        <section class="card" id= "card-table">
+          <div class="card__header">
+            <h2 class="text-title">Challenge of HInt presented by the analyzed publications</h2>
+          </div>
+         
+          <div id= "container">
+            
+            <div id="FilterableTable">
+              <label for="challenge-select">Select challenge type:</label>
+              <select id = "challenge-select" name = "challenge-select"></select> <br>
+
+            </div>
+          </div>
+        </section>
 
       </div>
-   
-
-    <!-- Create a div where the graph will take place -->
-    <div id="focus_legend"></div>
-    <div id="my_dataviz"></div>
-    <div class='tooltip'></div>
-    
-    <div id="challenges"> </div>
+      
+    </main>
 
     <script>
 
       // set the dimensions and margins of the graph
-      var margin = {top: 20, right: 50, bottom: 150, left: 280},
-              width = 1100 - margin.left - margin.right,
+      var margin = {top: 0, right: 0, bottom: 150, left: 120},
+              width = 800 - margin.left - margin.right,
               height = 300 - margin.top - margin.bottom;
-
-      // Initialize plot
-      update('year');
-
-      function update(orderBy){
       
-        d3.select("#my_dataviz").remove();
-        d3.selectAll("#focus_legend").remove();
-        d3.selectAll(".label-axisX").remove();
+      // Initialize plot
+      updateChart('year');
+
+
+//--------------------------------------------------------------------------------------------------------------------
+// Table 
+//--------------------------------------------------------------------------------------------------------------------
+
+      var column_names = [ "Challenge type", "Challenge"];
+
+        //put challenges in select
+    
+
+        const allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+
+        //include option on select
+        d3.select("#challenge-select")
+            .selectAll("option")
+            .data(allChallengeTypes)
+            .enter()
+            .append("option")
+              .text(d => d )
+              .attr("value",d => d)
+    
+
+        // When the button is changed, run the updateChart function
+        d3.select("#challenge-select").on("change", function(d) {
+          // recover the option that has been chosen
+          var selectedOption = d3.select(this).property("value")
+          // run the updateTable function with this selected option
+          updateTable(selectedOption)
+        })
+
+        var table = d3.select("#FilterableTable").append("table");
+        table.append("thead").append("tr"); 
+
+        var headers = table.select("tr").selectAll("th")
+          .data(column_names)
+          .enter()
+            .append("th")
+            .text(function(d) { return d; })
+            .style("width", (d,i) => { 
+              if(i == 0)  //second column
+                  return "260px"
+
+              return "700px"  //first colums
+            });
+
+        var rows;
+
+        // draw table body with rows
+        table.append("tbody")
+
+        // data bind and enter the rows
+        rows = table.select("tbody").append("tr")
+        
+        //start with all data
+        updateTable("All")
+
+//--------------------------------------
+
+function updateChart(orderBy){
+      
+        d3.select("#svg_challenge_graph").remove();
+        d3.selectAll("#svg_focus_legend").remove();
+      //  d3.selectAll(".label-axisX").remove();
 
         
         //legend: append the svg object to the body of the page
-        var svg_legend = d3.select("body")
-          .append("div")
-          .attr("id", "focus_legend")
+        var svg_legend = d3.select("#focus_legend")
           .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", 70)
+          .attr("id", "svg_focus_legend")
+          .attr("width", width + margin.left + margin.right + 300)
+          .attr("height", 60)
           .append("g")
           .attr("transform",
                   "translate(" + 10 + "," + 10 + ")");
 
         //graph: append the svg object to the body of the page
-        var svg = d3.select("body")
-            .append("div")
-            .attr("id","my_dataviz")
+        var svg = d3.select("#challenge_graph")
             .append("svg")
+            .attr("id", "svg_challenge_graph")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
+
               
         // Initialize the X axis
         var x = d3.scaleBand()
@@ -181,7 +271,7 @@
           .selectAll("text")
             .attr("class",d => { return "axisY-" + d})
             //.text(d => { return challengeMap(d) + `(${d}) `})
-            .text(d => { return challengeMap(d)})
+            //.text(d => { return challengeMap(d)})
             .attr("dx", "-0.2em")
             .attr("cursor","default")
             .on("mouseover", function(e,d){
@@ -200,14 +290,14 @@
               d3.select('.tooltip')
                 .style('visibility','visible')
                 .style('top', e.pageY + 15  + 'px' )
-                .style('left', '40px')
+                .style('left',e.pageX - 400 + 'px')
                 .style('min-width','100px' )
-                .style('max-width','220px' )
+                .style('max-width','400px' )
 
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
-               // .html('<strong>Challenge type: </strong>'+  foundImpact.name + " (" + foundImpact.key + ")"+
-               //       '</br><strong>Description: </strong>' + foundImpact.description)
-                .html('<strong>Description: </strong>' + foundImpact.description)
+                .html('<strong>Challenge type: </strong>'+  foundImpact.name + " (" + foundImpact.key + ")"+
+                      '</br><strong>Description: </strong>' + foundImpact.description)
+                //.html('<strong>Description: </strong>' + foundImpact.description)
           
             })
             .on("mouseleave", function(e,d){
@@ -292,121 +382,7 @@
                     .attr("height", y.bandwidth())
                     .attr("y", function(d) { return y(d.citation) })
             })
-                
-// --------------------------------------------------------------------------------------------------
-//  TABLE
-// --------------------------------------------------------------------------------------------------
-
-        d3.select("body")
-          .append("div")
-          .append("h2")
-          .text("Challenge of HInt presented by the analyzed publications")
-          .attr("class", "text-title")
-
-        var column_names = [ "Challenge type", "Challenge"];
-
-        //data from keys.js
-        data = file.challenges 
-
-        data.forEach(d => d.name +=  " (" + d.challenge_type + ")")
-
-        // draw the table
-        d3.select("body").append("div")
-          .attr("id", "container")
-
-        d3.select("#container").append("div")
-          .attr("id", "FilterableTable");
-
-        d3.select("#FilterableTable").append("div")
-          .attr("class", "SearchBar")
-          .append("label")
-            .attr("class", "SearchBar")
-            .attr("for","selectChallenge" )
-              .text("Select challenge type:");
-
-        allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
-
-        //include option on select
-        d3.select(".SearchBar")
-          .append("select")
-          .attr("id", "selectChallenge")
-            .selectAll("option")
-            .data(allChallengeTypes)
-            .enter()
-            .append("option")
-              .text(d => d )
-              .attr("value",d => d)
-              .attr("class", "text-legend")
-            
-        // When the button is changed, run the updateChart function
-        d3.select("#selectChallenge").on("change", function(d) {
-          // recover the option that has been chosen
-          var selectedOption = d3.select(this).property("value")
-          // run the updateTable function with this selected option
-          updateTable(selectedOption)
-        })
-
-        var table = d3.select("#FilterableTable").append("table");
-        table.append("thead").append("tr"); 
-        
-        var headers = table.select("tr").selectAll("th")
-          .data(column_names)
-          .enter()
-            .append("th")
-            .text(function(d) { return d; })
-            .style("width", (d,i) => { 
-              if(i == 0)  //second column
-                  return "300px"
-
-              return "700px"  //first colums
-            });
-
-        var rows, row_entries;
-
-        // draw table body with rows
-        table.append("tbody")
-
-        // data bind and enter the rows
-        rows = table.select("tbody").selectAll("tr")
-          .data(data).enter()
-          .append("tr");
-
-        //start with all data
-        updateTable("All")
-
-        // A function that update the table
-        function updateTable(selectedOption) {
-
-            rows.remove()
-            // Create new data with the selection?
-            var dataFilter = data
-            
-            console.log(selectedOption)
-            if(selectedOption != "All")
-              dataFilter = data.filter(function(d){return d.name == selectedOption})
-
-            console.log(dataFilter)
-
-            // data bind and enter the rows
-            rows = table.select("tbody").selectAll("tr")
-              .data(dataFilter).enter()
-              .append("tr");
-
-            // enter td's in each row
-            row_entries = rows.selectAll("td")
-              .data(function(d) { 
-                  var arr = [];
-                  arr.push(d.name) 
-                  arr.push(d.challenge)
-      
-                  return arr;
-                })
-              .enter()
-                .append("td") 
-                .text(d => d)
-          }
-
-
+              
 
         })
         .catch(err => console.log(err)); //end d3.json reading
@@ -534,6 +510,56 @@
             .on("mouseleave", noHighlight)
 
       } //end function update()
+
+
+// --------------------------------------------------------------------------------------------------
+//  TABLE
+// --------------------------------------------------------------------------------------------------
+
+// A function that update the table
+function updateTable(selectedOption) {
+
+  //Read the data
+ var url = "data/data_vis09.json";
+        
+  d3.json(url).then(function (file) {
+          
+      data =  file.challenges
+
+      data.forEach(d => d.name +=  " (" + d.challenge_type + ")")
+
+      rows.remove()
+      // Create new data with the selection?
+      var dataFilter = data
+
+      console.log(selectedOption)
+      if(selectedOption != "All")
+      dataFilter = data.filter(function(d){return d.name == selectedOption})
+
+      console.log(dataFilter)
+
+      // data bind and enter the rows
+      rows = table.select("tbody").selectAll("tr")
+      .data(dataFilter).enter()
+      .append("tr");
+
+      // enter td's in each row
+      row_entries = rows.selectAll("td")
+      .data(function(d) { 
+      var arr = [];
+      arr.push(d.name) 
+      arr.push(d.challenge)
+
+      return arr;
+      })
+      .enter()
+      .append("td") 
+      .text(d => d)
+    })
+        .catch(err => console.log(err)); //end d3.json reading
+}
+
+
 
     </script>
   </body>
