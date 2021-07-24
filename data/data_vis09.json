@@ -16,76 +16,88 @@
             "id" : "IH1",
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge" : "To explore the Human-Computer Integration (HInt) phenomena and effects on the individual's identity, perception and behavior"
+            "challenge" : "To explore the Human-Computer Integration (HInt) phenomena and effects on the individual's identity, perception and behavior",
+            "citations": ["id2", "id4",	"id5",	"id6","id8",	"id11",	"id17",	"id19",	"id22",	"id23",	"id26",	"id30","id34"]
         },
         {
             "id" : "IH2" ,
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge": "To explore the Human-Computer Integration (HInt) phenomena and effects  on culture, ethics, security, privacy and on the values and social aspects of each individual and society"
+            "challenge": "To explore the Human-Computer Integration (HInt) phenomena and effects  on culture, ethics, security, privacy and on the values and social aspects of each individual and society",
+            "citations":["id6","id8",	"id11",	"id17",	"id19",	"id22",	"id23",	"id26",	"id30","id34"]
     
         },
         {
             "id" : "IH3" ,
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge": "To explore the phenomena and effects of Human-Computer Integration  (HInt) by fusion on internal and external bodily processes of individual"
+            "challenge": "To explore the phenomena and effects of Human-Computer Integration  (HInt) by fusion on internal and external bodily processes of individual",
+            "citations":["id4","id8","id14",	"id34"]
        
         },
         {
             "id" : "IH4" ,
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge": "To explore the Human-Computer Integration (HInt) phenomena and effects on whole integrated environment" 
+            "challenge": "To explore the Human-Computer Integration (HInt) phenomena and effects on whole integrated environment" ,
+            "citations":["id6",	"id11",	"id26",	"id30",	"id32"]
         },
         {
             "id" : "IH5" ,
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge": "To explore the phenomena, effects and usefulness of Human-Computer Integration (HInt) in the different domains and contexts of use"
+            "challenge": "To explore the phenomena, effects and usefulness of Human-Computer Integration (HInt) in the different domains and contexts of use",
+            "citations":["id30"]
         },
         {
             "id" : "IH6",
             "challenge_type":"IH",
             "name":"HInt impacts on humans", 
-            "challenge": "To explore the Human-Computer Integration (HInt) effects on Universal Access and Accessibility"  
+            "challenge": "To explore the Human-Computer Integration (HInt) effects on Universal Access and Accessibility" ,
+            "citations":["id30"] 
         },
         {
             "id": "DC1",
             "challenge_type":"DC",
             "name":"Design challenges",
-            "challenge": "To design partner technologies compatible with the human body"   
+            "challenge": "To design partner technologies compatible with the human body",
+            "citations":["id2",	"id4","id5","id34"]   
         },
         {
             "id": "DC2",
             "challenge_type":"DC",
             "name":"Design challenges",
-            "challenge": "To design partner technologies and interactions that promote symbiotic relationships and benefits for users" 
+            "challenge": "To design partner technologies and interactions that promote symbiotic relationships and benefits for users",
+            "citations":["id1",	"id2","id5", "id6",	"id7","id11",	"id14",	"id16",	"id17",	"id19",	"id22",	"id23",	"id24",	"id25",	"id26",	"id30",	"id32"] 
         },
         {
             "id": "EC1",
             "challenge_type":"EC",
             "name":"Evaluation challenges",
-            "challenge": "To evaluate partner technologies compatible with the human body"
+            "challenge": "To evaluate partner technologies compatible with the human body",
+            "citations":[	"id2",	"id4",	"id34"]
         },
         {
             "id": "EC2",
             "challenge_type":"EC",
             "name":"Evaluation challenges",
-            "challenge": "To evaluate and to investigate users' experience with integrated technologies and interactions"   
+            "challenge": "To evaluate and to investigate users' experience with integrated technologies and interactions",
+            "citations":["id1",	"id2","id5",	"id6",	"id7","id11",	"id14",	"id16",	"id17",	"id19",	"id22",	"id23",	"id24",	"id25",	"id26",	"id30",	"id32"]  
         },
         {
             "id": "DT1",
             "challenge_type":"DT",
             "name":"Demands for new theories and methods",
-            "challenge": "To expand theoretical and empirical approaches to HCI to focus both human-computer interaction and integration"
+            "challenge": "To expand theoretical and empirical approaches to HCI to focus both human-computer interaction and integration",
+            "citations":["id1",	"id2","id5",	"id6",	"id11",	"id17",	"id19",	"id22",	"id23",	"id26",	"id30","id34"]
         
         },
         {
             "id": "DT2",
             "challenge_type":"DT",
             "name":"Demands for new theories and methods",
-            "challenge": "To reformulate the HCI curriculum to include the Human-Computer Integration (HInt) as a new paradigm and to expand its interdisciplinarity with other areas such as Artificial Intelligence (AI) and Internet of Things (IoT)"   
+            "challenge": "To reformulate the HCI curriculum to include the Human-Computer Integration (HInt) as a new paradigm and to expand its interdisciplinarity with other areas such as Artificial Intelligence (AI) and Internet of Things (IoT)",
+            "citations":["id4",	"id11","id19","id23", "id26",	"id30"]   
         }      
             
     ]

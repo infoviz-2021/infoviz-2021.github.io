@@ -89,7 +89,7 @@
 // Table 
 //--------------------------------------------------------------------------------------------------------------------
 
-      var column_names = [ "Challenge", "Challenge type","Publications" ];
+      var column_names = [ "Challenge", "Challenge type","#References" ];
 
       //put challenges in select
     
@@ -126,8 +126,15 @@
                   return "240px"
               if(i == 1)  //second column
                   return "700px"
-              return "400px"  //first colums
-            });
+              return "10px"  //first colums
+            })
+            .style("text-align", (d,i) => { 
+              if (i == 2)
+                return "right"
+              return "left"; 
+            })
+            .style("pointer","default");
+            
 
         var rows;
 
@@ -583,12 +590,16 @@ function updateTable(selectedOption, type) {
         })
          
         //remove last comma and space
-         arr.push(text.substring(0,text.length-2))
+         arr.push(d.citations.length)
 
         return arr;
       })
       .enter()
-      .append("td") 
+      .append("td")
+      .style("text-align", (d,i) => { 
+        if (i == 2)
+          return "right"
+        return "left"; }) 
       .html(d => d)
     })
         .catch(err => console.log(err)); //end d3.json reading
