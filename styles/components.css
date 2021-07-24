@@ -25,14 +25,10 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   font-size: 13px;
 }
 
-.card__body__challenge_legend{
+.card__body__challenge__legend{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
-  padding: 0.5em;
-  bottom: 0px;
-  font-family: var(--font-family-theme);
-  font-size: 13px;
 }
 
 .card__body__countries {

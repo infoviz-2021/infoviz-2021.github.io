@@ -85,8 +85,8 @@
      var radius = 9
       // Initialize plot
       updateChart('year');
-      var clicks = {"FGR": 0, "FGQA":0, "FS":0, "paper":0};
-
+      //var clicks = [{key: "", type: "", value: false}];
+      var clicks = [];
 
 function updateChart(orderBy){
       
@@ -178,7 +178,7 @@ function updateChart(orderBy){
          // xAxis.call(d3.axisBottom(x).tickSize(0));
 
          
-         shiftAxis = {x:radius*1.8, y:radius*1.2}
+         shiftAxis = {x:radius*1.8, y:radius*2}
 
          var className = function (d){ 
             var s = d.split(' ')
@@ -188,12 +188,14 @@ function updateChart(orderBy){
             return s
          }
 
+         //------------------------------------------------------------
+         //  AXIS
+         //------------------------------------------------------------
+
          // Add X axis
           x.domain(sortedData.map(d => d.citation));
           xAxis.call(d3.axisBottom(x).tickSize(0))
             .selectAll("text")
-            //.attr("y", 0)
-           // .attr("x", 10)
             .attr("class", d => {return className(d)})
             .attr("dy", "1.2em")
             .attr("dx", "-.20em")
@@ -201,7 +203,13 @@ function updateChart(orderBy){
             .style("text-anchor", "end")
             .attr("cursor","default")
             .on("mouseover", highlight)
-            .on("mouseleave", noHighlight);
+            .on("mouseleave", noHighlight)
+            .on("click", (e,d) => {
+
+              updateTable(d,"publication")
+              clicks.push({key: d, type: "publication", value: true});
+
+            });
 
           // Add X axis title
           svg.append("text")
@@ -309,14 +317,18 @@ function updateChart(orderBy){
               d3.select('.tooltip')
                 .style('visibility','visible')
                // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
-                .style('top', function(){ 
+              //  .style('top', function(){ 
                   
                  // if(d.impact == "IH" || d.impact == "DC")
                //     return  e.pageY - mouseYSpace + 'px'
                 
-                  return  e.pageY +'px'
-                 } )
-                .style('left', .4 * e.pageX + 10 + 'px')
+             //     return  e.pageY +'px'
+             //    } )
+              //  .style('left', .4 * e.pageX + 10 + 'px')
+
+                .style('left', '100px')
+                .style('top', '600px')
+
                 //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Publication title: </strong>'+ foundPaper.title + 
                       '</br><strong>Focus: </strong> HInt ' + foundFocus.name + " (" + foundFocus.key + ")"+
@@ -407,19 +419,26 @@ function updateChart(orderBy){
         var noHighlight = function(e,d){
           if(typeof d === 'string'){
           
-            if( className(d).length > 2){
-              
-              d3.select("." + className(d)).attr("font-weight", "normal")
+            const foundClick = clicks.find(c => c.key === d);
 
-              d3.selectAll(".circle-" +  className(d))
+            if(foundClick == undefined){
+                //if is not cliked 
+
+              if(className(d).length > 2){
+                
+                d3.select("." + className(d)).attr("font-weight", "normal")
+
+                d3.selectAll(".circle-" +  className(d))
+                  .style("fill", function(d) { return color(d.focus)} )
+
+              }else{
+                d3.select("." + className(d)).attr("font-weight", "normal")
+                d3.selectAll("." + d)
                 .style("fill", function(d) { return color(d.focus)} )
-
-            }else{
-              d3.select("." + className(d)).attr("font-weight", "normal")
-              d3.selectAll("." + d)
-              .style("fill", function(d) { return color(d.focus)} )
+              }
             }
-           // updateTable("All","select")
+            // updateTable("All","select")
+            
 
           }else{
 
@@ -572,11 +591,22 @@ function updateTable(selectedOption, type) {
       // Create new data with the selection?
       var dataFilter = data
 
-      if(selectedOption != "All" && type === "select")
+    
+      if(selectedOption != "All" && type === "select"){
         dataFilter = data.filter(function(d){return d.name == selectedOption})
 
-      else if(type === "publication")
-        dataFilter = data.filter(function(d){return d.citations.includes(selectedOption)})
+      }else if(type === "publication"){
+
+          const foundPaper = papers.filter(p => p.citation == selectedOption)[0]
+          console.log(foundPaper)
+          dataFilter = data.filter(function(d){return d.citations.includes(foundPaper.id)})
+      }
+      if(type === "id"){
+
+        if(typeof d === 'number')
+          dataFilter = data.filter(function(d){return d.citations.includes(selectedOption)})
+      }
+        
 
       // data bind and enter the rows
       rows = table.select("tbody").selectAll("tr")
