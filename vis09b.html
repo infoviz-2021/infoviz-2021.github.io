@@ -436,6 +436,10 @@ function updateChart(orderBy){
               d3.select("." + className(d)).attr("font-weight", "bold")
               d3.selectAll(".circle-" +  className(d))
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+              
+              const foundPaper= papers.find(element => element.citation === d);
+
+              updateTable(foundPaper.id,"publication")
       
           }else{
             //set font label to bold
@@ -448,6 +452,8 @@ function updateChart(orderBy){
             d3.selectAll(".myArea").style("opacity", .05)
             // expect the one that is hovered
             d3.selectAll("."+d.key).style("opacity", 1)
+
+            
           }
        
         }
@@ -470,7 +476,7 @@ function updateChart(orderBy){
               d3.selectAll("." + d)
               .style("fill", function(d) { return color(d.focus)} )
             }
-
+            updateTable("All","select")
 
           }else{
 
