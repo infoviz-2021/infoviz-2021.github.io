@@ -185,14 +185,14 @@ svg
   .attr("x",width + margin.right)
   .attr("dy","1.2em")
 .append("tspan")
-  .text("with " + surname(author_name))
+  .text("with " + surname(author_name.trim()))
   .attr("x",width + margin.right)
   .attr("dy","1.2em")
 
 
   //set title
   d3.select(".text-title")
-  .text("Scientific production and publishing partners of " + author_name)
+  .text("Scientific production and publishing partners of " + author_name.trim())
 
 //---------------------------------------------------------------------------------------------------------------------
 //  Reading data
@@ -490,10 +490,11 @@ svg
             .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
             .attr("cx", xCenter.partner)
             .attr("cy", d => yPartner(d.id) - 10)
-            .attr("fill", "white")
+            .attr("fill", "none")
            // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
             //.attr("fill", function(d){ return d3.rgb(colorPartner(d.qt)).darker(0)})
             .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
+            .attr("stroke-width",0.8)
             .style("cursor", "pointer")
             .on('mouseover', fade(0.2))
             .on('mouseout', fade(1))
@@ -561,8 +562,14 @@ svg
            node_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            label_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            
-           link_author.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
-          // link_author.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
+          if(d.type == "author"){
+              link_author.style('stroke-opacity', function(o) {
+                return ( d.paper.includes(o.source) ? 1 : opacity)
+              });
+          }else{
+            link_author.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
+          }
+         
 
          
            node_partner_bottom.attr('stroke', function (o) { return isConnected(d, o) ? d3.rgb(colorPartner(d.qt)).darker(2): "#fff00" });
