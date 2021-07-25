@@ -251,6 +251,11 @@
                       '</br><strong>Contribution: </strong>' + foundContribution.name + " (" + foundContribution.key + ")"+
                       '</br><strong>Event/Forum: </strong>' + foundPaper.event +
                       '</br>' + authors)
+
+
+              //axisY bold
+              d3.select(".label-axisY-" + className(d.citation)).attr("font-weight", "bold")
+
             })
             .on("mouseleave", function (e, d){  
 
@@ -258,12 +263,15 @@
                   .style('visibility','hidden')
 
                 d3.select(this)
-                  .style("stroke", "none")
                   .style("fill", function(d) { return color(d.focus)} )
                   .transition()     // adds animation
                   .duration(100)
                     .attr("height", y.bandwidth())
                     .attr("y", function(d) { return y(d.citation) })
+
+              //axisY normal
+              d3.select(".label-axisY-" + className(d.citation)).attr("font-weight", "normal")
+
             })
 
         })
