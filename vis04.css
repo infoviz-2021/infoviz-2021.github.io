@@ -18,6 +18,7 @@
 .toolTip {
     position: absolute;
     display: none;
+    pointer-events: none;
     min-width: 80px;
     height: auto;
     background: none repeat scroll 0 0 #ffffff;

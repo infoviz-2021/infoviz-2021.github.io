@@ -100,7 +100,7 @@
                         .html(`
                            <strong> List of publications in this event/forum: </strong>
                            <br>
-                           ${d[1].map(key => (
+                           ${d[1].sort((a,b) => b.year - a.year).map(key => (
                               `
                               <br> <strong>Publication title: </strong> ${key.title}
                               <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
@@ -110,7 +110,9 @@
                            )).join('')}
                         `);
                   })
-                  .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
+                  .on("mouseout", function(d){ 
+                     tooltip.style("display", "none").attr("class", "tollTip");});
+
          });
       </script>
    </body>
