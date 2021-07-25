@@ -204,7 +204,7 @@ function updateChart(orderBy){
               foundPaper.challenge_code.forEach(e => text += " " + e)
              
               classImpact = ""
-              foundPaper.impact.forEach(e => classImpact += " " + e)
+              foundPaper.impact.forEach(e => classImpact += " label-axisX-" + e)
 
               return "label-axisX " + className(d) + " " + text + " " + classImpact
             })
@@ -272,6 +272,8 @@ function updateChart(orderBy){
 
               d3.selectAll("." +  d)
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+
+         
                         
               //Get Contribution description
               const foundImpact = impacts.find(element => element.key == d);
@@ -293,6 +295,7 @@ function updateChart(orderBy){
             .on("mouseleave", function(e,d){
           
               d3.select(".axisY-" + d).attr("font-weight", "normal")
+           
               d3.selectAll("." +  d)
               .style("fill", function(d) { return color(d.focus)} )
           
@@ -655,7 +658,7 @@ function updateTable(selectedOption, type) {
       var selectedKey  = selectedOption.split("(")[1].split(")")[0]
       
       d3.selectAll(".label-axisX").style("opacity","0.1")
-      d3.selectAll(".label-axisX." + selectedKey).style("opacity","1")
+      d3.selectAll(".label-axisX-" + selectedKey).style("opacity","1")
 
       d3.selectAll(".myArea").style("opacity","0.1")
       d3.selectAll("." + selectedKey).style("opacity","1")
@@ -782,8 +785,9 @@ function updateTable(selectedOption, type) {
           d3.selectAll(".myArea").style("opacity","1")
 
         }else{
+
           d3.selectAll(".label-axisX").style("opacity","0.1")
-          d3.selectAll(".label-axisX." + selectedKey).style("opacity","1")
+          d3.selectAll(".label-axisX-" + selectedKey).style("opacity","1")
 
           d3.selectAll(".myArea").style("opacity","0.1")
           d3.selectAll("." + selectedKey).style("opacity","1")
