@@ -3,42 +3,28 @@ var margin = {top: 50, right: 130, bottom: 10, left: 10},
     height = 650 - margin.top - margin.bottom
 
 const radius_detail = 25;
-//const color = d3.scaleOrdinal(d3.schemeSet2);
-// bgcolor = d3.rgb(d3.schemeSet2[5])
-//bgcolor = d3.rgb("#f6cb55") //tom de amarelo
-//bgcolor = d3.rgb("#de88af")
-bgcolor = d3.rgb("#e5c494")
-//fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
-fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
-//fill = [bgcolor, bgcolor,bgcolor,bgcolor];
 
-// cor padrão: #8e7bd7
-// cor de destaque: #6443ea
+bgcolor = d3.rgb("#e5c494")
+fill = [bgcolor, bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 
 // Color scale: give me a focus, I return a color
 const color = d3.scaleOrdinal()
     .domain([1,2,3,6])
     .range(fill);
-    //.range(d3.schemeSet2);
     
+bgcolor = d3.rgb("#e5c494") //tom de amarelo
+fill = [bgcolor, bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 
-    bgcolor = d3.rgb("#e5c494") //tom de amarelo
-    //bgcolor = d3.rgb("#de88af")
-    //bgcolor = d3.rgb("#8e7bd7")
-    //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
-    fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
+const colorPartner = d3.scaleOrdinal()
+.domain([1,2,3,6])
+.range(fill);
 
-
-    const colorPartner = d3.scaleOrdinal()
-    .domain([1,2,3,6])
-    .range(fill);
-  //Focus
-  var keys = [
-    { "key": "FGR", "name":"from a general perspective (FGR)"},
-    { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
-    { "key": "FS", "name":"in a specific domain or context of use (FS)"}
-  ]; 
-
+//Focus
+var keys = [
+  { "key": "FGR", "name":"from a general perspective (FGR)"},
+  { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
+  { "key": "FS", "name":"in a specific domain or context of use (FS)"}
+]; 
 
 // Color scale: give me a focus, I return a color
 const colorPaper = d3.scaleOrdinal()
@@ -226,30 +212,18 @@ svg
                             .slice().sort((a, b) => d3.ascending(a.year, b.year))
 
         //get author's partners
-        const nodes_partner = nodes.filter(d => d.type =="author" && author_partner.includes(d.id))
-                             .slice().sort((a, b) => d3.ascending(surname(a.id).toUpperCase() , surname(b.id).toUpperCase()))
-
-
+        const nodes_partner_raw = nodes.filter(d => d.type =="author" && author_partner.includes(d.id))
+                                //  .slice().sort((a, b) => d3.ascending(surname(a.id).toUpperCase() , surname(b.id).toUpperCase()))
+                             
         //map connections 
         const linkedByIndex = [];
 
         links_paper.forEach(function(d) {
           linkedByIndex[`${d.source},${d.target}`] = 1;
         });
-
-        // List of nodes partners names
-        var allPartnerName = nodes_partner.map(function(d){return d.id})
         
         // List of nodes partners names
         var allPapersName = nodes_paper.map(function(d){return d.id})
-
-        //include qtPartner -> qt articles with this author
-        nodes_partner.forEach(function(d){
-            
-            let paper = d.paper.filter(d => (allPapersName.includes(d)))
-            d.qtPartner = paper.length
-    
-         })
 
         //define centers
         const spacing = {h:180, v:80}
@@ -259,22 +233,19 @@ svg
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
   
         //define yScale
-        ratioPartner = height/nodes_partner.length
+        ratioPartner = height/nodes_partner_raw.length
         height_partner = height
         initial_partner = 0
       
         if(ratioPartner > 190){
-          height_partner = nodes_partner.length * (paper_size.h*2) 
+          height_partner = nodes_partner_raw.length * (paper_size.h*2) 
           initial_partner = (height - height_partner)/2
         }else
         if(ratioPartner > 40){
-          height_partner = nodes_partner.length * (paper_size.h) 
+          height_partner = nodes_partner_raw.length * (paper_size.h) 
           initial_partner = (height - height_partner)/2
         }
-        // A linear scale to position the nodes on the y axis
-        var yPartner = d3.scalePoint()
-          .range([initial_partner + shift_y, height_partner + initial_partner])
-          .domain(allPartnerName)
+      
 
         ratioPaper = height/nodes_paper.length
         height_paper = height
@@ -290,6 +261,37 @@ svg
           .range([height_paper + initial_paper - paper_size.h, initial_paper + paper_size.h])
           .domain(allPapersName)
   
+
+        //include qtPartner -> qt articles with this author
+        nodes_partner_raw.forEach(function(d){
+                  
+          let paper = d.paper.filter(d => (allPapersName.includes(d)))
+          d.qtPartner = paper.length
+
+          let sum = 0
+          //find paper with
+          paper.forEach(function(p){
+            
+            let foundPaper = nodes_paper.filter(e => e.id === p)[0]
+
+            sum += (foundPaper.year - yPaper(foundPaper.id))
+          })
+
+            d.weight = sum/paper.length
+        })
+
+        //get author's partners
+        const nodes_partner = nodes_partner_raw.slice()
+                    .sort((a, b) => d3.descending(a.weight, b.weight) )
+
+
+
+        // A linear scale to position the nodes on the y axis
+        var yPartner = d3.scalePoint()
+        .range([initial_partner + shift_y, height_partner + initial_partner])
+        .domain(nodes_partner.map(d=>d.id))
+      
+
         let author_position = [xCenter.author, height/2]
         //sortPartner(nodes_paper, nodes_partner)
 
@@ -385,7 +387,7 @@ svg
             .text("Return to the network")
             .attr("class","text-legend")
             .style("text-decoration","underline")
-            .attr("y", height)
+            .attr("y", 10)
             .attr("x", xCenter.paper + paper_size.w/2)
             .attr("text-anchor", "middle");
 
@@ -535,7 +537,6 @@ svg
             .on('mouseover', fade(0.2))
             .on('mouseout', fade(1))
             .on('click', d => updateDetail(d.id))
-           
     
         /************************** Links  ****************************/
 
@@ -610,7 +611,7 @@ svg
         var size = 12
         //var xAlign = width - margin.right
         var xAlign = 10
-        var yAlign = 480
+        var yAlign = 460
 
         svg.append("text")
         .text("Author with:")
