@@ -48,6 +48,14 @@
       // Initialize plot
       update('year');
 
+      var className = function (d){ 
+        var s = d.split(' ')
+          newClass = ""
+          s.forEach( e => newClass += e)
+          s = newClass.replace('.','').replace(',','');
+        return s
+      }
+
       function update(orderBy){
       
         d3.select("#my_dataviz").remove();
@@ -132,7 +140,10 @@
 
           // Add X axis
           x.domain(contributions.map(d => d.key));
-          xAxis.call(d3.axisBottom(x).tickSize(0));
+          xAxis.call(d3.axisBottom(x).tickSize(0))
+          .selectAll("text")
+          .attr("dy","1.0em")
+          .attr("cursor","default");
 
           //Add contribution description on X axis
           contributions.forEach(c => {
@@ -140,7 +151,7 @@
             .append("div")
               .attr("class","label-axisX text-axis")
               .style("left", x(c.key) + margin.left -5+ "px"  )
-              .style("top", height + 195 + "px") // 100 is where the first dot appears. 25 is the distance between dots
+              .style("top", height + 200 + "px") // 100 is where the first dot appears. 25 is the distance between dots
               .style("text-align", "center")
               .html(c.name)
               .style("text-anchor", "center")
@@ -160,7 +171,28 @@
           // Add Y axis
           y.domain(sortedData.map(d => d.citation));
 
-          yAxis.call(d3.axisLeft(y).tickSize(0));
+          yAxis.call(d3.axisLeft(y).tickSize(0))
+            .selectAll("text")
+              .attr("class", d => { return "label-axisY-" + className(d)})
+              .attr("dx", "-0.2em")
+              .attr("cursor","default")
+              .on("mouseover", function(e,d){
+          
+                d3.select(".label-axisY-" + className(d))
+                  .attr("font-weight", "bold")
+
+                d3.selectAll("." +  className(d))
+                  .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
+              })
+              .on("mouseleave", function(e,d){ 
+                
+                d3.select(".label-axisY-" + className(d))
+                  .attr("font-weight", "normal")
+
+                d3.selectAll("." +  className(d))
+                  .style("fill", function(d) { return color(d.focus)})
+                
+              })
 
           // Y axis title:
           svg.append("text")
@@ -178,7 +210,7 @@
           u.enter()
           .append("rect")
           .merge(u)
-          .attr("class", function(d) { return "myArea " + focus(d.focus) })
+          .attr("class", function(d) { return "myArea " + focus(d.focus) + " " + className(d.citation)})
           .attr("x", function(d) { return x(d.contribution) })
           .attr("y", function(d) { return y(d.citation) })
           .attr("width", x.bandwidth() )
@@ -275,7 +307,7 @@
         var yAlign = 40 
 
         svg_legend.append("text")
-        .text("Publication focus on HInt:")
+        .text("Publication focused on HInt:")
           .attr("class", "text-legend")
           .attr("x", xAlign)
           .attr("y", yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots

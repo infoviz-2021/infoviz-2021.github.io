@@ -5,9 +5,9 @@ var margin = {top: 50, right: 130, bottom: 10, left: 10},
 const radius_detail = 25;
 //const color = d3.scaleOrdinal(d3.schemeSet2);
 // bgcolor = d3.rgb(d3.schemeSet2[5])
-bgcolor = d3.rgb("#f6cb55") //tom de amarelo
+//bgcolor = d3.rgb("#f6cb55") //tom de amarelo
 //bgcolor = d3.rgb("#de88af")
-//bgcolor = d3.rgb("#e5c494")
+bgcolor = d3.rgb("#e5c494")
 //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
 fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
 //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
@@ -47,7 +47,11 @@ const colorPaper = d3.scaleOrdinal()
 
 const colorPaperLight = d3.scaleOrdinal()
   .domain(keys.map(d=>d.key))
-  .range(["#b3e1d2","#fec6b1","#c6d0e5"])
+//  .range(["#b3e2cd94","#fdcdac94","#cbd5e894"])
+  .range(["#b3e2cd50","#fdcdac50","#cbd5e850"])
+
+
+ // ["#b3e2cd","#fdcdac","#cbd5e8","#f4cae4","#e6f5c9","#fff2ae","#f1e2cc","#cccccc"]
 
 var surname = function(author_name){
   //separete names
@@ -108,41 +112,96 @@ function updateDetail(author_name){
       .attr("transform",
               "translate(" + 0 + "," + 0 + ")");
 
+   
 
-  /* svg.append("rect")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("fill", "none")
-      .attr("stroke", "blue")*/
+// Information
 
-      svg
-      .append("text")
-        .text("Click on the desired author's node to see")
-        .attr("class", "text-legend")
-        .attr("text-anchor", "end")
-        .style("opacity","0.6")
-        .attr("x", width + margin.right)
-        .attr("y", 20)
-      .append("tspan")
-        .text("publications and partnership details.")
-        .attr("x",width + margin.right)
-        .attr("dy","1.2em")
-      .append("tspan")
-        .text("")
-        .attr("x",width + margin.right)
-        .attr("dy","1.2em")
+  //icon
+  xIcon = width - 82 
+  yIcon = 7
+
+  svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+        .attr("fill", "var(--gray)")
+   
+    svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+       .attr("fill", "var(--gray)")
+  
+  svg
+    .append("text")
+      .text("Click on the desired author's node")
+      .attr("class", "text-legend")
+      .attr("text-anchor", "end")
+      .style("opacity","0.6")
+      .attr("x", width + margin.right)
+      .attr("y", 20)
+      .attr("cursor","default")
+    .append("tspan")
+      .text("to see publications and ")
+      .attr("x",width + margin.right)
+      .attr("dy","1.2em")
+    .append("tspan")
+      .text("partnership details.")
+      .attr("x",width + margin.right)
+      .attr("dy","1.2em")
 
 
-  /***************************** READ DATA ********************************/
+  //link thickness
+  xIcon = width - 76 
+  yIcon = 90
+  
+  svg.append("svg")
+  .attr("x", xIcon)
+  .attr("y", yIcon)
+  .append("path")
+    .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+    .attr("fill", "var(--gray)")
 
+svg.append("svg")
+  .attr("x", xIcon)
+  .attr("y", yIcon)
+  .append("path")
+   .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+   .attr("fill", "var(--gray)")
+
+svg
+.append("text")
+  .text("The link thickness represents the")
+  .attr("class", "text-legend")
+  .attr("text-anchor", "end")
+  .style("opacity","0.6")
+  .attr("x", width + margin.right)
+  .attr("y", yIcon+13)
+  .attr("cursor","default")
+.append("tspan")
+  .text("number of author's publications")
+  .attr("x",width + margin.right)
+  .attr("dy","1.2em")
+.append("tspan")
+  .text("with " + surname(author_name))
+  .attr("x",width + margin.right)
+  .attr("dy","1.2em")
+
+
+  //set title
   d3.select(".text-title")
   .text("Scientific production and publishing partners of " + author_name)
+
+//---------------------------------------------------------------------------------------------------------------------
+//  Reading data
+//---------------------------------------------------------------------------------------------------------------------
 
   d3.json("data/data_vis06.json", function(error, data) {
         if (error) throw error;
         
+        //get nodes and links
         var nodes = data.nodes.map(d => Object.create(d))
         var links = data.links.map(d => Object.create(d))
 
@@ -150,13 +209,16 @@ function updateDetail(author_name){
         author = nodes.filter(d => d.id === author_name)[0]
 
         //get author conections by paper
+        //source can be paper or author - paper.length is < 5
         const links_paper = links.filter(d => (d.source.length < 5 && author.paper.includes(d.source)))
         
-        //const links_paper = links.filter(d => d.source.length < 5)
+        //get links author
+        const links_author_paper = links_paper.filter(e => e.target == author_name)
+
         //get author partners
         const author_partner = links_paper.map(d => d.target).filter(d => d != author.id)
                               .slice().sort((a, b) => d3.ascending(a.id, b.id))
-
+        
         const links_partner = links_paper.filter(d => d.target != author.id)
         
         //get author's articles 
@@ -190,17 +252,18 @@ function updateDetail(author_name){
          })
 
         //define centers
-        const spacing = {h:200, v:80}
-        const paper_size = {w: 250, h:70}
+        const spacing = {h:180, v:80}
+        const paper_size = {w: 280, h:72}
         const shift_x = width/12
         const shift_y = 20
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
-        const bandY = {'paper' : author.paper.length, 'partner': author_partner.length }
-
+  
+        //define yScale
         ratioPartner = height/nodes_partner.length
         height_partner = height
         initial_partner = 0
-        if(ratioPartner > 200){
+      
+        if(ratioPartner > 190){
           height_partner = nodes_partner.length * (paper_size.h*2) 
           initial_partner = (height - height_partner)/2
         }else
@@ -208,8 +271,6 @@ function updateDetail(author_name){
           height_partner = nodes_partner.length * (paper_size.h) 
           initial_partner = (height - height_partner)/2
         }
-
-        
         // A linear scale to position the nodes on the y axis
         var yPartner = d3.scalePoint()
           .range([initial_partner + shift_y, height_partner + initial_partner])
@@ -218,28 +279,25 @@ function updateDetail(author_name){
         ratioPaper = height/nodes_paper.length
         height_paper = height
         initial_paper = 0
-        //console.log(ratioPaper)
-       // console.log(nodes_paper.length)
 
         if(nodes_paper.length > 1 && ratioPaper > 150){
           height_paper = nodes_paper.length * (paper_size.h*2.5)
           initial_paper = (height - height_paper)/2
         }
-          // A linear scale to position the paper nodes on the y axis
+
+        // A linear scale to position the paper nodes on the y axis
         var yPaper = d3.scalePoint()
           .range([height_paper + initial_paper - paper_size.h, initial_paper + paper_size.h])
           .domain(allPapersName)
   
-        console.log("ratioPaper:" + ratioPaper)
-        console.log("ratioPartner: " + ratioPartner)
-  
         let author_position = [xCenter.author, height/2]
-        sortPartner(nodes_paper, nodes_partner)
+        //sortPartner(nodes_paper, nodes_partner)
 
       /********************************Link Author - Paper *****************************************/    
-       var link_author = svg
+       
+      var link_author = svg
            .selectAll('mylinks')
-           .data(links_paper)
+           .data(links_author_paper)
            .enter()
            .append('path')
            .attr('d', function (d) {
@@ -254,15 +312,14 @@ function updateDetail(author_name){
              return link;
            })
            .attr('fill', 'none')
-           .attr("stroke-width", 1)
-           .style('opacity', 0.2)
+           .attr("stroke-width", 2)
+           .style('opacity', 0.6)
            .style("stroke", d => { 
                //get souce node focus properties
                const getnode = nodes_paper.filter(e => e.id === d.source)[0]
                return colorPaper(getnode.focus);
            })
 
-         
         /******************************** Link Paper - Partners *****************************************/    
         var link_partner = svg
             .selectAll('mylinks')
@@ -271,7 +328,7 @@ function updateDetail(author_name){
             .append('path')
             .attr('d', function (d) {
               start = yPaper(d.source)    // Y position of start node on the X axis
-              end = yPartner(d.target)    // Y position of end node
+              end = yPartner(d.target) - 10    // Y position of end node
       
               const link = d3.linkHorizontal()({
                 source: [xCenter.paper + paper_size.w/2 + 100, start],
@@ -281,7 +338,15 @@ function updateDetail(author_name){
               return link;
             })
             .attr('fill', 'none')
-            .attr("stroke-width", 1.5)
+            .attr("stroke-width", function (d) {
+              //get partner node
+              const getnode = nodes_partner.filter(e => e.id == d.target)[0]
+              //get paper with author
+              d.value = getnode.qtPartner * 2
+             
+              return d.value
+             
+            })
             .style('opacity', 0.6) 
             .style("stroke", d => { 
             
@@ -303,9 +368,7 @@ function updateDetail(author_name){
             .attr("cy", author_position[1] )
             .attr("fill", color(author.qt))
             .attr("stroke",d3.rgb(color(author.qt)).darker(0.5))
-            .style("cursor", "default")
-        
-           
+            .style("cursor", "default")    
 
           svg.append("text")
           .text(surname(author.id.trim()))
@@ -329,86 +392,95 @@ function updateDetail(author_name){
 
           /************************** Paper Node *************************/
               
-              //create papers nodes
-              var node_paper = svg.append("g")
-                .selectAll("rect")
-                .data(nodes_paper)
-                .enter()
-                .append("rect")
-                  .attr("width",  paper_size.w)
-                  .attr("height", paper_size.h)
-                  .attr("x", xCenter.paper)
-                  .attr("y", d => (yPaper(d.id) - paper_size.h/2))
-                  .style("fill",  "white")
-    
+          //create papers nodes white
+          var node_paper = svg.append("g")
+            .selectAll("rect")
+            .data(nodes_paper)
+            .enter()
+            .append("rect")
+              .attr("width",  paper_size.w)
+              .attr("height", paper_size.h)
+              .attr("x", xCenter.paper)
+              .attr("y", d => (yPaper(d.id) - paper_size.h/2))
+              .style("fill",  "white")
 
-              //create papers nodes
-              var node_paper = svg.append("g")
-                .attr("class", "node rect")
-                .selectAll("rect")
-                .data(nodes_paper)
-                .enter()
-                .append("rect")
-                  .attr("width",  paper_size.w)
-                  .attr("height", paper_size.h)
-                  .attr("rx",2)
-                  .attr("ry",2)
-                  .attr("x", xCenter.paper)
-                  .attr("y", d => (yPaper(d.id) - paper_size.h/2))
-                  .style("fill",  d => colorPaperLight(d.focus))
-                  .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
-                  //.style("opacity",0.5)
-                .on('mouseover', fade(0.2))
-                .on('mouseout', fade(1))
+          //create papers nodes
+          var node_paper = svg.append("g")
+            .attr("class", "node rect")
+            .selectAll("rect")
+            .data(nodes_paper)
+            .enter()
+            .append("rect")
+              .attr("width",  paper_size.w)
+              .attr("height", paper_size.h)
+              .attr("rx",2)
+              .attr("ry",2)
+              .attr("x", xCenter.paper)
+              .attr("y", d => (yPaper(d.id) - paper_size.h/2))
+              .style("fill",  d => colorPaperLight(d.focus))
+              .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.0)})
+            .on('mouseover', fade(0.2))
+            .on('mouseout', fade(1))
 
 
-              var label_paper = svg.append('g')
-                .selectAll('text')
-                .data(nodes_paper)
-                .enter()
-                .append('text')
-                  .attr("class", function(d) { return "text-legend label-paper-" + d.id })
-                  .attr("x",  xCenter.paper +  paper_size.w/2)
-                  .attr("y",  d=> (yPaper(d.id) - paper_size.h/2))
-                  .attr("text-anchor","middle")
-                  .style("cursor", "default")  
-                  .attr("fill", "#343a40")
-                  .attr("font-size","0.85rem")
-                  .on('mouseover', fade(0.1))
-                  .on('mouseout', fade(1))
+          var label_paper = svg.append('g')
+            .selectAll('text')
+            .data(nodes_paper)
+            .enter()
+            .append('text')
+              .attr("class", function(d) { return "text-legend label-paper-" + d.id })
+              .attr("x",  xCenter.paper +  paper_size.w/2)
+              .attr("y",  d=> (yPaper(d.id) - paper_size.h/2))
+              .attr("text-anchor","middle")
+              .style("cursor", "default")  
+              .attr("fill", "#343a40")
+            //  .attr("font-size","0.85rem")
+              .on('mouseover', fade(0.1))
+              .on('mouseout', fade(1))
 
-                nodes_paper.forEach( function (d,i){
+            nodes_paper.forEach( function (d,i){
 
-                  textElement = d3.selectAll(".label-paper-" + d.id)
+              textElement = d3.selectAll(".label-paper-" + d.id)
 
-                  tspan = breakText(d.title, 38)
-
-                  if(tspan.length > 4){
-                    textElement.append("tspan")
-                    .text(d.title)
-                    .attr("dy","2.0em")
-                    .style("font-weight","bold")
-                  }else{
-                    for(j in tspan){
-                      textElement.append("tspan")
-                      .text(tspan[j])
-                      .style("font-weight","bold")
-                      .attr("dy","1.2em")
-                      .attr("x",xCenter.paper + paper_size.w/2)
-                    }
-                  }
-
+             
+              if(d.title.length < 50)
+                tspan = breakText(d.title, 35)
+              else
+                tspan = breakText(d.title, 42)
+         
+              //two line text
+              if(tspan.length == 2){
+                y = parseFloat(textElement.attr("y"))
+                textElement.attr("y",y+7)
+              }
+          
+              if(tspan.length > 4){   //one line
+                textElement.append("tspan")
+                .text(d.title)
+                .attr("dy","2.2em")
+                .style("font-weight","bold")
+              }else{
+                
+                for(j in tspan){
                   textElement.append("tspan")
-                      .text("Year: " + d.year)
-                      .attr("dy","1.5em")
-                      //.style("font-size","1.05rem")
-                      .attr("x",xCenter.paper + paper_size.w/2)
+                  .text(tspan[j])
+                  .style("font-weight","bold")
+                  .attr("dy","1.2em")
+                  .attr("x",xCenter.paper + paper_size.w/2)
+                }
+              }
 
-                })
+              textElement.append("tspan")
+                  .text("Year: " + d.year)
+                  .attr("dy","1.5em")
+                  //.style("font-size","1.05rem")
+                  .attr("x",xCenter.paper + paper_size.w/2)
+
+            })
 
 
         /************************** Partners node ****************************/
-        var node_partner = svg.append("g")
+        var node_partner_bottom = svg.append("g")
           .attr("class", "node circle partner")
           .selectAll("circle")
           .data(nodes_partner)
@@ -417,7 +489,7 @@ function updateDetail(author_name){
             //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
             .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
             .attr("cx", xCenter.partner)
-            .attr("cy", d => yPartner(d.id))
+            .attr("cy", d => yPartner(d.id) - 10)
             .attr("fill", "white")
            // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
             //.attr("fill", function(d){ return d3.rgb(colorPartner(d.qt)).darker(0)})
@@ -427,24 +499,24 @@ function updateDetail(author_name){
             .on('mouseout', fade(1))
             .on('click', d => updateDetail(d.id))
 
-          var node_partner = svg.append("g")
-          .attr("class", "node circle partner")
-          .selectAll("circle")
-            .data(nodes_partner)
-            .enter()
-            .append("circle")
-              //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
-              .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
-              .attr("cx", xCenter.partner)
-              .attr("cy", d => yPartner(d.id))
-             // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
-             // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
-              .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
-              .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
-              .style("cursor", "pointer")
-              .on('mouseover', fade(0.2))
-              .on('mouseout', fade(1))
-              .on('click', d => updateDetail(d.id))
+      var node_partner = svg.append("g")
+      .attr("class", "node circle partner")
+      .selectAll("circle")
+        .data(nodes_partner)
+        .enter()
+        .append("circle")
+          //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+          .attr("cx", xCenter.partner)
+          .attr("cy", d => yPartner(d.id) - 10)
+          // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
+          // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
+          .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
+          .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
+          .style("cursor", "pointer")
+          .on('mouseover', fade(0.2))
+          .on('mouseout', fade(1))
+          .on('click', d => updateDetail(d.id))
           
 
         var label_partner = svg.selectAll("mylabels")
@@ -454,7 +526,7 @@ function updateDetail(author_name){
             .attr("class","text-legend")
             .attr("x", function(d){ return xCenter.partner + Math.sqrt(radius_detail*d.qtPartner) + 10} )
            // .attr("x", function(d){ return xCenter.partner + (radius_detail*d.qtPartner) + 10} )
-            .attr("y", function(d){ return(yPartner(d.id) + 5)})
+            .attr("y", function(d){ return(yPartner(d.id) - 5)})
             .text(d => surname(d.id.trim()))
             .style("text-anchor", "start")
             .style("alignment-baseline", "end")
@@ -490,26 +562,28 @@ function updateDetail(author_name){
            label_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            
            link_author.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
-           link_author.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
+          // link_author.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
 
+         
+           node_partner_bottom.attr('stroke', function (o) { return isConnected(d, o) ? d3.rgb(colorPartner(d.qt)).darker(2): "#fff00" });
            node_partner.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            label_partner.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
 
-
            link_partner.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
-           link_partner.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
+         //  link_partner.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
         
             if(opacity === 1){
 
               node_paper.style('opacity', 1)
+              node_partner_bottom.attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
               node_partner.style('opacity', 1)
               label_partner.style('opacity', 1)
 
               link_partner.style('stroke-opacity',1)
-              link_partner.attr('stroke-width', 1)
+            //  link_partner.attr('stroke-width', 1)
 
               link_author.style('stroke-opacity',1)
-              link_author.attr('stroke-width', 1)
+            //  link_author.attr('stroke-width', 1)
 
             }
           };
@@ -609,6 +683,7 @@ function updateDetail(author_name){
             .attr("ry", 1)
             //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
           // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
+            //.style("fill",  function(d){ return colorPaperLight(d.key)})
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
             .on("mouseover", highlightFocus)
