@@ -104,7 +104,6 @@
                               `
                               <br> <strong>Publication title: </strong> ${key.title}
                               <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
-                              <br> <strong>Contribution: </strong> ${contributions.find(element => element.key == key.contribution[0]).name} (${contributions.find(element => element.key == key.contribution[0]).key})
                               <br> <strong>Citation: </strong> ${key.citation}
                               <br>`
                            )).join('')}
