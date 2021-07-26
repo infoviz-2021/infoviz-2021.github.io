@@ -107,7 +107,8 @@
             <div id="my_dataviz_detail"></div>
             
           </div>
-
+       
+       
           <div class='tooltip'></div>
 
         </section>
@@ -139,13 +140,12 @@
       .attr("y", 0)
       .attr("fill", "none")
       .attr("stroke", "blue")*/
-
+     // viewBox="0 0 300 300"
 
       var svg = d3.select("#my_dataviz")
-      .attr("width",  width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .attr("transform",
-                "translate(" + 0 + "," + 0 + ")");
+        .attr("width",  width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
       /*svg.append("rect")
       .attr("width", width + margin.left + margin.right)
@@ -174,13 +174,13 @@
 
       const radius = 25;
       //const color = d3.scaleOrdinal(d3.schemeSet2);
-      // bgcolor = d3.rgb(d3.schemeSet2[5])
+      // 
      // bgcolor = d3.rgb("#f6cb55") //tom de amarelo
-      bgcolor = d3.rgb("#e5c494")
-     // bgcolor = d3.rgb("#8e7bd7")
+      //bgcolor = d3.rgb("#e5c494")
+     // bgcolor = d3.rgb(d3.schemeSet2[3])
       //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
       //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
-      fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
+     // fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
       //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
 
       // cor padrão: #8e7bd7
@@ -206,23 +206,54 @@
           .domain(keys.map(function(d){return d.key}))
           .range(d3.schemeSet2);*/
 
-     
+      /*  --icon-information: url(
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
+      viewBox='0 0 24 24' fill='none' stroke='currentColor' 
+      stroke-width='2' 
+      stroke-linecap='round' 
+      stroke-linejoin='round' 
+      class='feather feather-info'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='16' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='8' x2='12' y2='8'%3E%3C/line%3E%3C/svg%3E");
+    */
+
+// Alert Icon
+/*
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+</svg>*/
+
+    //icon
+    xIcon = width - 122 
+    yIcon = 7
+
+    svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+        .attr("fill", "var(--gray)")
+   
+    svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+       .attr("fill", "var(--gray)")
+    
     svg
       .append("text")
         .text("Click on the desired author's node to see")
-        .attr("class", "text-legend icon")
+        .attr("class", "text-legend")
         .attr("text-anchor", "end")
         .style("opacity","0.6")
         .attr("x", width + margin.right)
         .attr("y", 20)
+        .attr("cursor","default")
       .append("tspan")
         .text("publications and partnership details.")
         .attr("x",width + margin.right)
         .attr("dy","1.2em")
-      .append("tspan")
-        .text("")
-        .attr("x",width + margin.right)
-        .attr("dy","1.2em")
+     
 
       var size = 15;
       var shift = {x : 80, y : 0}
@@ -486,7 +517,6 @@
               if( d.type === "author"){
 
                 //get all paper node
-
                 author_papers = nodes_paper.filter(o => d.paper.includes(o.id));  
 
                 author_papers.forEach( function(p){
@@ -604,7 +634,7 @@
         var size = 12
         //var xAlign = width - margin.right
         var xAlign = 10
-        var yAlign = 480
+        var yAlign = 460
 
         svg.append("text")
         .text("Author with:")

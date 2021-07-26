@@ -345,42 +345,42 @@ function updateChart(orderBy){
           .style("fill", function(d) {return color(d.focus)})
           .on("mouseover", function(e,d) {  
             
-            //change rect color
+            //change circle color
             d3.select(this)
               .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
               .transition()     // adds animation
               .duration(100)
-              .attr("y", function(d) { return y(d.citation) - 3})
-              .attr("height", y.bandwidth() + 6)
+              .attr("r", radius+2)
+            
               
-              //Get Focus and Contribution description
-              const foundImpact = impacts.find(element => element.key == d.impact);
-              const foundFocus = keys.find(element => element.key == d.focus);
-              const foundPaper= papers.find(element => element.id === d.id);
+            //Get Focus and Contribution description
+            const foundImpact = impacts.find(element => element.key == d.impact);
+            const foundFocus = keys.find(element => element.key == d.focus);
+            const foundPaper= papers.find(element => element.id === d.id);
 
-              authors =  "<strong>Authors: </strong>"
+            authors =  "<strong>Authors: </strong>"
 
-              if(foundPaper.qt_author === 1){
-                authors = "<strong>Author: </strong>" 
-              }
+            if(foundPaper.qt_author === 1){
+              authors = "<strong>Author: </strong>" 
+            }
 
-              authors += foundPaper.citation_order
+            authors += foundPaper.citation_order
 
-              d3.select('.tooltip')
-                .style('visibility','visible')
-               // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
-                .style('top', function(){ 
-                  
-                  if(d.impact == "IH" || d.impact == "DC")
-                    return parseInt(y(d.impact)) + 150 +'px'
+            d3.select('.tooltip')
+              .style('visibility','visible')
+              // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
+              .style('top', function(){ 
                 
-                  //x(d.citation)
+                if(d.impact == "IH" || d.impact == "DC")
+                  return parseInt(y(d.impact)) + 150 +'px'
+              
+                //x(d.citation)
 
-                 
-                  return  parseInt(y(d.impact)) + 270 +'px'
-                  //return  '400px'
+                
+                return  parseInt(y(d.impact)) + 270 +'px'
+                //return  '400px'
 
-                 })
+                })
                 .style('left', function(){
 
                   if(x(d.citation) > 350)
@@ -405,7 +405,6 @@ function updateChart(orderBy){
               //axisX bold
               d3.select("." + className(d.citation)).attr("font-weight", "bold")
 
-             // updateTable(d.id,"publication")
 
             })
             .on("mouseleave", function (e, d){  
@@ -415,7 +414,10 @@ function updateChart(orderBy){
 
                 d3.select(this)
                   .style("stroke", "none")
-                  .style("fill", function(d) { return color(d.focus)} )
+                  .style("fill", function(d) { return color(d.focus)})
+                  .transition()     // adds animation
+                    .duration(100)
+                    .attr("r", radius)
                 
                 //axisY normal
                 d3.select(".axisY-" + className(d.impact)).attr("font-weight", "norlma")
