@@ -1,64 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- Include Bootstrap for styling -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <!-- Include Bootstrap for styling -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/DataTables/DataTables-1.10.25/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="styles/vis10.css">
+    <link rel="stylesheet" href="vis04.css">
 </head>
 <body>
-  <div class="container">
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Citation</th>
-                <th>Publication Reference</th>
-                <th>Publication Focus</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr><td>Alharbi and Huang, 2020</td><td>Mohammed Alharbi and Shihong Huang. 2020. A Survey of Incorporating Affective Computing for Human-System Co-adaptation. Proceedings of the 2020 The 2nd World Symposium on Software Engineering. Association for Computing Machinery, New York, NY, USA, 72-79. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3425329.3425343</td><td>from a general perspective with emphasis on a quality attribute</td></tr>
-                <tr><td>Andres et al., 2018</td><td>Josh Andres, Julian de Hoog, and Florian 'Floyd' Mueller. 2018. "I had super-powers when eBike riding" Towards Understanding the Design of Integrated Exertion. In Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '18). Association for Computing Machinery, New York, NY, USA, 19-31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242688</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Andres et al., 2019</td><td>Josh Andres, Tuomas Kari, Juerg von Kaenel, and Florian 'Floyd' Mueller. 2019. "Co-riding With My eBike to Get Green Lights". In Proceedings of the 2019 on Designing Interactive Systems Conference (DIS '19). Association for Computing Machinery, New York, NY, USA, 1251-1263. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3322276.3322307</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Andres et al., 2020</td><td>Josh Andres, m.c. schraefel, Nathan Semertzidis, Brahmi Dwivedi, Yutika C. Kulwe, Juerg von Kaenel, and Florian Floyd Mueller. 2020. Introducing Peripheral Awareness as a Neurological State for Human-computer Integration. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI '20). Association for Computing Machinery, New York, NY, USA, 1-13. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376128</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Britton and Semaan, 2017</td><td>Lauren M. Britton and Bryan Semaan. 2017. Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration. Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems. Association for Computing Machinery, New York, NY, USA, 2499-2510. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3025453.3025629</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Dengel et al., 2021</td><td>Dengel A., Devillers L., Schaal L.M. (2021) Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics. In: Braunschweig B., Ghallab M. (eds) Reflections on Artificial Intelligence for Humanity. Lecture Notes in Computer Science, vol 12600. Springer, Cham. https://doi.org/10.1007/978-3-030-69128-8_13</td><td>from a general perspective</td></tr>
-                <tr><td>Farooq and Grudin, 2016</td><td>Umer Farooq and Jonathan Grudin. 2016. Human-computer integration. interactions 23, 6 (November-December 2016), 26-32. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3001896</td><td>from a general perspective</td></tr>
-                <tr><td>Fuchsberger, 2019</td><td>Verena Fuchsberger. 2019. The future's hybrid nature. interactions 26, 4 (July-August 2019), 26-31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3328481</td><td>from a general perspective</td></tr>
-                <tr><td>Gil et al., 2019</td><td>Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, Designing human-in-the-loop autonomous Cyber-Physical Systems, International Journal of Human-Computer Studies, Volume 130, 2019, Pages 21-39, ISSN 1071-5819,https://doi.org/10.1016/j.ijhcs.2019.04.006.</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Gil et al., 2020</td><td>Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, Engineering human-in-the-loop interactions in cyber-physical systems, Information and Software Technology, Volume 126, 2020, 106349, ISSN 0950-5849, https://doi.org/10.1016/j.infsof.2020.106349.</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Ho, 2018</td><td>Jeffrey C. F. Ho. 2018. Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability. In Proceedings of the Sixth International Symposium of Chinese CHI (ChineseCHI '18). Association for Computing Machinery, New York, NY, USA, 95-99. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3202667.3202680</td><td>from a general perspective with emphasis on a quality attribute</td></tr>
-                <tr><td>Leigh et al., 2017</td><td>Leigh, Sang-won; Sareen, Harpreet; Kao, Hsin-Liu Cindy; Liu, Xin; Maes, Pattie; ,Body-Borne Computers as Extensions of Self,Computers,6,1,12,2017,Multidisciplinary Digital Publishing Institute</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Li et al., 2018</td><td>Zhuying Li, Rakesh Patibanda, Felix Brandmueller, Wei Wang, Kyle Berean, Stefan Greuter, and Florian 'Floyd' Mueller. 2018. The Guts Game: Towards Designing Ingestible Games. In Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '18). Association for Computing Machinery, New York, NY, USA, 271-283. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242681</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>McKenna, 2020</td><td>McKenna, H Patricia; ,"Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities",International Conference on Intelligent Human Systems Integration,,,1063-1068,2020,Springer</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Mueller et al., 2019</td><td>Mueller, Florian; Maes, Pattie; Grudin, Jonathan; ,Human-Computer Integration (Dagstuhl Seminar 18322),Dagstuhl Reports,8,8,,2019,Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik</td><td>from a general perspective</td></tr>
-                <tr><td>Mueller et al., 2020</td><td>Florian Floyd Mueller, Pedro Lopes, Paul Strohmeier, Wendy Ju, Caitlyn Seim, Martin Weigel, Suranga Nanayakkara, Marianna Obrist, Zhuying Li, Joseph Delfa, Jun Nishida, Elizabeth M. Gerber, Dag Svanaes, Jonathan Grudin, Stefan Greuter, Kai Kunze, Thomas Erickson, Steven Greenspan, Masahiko Inami, Joe Marshall, Harald Reiterer, Katrin Wolf, Jochen Meyer, Thecla Schiphorst, Dakuo Wang, and Pattie Maes. 2020. Next Steps for Human-Computer Integration. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI '20). Association for Computing Machinery, New York, NY, USA, 1-15. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376242</td><td>from a general perspective</td></tr>
-                <tr><td>Niess and Woźniak, 2020</td><td>Jasmin Niess and Paweł W. Woźniak. 2020. Embracing Companion Technologies. Proceedings of the 11th Nordic Conference on Human-Computer Interaction: Shaping Experiences, Shaping Society. Association for Computing Machinery, New York, NY, USA, Article 31, 1-11. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3419249.3420134</td><td>from a general perspective with emphasis on a quality attribute</td></tr>
-                <tr><td>Raisamo et al., 2019</td><td>Roope Raisamo, Ismo Rakkolainen, Päivi Majaranta, Katri Salminen, Jussi Rantala, Ahmed Farooq, Human augmentation: Past, present and future, International Journal of Human-Computer Studies, Volume 131, 2019, Pages 131-143, ISSN 1071-5819, https://doi.org/10.1016/j.ijhcs.2019.05.008.</td><td>in a specific domain or context of use</td></tr>
-                <tr><td>Ren et al., 2019</td><td>Ren, X., Silpasuwanchai, C. & Cahill, J. Human-Engaged Computing: the future of Human-Computer Interaction. CCF Trans. Pervasive Comp. Interact. 1, 47-68 (2019). https://doi.org/10.1007/s42486-019-00007-0</td><td>from a general perspective with emphasis on a quality attribute</td></tr>
-                <tr><td>Stephanidis et al., 2019</td><td>Stephanidis, Constantine; Salvendy, Gavriel; Antona, Margherita; Chen, Jessie YC; Dong, Jianming; Duffy, Vincent G; Fang, Xiaowen; Fidopiastis, Cali; Fragomeni, Gino; Fu, Limin Paul; ,Seven HCI grand challenges,International Journal of Human-Computer Interaction,35,14,1229-1269,2019,Taylor & Francis</td><td>from a general perspective</td></tr>
-               
-        </tbody>
-    </table>
-  </div>
+    <div>
+        <div class="card__header__vis04!" style="text-align: center;">
+           <h2>Reference list of publications</h2>
+        </div>
+        <div class="container" width="960" height="500">
+            <table id="example" class="sortable table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Citation</th>
+                        <th>Publication Reference</th>
+                        <th>Publication Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr><td>Alharbi and Huang, 2020</td><td>Mohammed Alharbi and Shihong Huang. 2020. <strong>A Survey of Incorporating Affective Computing for Human-System Co-adaptation </strong>. Proceedings of the 2020 The 2nd World Symposium on Software Engineering. Association for Computing Machinery, New York, NY, USA, 72-79. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3425329.3425343</td><td>Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)</td></tr>
+                        <tr><td>Andres et al., 2018</td><td>Josh Andres, Julian de Hoog, and Florian 'Floyd' Mueller. 2018. <strong>"I had super-powers when eBike riding" Towards Understanding the Design of Integrated Exertion </strong>. In Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '18). Association for Computing Machinery, New York, NY, USA, 19-31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242688</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Andres et al., 2019</td><td>Josh Andres, Tuomas Kari, Juerg von Kaenel, and Florian 'Floyd' Mueller. 2019. <strong>"Co-riding With My eBike to Get Green Lights" </strong>. In Proceedings of the 2019 on Designing Interactive Systems Conference (DIS '19). Association for Computing Machinery, New York, NY, USA, 1251-1263. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3322276.3322307</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Andres et al., 2020</td><td>Josh Andres, m.c. schraefel, Nathan Semertzidis, Brahmi Dwivedi, Yutika C. Kulwe, Juerg von Kaenel, and Florian Floyd Mueller. 2020. <strong>Introducing Peripheral Awareness as a Neurological State for Human-computer Integration.</strong> In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI '20). Association for Computing Machinery, New York, NY, USA, 1-13. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376128</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Britton and Semaan, 2017</td><td>Lauren M. Britton and Bryan Semaan. 2017. <strong>Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration</strong>. Proceedings of the 2017 CHI Conference on Human Factors in Computing Systems. Association for Computing Machinery, New York, NY, USA, 2499-2510. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3025453.3025629</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Dengel et al., 2021</td><td>Dengel A., Devillers L., Schaal L.M. (2021) <strong>Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics</strong>. In: Braunschweig B., Ghallab M. (eds) Reflections on Artificial Intelligence for Humanity. Lecture Notes in Computer Science, vol 12600. Springer, Cham. https://doi.org/10.1007/978-3-030-69128-8_13</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                        <tr><td>Farooq and Grudin, 2016</td><td>Umer Farooq and Jonathan Grudin. 2016. <strong>Human-computer integration.</strong> interactions 23, 6 (November-December 2016), 26-32. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3001896</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                        <tr><td>Fuchsberger, 2019</td><td>Verena Fuchsberger. 2019. <strong>The future's hybrid nature</strong>. interactions 26, 4 (July-August 2019), 26-31. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3328481</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                        <tr><td>Gil et al., 2019</td><td>Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, <strong>Designing human-in-the-loop autonomous Cyber-Physical Systems </strong>, International Journal of Human-Computer Studies, Volume 130, 2019, Pages 21-39, ISSN 1071-5819,https://doi.org/10.1016/j.ijhcs.2019.04.006.</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Gil et al., 2020</td><td>Miriam Gil, Manoli Albert, Joan Fons, Vicente Pelechano, <strong> Engineering human-in-the-loop interactions in cyber-physical systems </strong>, Information and Software Technology, Volume 126, 2020, 106349, ISSN 0950-5849, https://doi.org/10.1016/j.infsof.2020.106349.</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Ho, 2018</td><td>Jeffrey C. F. Ho. 2018. <strong> Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability</strong>. In Proceedings of the Sixth International Symposium of Chinese CHI (ChineseCHI '18). Association for Computing Machinery, New York, NY, USA, 95-99. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3202667.3202680</td><td>Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)</td></tr>
+                        <tr><td>Leigh et al., 2017</td><td>Leigh, Sang-won; Sareen, Harpreet; Kao, Hsin-Liu Cindy; Liu, Xin; Maes, Pattie; ,<strong> Body-Borne Computers as Extensions of Self</strong>,Computers,6,1,12,2017 ,Multidisciplinary Digital Publishing Institute</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Li et al., 2018</td><td>Zhuying Li, Rakesh Patibanda, Felix Brandmueller, Wei Wang, Kyle Berean, Stefan Greuter, and Florian 'Floyd' Mueller. 2018. <strong> The Guts Game: Towards Designing Ingestible Games </strong>. In Proceedings of the 2018 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '18). Association for Computing Machinery, New York, NY, USA, 271-283. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3242671.3242681</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>McKenna, 2020</td><td>McKenna, H Patricia; ,<strong>"Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities"</strong>,International Conference on Intelligent Human Systems Integration,,,1063-1068,2020,Springer</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Mueller et al., 2019</td><td>Mueller, Florian; Maes, Pattie; Grudin, Jonathan; ,<strong>Human-Computer Integration (Dagstuhl Seminar 18322) </strong>,Dagstuhl Reports,8,8,,2019,Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                        <tr><td>Mueller et al., 2020</td><td>Florian Floyd Mueller, Pedro Lopes, Paul Strohmeier, Wendy Ju, Caitlyn Seim, Martin Weigel, Suranga Nanayakkara, Marianna Obrist, Zhuying Li, Joseph Delfa, Jun Nishida, Elizabeth M. Gerber, Dag Svanaes, Jonathan Grudin, Stefan Greuter, Kai Kunze, Thomas Erickson, Steven Greenspan, Masahiko Inami, Joe Marshall, Harald Reiterer, Katrin Wolf, Jochen Meyer, Thecla Schiphorst, Dakuo Wang, and Pattie Maes. 2020. <strong>Next Steps for Human-Computer Integration</strong>. In Proceedings of the 2020 CHI Conference on Human Factors in Computing Systems (CHI '20). Association for Computing Machinery, New York, NY, USA, 1-15. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3313831.3376242</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                        <tr><td>Niess and Woźniak, 2020</td><td>Jasmin Niess and Paweł W. Woźniak. 2020. <strong>Embracing Companion Technologies</strong>. Proceedings of the 11th Nordic Conference on Human-Computer Interaction: Shaping Experiences, Shaping Society. Association for Computing Machinery, New York, NY, USA, Article 31, 1-11. DOI:https://doi-org.ez27.periodicos.capes.gov.br/10.1145/3419249.3420134</td><td>Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)</td></tr>
+                        <tr><td>Raisamo et al., 2019</td><td>Roope Raisamo, Ismo Rakkolainen, Päivi Majaranta, Katri Salminen, Jussi Rantala, Ahmed Farooq, <strong> Human augmentation: Past, present and future </strong>, International Journal of Human-Computer Studies, Volume 131, 2019, Pages 131-143, ISSN 1071-5819, https://doi.org/10.1016/j.ijhcs.2019.05.008.</td><td>Focus on HInt in a specific domain or context of use (FS)</td></tr>
+                        <tr><td>Ren et al., 2019</td><td>Ren, X., Silpasuwanchai, C. & Cahill, J. <strong>Human-Engaged Computing: the future of Human-Computer Interaction</strong>. CCF Trans. Pervasive Comp. Interact. 1, 47-68 (2019). https://doi.org/10.1007/s42486-019-00007-0</td><td>Focus on HInt from a general perspective with emphasis on a quality attribute (FGQA)</td></tr>
+                        <tr><td>Stephanidis et al., 2019</td><td>Stephanidis, Constantine; Salvendy, Gavriel; Antona, Margherita; Chen, Jessie YC; Dong, Jianming; Duffy, Vincent G; Fang, Xiaowen; Fidopiastis, Cali; Fragomeni, Gino; Fu, Limin Paul; <strong>Seven HCI grand challenges</strong>, International Journal of Human-Computer Interaction,35,14,1229-1269,2019,Taylor & Francis</td><td>Focus on HInt from a general perspective (FGR)</td></tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/DataTables/DataTables-1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/data/data_vis10.js"> </script>
+    <script>
+        $(document).ready(function(){
+            $('table').DataTable();
+        });
 
-  <!-- Include jQuery and other required files for Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"> </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        $('#example').dataTable( {
+            "columnDefs": [
+                { "width": "10%", "targets": 0 },
+                { "width": "60%", "targets": 1 },
+                { "width": "30%", "targets": 2 }
+            ]
+        } );
 
-
-  <!-- Include the JavaScript file for Bootstrap table -->
-  <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"> </script>
-  
-  <!-- Include the file where the JSON data is stored -->
-  <script src="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"></script>
-  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
-  <script type="text/javascript" src="/data/data_vis10.js"> </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-  </script>
+        // // Traversing the JSON data
+        // for (var i = 0; i < data.length; i++) {
+        //     var row = $('<tr/>');   
+                                    
+        //     row.append($('<td/>').html(data[i].citation));
+        //     row.append($('<td/>').html(data[i].reference));
+            
+        //     // Adding each row to the table
+        //     $('table').append(row);
+        // }
+    
+    </script>
 </body>
 </html>
