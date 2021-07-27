@@ -1,5 +1,5 @@
 [
-  { "code": "AUS", "country": "Australia", "institution": "Australia", "author": "Brahmi Dwivedi" },
+  { "code": "AUS", "country": "Australia", "institution": "Monash University", "author": "Brahmi Dwivedi" },
   { "code": "AUS", "country": "Australia", "institution": "RMIT University", "author": "Felix Brandmueller" },
   { "code": "AUS", "country": "Australia", "institution": "Monash University", "author": "Florian Floyd Mueller" },
   { "code": "AUS", "country": "Australia", "institution": "RMIT University", "author": "Florian Floyd Mueller" },
@@ -32,6 +32,7 @@
   { "code": "FIN", "country": "Finland", "institution": "Tampere University", "author": "Katri Salminen" },
   { "code": "FIN", "country": "Finland", "institution": "Tampere University", "author": "Päivi Majaranta" },
   { "code": "FIN", "country": "Finland", "institution": "Tampere University", "author": "Roope Raisamo" },
+  { "code": "FIN", "country": "Finland", "institution": "University of Jyvaskyla", "author": "Tuomas Kari" },
   { "code": "FRA", "country": "France", "institution": "Sorbonne-University", "author": "Laurence Devillers" },
   { "code": "DEU", "country": "Germany", "institution": "DFKI", "author": "Andreas Dengel" },
   { "code": "DEU", "country": "Germany", "institution": "University of Kaiserslautern", "author": "Andreas Dengel" },
