@@ -102,6 +102,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   display: flex;
   flex-direction: row;
   margin-left: 0.3em;
+  white-space: nowrap;
 }
 
 .card__body__countries__details__header__title strong {
@@ -111,7 +112,6 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__details__header__title__highlight {
   color: var(--dark-cornflower-blue);
   font-weight: 700;
-  white-space: normal;
 }
 
 .card__body__countries__details__body {
@@ -212,8 +212,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-left: 0.3em;
 }
 
-.card__body__network__details{
+.card__body__countries__explains p {
+  font-size: 0.75rem;
+}
 
+.card__body__network__details {
   display: flex;
   flex-direction: column;
   max-width: 25%;
