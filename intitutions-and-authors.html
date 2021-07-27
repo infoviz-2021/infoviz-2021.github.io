@@ -230,15 +230,17 @@
                   else
                     institutions[institutionAuthor.institution] = [institutionAuthor.author]
                 })
-                const authors = institutionAuthorsByCountry.sort(function (a, b) {
+                const authors = {}
+                institutionAuthorsByCountry.sort(function (a, b) {
                   if (a.author > b.author) return 1
                   if (a.author < b.author) return -1
                   return 0
-                }).reduce((accumulator, current) => {
-                  if (accumulator.length === 0 || accumulator[accumulator.length - 1].author !== current.author)
-                    accumulator.push(current)
-                  return accumulator
-                }, [])
+                }).forEach(institutionAuthor => {
+                  if (authors[institutionAuthor.author])
+                  authors[institutionAuthor.author] = [...authors[institutionAuthor.author], institutionAuthor.institution]
+                  else
+                  authors[institutionAuthor.author] = [institutionAuthor.institution]
+                })
                 const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
                 detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
                 d3.select('.card__body__countries__details__header')
@@ -254,45 +256,49 @@
                   `)
                 d3.select('.card__body__countries__details__institutions__list')
                   .selectAll('li')
-                  .data(Object.keys(institutions))
+                  .data(Object.entries(institutions))
                   .join('li')
-                  .attr('data-author', authorInstitution => authorInstitution.author)
-                  .text(authorInstitution => authorInstitution)
+                  .attr('data-authors', authorInstitution => authorInstitution[1])
+                  .text(authorInstitution => authorInstitution[0])
                   .on('mouseover', (event) => {
                     const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
                     authorsLi.forEach(authorLi => {
-                      if (authorLi.getAttribute('data-institution') === event.target.innerHTML)
+                      const authors = event.target.getAttribute('data-authors').split(',')
+                      if (authors.includes(authorLi.innerHTML))
                         authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
                     });
                   })
                   .on('mouseout', (event) => {
                     const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
                     authorsLi.forEach(authorLi => {
-                      if (authorLi.getAttribute('data-institution') === event.target.innerHTML)
+                      const authors = event.target.getAttribute('data-authors').split(',')
+                      if (authors.includes(authorLi.innerHTML))
                         authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
                     });
                   })
                 d3.select('.card__body__countries__details__authors__title')
                   .html(`
-                    <span><strong>Authors - Total: ${authors.length}</strong> of 100</span>
+                    <span><strong>Authors - Total: ${Object.keys(authors).length}</strong> of 100</span>
                   `)
                 d3.select('.card__body__countries__details__authors__list')
                   .selectAll('li')
-                  .data(authors.sort())
+                  .data(Object.entries(authors))
                   .join('li')
-                  .attr('data-institution', authorInstitution => authorInstitution.institution)
-                  .text(authorInstitution => authorInstitution.author)
+                  .attr('data-institution', authorInstitution => authorInstitution[1])
+                  .text(authorInstitution => authorInstitution[0])
                   .on('mouseover', (event) => {
                     const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
                     institutionsLi.forEach(institutionLi => {
-                      if (institutionLi.innerHTML === event.target.getAttribute('data-institution'))
+                      const institutions = event.target.getAttribute('data-institution').split(',')
+                      if (institutions.includes(institutionLi.innerHTML))
                         institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
                     });
                   })
                   .on('mouseout', (event) => {
                     const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
                     institutionsLi.forEach(institutionLi => {
-                      if (institutionLi.innerHTML === event.target.getAttribute('data-institution'))
+                      const institutions = event.target.getAttribute('data-institution').split(',')
+                      if (institutions.includes(institutionLi.innerHTML))
                         institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
                     });
                   })
