@@ -103,6 +103,9 @@
                   </div>
                 </div>
                 <div class="card__body__countries__map"></div>
+                <div class="card__body__countries__explains">
+                  <p>* A same publication may have been published by authors from different countries and institutions</p>
+                </div>
               </div>
               <div class="card__body__countries__details">
                 <div class="card__body__countries__details__header"></div>
@@ -242,7 +245,7 @@
                   .html(`
                     <span class="card__body__countries__details__header__flag ${countrySelected.id}-flag"></span>
                     <span class="card__body__countries__details__header__title">
-                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Publication's total: ${svgElement.properties.articles}</span>&nbsp;of 20
+                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Total of Publications*: ${svgElement.properties.articles}</span>&nbsp;of 20
                     </span>
                   `)
                 d3.select('.card__body__countries__details__institutions__title')
