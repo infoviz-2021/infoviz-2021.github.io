@@ -81,7 +81,7 @@
             .padding(0.5)        //space between words
             .rotate(function() { return 0; })
             .font('Impact') 
-            .fontSize(function(d) { return d.size + 20 ; })      // font size of words
+            .fontSize(function(d) { return d.size * 5 ; })      // font size of words
             .on("end", draw);
         layout.start();
 
@@ -101,6 +101,7 @@
             .attr("text-anchor", "middle")
             .attr("size", function(d) { return d.size; })
             .attr("context", function(d) { return d.context; })
+            .style("cursor", "default")
             .style("font-family", "Impact")
             .attr("transform", function(d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
