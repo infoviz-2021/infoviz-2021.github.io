@@ -162,139 +162,10 @@
             .join('path')
             .attr('d', geoPath)
             .attr('data-selected', false)
-            .attr('class', function (svgElement) {
-              if (svgElement.properties.articles > 0)
-                return 'country country-highlighted'
-              else 
-                return 'country'
-            })
-            .on('mouseover', function (svgElement, data, key) {
-              if (data.properties.articles > 0) {
-                d3.select(this).attr('class', 'country hover')
-                d3.select('.card__body__countries__tooltip')
-                  .style('visibility','visible')
-                  .style('top', svgElement.layerY + 10 + 'px')
-                  .style('left', svgElement.layerX + 10 + 'px')
-                  .html(`
-                    <div class="country-title">
-                      ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}
-                      <span class="country-title__name"><strong>${data.properties.name}</strong></span>
-                    </div>
-                    <div class="country-academic-info">
-                      <span>Total of institutions: ${(data.properties.institutions ? data.properties.institutions.length : 0)}</span>
-                      <span>Total of authors: ${(data.properties.authors ? data.properties.authors.length : 0)}</span>
-                    </div>
-                  `)
-              }
-            })
-            .on('mouseout', function (event) {
-              const countryTarget = event.target
-              if (countryTarget.dataset.selected === 'false') {
-                d3.select(this).attr('class', function (svgElement) {
-                  if (svgElement.properties.articles > 0)
-                    return 'country country-highlighted'
-                  else 
-                    return 'country'
-                })
-              }
-              d3.select('.card__body__countries__tooltip')
-                .style('visibility','hidden')
-            })
-            .on('click', function(event, svgElement) {
-              if (svgElement.properties.articles > 0) {
-                const countryTarget = event.target
-                d3.selectAll('[data-selected=true]')
-                  .attr('data-selected', false)
-                  .attr('class', 'country country-highlighted')
-                d3.select(this).attr('data-selected', true)
-                d3.select(this).attr('class', function (svgElement) {
-                  if (countryTarget.dataset.selected === 'false') {
-                    if (svgElement.properties.articles > 0)
-                      return 'country hover'
-                    else 
-                      return 'country'
-                  } else {
-                    if (svgElement.properties.articles > 0)
-                      return 'country hover'
-                    else 
-                      return 'country'
-                  }
-                })
-                const countrySelected = svgElement
-                const institutionAuthorsByCountry = institutionsAuthorsList.filter(filterBy('code', countrySelected.id))
-                const institutions = institutionAuthorsByCountry
-                  .sort(sortBy('institution'))
-                  .reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})
-
-                const authors = institutionAuthorsByCountry
-                  .sort(sortBy('author'))
-                  .reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})
-
-                const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
-                detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
-                d3.select('.card__body__countries__details__header')
-                  .html(`
-                    <span class="card__body__countries__details__header__flag ${countrySelected.id}-flag"></span>
-                    <span class="card__body__countries__details__header__title">
-                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Total of Publications*: ${svgElement.properties.articles}</span>&nbsp;of 20
-                    </span>
-                  `)
-                d3.select('.card__body__countries__details__institutions__title')
-                  .html(`
-                    <span><strong>Institutions - Total: ${Object.keys(institutions).length}</strong> of 70</span>
-                  `)
-                d3.select('.card__body__countries__details__institutions__list')
-                  .selectAll('li')
-                  .data(Object.entries(institutions))
-                  .join('li')
-                  .attr('data-authors', authorInstitution => authorInstitution[1])
-                  .text(authorInstitution => authorInstitution[0])
-                  .on('mouseover', (event) => {
-                    const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
-                    authorsLi.forEach(authorLi => {
-                      const authors = event.target.getAttribute('data-authors').split(',')
-                      if (authors.includes(authorLi.innerHTML))
-                        authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
-                    });
-                  })
-                  .on('mouseout', (event) => {
-                    const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
-                    authorsLi.forEach(authorLi => {
-                      const authors = event.target.getAttribute('data-authors').split(',')
-                      if (authors.includes(authorLi.innerHTML))
-                        authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
-                    });
-                  })
-                d3.select('.card__body__countries__details__authors__title')
-                  .html(`
-                    <span><strong>Authors - Total: ${Object.keys(authors).length}</strong> of 100</span>
-                  `)
-                d3.select('.card__body__countries__details__authors__list')
-                  .selectAll('li')
-                  .data(Object.entries(authors))
-                  .join('li')
-                  .attr('data-institution', authorInstitution => authorInstitution[1])
-                  .text(authorInstitution => authorInstitution[0])
-                  .on('mouseover', (event) => {
-                    const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
-                    institutionsLi.forEach(institutionLi => {
-                      const institutions = event.target.getAttribute('data-institution').split(',')
-                      if (institutions.includes(institutionLi.innerHTML))
-                        institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
-                    });
-                  })
-                  .on('mouseout', (event) => {
-                    const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
-                    institutionsLi.forEach(institutionLi => {
-                      const institutions = event.target.getAttribute('data-institution').split(',')
-                      if (institutions.includes(institutionLi.innerHTML))
-                        institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
-                    });
-                  })
-                  const institutionsDetailsDiv = document.querySelector('.card__body__countries__details__institutions')
-                  institutionsDetailsDiv.classList.add('card__body__countries__details__institutions--active')
-              }
-            })
+            .attr('class', getCountryHighlightedClass)
+            .on('mouseover', showTooltip)
+            .on('mouseout', hideTooltip)
+            .on('click', onCountryClick(institutionsAuthorsList))
         })
       })
 
@@ -322,6 +193,141 @@
             return currentValue
           }
         }
+      }
+
+      function buildCountryTooltipHtml(hasArticles, countryId, countryName, institutionList, authorList) {
+        return `
+          <div class="country-title">
+            ${hasArticles ? `<span class="flag ${countryId}-flag"></span>` : ``}
+            <span class="country-title__name"><strong>${countryName}</strong></span>
+          </div>
+          <div class="country-academic-info">
+            <span>Total of institutions: ${(institutionList ? institutionList.length : 0)}</span>
+            <span>Total of authors: ${(authorList ? authorList.length : 0)}</span>
+          </div>
+        `
+      }
+
+      function buildCountryDetailsHeaderHtml(countryId, countryName, articlesNumber) {
+        return `
+          <span class="card__body__countries__details__header__flag ${countryId}-flag"></span>
+          <span class="card__body__countries__details__header__title">
+            <strong>Country:</strong> ${countryName} (${countryId}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Total of Publications*: ${articlesNumber}</span>&nbsp;of 20
+          </span>
+        `
+      }
+
+      function getCountryClassOnHover(isCountrySelected, hasArticles) {
+        if (isCountrySelected === 'false') {
+          if (hasArticles)
+            return 'country hover'
+          else 
+            return 'country'
+        } else {
+          if (hasArticles)
+            return 'country hover'
+          else 
+            return 'country'
+        }
+      }
+      
+      function getCountryHighlightedClass(svgElement) {
+        if (svgElement.properties.articles > 0)
+          return 'country country-highlighted'
+        else 
+          return 'country'
+      }
+
+      function showTooltip(event, data) {
+        if (data.properties.articles > 0) {
+          d3.select(this).attr('class', 'country hover')
+          d3.select('.card__body__countries__tooltip')
+            .style('visibility','visible')
+            .style('top', event.layerY + 10 + 'px')
+            .style('left', event.layerX + 10 + 'px')
+            .html(buildCountryTooltipHtml(data.properties.articles > 0, data.id, data.properties.name, data.properties.institutions, data.properties.authors))
+        }
+      }
+
+      function hideTooltip(event) {
+        const countryTarget = event.target
+        if (countryTarget.dataset.selected === 'false') {
+          d3.select(this).attr('class', getCountryHighlightedClass)
+        }
+        d3.select('.card__body__countries__tooltip')
+          .style('visibility','hidden')
+      }
+
+      function highlightAuthorsFromInstitutions(event) {
+        const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
+        authorsLi.forEach(authorLi => {
+          const authors = event.target.getAttribute('data-authors').split(',')
+          if (authors.includes(authorLi.innerHTML))
+            authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
+        });
+      }
+
+      function highlightInstitutionsFromAuthors(event) {
+        const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
+        institutionsLi.forEach(institutionLi => {
+          const institutions = event.target.getAttribute('data-institution').split(',')
+          if (institutions.includes(institutionLi.innerHTML))
+            institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
+        });
+      }
+
+      function onCountryClick(institutionsAuthorsList) {
+        return function (event, svgElement) {
+          if (svgElement.properties.articles > 0) {
+            const countryTarget = event.target
+            d3.selectAll('[data-selected=true]')
+              .attr('data-selected', false)
+              .attr('class', 'country country-highlighted')
+            d3.select(this).attr('data-selected', true)
+            d3.select(this).attr('class', getCountryClassOnHover(countryTarget.dataset.selected, svgElement.properties.articles > 0))
+  
+            const countrySelected = svgElement
+            const institutionAuthorsByCountry = institutionsAuthorsList.filter(filterBy('code', countrySelected.id))
+            const institutions = institutionAuthorsByCountry
+              .sort(sortBy('institution'))
+              .reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})
+  
+            const authors = institutionAuthorsByCountry
+              .sort(sortBy('author'))
+              .reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})
+  
+            const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
+            detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
+            d3.select('.card__body__countries__details__header')
+              .html(buildCountryDetailsHeaderHtml(countrySelected.id, countrySelected.properties.name, svgElement.properties.articles))
+            d3.select('.card__body__countries__details__institutions__title')
+              .html(`
+                <span><strong>Institutions - Total: ${Object.keys(institutions).length}</strong> of 70</span>
+              `)
+            d3.select('.card__body__countries__details__institutions__list')
+              .selectAll('li')
+              .data(Object.entries(institutions))
+              .join('li')
+              .attr('data-authors', authorInstitution => authorInstitution[1])
+              .text(authorInstitution => authorInstitution[0])
+              .on('mouseover', highlightAuthorsFromInstitutions)
+              .on('mouseout', highlightAuthorsFromInstitutions)
+            d3.select('.card__body__countries__details__authors__title')
+              .html(`
+                <span><strong>Authors - Total: ${Object.keys(authors).length}</strong> of 100</span>
+              `)
+            d3.select('.card__body__countries__details__authors__list')
+              .selectAll('li')
+              .data(Object.entries(authors))
+              .join('li')
+              .attr('data-institution', authorInstitution => authorInstitution[1])
+              .text(authorInstitution => authorInstitution[0])
+              .on('mouseover', highlightInstitutionsFromAuthors)
+              .on('mouseout', highlightInstitutionsFromAuthors)
+              const institutionsDetailsDiv = document.querySelector('.card__body__countries__details__institutions')
+              institutionsDetailsDiv.classList.add('card__body__countries__details__institutions--active')
+          }
+        }   
       }
     </script>
   </body>
