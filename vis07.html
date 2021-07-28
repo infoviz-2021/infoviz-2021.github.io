@@ -15,16 +15,23 @@
    <body>
       <section>
          <div>
-            <div class="card__header__vis04!">
-               <h2>Number and focus of publications per year</h2>
-            </div>
+            <div class="card__header__vis04">
+                <h2 class="text-title text-color">Number and focus of publications per year</h2>
+             </div>
             <div>
                <svg width="960" height="500"></svg>
+            </div>
+            <div>
+                <svg id="focus_legend"></svg> 
             </div>
          </div>
       </section>
       <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="data/keys.js"></script>
+      <script src="data/data_vis10.js"></script>
     <script>
+        var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
         var svg = d3.select("svg"),
             margin = {top: 20, right: 20, bottom: 30, left: 40},
             width = +svg.attr("width") - margin.left - margin.right,
@@ -46,20 +53,22 @@
         for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
             d.total = t;
             return d;
-        }, function(error, data) {
+        }, function(error, data_csv) {
         if (error) throw error;
 
-        var keys = data.columns.slice(1);
+        var keys = data_csv.columns.slice(1);
         var total = keys.pop()
 
+        // console.log(keys);
+
         // data.sort(function(a, b) { return b.total - a.total; });
-        x.domain(data.map(function(d) { return d.Ano; }));
+        x.domain(data_csv.map(function(d) { return d.Ano; }));
         y.domain([0, 8]).nice(); //d3.max(data, function(d) { return d.total; })]).nice();
         z.domain(keys);
 
         g.append("g")
             .selectAll("g")
-            .data(d3.stack().keys(keys)(data))
+            .data(d3.stack().keys(keys)(data_csv))
             .enter().append("g")
             .attr("fill", function(d) { return z(d.key); })
             .selectAll("rect")
@@ -70,6 +79,59 @@
             .attr("height", function(d) { return y(d[0]) - y(d[1]); })
             .attr("width", x.bandwidth())
             .attr("class", "text-axis default-font-family text-color")
+            .on("mousemove", function(e){
+                    var articles = data.filter(d => d.year == e.data.Ano);
+                    tooltip
+                        .style("left", (d3.mouse(this)[0]+ 20) + "px")
+                        .style("top", (d3.mouse(this)[1]) + "px")
+                        .style("display", "inline-block")
+                        .attr("class", "toolTip")
+                        .html(`
+                           <strong> List of publications in this year: </strong>
+                           <br>
+                           ${articles.map(key => (
+                              `
+                              <br> <strong> - </strong> ${key.title}
+                              <br>`
+                           )).join('')}
+                        `);
+                  })
+            .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
+
+        var data2 = [
+            { x: 2016, y: 1 },
+            { x: 2017, y: 2 },
+            { x: 2018, y: 3 },
+            { x: 2019, y: 7 },
+            { x: 2020, y: 6 },
+            { x: 2021, y: 1 },
+        ];
+
+        g.append("path")
+            .datum(data2)
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+            .x(function(d) { return x(d.x) + 70 })
+            .y(function(d) { return y(d.y)})
+        )
+
+        data2.forEach(function(p) {
+            g.append('circle')
+                .attr('class', 'dot')
+                .attr('cx', x(p.x) + 70 )
+                .attr('cy', y(p.y))
+                .attr('r', 5)
+        })
+
+        // g.append('circle')
+        //     .data(data2)
+        //     .attr('class', 'dot')
+        //     .attr('cx', function(d) { console.log(d); return x(d.x) + 70 })
+        //     .attr('cy', function(d) { return y(d.y)})
+        //     .attr('r', 5)
+
 
         g.append("g")
             .attr("class", "text-axis default-font-family text-color")
@@ -105,25 +167,26 @@
             .attr("class", "text-axis default-font-family text-color")
             // .text("Number of Published Articles");
 
-        // Add the line
-        svg.append("path")
-            .datum(data.total)
-            .attr("fill", "none")
-            .attr("stroke", "#69b3a2")
-            .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-                .x(function(d) { return x(d.date) })
-                .y(function(d) { return y(d.value) })
-            )
-            console.log(data)
-
+        // Legend
         var legend = g.append("g")
+            .append("svg")
+            .attr("id", "svg_focus_legend")
             .attr("class", "text-axis default-font-family text-color")
             .attr("text-anchor", "end")
             .selectAll("g")
             .data(keys.slice())
             .enter().append("g")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        //     //legend: append the svg object to the body of the page
+        // var svg_legend = d3.select("#focus_legend")
+        //   .append("svg")
+        //   .attr("id", "svg_focus_legend")
+        //   .attr("width", width + margin.left + margin.right + 300)
+        //   .attr("height", 100)
+        //   .append("g")
+        //   .attr("transform",
+        //           "translate(" + 10 + "," + 10 + ")");
 
         legend.append("rect")
             .attr("x", width - 19)
@@ -135,8 +198,11 @@
             .attr("x", width - 24)
             .attr("y", 9.5)
             .attr("dy", "0.32em")
+            .attr("font-size", "10px")
             .text(function(d) { return d; });
-        });        
+
+        });
+        
     </script>
    </body>
 </html>
