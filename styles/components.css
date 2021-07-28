@@ -135,7 +135,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   padding-right: 0.5em;
 }
 
-.card__body__countries__details__institutions::after {
+.card__body__countries__details__institutions--active::after {
   content: '';
   display: block;
   position: absolute;
@@ -148,6 +148,10 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__institutions__title strong {
   color: var(--dark-purple-3);
+}
+
+.card__body__countries__details__institutions__list li {
+  white-space: nowrap;
 }
 
 .card__body__countries__details__institutions__list li:hover {
@@ -167,6 +171,10 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__authors__title strong {
   color: var(--dark-magenta-2);
+}
+
+.card__body__countries__details__authors__list li {
+  white-space: nowrap;
 }
 
 .card__body__countries__details__authors__list li:hover {

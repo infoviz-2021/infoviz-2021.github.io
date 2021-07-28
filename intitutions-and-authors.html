@@ -139,16 +139,24 @@
         .attr("viewBox", `0 0 ${width} ${height}`)
       
       const projection = d3
-        .geoNaturalEarth1()
+        .geoAitoff()
         .scale(width / 1.6 / Math.PI)
         .translate([width / 2, height / 2])
       
       const geoPath = d3.geoPath()
         .projection(projection)
+
+      const zoom = d3.zoom()
+        .on('zoom', (event) => {
+          svg.attr('transform', event.transform);
+        })
+        .scaleExtent([1, 40]);
+      
+      svg.call(zoom);
       
       d3.json('./data/countries-institutions-authors.json').then(function (institutionsAuthorsList) {
         d3.json('./data/countries.json').then(function (mapFeatures) {
-          svg.append('g')
+          const g = svg.append('g')
             .selectAll('path')
             .data(mapFeatures.features)
             .join('path')
@@ -161,7 +169,6 @@
                 return 'country'
             })
             .on('mouseover', function (svgElement, data, key) {
-              console.log(svgElement, data)
               if (data.properties.articles > 0) {
                 d3.select(this).attr('class', 'country hover')
                 d3.select('.card__body__countries__tooltip')
@@ -302,6 +309,8 @@
                         institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
                     });
                   })
+                  const institutionsDetailsDiv = document.querySelector('.card__body__countries__details__institutions')
+                  institutionsDetailsDiv.classList.add('card__body__countries__details__institutions--active')
               }
             })
         })

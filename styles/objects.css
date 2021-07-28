@@ -162,7 +162,7 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   background-repeat: no-repeat;
   vertical-align: top;
   text-decoration: none;
-  color: #000;
+  color: var(--gray);
   font-family: var(--font-family-theme);
   font-size: 16px;
   transition: all 0.4s ease;
@@ -183,6 +183,7 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   font-weight: 400;
   position: absolute;
   top: 32px;
+  left: 5px;
   width: 150px;
   opacity: 0;
   transition: all .4s ease;
