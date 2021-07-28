@@ -139,7 +139,7 @@
         .attr("viewBox", `0 0 ${width} ${height}`)
       
       const projection = d3
-        .geoAitoff()
+        .geoNaturalEarth1()
         .scale(width / 1.6 / Math.PI)
         .translate([width / 2, height / 2])
       
@@ -221,33 +221,15 @@
                   }
                 })
                 const countrySelected = svgElement
-                const institutionAuthorsByCountry = institutionsAuthorsList.filter(function (institutionAuthor) {
-                  if (institutionAuthor.code === countrySelected.id) {
-                    return institutionAuthor
-                  }
-                })
-                const institutions = {}
-                institutionAuthorsByCountry.sort(function (a, b) {
-                  if (a.institution > b.institution) return 1
-                  if (a.institution < b.institution) return -1
-                  return 0
-                }).forEach(institutionAuthor => {
-                  if (institutions[institutionAuthor.institution])
-                    institutions[institutionAuthor.institution] = [...institutions[institutionAuthor.institution], institutionAuthor.author]
-                  else
-                    institutions[institutionAuthor.institution] = [institutionAuthor.author]
-                })
-                const authors = {}
-                institutionAuthorsByCountry.sort(function (a, b) {
-                  if (a.author > b.author) return 1
-                  if (a.author < b.author) return -1
-                  return 0
-                }).forEach(institutionAuthor => {
-                  if (authors[institutionAuthor.author])
-                  authors[institutionAuthor.author] = [...authors[institutionAuthor.author], institutionAuthor.institution]
-                  else
-                  authors[institutionAuthor.author] = [institutionAuthor.institution]
-                })
+                const institutionAuthorsByCountry = institutionsAuthorsList.filter(filterBy('code', countrySelected.id))
+                const institutions = institutionAuthorsByCountry
+                  .sort(sortBy('institution'))
+                  .reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})
+
+                const authors = institutionAuthorsByCountry
+                  .sort(sortBy('author'))
+                  .reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})
+
                 const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
                 detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
                 d3.select('.card__body__countries__details__header')
@@ -315,6 +297,32 @@
             })
         })
       })
+
+      function sortBy(attributeName) {
+        return function (a, b) {
+          if (a[attributeName] > b[attributeName]) return 1
+          if (a[attributeName] < b[attributeName]) return -1
+          return 0
+        }
+      }
+
+      function reduceArrayToObjectByKeyValue(key, attributeName) {
+        return (previousValue, currentValue, currentIndex, array) => {
+          if (previousValue[currentValue[key]])
+            previousValue[currentValue[key]] = [...previousValue[currentValue[key]], currentValue[attributeName]]
+          else
+            previousValue[currentValue[key]] = [currentValue[attributeName]]
+          return previousValue
+        }
+      }
+
+      function filterBy(key, value) {
+        return function (currentValue) {
+          if (currentValue[key] === value) {
+            return currentValue
+          }
+        }
+      }
     </script>
   </body>
 </html>
