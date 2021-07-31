@@ -272,8 +272,13 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   width: 100%;
   align-items: center;
   justify-content: center;
-  border-color: black;
-  border-style: dotted;
+  margin-top: 5rem;
+  /* border-color: black; */
+  /* border-style: dotted; */
+}
+
+.wordcloud h2 {
+  color: var(--dark-gray)!important;
 }
 
 .timeline-milestones {
