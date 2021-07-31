@@ -87,7 +87,7 @@
   
         <section class="card">
           <div class="card__header">
-            <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HInt) <span class="icon-with-label icon-information" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
+            <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HInt) <span class="icon-with-label icon-information-label" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
           </div>
           <div class="card__body">
             <div class="card__body__countries">
@@ -163,7 +163,7 @@
             .attr('d', geoPath)
             .attr('data-selected', false)
             .attr('class', getCountryHighlightedClass)
-            .on('mouseover', showTooltip)
+            .on('mouseover', showTooltip(institutionsAuthorsList))
             .on('mouseout', hideTooltip)
             .on('click', onCountryClick(institutionsAuthorsList))
         })
@@ -195,15 +195,15 @@
         }
       }
 
-      function buildCountryTooltipHtml(hasArticles, countryId, countryName, institutionList, authorList) {
+      function buildCountryTooltipHtml(hasArticles, countryId, countryName, institutionsTotal, authorsTotal) {
         return `
           <div class="country-title">
             ${hasArticles ? `<span class="flag ${countryId}-flag"></span>` : ``}
             <span class="country-title__name"><strong>${countryName}</strong></span>
           </div>
           <div class="country-academic-info">
-            <span>Total of institutions: ${(institutionList ? institutionList.length : 0)}</span>
-            <span>Total of authors: ${(authorList ? authorList.length : 0)}</span>
+            <span>Total of institutions: ${(institutionsTotal ? institutionsTotal : 0)}</span>
+            <span>Total of authors: ${(authorsTotal ? authorsTotal : 0)}</span>
           </div>
         `
       }
@@ -238,14 +238,19 @@
           return 'country'
       }
 
-      function showTooltip(event, data) {
-        if (data.properties.articles > 0) {
-          d3.select(this).attr('class', 'country hover')
-          d3.select('.card__body__countries__tooltip')
-            .style('visibility','visible')
-            .style('top', event.layerY + 10 + 'px')
-            .style('left', event.layerX + 10 + 'px')
-            .html(buildCountryTooltipHtml(data.properties.articles > 0, data.id, data.properties.name, data.properties.institutions, data.properties.authors))
+      function showTooltip (institutionsAuthorsList) {
+        return (event, data) => {
+          if (data.properties.articles > 0) {
+            const institutionsByCountry = institutionsAuthorsList.filter(filterBy('code', data.id))
+            const institutionsTotal = Object.keys(institutionsByCountry.reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})).length
+            const authorsTotal = Object.keys(institutionsByCountry.reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})).length
+            d3.select(event.target).attr('class', 'country hover')
+            d3.select('.card__body__countries__tooltip')
+              .style('visibility','visible')
+              .style('top', event.layerY + 10 + 'px')
+              .style('left', event.layerX + 10 + 'px')
+              .html(buildCountryTooltipHtml(data.properties.articles > 0, data.id, data.properties.name, institutionsTotal, authorsTotal))
+          }
         }
       }
 
