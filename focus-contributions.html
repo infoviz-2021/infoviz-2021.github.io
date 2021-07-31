@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/components.css" />
     <link rel="stylesheet" href="vis04.css" />
     <title>Trabalho de InfoViz</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   </head>
   <body>
     <header>
@@ -72,98 +73,61 @@
           </div>
         </section>
 
-        <section class="card">
-          <div class="card__header">
-            <h2>Events and Forums in which the analyzed publications were published</h2>
+        <div class="wrapper">
+          <div>
+            <div style="margin-bottom: 23px;">
+              <h2>Events and Forums in which the analyzed publications were published</h2>
+            </div>
+            <div class="">
+              <svg id="vis4" width="700" height="384"></svg>
+            </div>
           </div>
-          <div class="card__body">
-            <svg width="960" height="500"></svg>
+          <div>
+            <div style="margin-bottom: 50px;">
+              <h2>Number and focus of publications per year</h2>
+            </div>
+            <div>
+              <svg id="vis7" width="700" height="384"></svg>
+              <svg id="vis7legend" height="60" width="700"></svg>
+            </div>
           </div>
-        </section>
+        </div>
+
+        <!-- <div class="">
+          <div class="wrapper">
+            <div class="row">
+              <div class="">
+                <div class="">
+                  <h2>Events and Forums in which the analyzed publications were published</h2>
+                </div>
+                <div class="">
+                  <svg id="vis4" width="700" height="384"></svg>
+                </div>
+              </div>  
+              <div class="">   
+                <div class="">
+                  <h2>Number and focus of publications per year</h2>
+                </div>
+                <div>
+                  <svg id="vis7" width="700" height="384"></svg>
+                </div>
+                <div>
+                    <svg id="focus_legend"></svg> 
+                </div>         
+              </div>
+            </div>
+          </div>
+        </div> -->
       </div>
     </main>
-    <script>
-      var svg = d3.select('svg'),
-        margin = { top: 20, right: 20, bottom: 30, left: 530 },
-        width = +svg.attr('width') - margin.left - margin.right,
-        height = +svg.attr('height') - margin.top - margin.bottom;
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
+    <script src="data/keys.js"></script>
+    <script src="data/data_vis10.js"></script>
+    <script src="d3-scripts/vis4.js"></script>
+    <script src="d3-scripts/vis7.js"></script>
 
-      var tooltip = d3.select('body').append('div').attr('class', 'toolTip');
-      var x = d3.scaleLinear().range([0, width]);
-      var y = d3.scaleBand().range([height, 0]);
-
-      var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-      d3.json('/data/data_vis04_.json', function (error, data) {
-        if (error) throw error;
-
-        data.sort(function (a, b) {
-          return a.quantidade - b.quantidade;
-        });
-
-        x.domain([
-          0,
-          d3.max(data, function (d) {
-            return d.quantidade;
-          }),
-        ]);
-        y.domain(
-          data.map(function (d) {
-            return d.evento;
-          })
-        ).padding(0.1);
-
-        // X axis
-        g.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', 'translate(0,' + height + ')')
-          .attr('class', 'text-caption text-color default-font-family')
-          .call(d3.axisBottom(x).ticks(3));
-        //   .tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
-
-        // Y axis
-        g.append('g').attr('class', 'y axis').attr('class', 'text-caption default-font-family text-color').call(d3.axisLeft(y));
-
-        g.append('text')
-          .attr('transform', 'translate(' + width / 2 + ' ,' + (height + margin.top + 10) + ')')
-          .attr('class', 'text-axis default-font-family text-color')
-          .style('text-anchor', 'middle')
-          .text('Number of Publications');
-
-        g.append('text')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', 0 - margin.left)
-          .attr('x', 0 - height / 2)
-          .attr('dy', '1em')
-          .attr('class', 'text-axis default-font-family text-color')
-          .style('text-anchor', 'middle')
-          .text('Events and Foruns');
-
-        g.selectAll('.bar')
-          .data(data)
-          .enter()
-          .append('rect')
-          .attr('class', 'bar text-caption default-font-family')
-          .attr('x', 3)
-          .attr('height', y.bandwidth())
-          .attr('y', function (d) {
-            return y(d.evento);
-          })
-          .attr('width', function (d) {
-            return x(d.quantidade);
-          })
-          .on('mousemove', function (d) {
-            tooltip
-              .style('left', d3.event.pageX - 50 + 'px')
-              .style('top', d3.event.pageY - 70 + 'px')
-              .style('display', 'inline-block')
-              .attr('class', 'toolTip')
-              .html(d.artigos);
-          })
-          .on('mouseout', function (d) {
-            tooltip.style('display', 'none').attr('class', 'tollTip');
-          });
-      });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

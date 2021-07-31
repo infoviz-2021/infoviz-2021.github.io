@@ -79,10 +79,9 @@ svg
     })
     .text(function(d) { return d.text; })
     .on("mousemove", function(e){
-        console.log(e)
             tooltip
-                .style("left", e.x + "px")
-                .style("top", e.y + 400 + "px")
+                .style("left", e.pageX + "px")
+                .style("top", e.pageY + "px")
                 .style("display", "inline-block")
                 .attr("class", "toolTip")
                 .html(//'<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 

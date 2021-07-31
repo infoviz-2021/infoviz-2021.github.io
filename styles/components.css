@@ -550,3 +550,9 @@ th, td {
 tr:nth-child(even) {
   background-color: #f2f2f2
 }
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 35vw 35vw;
+  column-gap: 40px;
+}
