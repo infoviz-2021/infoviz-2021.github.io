@@ -148,6 +148,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__institutions__title strong {
   color: var(--dark-purple-3);
+  white-space: nowrap;
 }
 
 .card__body__countries__details__institutions__list li {
@@ -171,6 +172,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__authors__title strong {
   color: var(--dark-magenta-2);
+  white-space: nowrap;
 }
 
 .card__body__countries__details__authors__list li {
