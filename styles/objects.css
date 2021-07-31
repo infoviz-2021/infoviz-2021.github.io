@@ -238,6 +238,7 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   align-items: center;
   margin: 0 1em;
   color: var(--dark-grey);
+  position: relative;
 }
 
 .stats__stat.stats__stat--light-cornflower-blue {
