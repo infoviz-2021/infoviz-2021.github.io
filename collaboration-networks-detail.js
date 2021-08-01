@@ -384,7 +384,7 @@ svg
           svg
             .append("svg:a").attr("xlink:href", "collaboration-networks.html")
             .append("svg:text")
-            .text("Return to the network")
+            .text("Return to Authors' colaboration network")
             .attr("class","text-legend")
             .style("text-decoration","underline")
             .attr("y", 10)
@@ -481,26 +481,25 @@ svg
             })
 
 
-        /************************** Partners node ****************************/
-        var node_partner_bottom = svg.append("g")
-          .attr("class", "node circle partner")
-          .selectAll("circle")
-          .data(nodes_partner)
-          .enter()
-          .append("circle")
-            //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
-            .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
-            .attr("cx", xCenter.partner)
-            .attr("cy", d => yPartner(d.id) - 10)
-            .attr("fill", "none")
-           // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
-            //.attr("fill", function(d){ return d3.rgb(colorPartner(d.qt)).darker(0)})
-            .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
-            .attr("stroke-width",0.8)
-            .style("cursor", "pointer")
-            .on('mouseover', fade(0.2))
-            .on('mouseout', fade(1))
-            .on('click', d => updateDetail(d.id))
+//---------------------------------------------------------------------------------------------------------------------
+// PARTNER'S NODE
+//---------------------------------------------------------------------------------------------------------------------
+
+      //circel white bottom
+      svg.append("g")
+        .attr("class", "node circle partner")
+        .selectAll("circle")
+        .data(nodes_partner)
+        .enter()
+        .append("circle")
+          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
+          .attr("cx", xCenter.partner)
+          .attr("cy", d => yPartner(d.id) - 10)
+          .attr("fill", "white")
+          .style("cursor", "pointer")
+          .on('mouseover', fade(0.2))
+          .on('mouseout', fade(1))
+          .on('click', d => updateDetail(d.id))
 
       var node_partner = svg.append("g")
       .attr("class", "node circle partner")
@@ -509,13 +508,11 @@ svg
         .enter()
         .append("circle")
           //.attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
-          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qtPartner)})
+          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt) +1})
           .attr("cx", xCenter.partner)
           .attr("cy", d => yPartner(d.id) - 10)
-          // .attr("fill", function(d){ return d3.rgb(color(d.qtPartner)).darker(0.5)})
-          // .attr("stroke",function(d){ return d3.rgb(color(d.qtPartner)).darker(2)})
-          .attr("fill", function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0)})
-          .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qtPartner)).darker(0.5)})
+          .attr("fill", function(d){ return d3.rgb(colorPartner(d.qt)).darker(0)})
+          .attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(0.5)})
           .style("cursor", "pointer")
           .on('mouseover', fade(0.2))
           .on('mouseout', fade(1))
@@ -570,20 +567,17 @@ svg
           }else{
             link_author.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
           }
-         
 
-         
-           node_partner_bottom.attr('stroke', function (o) { return isConnected(d, o) ? d3.rgb(colorPartner(d.qt)).darker(2): "#fff00" });
+       //    node_partner_bottom.attr('stroke', function (o) { return isConnected(d, o) ? d3.rgb(colorPartner(d.qt)).darker(2): "#fff00" });
            node_partner.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            label_partner.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
 
            link_partner.style('stroke-opacity', o => (o.source === d.id || o.target === d.id ? 1 : opacity));
-         //  link_partner.attr('stroke-width', o => (o.source === d.id || o.target === d.id ? 3 : 1))
         
             if(opacity === 1){
 
               node_paper.style('opacity', 1)
-              node_partner_bottom.attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
+            //  node_partner_bottom.attr("stroke",function(d){ return d3.rgb(colorPartner(d.qt)).darker(2)})
               node_partner.style('opacity', 1)
               label_partner.style('opacity', 1)
 
@@ -597,21 +591,24 @@ svg
           };
       }
 
-
         function isConnected(a, b) {
 
           return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
         }
 
         
-     
-      /*********************************************** QT PUBLICATION  ***************************************************/
+  })//end d3.json
+
+        //-------------------------------------------------------------------------------------------------------------
+        // QT PUBLICATION LEGEND
+        //-------------------------------------------------------------------------------------------------------------
 
         // Add one dot in the legend for each name.
         var size = 12
-        //var xAlign = width - margin.right
-        var xAlign = 10
-        var yAlign = 460
+
+        var xAlign = width
+       // var xAlign = 10
+        var yAlign = 420
 
         svg.append("text")
         .text("Author with:")
@@ -632,13 +629,9 @@ svg
             .attr("cx", xAlign)
             .attr("cy", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
             .attr("r", d => Math.sqrt(radius * d))
-          // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
-          // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
             .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
             .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
-          //  .on("mouseover", highlightQt)
-        //   .on("mouseleave", noHighlightQt)
-
+  
 
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
@@ -658,10 +651,10 @@ svg
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .attr("font-size", "10px")
-        //  .on("mouseover", highlightQt)
-      //   .on("mouseleave", noHighlightQt)
 
-      /*********************************************** FOCUS LEGEND  ***************************************************/
+      //---------------------------------------------------------------------------------------------------------------
+      // FOCUS LEGEND  
+      //---------------------------------------------------------------------------------------------------------------
 
       // Add one dot in the legend for each name.
         size = 20
@@ -676,7 +669,6 @@ svg
           .attr("text-anchor", "left")
           .attr("font-weight", "bold")
      
-
         yAlign += 15  
         svg.selectAll("myrect")
         .data(keys)
@@ -689,9 +681,6 @@ svg
             .attr("height", size)
             .attr("rx", 1)
             .attr("ry", 1)
-            //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
-          // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
-            //.style("fill",  function(d){ return colorPaperLight(d.key)})
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
             .on("mouseover", highlightFocus)
@@ -711,9 +700,6 @@ svg
             .style("cursor", "default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
-        
-  })//end d3.json
-
   
 
 

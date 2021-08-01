@@ -222,41 +222,11 @@
   <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
 </svg>*/
 
-    //icon
-    xIcon = width - 122 
-    yIcon = 7
-
-    svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-        .attr("fill", "var(--gray)")
    
-    svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-       .attr("fill", "var(--gray)")
-    
-    svg
-      .append("text")
-        .text("Click on the desired author's node to see")
-        .attr("class", "text-legend")
-        .attr("text-anchor", "end")
-        .style("opacity","0.6")
-        .attr("x", width + margin.right)
-        .attr("y", 20)
-        .attr("cursor","default")
-      .append("tspan")
-        .text("publications and partnership details.")
-        .attr("x",width + margin.right)
-        .attr("dy","1.2em")
-     
 
       var size = 15;
-      var shift = {x : 80, y : 0}
+      var shift = {x : 80, y : -30}
+
       /************************************ READ DATA ******************************************/
 
       d3.json("data/data_vis06.json", function(error, data) {
@@ -628,22 +598,65 @@
           
           }
 
-      /*********************************************** QT PUBLICATION  ***************************************************/
+
+        // Add
+
+
+
+         //icon
+      xIcon = width - 120
+      yIcon = 500
+
+      svg.append("svg")
+        .attr("x", xIcon)
+        .attr("y", yIcon)
+        .append("path")
+          .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+          .attr("fill", "var(--gray)")
+    
+      svg.append("svg")
+        .attr("x", xIcon)
+        .attr("y", yIcon)
+        .append("path")
+        .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+        .attr("fill", "var(--gray)")
+      
+      svg
+        .append("text")
+          .text("Click on the desired author's node to see")
+          .attr("class", "text-legend")
+          .attr("text-anchor", "end")
+          .style("opacity","0.6")
+          .attr("x", width + margin.right)
+          .attr("y", yIcon + 13)
+          .attr("cursor","default")
+        .append("tspan")
+          .text("publications and partnership details.")
+          .attr("x",width + margin.right)
+          .attr("dy","1.3em")
+      
+
+
+        //-------------------------------------------------------------------------------------------------------------
+        // QT PUBLICATION LEGEND
+        //-------------------------------------------------------------------------------------------------------------
+
 
         // Add one dot in the legend for each name.
         var size = 12
         //var xAlign = width - margin.right
-        var xAlign = 10
-        var yAlign = 460
+        var xAlign = width + 20
+       // var xAlign = 10
+        var yAlign = 10
 
         svg.append("text")
         .text("Author with:")
           .attr("class", "text-legend")
-          .attr("x", xAlign)
+          .attr("x", xAlign-2)
           .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
           .attr("font-weight", "bold")
-          .style("alignment-baseline", "middle")
+          .style("alignment-baseline", "top")
         
         yAlign += 20
         xAlign += 5
@@ -684,7 +697,9 @@
         //  .on("mouseover", highlightQt)
       //   .on("mouseleave", noHighlightQt)
 
-      /*********************************************** FOCUS LEGEND  ***************************************************/
+      //---------------------------------------------------------------------------------------------------------------
+      // FOCUS LEGEND  
+      //---------------------------------------------------------------------------------------------------------------
 
       // Add one dot in the legend for each name.
         size = 20
@@ -712,8 +727,6 @@
             .attr("height", size)
             .attr("rx", 1)
             .attr("ry", 1)
-            //.style("fill",  function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
-          // .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(2)})
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
             .on("mouseover", highlightFocus)
@@ -733,8 +746,7 @@
             .style("cursor", "default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
-  
-      </script>
 
+      </script>
   </body>
 </html>

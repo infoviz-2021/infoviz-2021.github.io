@@ -20,11 +20,10 @@
 
   </head>
 
-
   <body>
 
     <main>
-
+      <div class="container">
       <section class="card__body__challenge__group">
         <section class="card" id = "challenge_graph">
           
@@ -70,11 +69,12 @@
             </div>
             <div id="FilterableTable"></div>
           </div>
-
         </section>
 
       </div>
       </section>
+
+    </div>
     </main>
 
     <script>
@@ -173,11 +173,6 @@ function updateChart(orderBy){
             mouseYSpace = 90
             limitHeight = 50
           }
-
-          // Add X axis
-        //  x.domain(impacts.map(d => d.key));
-         // xAxis.call(d3.axisBottom(x).tickSize(0));
-
          
          shiftAxis = {x:radius*1.8, y:radius*2}
 
@@ -223,9 +218,6 @@ function updateChart(orderBy){
 
               if(foundClick){
 
-               // index = clicks.indexOf(foundClick);
-             //   clicks.splice(index, 1);
-               
                 clicks.pop()
                 updateTable("All","select")
                
@@ -272,8 +264,6 @@ function updateChart(orderBy){
 
               d3.selectAll("." +  d)
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)} )
-
-         
                         
               //Get Contribution description
               const foundImpact = impacts.find(element => element.key == d);
@@ -286,10 +276,8 @@ function updateChart(orderBy){
                 .style('min-width','100px' )
                 .style('max-width','310px' )
 
-                //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                 .html('<strong>Challenge type: </strong>'+  foundImpact.name + " (" + foundImpact.key + ")"+
                       '</br></br><strong>Description: </strong>' + foundImpact.description)
-                //.html('<strong>Description: </strong>' + foundImpact.description)
           
             })
             .on("mouseleave", function(e,d){
@@ -324,9 +312,9 @@ function updateChart(orderBy){
             text = ""
                 
             const foundPaper= papers.find(element => element.id === d.id);
-           // console.log(d.impact)
+         
             foundPaper.challenge_code.forEach(e => {
-               //console.log(e)
+         
               if (e.substring(0,2) == d.impact)
                  return text += " circle-" + e
 
@@ -338,10 +326,7 @@ function updateChart(orderBy){
           })
           .attr("cx", function(d) { return x(d.citation) + shiftAxis.x})
           .attr("cy", function(d) { return y(d.impact) + shiftAxis.y })
-          //.attr("width", x.bandwidth() )
-          //.attr("height", y.bandwidth() )
           .attr("r", radius)
-          //.attr("ry", 4)
           .style("fill", function(d) {return color(d.focus)})
           .on("mouseover", function(e,d) {  
             
@@ -351,8 +336,7 @@ function updateChart(orderBy){
               .transition()     // adds animation
               .duration(100)
               .attr("r", radius+2)
-            
-              
+
             //Get Focus and Contribution description
             const foundImpact = impacts.find(element => element.key == d.impact);
             const foundFocus = keys.find(element => element.key == d.focus);
@@ -368,17 +352,12 @@ function updateChart(orderBy){
 
             d3.select('.tooltip')
               .style('visibility','visible')
-              // .style('top', function(){ return ( e.pageY < (height + limitHeight) ?  e.pageY + 10 : e.pageY - mouseYSpace ) + 'px'} )
               .style('top', function(){ 
                 
                 if(d.impact == "IH" || d.impact == "DC")
-                  return parseInt(y(d.impact)) + 150 +'px'
-              
-                //x(d.citation)
-
+                  return parseInt(y(d.impact)) + 150 +'px'             
                 
                 return  parseInt(y(d.impact)) + 270 +'px'
-                //return  '400px'
 
                 })
                 .style('left', function(){
@@ -397,8 +376,6 @@ function updateChart(orderBy){
                 .style('min-width','200px' )
                 .style('max-width','350px' )
 
-              
-            
               //axisY bold
               d3.select(".axisY-" + className(d.impact)).attr("font-weight", "bold")
              
@@ -442,7 +419,6 @@ function updateChart(orderBy){
             return s
          }
 
-      
 
         // What to do when one group is hovered
         var highlight = function(e,d){     
@@ -452,10 +428,6 @@ function updateChart(orderBy){
               d3.select("." + className(d)).attr("font-weight", "bold")
               d3.selectAll(".circle-" +  className(d))
                 .style("fill", function(d) { return d3.rgb(color(d.focus)).darker(0.5)})
-              
-             // const foundPaper= papers.find(element => element.citation === d);
-
-            //  updateTable(foundPaper.id,"publication")
       
           }else{
             //set font label to bold
@@ -472,7 +444,6 @@ function updateChart(orderBy){
           }
        
         }
-
 
         // And when it is not hovered anymore
         var noHighlight = function(e,d){
@@ -494,9 +465,6 @@ function updateChart(orderBy){
               d3.selectAll("." + d)
               .style("fill", function(d) { return color(d.focus)} )
             }
-            
-            // updateTable("All","select")
-            
 
           }else{
 
@@ -554,10 +522,8 @@ function updateChart(orderBy){
           .append("text")
             .attr("cursor","default")
             .attr("class", function(d) { return "text-legend label-" + d.key })
-           // .attr("x", function (d,i) { return xAlign + size*3 + (i == 2 ? i*340:i*230)})
-           // .attr("y", yAlign + size/4) 
-           .attr("y", function(d,i){ return yAlign + i*((radius-2)*3)}) // 100 is where the first dot appears. 25 is the distance between dots
-           .attr("x", xAlign + (radius-2)*2) 
+            .attr("y", function(d,i){ return yAlign + i*((radius-2)*3)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", xAlign + (radius-2)*2) 
             .text(function(d){ return d.name + " (" + d.key + ")"})
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
@@ -566,24 +532,23 @@ function updateChart(orderBy){
 
       } //end function update()
 
-
 // --------------------------------------------------------------------------------------------------
 //  TABLE
 // --------------------------------------------------------------------------------------------------
 
-var column_names = [ "Challenge", "Challenge type","#Citations" ];
+  var column_names = [ "Challenge", "Challenge type","#Citations" ];
 
-//put challenges in select
-var allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+  //put challenges in select
+  var allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
 
-//include option on select
-d3.select("#challenge-select")
-    .selectAll("option")
-    .data(allChallengeTypes)
-    .enter()
-    .append("option")
-      .text(d => d )
-      .attr("value",d => d)
+  //include option on select
+  d3.select("#challenge-select")
+      .selectAll("option")
+      .data(allChallengeTypes)
+      .enter()
+      .append("option")
+        .text(d => d )
+        .attr("value",d => d)
 
 
   // When the button is changed, run the updateChart function
@@ -624,7 +589,7 @@ d3.select("#challenge-select")
 
   // data bind and enter the rows
   rows = table.select("tbody").append("tr")
-  
+
   //start with all data
   updateTable("All", "select")
 
@@ -668,7 +633,6 @@ function updateTable(selectedOption, type) {
     }
   }
     
-
   d3.select("#challenge-select")
     .selectAll("option")
     .data(allChallengeTypes)
