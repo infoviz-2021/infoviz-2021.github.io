@@ -349,6 +349,7 @@ svg
             .text("Return to Authors' colaboration network")
             .attr("class","text-legend")
             .style("text-decoration","underline")
+            .attr("fill","#0000EE")
             .attr("y", height-10)
             .attr("x", 10)
             .attr("text-anchor", "begin");
@@ -514,11 +515,46 @@ svg
           return sorted_partner
 
         }
+
+        function tooltip_qt(d, visibility){
+          if(visibility === "hidden"){
+            d3.select('.simple-tooltip')
+                  .style('visibility', 'hidden')
+          }else{
+        
+            console.log(author.id)
+            
+          
+            content = `<strong>${d.qtPartner}</strong> of <strong>${d.qt}</strong>`
+
+            if(d.qtPartner === 1 ) 
+              content += " publication" 
+            else
+              content += " publications" 
+            
+            content += ` with ${surname(author.id)}`
+      
+            d3.select('.simple-tooltip')
+                  .style('visibility', 'visible')
+                  .style('top', d3.event.y + 10 + 'px')
+                  .style('left',d3.event.x + 10 + 'px')
+                  .html(content)
+          }
+        }
+
                 
         function fade(opacity) {
         
           return d => {   
-           
+
+            if(d.type === 'author'){
+              if(opacity === 1) {
+                tooltip_qt(d, "hidden")
+              
+              }else{
+                tooltip_qt(d, "visible")
+              }
+            }
            node_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            label_paper.style('opacity', function (o) { return isConnected(d, o) ? 1 : opacity });
            
@@ -690,8 +726,6 @@ svg
             .attr("ry", 1)
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
-            .on("mouseover", highlightFocus)
-            .on("mouseleave", noHighlightFocus)
 
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
@@ -705,9 +739,6 @@ svg
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
             .style("cursor", "default")
-            .on("mouseover", highlightFocus)
-            .on("mouseleave", noHighlightFocus)
-  
 
 
 

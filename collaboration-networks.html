@@ -147,30 +147,6 @@
         .attr("height", height + margin.top + margin.bottom)
         .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
-      /*svg.append("rect")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("fill", "none")
-      .attr("stroke", "red")*/
-
-      
-
-
-      /*svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("fill", "none")
-      .attr("stroke", "blue")*/
-    
-      
-      /*var simulation = d3.forceSimulation()
-          .force("link", d3.forceLink().id(function(d) { return d.id; }))
-          .force("charge", d3.forceManyBody())
-          .force("center", d3.forceCenter(width / 2, height / 2));*/
 
       const radius = 25;
       //const color = d3.scaleOrdinal(d3.schemeSet2);
@@ -195,37 +171,8 @@
       ]; 
               
 
-      // Color scale: give me a quantity, I return a color
-      /* const color = d3.scaleOrdinal()
-          .domain([1,2,3,6])
-          .range(fill);
-          //.range(d3.schemeSet2);*/
-
-      // Color scale: give me a focus, I return a color
-      /* const colorPaper = d3.scaleOrdinal()
-          .domain(keys.map(function(d){return d.key}))
-          .range(d3.schemeSet2);*/
-
-      /*  --icon-information: url(
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
-      viewBox='0 0 24 24' fill='none' stroke='currentColor' 
-      stroke-width='2' 
-      stroke-linecap='round' 
-      stroke-linejoin='round' 
-      class='feather feather-info'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='16' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='8' x2='12' y2='8'%3E%3C/line%3E%3C/svg%3E");
-    */
-
-// Alert Icon
-/*
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-</svg>*/
-
-   
-
       var size = 15;
-      var shift = {x : 80, y : -30}
+      var shift = {x : 80, y : -20}
 
       /************************************ READ DATA ******************************************/
 
@@ -255,14 +202,12 @@
 
         var simulation = d3.forceSimulation()
         .force("charge", d3.forceManyBody().strength(-60))
-        .force("link", d3.forceLink().id(d => d.id).strength(0.5).distance(50))
+        .force("link", d3.forceLink().id(d => d.id).strength(0.6).distance(50))
         .force("x", d3.forceX())
         .force("y", d3.forceY())
         .force("center", d3.forceCenter((width/2) + shift.x, (height / 2) + shift.y))
         .force('collision', d3.forceCollide().radius(function(d) {
-         // if(d.type === "author")
-            return Math.sqrt(radius * (d.qt+2));
-          //return 20;
+            return Math.sqrt(radius * (d.qt+5));
         }));
 
 
@@ -400,19 +345,6 @@
             .attr("visibility", "hidden");
         }
 
-      /* function updateDetail(d,i) {
-
-            d3.select("#my_dataviz").remove();
-            author_founded = node.filter(e => isConnected(d, e))
-            paper_founded = node_paper.filter(e => isConnected(d, e))
-            link_founded = link.filter(o => (o.source === d || o.target === d))
-
-            console.log(author_founded)
-            console.log(paper_founded)
-            console.log(paper_founded)
-
-        }*/
-
         function tooltip(d, visibility){
           if(visibility === "hidden"){
             d3.select('.simple-tooltip')
@@ -548,51 +480,37 @@
       });
 
       /************************************************* HIGHLIGHT GROUP ****************************************************/
-          // What to do when one group is hovered
-          var highlightQt = function(d){
-
-            // reduce opacity of all groups
-            d3.selectAll(".myArea").style("opacity", 0.1)
-
-            //set font label to bold
-            d3.selectAll(".label-qt-"+d)
-              .attr("font-weight", "bold")
-          
-            // expect the one that is hovered
-            d3.selectAll(".qt-"+d).style("opacity", 1)
-
-          }
-
-          // And when it is not hovered anymore
-          var noHighlightQt = function(d){
-            //set font label to normal
-            d3.selectAll(".label-qt-"+d)
-            .attr("font-weight", "normal")
-
-            d3.selectAll(".myArea").style("opacity", 1)
-          }
 
           // What to do when one group is hovered
           var highlightFocus = function(d){
 
-            // reduce opacity of all groups
-            d3.selectAll(".myArea").style("opacity", .1)
-              //set font label to bold
-              d3.selectAll(".label-"+d.key)
-              .attr("font-weight", "bold")
-            
+              // reduce opacity of all groups
+              d3.selectAll(".myArea").style("opacity", .1)
+                        
               // expect the one that is hovered
               d3.selectAll("."+d.key).style("opacity", 1)
 
+              //set rect legend color
+              d3.select(".label-rect" + d.key)
+                .style("fill", function(d) { return d3.rgb(colorPaper(d.key)).darker(0.5)} )
+
+              //set font label to bold
+              d3.selectAll(".label-"+d.key)
+              .attr("font-weight", "bold")
           }
 
           // And when it is not hovered anymore
           var noHighlightFocus = function(d){
-            //set font label to normal
-            d3.selectAll(".label-"+d.key)
-            .attr("font-weight", "normal")
 
             d3.selectAll(".myArea").style("opacity", 1)
+
+            //set font label to normal
+            d3.selectAll(".label-"+d.key)
+              .attr("font-weight", "normal")
+
+            //set rect legend color
+            d3.select(".label-rect" + d.key)
+              .style("fill", function(d) { return colorPaper(d.key)} )
 
           
           }
