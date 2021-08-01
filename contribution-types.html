@@ -74,18 +74,18 @@
           </div>
           <div class="card__body">
             <div class="card__body__contribuition-types">
-              <div class="card__body__contribuition-types__radio__group">
-                <div class="text-legend">
-                  <strong>Order publication by:</strong>
-                  <input type="radio" id="citation" name="order" value="citation" onclick="update('citation')" />
-                  <label for="citation" onclick="update('citation')">Citation</label>
+              <div class="card__body__challenge__legend text-legend text-legend">
+             
+                  <strong  style="padding-right:0.5em;">Order publication by:</strong>
+                  <input type="radio" id="citation" name="order" style="padding-left:0.5em;" value="citation" onclick="update('citation')" />
+                  <label for="citation" onclick="update('citation')" style="padding-left:0.2em; padding-right:0.5em;">Citation</label>
     
                   <input type="radio" id="focus" name="order" value="focus" onclick="update('focus')" />
-                  <label for="focus" onclick="update('focus')">Focus</label>
+                  <label for="focus" onclick="update('focus')"  style="padding-left:0.2em; padding-right:0.5em;">Focus</label>
     
                   <input type="radio" id="year" name="order" value="year" onclick="update('year')" checked="checked" />
-                  <label for="year" onclick="update('year')">Year</label>
-                </div>
+                  <label for="year" onclick="update('year')" style="padding-left:0.2em;">Year</label>
+               
               </div>
               <div id="focus_legend"></div>
               <div id="my_dataviz"></div>
