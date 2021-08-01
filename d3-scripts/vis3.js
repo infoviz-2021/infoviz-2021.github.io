@@ -86,7 +86,7 @@ svg
                 .attr("class", "toolTip")
                 .html(//'<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 
                         // '</br><strong>HInt technology example: </strong>' + e.srcElement.getAttribute('context') +
-                        '<strong>Analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 5 +
+                        '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 5 +
                         '</br><strong>Examples of HInt technologies used in this area or domain: </strong>' + e.srcElement.getAttribute('context')
                 );
             })
