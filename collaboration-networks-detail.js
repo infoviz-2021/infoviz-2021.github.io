@@ -100,44 +100,6 @@ function updateDetail(author_name){
 
    
 
-// Information
-
-  //icon
-  xIcon = width - 82 
-  yIcon = 7
-
-  svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-        .attr("fill", "var(--gray)")
-   
-    svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-       .attr("fill", "var(--gray)")
-  
-  svg
-    .append("text")
-      .text("Click on the desired author's node")
-      .attr("class", "text-legend")
-      .attr("text-anchor", "end")
-      .style("opacity","0.6")
-      .attr("x", width + margin.right)
-      .attr("y", 20)
-      .attr("cursor","default")
-    .append("tspan")
-      .text("to see publications and ")
-      .attr("x",width + margin.right)
-      .attr("dy","1.2em")
-    .append("tspan")
-      .text("partnership details.")
-      .attr("x",width + margin.right)
-      .attr("dy","1.2em")
-
 
   //link thickness
   xIcon = width - 76 
@@ -387,9 +349,9 @@ svg
             .text("Return to Authors' colaboration network")
             .attr("class","text-legend")
             .style("text-decoration","underline")
-            .attr("y", 10)
-            .attr("x", xCenter.paper + paper_size.w/2)
-            .attr("text-anchor", "middle");
+            .attr("y", height-10)
+            .attr("x", 10)
+            .attr("text-anchor", "begin");
 
 
           /************************** Paper Node *************************/
@@ -598,6 +560,51 @@ svg
 
         
   })//end d3.json
+
+
+  
+//--------------------------------------------------------------------------------------------------------------------- 
+// Information icon
+//---------------------------------------------------------------------------------------------------------------------
+
+  //icon
+  xIcon = width - 82 
+  yIcon = 7
+
+  svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+        .attr("fill", "var(--gray)")
+   
+    svg.append("svg")
+      .attr("x", xIcon)
+      .attr("y", yIcon)
+      .append("path")
+       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+       .attr("fill", "var(--gray)")
+  
+  svg
+    .append("text")
+      .text("Click on the desired author's node")
+      .attr("class", "text-legend")
+      .attr("text-anchor", "end")
+      .style("opacity","0.6")
+      .attr("x", width + margin.right)
+      .attr("y", 20)
+      .attr("cursor","default")
+    .append("tspan")
+      .text("to see publications and ")
+      .attr("x",width + margin.right)
+      .attr("dy","1.2em")
+    .append("tspan")
+      .text("partnership details.")
+      .attr("x",width + margin.right)
+      .attr("dy","1.2em")
+
+
+
 
         //-------------------------------------------------------------------------------------------------------------
         // QT PUBLICATION LEGEND

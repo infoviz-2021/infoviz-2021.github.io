@@ -109,7 +109,7 @@
           </div>
        
        
-          <div class='tooltip'></div>
+          <div class='simple-tooltip'></div>
 
         </section>
       </div>
@@ -326,8 +326,7 @@
             .on('mouseover', fade(0.1))
             .on('mouseout', fade(1))
             .on("click", function(d) {
-            // http://bootboxjs.com/
-            // location.href = "http://localhost:8000/infoviz-2021.github.io/vis06b.html";
+              
               updateDetail(d.id)
             })
             .call(d3.drag()
@@ -416,7 +415,7 @@
 
         function tooltip(d, visibility){
           if(visibility === "hidden"){
-            d3.select('.tooltip')
+            d3.select('.simple-tooltip')
                   .style('visibility', 'hidden')
           }else{
         
@@ -432,7 +431,7 @@
 
             }
         
-            d3.select('.tooltip')
+            d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
                   .style('top', d3.event.y + 10 + 'px')
                   .style('left',d3.event.x + 10 + 'px')
@@ -603,7 +602,7 @@
 
 
 
-         //icon
+               //icon
       xIcon = width - 120
       yIcon = 500
 
@@ -746,6 +745,7 @@
             .style("cursor", "default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
+
 
       </script>
   </body>

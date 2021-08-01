@@ -89,7 +89,7 @@
               </div>
               <div id="focus_legend"></div>
               <div id="my_dataviz"></div>
-              <div class="tooltip"></div>
+              <div class="simple-tooltip"></div>
               <div class="card__body__contribuition-types__label-axisX"></div>
             </div>
           </div>
@@ -98,10 +98,37 @@
     </main>
 
     <script>
+
+
+
+      function breakText(d, maxWidth){
+
+      length = d.length;
+      words = d.split(" ");
+      phrase = ""
+      phrases = []
+
+      if(d.length <= maxWidth){
+        phrases = d
+      }else{
+
+        for(i in words){
+            if(phrase.length + words[i].length <= maxWidth){
+              phrase += words[i] + " ";
+            }else{
+              phrases.push(phrase.trim())
+              phrase = words[i] + " "       
+            }
+          }
+          phrases.push(phrase.trim())
+        }
+      return phrases
+      } 
+
       // set the dimensions and margins of the graph
-      var margin = { top: 20, right: 180, bottom: 110, left: 200 },
+      var margin = { top: 10, right: 180, bottom: 120, left: 200 },
         width = 1000 - margin.left - margin.right,
-        height = 580 - margin.top - margin.bottom;
+        height = 540 - margin.top - margin.bottom;
 
       // Initialize plot
       update('year');
@@ -186,35 +213,67 @@
 
             // Add X axis
             x.domain(contributions.map((d) => d.key));
-            xAxis.call(d3.axisBottom(x).tickSize(0));
+            xAxis.call(d3.axisBottom(x).tickSize(0))
+            .selectAll("text")
+              .attr("dy", "1.2em")
+         
 
-            //Add contribution description on X axis
-            contributions.forEach((c) => {
-              d3.select('.card__body__contribuition-types__label-axisX')
-                .append('div')
-                .attr('class', 'label-axisX text-axis')
-                .style('left', x(c.key) + margin.left - 5 + 'px')
-                .style('top', height + 195 + 'px') // 100 is where the first dot appears. 25 is the distance between dots
-                .style('text-align', 'center')
-                .html(c.name)
-                .style('text-anchor', 'center')
-                .style('position', 'absolute')
-                .style('max-width', width / 4 - 10 + 'px');
-            });
+
+//---------------------------------------------------------------------------------------------------------------------
+// Contribution label - Axis X axis
+//---------------------------------------------------------------------------------------------------------------------
+
+          var labelAxisX = svg.append('g')
+            .selectAll('text')
+            .data(contributions)
+            .enter()
+            .append('text')
+              .attr("class", function(d) { return "text-legend label-" + d.key })
+             // .attr("x",  d => x(d.key) - 50)
+              .attr("y",  height + 20)
+              .attr("text-anchor","middle")
+              .style("cursor", "default")  
+              .attr("fill", "#343a40")
+
+            contributions.forEach( function (d,i){
+
+              textElement = d3.selectAll(".label-" + d.key)
+
+             
+              //if(d.name.length < x.bandwidth())
+                tspan = breakText(d.name, x.bandwidth()/5)
+            //  else
+             //   tspan = breakText(d.name, x.bandwidth())
+      
+                
+              for(j in tspan){
+                textElement.append("tspan")
+                .text(tspan[j])
+                .attr("dy","1.3em")
+                .attr("x", x(d.key)+58)
+              }
+          
+
+
+            })
+
+
 
             // Add X axis title
             svg
               .append('text')
               .attr('text-anchor', 'end')
               .attr('x', width / 2 - 80)
-              .attr('y', height + 100)
+              .attr('y', height + 110)
               .attr('text-anchor', 'left')
               .text('Contribution types');
 
             // Add Y axis
             y.domain(sortedData.map((d) => d.citation));
 
-            yAxis.call(d3.axisLeft(y).tickSize(0));
+            yAxis.call(d3.axisLeft(y).tickSize(0))
+            .selectAll("text")
+              .attr("dx", "-0.5em");
 
             // Y axis title:
             svg
@@ -275,7 +334,7 @@
 
                 authors += foundPaper.citation_order;
 
-                d3.select('.tooltip')
+                d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
                   .style('top', function () {
                     return (e.pageY < height + limitHeight ? e.pageY + 10 : e.pageY - mouseYSpace) + 'px';
@@ -302,7 +361,7 @@
                   );
               })
               .on('mouseleave', function (e, d) {
-                d3.select('.tooltip').style('visibility', 'hidden');
+                d3.select('.simple-tooltip').style('visibility', 'hidden');
 
                 d3.select(this)
                   .style('stroke', 'none')
