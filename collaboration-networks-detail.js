@@ -350,7 +350,7 @@ svg
             .attr("class","text-legend")
             .style("text-decoration","underline")
             .attr("fill","#0000EE")
-            .attr("y", height-10)
+            .attr("y", height-35)
             .attr("x", 10)
             .attr("text-anchor", "begin");
 
