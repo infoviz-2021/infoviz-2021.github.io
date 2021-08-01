@@ -1,6 +1,12 @@
 @import "settings.css";
 
-body {
+/* body {
+    color: var(--dark-gray) !important;
+    font-size: var(--caption-font-size) !important;
+    font-family: var(--font-family-theme) !important;
+} */
+
+table {
     color: var(--dark-gray) !important;
     font-size: var(--caption-font-size) !important;
     font-family: var(--font-family-theme) !important;

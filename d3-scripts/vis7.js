@@ -150,7 +150,7 @@ legend.append("text")
     .attr("x", width - 575)
     .attr("y", 9.5)
     .attr("dy", "0.32em")
-    .attr("font-size", "10px")
+    .attr("font-size", "12px")
     .text(function(d) { return d; });
 
 });
