@@ -1,5 +1,4 @@
 const totalArticles = 20
-const width = 500, height = 500
 const data2 = [
     { "abbreviation": "FGR", "name": "Publications focused on HInt in a general perspective (FGR)", "value": 6 }, 
     { "abbreviation": "FGAQ", "name": "Publications focused on HInt in a general perspective with emphasis on a quality attribute (FGAQ)", "value": 4 },
@@ -8,13 +7,13 @@ const data2 = [
 
 const svg = d3.select('.card__body__focus-of-publications__pie-graph')
             .append('svg')
-            .attr('viewBox', [(-width / 2 - 30), (-height / 2), width + 100, height + 100])
+            .attr('viewBox', [(-widthPie / 2 - 30), (-heightPie / 2), widthPie + 100, heightPie + 100])
 
 color = d3.scaleOrdinal()
         .domain(data2.map(d => d.name))
         .range(["#66c2a5", "#fc8d62 ", "#8da0cb"])
 
-const radius = Math.min(width, height) / 2
+const radius = Math.min(widthPie, heightPie) / 2
 
 pie = d3.pie()
         .padAngle(0.005)
@@ -22,7 +21,7 @@ pie = d3.pie()
         .value(d => d.value)
 
 const arc = function () {
-const radius = Math.min(width, height) / 2
+const radius = Math.min(widthPie, heightPie) / 2
     return d3.arc().innerRadius(radius * 0.67).outerRadius(radius - 1)
 }
 
@@ -34,7 +33,8 @@ const arcs = pie(data2)
 
 svg.selectAll('path')
     .data(arcs)
-    .join('path')
+    // .join('path')
+    .enter().append('path')
     .attr('fill', (d) => color(d.data.name))
     .attr('d', arc())
     .on('mouseover', function (d, i) {

@@ -30,7 +30,8 @@ var total = keys.pop()
 // console.log(keys);
 
 // data.sort(function(a, b) { return b.total - a.total; });
-x7.domain(data_csv.map(function(d) { return d.Ano; }));
+var xDomain = data_csv.map(function(d) { return d.Ano; })
+x7.domain(["2015"].concat(xDomain));
 y7.domain([0, 8]).nice(); //d3.max(data, function(d) { return d.total; })]).nice();
 z7.domain(keys);
 
@@ -67,6 +68,7 @@ g.append("g")
     .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
 
 var data2 = [
+    { x: 2015, y: 0 },
     { x: 2016, y: 1 },
     { x: 2017, y: 2 },
     { x: 2018, y: 3 },
@@ -81,14 +83,14 @@ g.append("path")
     .attr("stroke", "black")
     .attr("stroke-width", 1.5)
     .attr("d", d3.line()
-    .x(function(d) { return x7(d.x) + 50 })
+    .x(function(d) { return x7(d.x) + 43 })
     .y(function(d) { return y7(d.y)})
 )
 
 data2.forEach(function(p) {
     g.append('circle')
         .attr('class', 'dot')
-        .attr('cx', x7(p.x) + 50 )
+        .attr('cx', x7(p.x) + 43 )
         .attr('cy', y7(p.y))
         .attr('r', 5)
 })
@@ -129,6 +131,42 @@ g.append("g")
 // select the svg area
 var svg = d3.select("#vis7legend")
 
+//icon
+xIcon = width - 130 
+yIcon = 7
+
+svg.append("svg")
+    .attr("x", xIcon)
+    .attr("y", yIcon)
+    .append("path")
+    .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+    .attr("fill", "var(--gray)")
+  
+svg.append("svg")
+    .attr("x", xIcon)
+    .attr("y", yIcon)
+    .append("path")
+    .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+    .attr("fill", "var(--gray)")
+
+svg.append("text")
+    .text("Data collected from")
+    .attr("class", "text-legend")
+    .attr("text-anchor", "end")
+    .style("opacity","0.6")
+    .attr("x", width + margin.right)
+    .attr("y", 20)
+    .attr("cursor","default")
+    .append("tspan")
+    .text("January 2015 to")
+    .attr("x",width + margin.right)
+    .attr("dy","1.2em")
+    .append("tspan")
+    .append("tspan")
+    .text("January 2021.")
+    .attr("x",width + margin.right)
+    .attr("dy","1.2em")
+
 // Legend
 var legend = svg.append("g")
     .append("svg")
@@ -151,6 +189,6 @@ legend.append("text")
     .attr("y", 9.5)
     .attr("dy", "0.32em")
     .attr("font-size", "12px")
-    .text(function(d) { return d; });
+    .text(function(d) { return d.split('HInt')[1]; });
 
 });

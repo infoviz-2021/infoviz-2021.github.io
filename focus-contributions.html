@@ -57,6 +57,7 @@
     </header>
     <main>
       <div class="container">
+        
         <section class="stats">
           <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;'Co-riding With My eBike to Get Green Lights'&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Human-computer integration&#013;&#010;The future's hybrid nature&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;The Guts Game: Towards Designing Ingestible Games&#013;&#010;'Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities'&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Embracing Companion Technologies&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;Seven HCI Grand Challenges&#013;&#010;">
             <div class="stats__stat__title">SLR Analyzed Publications</div>
@@ -73,16 +74,16 @@
         </section>
 
         <div class="wrapper">
-          <div>
-            <div style="margin-bottom: 23px;">
+          <div class="card">
+            <div class="card__header">
               <h2>Events and Forums in which the analyzed publications were published</h2>
             </div>
             <div class="">
               <svg id="vis4" width="700" height="384"></svg>
             </div>
           </div>
-          <div>
-            <div style="margin-bottom: 50px;">
+          <div class="card">
+            <div class="card__header">
               <h2>Number and focus of publications per year</h2>
             </div>
             <div>
@@ -91,6 +92,39 @@
             </div>
           </div>
         </div>
+
+        <div class="wrapper">
+          <!-- <div class="card">
+            <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;'Co-riding With My eBike to Get Green Lights'&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Human-computer integration&#013;&#010;The future's hybrid nature&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;The Guts Game: Towards Designing Ingestible Games&#013;&#010;'Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities'&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Embracing Companion Technologies&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;Seven HCI Grand Challenges&#013;&#010;">
+              <div class="stats__stat__title">SLR Analyzed Publications</div>
+              <div class="stats__stat__value">
+                <span class="stats__stat__value__numeric">20</span>
+              </div>
+            </div>
+            <br>
+            <div class="stats__stat stats__stat--light-blue">
+              <div class="stats__stat__title">Events and forums of Publications</div>
+              <div class="stats__stat__value">
+                <span class="stats__stat__value__numeric">15</span>
+              </div>
+            </div>
+          </div> -->
+          <div class="card">
+            <div class="card__header">
+              <h2>Focus of Publications</h2>
+            </div>
+            <div class="card__body card__body--no-overflow">
+              <div class="card__body__focus-of-publications__pie-graph"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <ul style="text-align: center;"><a href="/reference-list.html" target="_blank" style="font-size: 25px;">Click here to see the reference list of publications</a></ul>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </main>
     
@@ -100,6 +134,10 @@
     <script src="data/data_vis10.js"></script>
     <script src="d3-scripts/vis4.js"></script>
     <script src="d3-scripts/vis7.js"></script>
+    <script type="text/javascript">
+      const widthPie = 500, heightPie = 500
+    </script>
+    <script src="d3-scripts/vis11.js"></script>
 
   </body>
 </html>
