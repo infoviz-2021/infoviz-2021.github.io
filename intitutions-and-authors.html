@@ -47,10 +47,10 @@
             <a href="/focus-contributions.html">Focus</a>
           </li>
           <li class="header__submenu__list__item">
-            <a href="/#">Contribution Types</a>
+            <a href="/contribution-types.html">Contribution Types</a>
           </li>
           <li class="header__submenu__list__item">
-            <a href="/#">Reference List</a>
+            <a href="/reference-list.html">Reference List</a>
           </li>
         </ul>
       </div>
@@ -58,13 +58,13 @@
     <main>
       <div class="container">
         <section class="stats">
-          <div class="stats__stat stats__stat--light-cornflower-blue">
+          <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;'Co-riding With My eBike to Get Green Lights'&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Human-computer integration&#013;&#010;The future's hybrid nature&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;The Guts Game: Towards Designing Ingestible Games&#013;&#010;'Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities'&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Embracing Companion Technologies&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;Seven HCI Grand Challenges&#013;&#010;">
             <div class="stats__stat__title">SLR Analyzed Publications</div>
             <div class="stats__stat__value">
               <span class="stats__stat__value__numeric">20</span>
             </div>
           </div>
-          <div class="stats__stat stats__stat--light-blue">
+          <div class="stats__stat stats__stat--light-blue tooltip" data-tooltip="Australia&#013;&#010;Austria&#013;&#010;Canada&#013;&#010;China&#013;&#010;Cyprus&#013;&#010;Denmark&#013;&#010;Finland&#013;&#010;France&#013;&#010;Germany&#013;&#010;Greece&#013;&#010;Japan&#013;&#010;Netherlands&#013;&#010;New Zealand&#013;&#010;Spain&#013;&#010;United Kingdom (UK)&#013;&#010;United States of America (USA)">
             <div class="stats__stat__title">Countries exploring HInt</div>
             <div class="stats__stat__value">
               <span class="stats__stat__value__numeric">16</span>
@@ -74,7 +74,7 @@
           <div class="stats__stat stats__stat--light-purple-3">
             <div class="stats__stat__title">Institutions exploring HInt around the world</div>
             <div class="stats__stat__value home__body__stats__stat__slr__total__description">
-              <span class="stats__stat__value__numeric">66</span>
+              <span class="stats__stat__value__numeric">70</span>
             </div>
           </div>
           <div class="stats__stat stats__stat--light-magenta-3">
@@ -87,7 +87,7 @@
   
         <section class="card">
           <div class="card__header">
-            <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HINT) <span class="icon icon-information" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
+            <h2>Countries, institutions and authors who are addressing the Human-Computer Interaction (HInt) <span class="icon-with-label icon-information-label" data-title="The listed institutions correspond to the institutions in which the authors were associated at the time the publication analyzed in this SLR was published"></span></h2>
           </div>
           <div class="card__body">
             <div class="card__body__countries">
@@ -103,12 +103,15 @@
                   </div>
                 </div>
                 <div class="card__body__countries__map"></div>
+                <div class="card__body__countries__explains">
+                  <p>* A same publication may have been published by authors from different countries and institutions</p>
+                </div>
               </div>
               <div class="card__body__countries__details">
                 <div class="card__body__countries__details__header"></div>
                 <div class="card__body__countries__details__body">
                   <div class="card__body__countries__details__click-to-display-info">
-                    <p>To see the institutions and authors list of a country, click on the desired country in the map</p>
+                    <p><span class="icon icon-information"></span> To see the institutions and authors list of a country, click on the desired country in the map</p>
                   </div>
                   <div class="card__body__countries__details__institutions">
                     <div class="card__body__countries__details__institutions__title"></div>
@@ -142,161 +145,195 @@
       
       const geoPath = d3.geoPath()
         .projection(projection)
+
+      const zoom = d3.zoom()
+        .on('zoom', (event) => {
+          svg.attr('transform', event.transform);
+        })
+        .scaleExtent([1, 40]);
+      
+      svg.call(zoom);
       
       d3.json('./data/countries-institutions-authors.json').then(function (institutionsAuthorsList) {
         d3.json('./data/countries.json').then(function (mapFeatures) {
-          svg.append('g')
+          const g = svg.append('g')
             .selectAll('path')
             .data(mapFeatures.features)
             .join('path')
             .attr('d', geoPath)
             .attr('data-selected', false)
-            .attr('class', function (svgElement) {
-              if (svgElement.properties.articles > 0)
-                return 'country country-highlighted'
-              else 
-                return 'country'
-            })
-            .on('mouseover', function (svgElement, data, key) {
-              console.log(svgElement, data)
-              if (data.properties.articles > 0) {
-                d3.select(this).attr('class', 'country hover')
-                d3.select('.card__body__countries__tooltip')
-                  .style('visibility','visible')
-                  .style('top', svgElement.layerY + 10 + 'px')
-                  .style('left', svgElement.layerX + 10 + 'px')
-                  .html(`
-                    <div class="country-title">
-                      ${(data.properties.articles > 0) ? `<span class="flag ${data.id}-flag"></span>` : ``}
-                      <span class="country-title__name"><strong>${data.properties.name}</strong></span>
-                    </div>
-                    <div class="country-academic-info">
-                      <span>Total of institutions: ${(data.properties.institutions ? data.properties.institutions.length : 0)}</span>
-                      <span>Total of authors: ${(data.properties.authors ? data.properties.authors.length : 0)}</span>
-                    </div>
-                  `)
-              }
-            })
-            .on('mouseout', function (event) {
-              const countryTarget = event.target
-              if (countryTarget.dataset.selected === 'false') {
-                d3.select(this).attr('class', function (svgElement) {
-                  if (svgElement.properties.articles > 0)
-                    return 'country country-highlighted'
-                  else 
-                    return 'country'
-                })
-              }
-              d3.select('.card__body__countries__tooltip')
-                .style('visibility','hidden')
-            })
-            .on('click', function(event, svgElement) {
-              if (svgElement.properties.articles > 0) {
-                const countryTarget = event.target
-                d3.selectAll('[data-selected=true]')
-                  .attr('data-selected', false)
-                  .attr('class', 'country country-highlighted')
-                d3.select(this).attr('data-selected', true)
-                d3.select(this).attr('class', function (svgElement) {
-                  if (countryTarget.dataset.selected === 'false') {
-                    if (svgElement.properties.articles > 0)
-                      return 'country hover'
-                    else 
-                      return 'country'
-                  } else {
-                    if (svgElement.properties.articles > 0)
-                      return 'country hover'
-                    else 
-                      return 'country'
-                  }
-                })
-                const countrySelected = svgElement
-                const institutionAuthorsByCountry = institutionsAuthorsList.filter(function (institutionAuthor) {
-                  if (institutionAuthor.code === countrySelected.id) {
-                    return institutionAuthor
-                  }
-                })
-                const institutions = {}
-                institutionAuthorsByCountry.sort(function (a, b) {
-                  if (a.institution > b.institution) return 1
-                  if (a.institution < b.institution) return -1
-                  return 0
-                }).forEach(institutionAuthor => {
-                  if (institutions[institutionAuthor.institution])
-                    institutions[institutionAuthor.institution] = [...institutions[institutionAuthor.institution], institutionAuthor.author]
-                  else
-                    institutions[institutionAuthor.institution] = [institutionAuthor.author]
-                })
-                const authors = institutionAuthorsByCountry.sort(function (a, b) {
-                  if (a.author > b.author) return 1
-                  if (a.author < b.author) return -1
-                  return 0
-                }).reduce((accumulator, current) => {
-                  if (accumulator.length === 0 || accumulator[accumulator.length - 1].author !== current.author)
-                    accumulator.push(current)
-                  return accumulator
-                }, [])
-                const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
-                detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
-                d3.select('.card__body__countries__details__header')
-                  .html(`
-                    <span class="card__body__countries__details__header__flag ${countrySelected.id}-flag"></span>
-                    <span class="card__body__countries__details__header__title">
-                      <strong>Country:</strong> ${countrySelected.properties.name} (${countrySelected.id}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Publication's total: ${svgElement.properties.articles}</span>&nbsp;of 20
-                    </span>
-                  `)
-                d3.select('.card__body__countries__details__institutions__title')
-                  .html(`
-                    <span><strong>Institutions - Total: ${Object.keys(institutions).length}</strong> of 66</span>
-                  `)
-                d3.select('.card__body__countries__details__institutions__list')
-                  .selectAll('li')
-                  .data(Object.keys(institutions))
-                  .join('li')
-                  .attr('data-author', authorInstitution => authorInstitution.author)
-                  .text(authorInstitution => authorInstitution)
-                  .on('mouseover', (event) => {
-                    const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
-                    authorsLi.forEach(authorLi => {
-                      if (authorLi.getAttribute('data-institution') === event.target.innerHTML)
-                        authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
-                    });
-                  })
-                  .on('mouseout', (event) => {
-                    const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
-                    authorsLi.forEach(authorLi => {
-                      if (authorLi.getAttribute('data-institution') === event.target.innerHTML)
-                        authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
-                    });
-                  })
-                d3.select('.card__body__countries__details__authors__title')
-                  .html(`
-                    <span><strong>Authors - Total: ${authors.length}</strong> of 100</span>
-                  `)
-                d3.select('.card__body__countries__details__authors__list')
-                  .selectAll('li')
-                  .data(authors.sort())
-                  .join('li')
-                  .attr('data-institution', authorInstitution => authorInstitution.institution)
-                  .text(authorInstitution => authorInstitution.author)
-                  .on('mouseover', (event) => {
-                    const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
-                    institutionsLi.forEach(institutionLi => {
-                      if (institutionLi.innerHTML === event.target.getAttribute('data-institution'))
-                        institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
-                    });
-                  })
-                  .on('mouseout', (event) => {
-                    const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
-                    institutionsLi.forEach(institutionLi => {
-                      if (institutionLi.innerHTML === event.target.getAttribute('data-institution'))
-                        institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
-                    });
-                  })
-              }
-            })
+            .attr('class', getCountryHighlightedClass)
+            .on('mouseover', showTooltip(institutionsAuthorsList))
+            .on('mouseout', hideTooltip)
+            .on('click', onCountryClick(institutionsAuthorsList))
         })
       })
+
+      function sortBy(attributeName) {
+        return function (a, b) {
+          if (a[attributeName] > b[attributeName]) return 1
+          if (a[attributeName] < b[attributeName]) return -1
+          return 0
+        }
+      }
+
+      function reduceArrayToObjectByKeyValue(key, attributeName) {
+        return (previousValue, currentValue, currentIndex, array) => {
+          if (previousValue[currentValue[key]])
+            previousValue[currentValue[key]] = [...previousValue[currentValue[key]], currentValue[attributeName]]
+          else
+            previousValue[currentValue[key]] = [currentValue[attributeName]]
+          return previousValue
+        }
+      }
+
+      function filterBy(key, value) {
+        return function (currentValue) {
+          if (currentValue[key] === value) {
+            return currentValue
+          }
+        }
+      }
+
+      function buildCountryTooltipHtml(hasArticles, countryId, countryName, institutionsTotal, authorsTotal) {
+        return `
+          <div class="country-title">
+            ${hasArticles ? `<span class="flag ${countryId}-flag"></span>` : ``}
+            <span class="country-title__name"><strong>${countryName}</strong></span>
+          </div>
+          <div class="country-academic-info">
+            <span>Total of institutions: ${(institutionsTotal ? institutionsTotal : 0)}</span>
+            <span>Total of authors: ${(authorsTotal ? authorsTotal : 0)}</span>
+          </div>
+        `
+      }
+
+      function buildCountryDetailsHeaderHtml(countryId, countryName, articlesNumber) {
+        return `
+          <span class="card__body__countries__details__header__flag ${countryId}-flag"></span>
+          <span class="card__body__countries__details__header__title">
+            <strong>Country:</strong> ${countryName} (${countryId}) -&nbsp;<span class="card__body__countries__details__header__title__highlight">Total of Publications*: ${articlesNumber}</span>&nbsp;of 20
+          </span>
+        `
+      }
+
+      function getCountryClassOnHover(isCountrySelected, hasArticles) {
+        if (isCountrySelected === 'false') {
+          if (hasArticles)
+            return 'country hover'
+          else 
+            return 'country'
+        } else {
+          if (hasArticles)
+            return 'country hover'
+          else 
+            return 'country'
+        }
+      }
+      
+      function getCountryHighlightedClass(svgElement) {
+        if (svgElement.properties.articles > 0)
+          return 'country country-highlighted'
+        else 
+          return 'country'
+      }
+
+      function showTooltip (institutionsAuthorsList) {
+        return (event, data) => {
+          if (data.properties.articles > 0) {
+            const institutionsByCountry = institutionsAuthorsList.filter(filterBy('code', data.id))
+            const institutionsTotal = Object.keys(institutionsByCountry.reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})).length
+            const authorsTotal = Object.keys(institutionsByCountry.reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})).length
+            d3.select(event.target).attr('class', 'country hover')
+            d3.select('.card__body__countries__tooltip')
+              .style('visibility','visible')
+              .style('top', event.layerY + 10 + 'px')
+              .style('left', event.layerX + 10 + 'px')
+              .html(buildCountryTooltipHtml(data.properties.articles > 0, data.id, data.properties.name, institutionsTotal, authorsTotal))
+          }
+        }
+      }
+
+      function hideTooltip(event) {
+        const countryTarget = event.target
+        if (countryTarget.dataset.selected === 'false') {
+          d3.select(this).attr('class', getCountryHighlightedClass)
+        }
+        d3.select('.card__body__countries__tooltip')
+          .style('visibility','hidden')
+      }
+
+      function highlightAuthorsFromInstitutions(event) {
+        const authorsLi = document.querySelectorAll('.card__body__countries__details__authors__list li')
+        authorsLi.forEach(authorLi => {
+          const authors = event.target.getAttribute('data-authors').split(',')
+          if (authors.includes(authorLi.innerHTML))
+            authorLi.classList.toggle('card__body__countries__details__authors__list--highlighted')
+        });
+      }
+
+      function highlightInstitutionsFromAuthors(event) {
+        const institutionsLi = document.querySelectorAll('.card__body__countries__details__institutions__list li')
+        institutionsLi.forEach(institutionLi => {
+          const institutions = event.target.getAttribute('data-institution').split(',')
+          if (institutions.includes(institutionLi.innerHTML))
+            institutionLi.classList.toggle('card__body__countries__details__institutions__list--highlighted')
+        });
+      }
+
+      function onCountryClick(institutionsAuthorsList) {
+        return function (event, svgElement) {
+          if (svgElement.properties.articles > 0) {
+            const countryTarget = event.target
+            d3.selectAll('[data-selected=true]')
+              .attr('data-selected', false)
+              .attr('class', 'country country-highlighted')
+            d3.select(this).attr('data-selected', true)
+            d3.select(this).attr('class', getCountryClassOnHover(countryTarget.dataset.selected, svgElement.properties.articles > 0))
+  
+            const countrySelected = svgElement
+            const institutionAuthorsByCountry = institutionsAuthorsList.filter(filterBy('code', countrySelected.id))
+            const institutions = institutionAuthorsByCountry
+              .sort(sortBy('institution'))
+              .reduce(reduceArrayToObjectByKeyValue('institution', 'author'), {})
+  
+            const authors = institutionAuthorsByCountry
+              .sort(sortBy('author'))
+              .reduce(reduceArrayToObjectByKeyValue('author', 'institution'), {})
+  
+            const detailsMessageElement = document.querySelector('.card__body__countries__details__click-to-display-info')
+            detailsMessageElement.classList.add('card__body__countries__details__click-to-display-info--hidden')
+            d3.select('.card__body__countries__details__header')
+              .html(buildCountryDetailsHeaderHtml(countrySelected.id, countrySelected.properties.name, svgElement.properties.articles))
+            d3.select('.card__body__countries__details__institutions__title')
+              .html(`
+                <span><strong>Institutions - Total: ${Object.keys(institutions).length}</strong> of 70</span>
+              `)
+            d3.select('.card__body__countries__details__institutions__list')
+              .selectAll('li')
+              .data(Object.entries(institutions))
+              .join('li')
+              .attr('data-authors', authorInstitution => authorInstitution[1])
+              .text(authorInstitution => authorInstitution[0])
+              .on('mouseover', highlightAuthorsFromInstitutions)
+              .on('mouseout', highlightAuthorsFromInstitutions)
+            d3.select('.card__body__countries__details__authors__title')
+              .html(`
+                <span><strong>Authors - Total: ${Object.keys(authors).length}</strong> of 100</span>
+              `)
+            d3.select('.card__body__countries__details__authors__list')
+              .selectAll('li')
+              .data(Object.entries(authors))
+              .join('li')
+              .attr('data-institution', authorInstitution => authorInstitution[1])
+              .text(authorInstitution => authorInstitution[0])
+              .on('mouseover', highlightInstitutionsFromAuthors)
+              .on('mouseout', highlightInstitutionsFromAuthors)
+              const institutionsDetailsDiv = document.querySelector('.card__body__countries__details__institutions')
+              institutionsDetailsDiv.classList.add('card__body__countries__details__institutions--active')
+          }
+        }   
+      }
     </script>
   </body>
 </html>

@@ -102,6 +102,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   display: flex;
   flex-direction: row;
   margin-left: 0.3em;
+  white-space: nowrap;
 }
 
 .card__body__countries__details__header__title strong {
@@ -111,7 +112,6 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 .card__body__countries__details__header__title__highlight {
   color: var(--dark-cornflower-blue);
   font-weight: 700;
-  white-space: normal;
 }
 
 .card__body__countries__details__body {
@@ -135,7 +135,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   padding-right: 0.5em;
 }
 
-.card__body__countries__details__institutions::after {
+.card__body__countries__details__institutions--active::after {
   content: '';
   display: block;
   position: absolute;
@@ -148,6 +148,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__institutions__title strong {
   color: var(--dark-purple-3);
+  white-space: nowrap;
+}
+
+.card__body__countries__details__institutions__list li {
+  white-space: nowrap;
 }
 
 .card__body__countries__details__institutions__list li:hover {
@@ -167,6 +172,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__details__authors__title strong {
   color: var(--dark-magenta-2);
+  white-space: nowrap;
+}
+
+.card__body__countries__details__authors__list li {
+  white-space: nowrap;
 }
 
 .card__body__countries__details__authors__list li:hover {
@@ -212,8 +222,11 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-left: 0.3em;
 }
 
-.card__body__network__details{
+.card__body__countries__explains p {
+  font-size: 0.75rem;
+}
 
+.card__body__network__details {
   display: flex;
   flex-direction: column;
   max-width: 25%;
@@ -261,8 +274,13 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   width: 100%;
   align-items: center;
   justify-content: center;
-  border-color: black;
-  border-style: dotted;
+  margin-top: 5rem;
+  /* border-color: black; */
+  /* border-style: dotted; */
+}
+
+.wordcloud h2 {
+  color: var(--dark-gray)!important;
 }
 
 .timeline-milestones {
@@ -531,4 +549,46 @@ th, td {
 
 tr:nth-child(even) {
   background-color: #f2f2f2
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 35vw 35vw;
+  column-gap: 40px;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  background-color: var(--dark-gray);
+  color: var(--white);
+  padding: 1em;
+  top: 120px;
+  border-radius: 5px;
+  white-space: pre;
+  opacity: 0;
+  transition: all .4s ease;
+  z-index: -1;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  opacity: 1;
+  width: 0;
+  height: 0;
+  left: 2em;
+  bottom: -14px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent var(--dark-gray) transparent;
+  transition: all .4s ease;
+  opacity: 0;
+  z-index: -1;
+}
+
+.tooltip:hover:after,
+.tooltip:hover:before {
+  opacity: 1;
+  z-index: 999;
 }

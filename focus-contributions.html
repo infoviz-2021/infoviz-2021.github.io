@@ -15,14 +15,51 @@
   </head>
   <body>
     <header>
-      <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
-      <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
-      <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
+      <div class="header__top">
+        <div class="header__logo">
+          <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
+          <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
+          <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
+        </div>
+        <div class="header__left-side">
+          <ul class="header__left-side__menu">
+            <li class="header__left-side__menu__item">
+              <a href="/">Home</a>
+            </li>
+            <li class="header__left-side__menu__item header__left-side__menu__item--active">
+              <a href="/intitutions-and-authors.html">Publications</a>
+            </li>
+            <li class="header__left-side__menu__item">
+              <a href="/focus-contributions.html">Challenges</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="header__submenu">
+        <ul class="header__submenu__list">
+          <li class="header__submenu__list__item">
+            <a href="/intitutions-and-authors.html">Institutions and Authors</a>
+          </li>
+          <li class="header__submenu__list__item">
+            <a href="/collaboration-networks.html">Collaboration Network</a>
+          </li>
+          <li class="header__submenu__list__item header__submenu__list__item--active">
+            <a href="/focus-contributions.html">Focus</a>
+          </li>
+          <li class="header__submenu__list__item">
+            <a href="/contribution-types.html">Contribution Types</a>
+          </li>
+          <li class="header__submenu__list__item">
+            <a href="/reference-list.html">Reference List</a>
+          </li>
+        </ul>
+      </div>
     </header>
     <main>
       <div class="container">
+        
         <section class="stats">
-          <div class="stats__stat stats__stat--light-cornflower-blue">
+          <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;'Co-riding With My eBike to Get Green Lights'&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Human-computer integration&#013;&#010;The future's hybrid nature&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;The Guts Game: Towards Designing Ingestible Games&#013;&#010;'Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities'&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Embracing Companion Technologies&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;Seven HCI Grand Challenges&#013;&#010;">
             <div class="stats__stat__title">SLR Analyzed Publications</div>
             <div class="stats__stat__value">
               <span class="stats__stat__value__numeric">20</span>
@@ -36,98 +73,71 @@
           </div>
         </section>
 
-        <section class="card">
-          <div class="card__header">
-            <h2>Events and Forums in which the analyzed publications were published</h2>
+        <div class="wrapper">
+          <div class="card">
+            <div class="card__header">
+              <h2>Events and Forums in which the analyzed publications were published</h2>
+            </div>
+            <div class="">
+              <svg id="vis4" width="700" height="384"></svg>
+            </div>
           </div>
-          <div class="card__body">
-            <svg width="960" height="500"></svg>
+          <div class="card">
+            <div class="card__header">
+              <h2>Number and focus of publications per year</h2>
+            </div>
+            <div>
+              <svg id="vis7" width="700" height="384"></svg>
+              <svg id="vis7legend" height="60" width="700"></svg>
+            </div>
           </div>
-        </section>
+        </div>
+
+        <div class="wrapper">
+          <!-- <div class="card">
+            <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;'Co-riding With My eBike to Get Green Lights'&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Human-computer integration&#013;&#010;The future's hybrid nature&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;The Guts Game: Towards Designing Ingestible Games&#013;&#010;'Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities'&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Embracing Companion Technologies&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;Seven HCI Grand Challenges&#013;&#010;">
+              <div class="stats__stat__title">SLR Analyzed Publications</div>
+              <div class="stats__stat__value">
+                <span class="stats__stat__value__numeric">20</span>
+              </div>
+            </div>
+            <br>
+            <div class="stats__stat stats__stat--light-blue">
+              <div class="stats__stat__title">Events and forums of Publications</div>
+              <div class="stats__stat__value">
+                <span class="stats__stat__value__numeric">15</span>
+              </div>
+            </div>
+          </div> -->
+          <div class="card">
+            <div class="card__header">
+              <h2>Focus of Publications</h2>
+            </div>
+            <div class="card__body card__body--no-overflow">
+              <div class="card__body__focus-of-publications__pie-graph"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div>
+              <ul style="text-align: center;"><a href="/reference-list.html" target="_blank" style="font-size: 25px;">Click here to see the reference list of publications</a></ul>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </main>
-    <script>
-      var svg = d3.select('svg'),
-        margin = { top: 20, right: 20, bottom: 30, left: 530 },
-        width = +svg.attr('width') - margin.left - margin.right,
-        height = +svg.attr('height') - margin.top - margin.bottom;
-
-      var tooltip = d3.select('body').append('div').attr('class', 'toolTip');
-      var x = d3.scaleLinear().range([0, width]);
-      var y = d3.scaleBand().range([height, 0]);
-
-      var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-      d3.json('/data/data_vis04_.json', function (error, data) {
-        if (error) throw error;
-
-        data.sort(function (a, b) {
-          return a.quantidade - b.quantidade;
-        });
-
-        x.domain([
-          0,
-          d3.max(data, function (d) {
-            return d.quantidade;
-          }),
-        ]);
-        y.domain(
-          data.map(function (d) {
-            return d.evento;
-          })
-        ).padding(0.1);
-
-        // X axis
-        g.append('g')
-          .attr('class', 'x axis')
-          .attr('transform', 'translate(0,' + height + ')')
-          .attr('class', 'text-caption text-color default-font-family')
-          .call(d3.axisBottom(x).ticks(3));
-        //   .tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
-
-        // Y axis
-        g.append('g').attr('class', 'y axis').attr('class', 'text-caption default-font-family text-color').call(d3.axisLeft(y));
-
-        g.append('text')
-          .attr('transform', 'translate(' + width / 2 + ' ,' + (height + margin.top + 10) + ')')
-          .attr('class', 'text-axis default-font-family text-color')
-          .style('text-anchor', 'middle')
-          .text('Number of Publications');
-
-        g.append('text')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', 0 - margin.left)
-          .attr('x', 0 - height / 2)
-          .attr('dy', '1em')
-          .attr('class', 'text-axis default-font-family text-color')
-          .style('text-anchor', 'middle')
-          .text('Events and Foruns');
-
-        g.selectAll('.bar')
-          .data(data)
-          .enter()
-          .append('rect')
-          .attr('class', 'bar text-caption default-font-family')
-          .attr('x', 3)
-          .attr('height', y.bandwidth())
-          .attr('y', function (d) {
-            return y(d.evento);
-          })
-          .attr('width', function (d) {
-            return x(d.quantidade);
-          })
-          .on('mousemove', function (d) {
-            tooltip
-              .style('left', d3.event.pageX - 50 + 'px')
-              .style('top', d3.event.pageY - 70 + 'px')
-              .style('display', 'inline-block')
-              .attr('class', 'toolTip')
-              .html(d.artigos);
-          })
-          .on('mouseout', function (d) {
-            tooltip.style('display', 'none').attr('class', 'tollTip');
-          });
-      });
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/lodash/4.17.2/lodash.min.js'></script>
+    <script src="data/keys.js"></script>
+    <script src="data/data_vis10.js"></script>
+    <script src="d3-scripts/vis4.js"></script>
+    <script src="d3-scripts/vis7.js"></script>
+    <script type="text/javascript">
+      const widthPie = 500, heightPie = 500
     </script>
+    <script src="d3-scripts/vis11.js"></script>
+
   </body>
 </html>
