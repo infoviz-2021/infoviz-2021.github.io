@@ -93,6 +93,16 @@
       var click = []
       var challengeFiltered = ""
 
+      
+      var className = function (d){ 
+            var s = d.split(' ')
+              newClass = ""
+              s.forEach( e => newClass += e)
+              s = newClass.replace('.','').replace(',','');
+            return s
+         }
+
+
       // Initialize plot
       updateChart('year')
 
@@ -183,17 +193,9 @@
          
          shiftAxis = {x:radius*1.8, y:radius*2}
 
-         var className = function (d){ 
-            var s = d.split(' ')
-              newClass = ""
-              s.forEach( e => newClass += e)
-              s = newClass.replace('.','').replace(',','');
-            return s
-         }
-
-         //------------------------------------------------------------------------------------------------------------
-         //  AXIS
-         //------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+//  SECTION: AXIS
+//-----------------------------------------------------------------------------------------------------------------------
 
          // Add X axis
           x.domain(sortedData.map(d => d.citation));
@@ -229,7 +231,7 @@
                 //remove selection
                 clicks.pop()
                 updateTable("All","select")
-                
+
                 d3.select("#label-filtered").text("")
                
               }else{
@@ -309,7 +311,7 @@
               .attr("x", -height/2+50)
               .text("Challenge type")
 //---------------------------------------------------------------------------------------------------------------------
-// GRAPH AREA
+// SECTION: GRAPH AREA
 //---------------------------------------------------------------------------------------------------------------------
 
           // variable u: map data to existing rect
@@ -477,6 +479,9 @@
                   d3.selectAll(".circle-" +  className(d))
                     .style("opacity", 1)
 
+                  d3.selectAll(".label-axisX").style("opacity","0.1")
+                 d3.selectAll("." + className(d)).style("opacity","1")
+
                 }               
               }else{
 
@@ -612,7 +617,7 @@
             //text
         svg
           .append("text")
-            .text("Click on the publication citation to filter challenges on table.")
+            .text("Click on the publication citation to filter challenges on table. Click again to remove filter.")
             .attr("class", "text-legend")
             .attr("text-anchor", "begin")
             .style("opacity","0.6")
@@ -632,7 +637,7 @@
       } //end function update()
 
 // --------------------------------------------------------------------------------------------------
-//  TABLE
+//  SECTION: TABLE
 // --------------------------------------------------------------------------------------------------
 
   var column_names = [ "Challenge", "Challenge type","#Citations" ];
@@ -700,14 +705,21 @@ function updateTable(selectedOption, type) {
   d3.select("#challenge-select")
     .selectAll("option")
     .remove()
-  
+
+
   challengeFiltered = ""
   if(type== "publication") 
     allChallengeTypes =  ["Select an option","All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
   else{
     
+    if(clicks.length > 0) {
+      clicks.pop()
+      d3.selectAll(".label-axisX").attr("font-weight", "normal")
+    }
+
     if(selectedOption == "All"){
       allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
+    
       d3.selectAll(".label-axisX").style("opacity","1")
       d3.selectAll(".myArea").style("opacity","1")
 
@@ -752,44 +764,7 @@ function updateTable(selectedOption, type) {
           
       data =  file.challenges;
       papers = file.papers;
-/*
-      //include the challenge code
-      papers.forEach(p => { 
-        challenge_code = []
 
-        data.forEach( d => {
-         
-          citations = d.citations;
-
-          citations.forEach(c => {
-            if(p.id == c)
-              challenge_code.push(d.id)
-
-          })
-
-        })
-
-        p.challenge_code = challenge_code;
-      
-      })
-     
-      d3.select("body").
-      data(papers).append("p").text(d => d)
-
-      papers.forEach(d => {
-
-        text = '"challenge_code": [';
-
-        d.challenge_code.forEach( e =>{
-          text += '"' + e + "',"
-        })
-        text += "]"
-
-        d3.select("body")
-        .append("p").text(d.id + " - " + text)
-
-      })
-*/
       data.forEach(d => d.name +=  " (" + d.challenge_type + ")")
 
       //remove actual rows
@@ -837,13 +812,25 @@ function updateTable(selectedOption, type) {
       .append("tr")
       .attr("class", d => d.id)
       .on("mouseover", (e,d) => {
-    
-        d3.selectAll(".label-axisX").style("opacity","0.1")
-        d3.selectAll(".label-axisX." + d.id).style("opacity","1")
 
         d3.selectAll(".myArea").style("opacity","0.1")
-        d3.selectAll(".circle-" + d.id)
-          .style("opacity","1")
+ 
+
+        if(clicks.length > 0){
+            citation = clicks[0].key
+            console.log(citation)
+         //   d3.selectAll(".label-axisX." + d.id).style("opacity",".1")
+            d3.selectAll(".circle-" +  className(citation)).style("opacity","1")
+       
+        }else{
+    
+          //  d3.selectAll(".label-axisX").style("opacity","0.1")
+            d3.selectAll(".label-axisX." + d.id).style("opacity","1")
+
+            d3.selectAll(".myArea").style("opacity","0.1")
+            d3.selectAll(".circle-" + d.id)
+              .style("opacity","1")
+        }
 
       })
       .on("mouseleave", d => {
@@ -854,11 +841,16 @@ function updateTable(selectedOption, type) {
 
         }else{
 
-          d3.selectAll(".label-axisX").style("opacity","0.1")
-          d3.selectAll(".label-axisX-" + selectedKey).style("opacity","1")
+          if(clicks.length > 0){
+            console.log(clicks[0].key)
+       
+          }else{
+            d3.selectAll(".label-axisX").style("opacity","0.1")
+            d3.selectAll(".label-axisX-" + selectedKey).style("opacity","1")
 
-          d3.selectAll(".myArea").style("opacity","0.1")
-          d3.selectAll("." + selectedKey).style("opacity","1")
+            d3.selectAll(".myArea").style("opacity","0.1")
+            d3.selectAll("." + selectedKey).style("opacity","1")
+          }
 
         }
         
@@ -884,36 +876,7 @@ function updateTable(selectedOption, type) {
           return "right"
         return "left"; }) 
       .html(d => d)
-      .on("mouseover", (e,d) => {
- 
-        //console.log(e)
-          if(typeof d === 'number'){//last column 
-            //tooltip
-         
-             //merge citations
-            text = "";
-            
-           /* d.citations.forEach(c => {
-              const foundPaper = papers.filter(p => p.id === c)[0]
-              text += "["+foundPaper.citation + "], "
-
-            })*/
-
-           /* d3.select('.tooltip')
-                .style('visibility','visible')
-                .style('top', e.pageY + 'px' )
-                .style('left',e.pageX + 10 + 'px')
-                .style('min-width','100px' )
-                .style('max-width','400px' )
-
-                //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
-                .html('<strong>References: </strong>'+ d )
-                //.html('<strong>Description: </strong>' + foundImpact.description)*/
-
-          } 
-
-
-      })
+     
     })
         .catch(err => console.log(err)); //end d3.json reading
 }

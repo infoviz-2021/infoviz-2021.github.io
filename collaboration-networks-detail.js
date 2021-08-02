@@ -419,7 +419,7 @@ function updateDetail(author_name){
         .data(nodes_partner)
         .enter()
         .append("circle")
-          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)+1})
+          .attr("r", function(d){ return Math.sqrt(radius_detail *  d.qt)})
           .attr("cx", xCenter.partner)
           .attr("cy", d => yPartner(d.id) - 10)
           .attr("fill", "white")
