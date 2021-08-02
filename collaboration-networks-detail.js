@@ -101,49 +101,13 @@ function updateDetail(author_name){
    
 
 
-  //link thickness
-  xIcon = width - 76 
-  yIcon = 90
   
-  svg.append("svg")
-  .attr("x", xIcon)
-  .attr("y", yIcon)
-  .append("path")
-    .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-    .attr("fill", "var(--gray)")
-
-svg.append("svg")
-  .attr("x", xIcon)
-  .attr("y", yIcon)
-  .append("path")
-   .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-   .attr("fill", "var(--gray)")
-
-svg
-.append("text")
-  .text("The link thickness represents the")
-  .attr("class", "text-legend")
-  .attr("text-anchor", "end")
-  .style("opacity","0.6")
-  .attr("x", width + margin.right)
-  .attr("y", yIcon+13)
-  .attr("cursor","default")
-.append("tspan")
-  .text("number of author's publications")
-  .attr("x",width + margin.right)
-  .attr("dy","1.2em")
-.append("tspan")
-  .text("with " + surname(author_name.trim()))
-  .attr("x",width + margin.right)
-  .attr("dy","1.2em")
-
-
   //set title
   d3.select(".text-title")
   .text("Scientific production and publishing partners of " + author_name.trim())
 
 //---------------------------------------------------------------------------------------------------------------------
-//  Reading data
+//  READING DATA
 //---------------------------------------------------------------------------------------------------------------------
 
   d3.json("data/data_vis06.json", function(error, data) {
@@ -594,14 +558,13 @@ svg
         
   })//end d3.json
 
-
   
 //--------------------------------------------------------------------------------------------------------------------- 
-// Information icon
+// INFORMATION ICON
 //---------------------------------------------------------------------------------------------------------------------
 
   xIcon = width - 82 
-  yIcon = 7
+  yIcon = 400
 
   svg.append("svg")
       .attr("x", xIcon)
@@ -624,7 +587,7 @@ svg
       .attr("text-anchor", "end")
       .style("opacity","0.6")
       .attr("x", width + margin.right)
-      .attr("y", 20)
+      .attr("y", yIcon + 13)
       .attr("cursor","default")
     .append("tspan")
       .text("to see publications and ")
@@ -635,27 +598,64 @@ svg
       .attr("x",width + margin.right)
       .attr("dy","1.2em")
 
+    //link thickness
+    xIcon = width - 76 
+    yIcon += 90
+
+    svg.append("svg")
+    .attr("x", xIcon)
+    .attr("y", yIcon)
+    .append("path")
+      .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+      .attr("fill", "var(--gray)")
+
+    svg.append("svg")
+    .attr("x", xIcon)
+    .attr("y", yIcon)
+    .append("path")
+    .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+    .attr("fill", "var(--gray)")
+
+    svg
+    .append("text")
+    .text("The link thickness represents the")
+    .attr("class", "text-legend")
+    .attr("text-anchor", "end")
+    .style("opacity","0.6")
+    .attr("x", width + margin.right)
+    .attr("y", yIcon+13)
+    .attr("cursor","default")
+    .append("tspan")
+    .text("number of author's publications")
+    .attr("x",width + margin.right)
+    .attr("dy","1.2em")
+    .append("tspan")
+    .text("with " + surname(author_name.trim()))
+    .attr("x",width + margin.right)
+    .attr("dy","1.2em")
+
 
 
 //-------------------------------------------------------------------------------------------------------------
 // QT PUBLICATION LEGEND
 //-------------------------------------------------------------------------------------------------------------
 
+
         // Add one dot in the legend for each name.
         var size = 12
-
-        var xAlign = width
+        //var xAlign = width - margin.right
+        var xAlign = width + 20
        // var xAlign = 10
-        var yAlign = 420
+        var yAlign = 10
 
         svg.append("text")
         .text("Author with:")
           .attr("class", "text-legend")
-          .attr("x", xAlign)
+          .attr("x", xAlign-2)
           .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
           .attr("font-weight", "bold")
-          .style("alignment-baseline", "middle")
+          .style("alignment-baseline", "top")
         
         yAlign += 20
         xAlign += 5
@@ -669,8 +669,7 @@ svg
             .attr("r", d => Math.sqrt(radius * d))
             .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
             .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
-  
-
+   
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
         .data([1,2,3,6])
@@ -682,13 +681,14 @@ svg
           .style("fill", "#343a40")
           .text(function(d){ 
             if(d == 1)
-              return ("0" + d + " publication")//return ("Author with 0" + d + " publication")
-            return ("0" + d + " publications")// ("Author with 0" + d + " publications")
+              return ("0" + d + " publication")
+            return ("0" + d + " publications")
           })
           .style("cursor", "default")
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .attr("font-size", "10px")
+   
 
 //---------------------------------------------------------------------------------------------------------------
 // FOCUS LEGEND  

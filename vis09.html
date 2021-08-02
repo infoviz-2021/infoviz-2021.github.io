@@ -66,8 +66,10 @@
               <select id = "challenge-select" name = "challenge-select"></select> <br>
               <!--label for="challenge-search">Filter challenge:</label>
               <input id = "challenge-search" name = "challenge-search"></select> <br-->
+              
             </div>
             <div id="FilterableTable"></div>
+            <p id="label-filtered" style="padding-top:1em;"></p>  
           </div>
         </section>
 
@@ -89,7 +91,7 @@
       //var clicks = [{key: "", type: "", value: false}];
       var clicks = []
       var click = []
-      var classFiltered = ""
+      var challengeFiltered = ""
 
       // Initialize plot
       updateChart('year')
@@ -227,6 +229,8 @@
                 //remove selection
                 clicks.pop()
                 updateTable("All","select")
+                
+                d3.select("#label-filtered").text("")
                
               }else{
                 //fix selection
@@ -237,6 +241,7 @@
 
                 highlight(e,d)
                 updateTable(d,"publication")
+                d3.select("#label-filtered").text("Filtered by " + d)
               }
 
               
@@ -251,7 +256,7 @@
               .attr("text-anchor", "left")
               .text("Publication");
 
-          sortedChallenge = impacts.slice().sort((a,b) => d3.ascending(a.order, b.order))
+          sortedChallenge = impacts.slice().sort((a,b) => d3.descending(a.order, b.order))
           // Add Y axis
           y.domain(sortedChallenge.map(d => d.key));
           yAxis.call(d3.axisLeft(y).tickSize(0))
@@ -275,8 +280,8 @@
               //tooltip axis
               d3.select('.simple-tooltip')
                 .style('visibility','visible')
-                .style('top', d == "IH" || d == "DC" ? e.pageY - 70 + 'px' : e.pageY + 'px' )
-                .style('left',0.5*e.pageX - 400 + 'px')
+                .style('top', d == "EC" || d == "DT" ? e.pageY - 90 + 'px' : e.pageY + 'px' )
+                .style('left',0.5*e.pageX - 410 + 'px')
                 .style('min-width','100px' )
                 .style('max-width','310px' )
 
@@ -303,7 +308,9 @@
               .attr("y", -margin.left+20)
               .attr("x", -height/2+50)
               .text("Challenge type")
-
+//---------------------------------------------------------------------------------------------------------------------
+// GRAPH AREA
+//---------------------------------------------------------------------------------------------------------------------
 
           // variable u: map data to existing rect
           var u = svg.selectAll("circle")
@@ -346,6 +353,10 @@
               }               
             }
 
+            //challenge Filtered by table
+            if(challengeFiltered != "" && challengeFiltered != d.impact)
+              showTooltip = false
+
             if(showTooltip){
               //change circle color
               d3.select(this)
@@ -371,7 +382,7 @@
                 .style('visibility','visible')
                 .style('top', function(){ 
                   
-                  if(d.impact == "IH" || d.impact == "DC")
+                  if(d.impact == "EC" || d.impact == "DT")
                     return parseInt(y(d.impact)) + 150 +'px'             
                   
                   return  parseInt(y(d.impact)) + 270 +'px'
@@ -690,16 +701,19 @@ function updateTable(selectedOption, type) {
     .selectAll("option")
     .remove()
   
+  challengeFiltered = ""
   if(type== "publication") 
     allChallengeTypes =  ["Select an option","All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
   else{
+    
     if(selectedOption == "All"){
       allChallengeTypes =  ["All"].concat(impacts.map(d => { return  d.name + " (" + d.key + ")"}));
       d3.selectAll(".label-axisX").style("opacity","1")
       d3.selectAll(".myArea").style("opacity","1")
 
+     
     }else{
-      
+      challengeFiltered = selectedOption.split("(")[1].split(")")[0]
       filterImpact = impacts.filter(d => { 
         
         return d.name + " (" + d.key + ")" != selectedOption})
