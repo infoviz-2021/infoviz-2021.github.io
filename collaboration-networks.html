@@ -519,8 +519,7 @@
         // Add
 
 
-
-               //icon
+      //icon
       xIcon = width - 120
       yIcon = 500
 
@@ -585,14 +584,9 @@
             .attr("cx", xAlign)
             .attr("cy", function(d,i){ return yAlign + i*(size + (Math.sqrt(radius/2 * d)))}) // 100 is where the first dot appears. 25 is the distance between dots
             .attr("r", d => Math.sqrt(radius * d))
-          // .style("fill", function(d){ return d3.rgb(color(d)).darker(0.5)})
-          // .attr("stroke",function(d){ return d3.rgb(color(d)).darker(1.5)})
             .style("fill", function(d){ return d3.rgb(color(d)).darker(0)})
             .attr("stroke",function(d){ return d3.rgb(color(d)).darker(0.5)})
-          //  .on("mouseover", highlightQt)
-        //   .on("mouseleave", noHighlightQt)
-
-
+   
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
         .data([1,2,3,6])
@@ -604,15 +598,14 @@
           .style("fill", "#343a40")
           .text(function(d){ 
             if(d == 1)
-              return ("0" + d + " publication")//return ("Author with 0" + d + " publication")
-            return ("0" + d + " publications")// ("Author with 0" + d + " publications")
+              return ("0" + d + " publication")
+            return ("0" + d + " publications")
           })
           .style("cursor", "default")
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .attr("font-size", "10px")
-        //  .on("mouseover", highlightQt)
-      //   .on("mouseleave", noHighlightQt)
+   
 
       //---------------------------------------------------------------------------------------------------------------
       // FOCUS LEGEND  

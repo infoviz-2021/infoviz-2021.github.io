@@ -98,9 +98,6 @@ function updateDetail(author_name){
       .attr("transform",
               "translate(" + 0 + "," + 0 + ")");
 
-   
-
-
   
   //set title
   d3.select(".text-title")
@@ -555,84 +552,92 @@ function updateDetail(author_name){
           return linkedByIndex[`${a.id},${b.id}`] || linkedByIndex[`${b.id},${a.id}`] || a.id === b.id;
         }
 
-        
-  })//end d3.json
-
-  
+          
 //--------------------------------------------------------------------------------------------------------------------- 
 // INFORMATION ICON
 //---------------------------------------------------------------------------------------------------------------------
+      var showInfo = true
+      if(nodes_paper.length === 1){
+        if(nodes_paper[0].qt === 1){
+          showInfo = false;
+        }
+      }
+      
+      if(showInfo){
+        xIcon = width - 82 
+        yIcon = 400
 
-  xIcon = width - 82 
-  yIcon = 400
+        svg.append("svg")
+            .attr("x", xIcon)
+            .attr("y", yIcon)
+            .append("path")
+              .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+              .attr("fill", "var(--gray)")
+        
+          svg.append("svg")
+            .attr("x", xIcon)
+            .attr("y", yIcon)
+            .append("path")
+            .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+            .attr("fill", "var(--gray)")
+        
+        svg
+          .append("text")
+            .text("Click on the desired author's node")
+            .attr("class", "text-legend")
+            .attr("text-anchor", "end")
+            .style("opacity","0.6")
+            .attr("x", width + margin.right)
+            .attr("y", yIcon + 13)
+            .attr("cursor","default")
+          .append("tspan")
+            .text("to see publications and ")
+            .attr("x",width + margin.right)
+            .attr("dy","1.2em")
+          .append("tspan")
+            .text("partnership details.")
+            .attr("x",width + margin.right)
+            .attr("dy","1.2em")
 
-  svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-        .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-        .attr("fill", "var(--gray)")
-   
-    svg.append("svg")
-      .attr("x", xIcon)
-      .attr("y", yIcon)
-      .append("path")
-       .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-       .attr("fill", "var(--gray)")
-  
-  svg
-    .append("text")
-      .text("Click on the desired author's node")
-      .attr("class", "text-legend")
-      .attr("text-anchor", "end")
-      .style("opacity","0.6")
-      .attr("x", width + margin.right)
-      .attr("y", yIcon + 13)
-      .attr("cursor","default")
-    .append("tspan")
-      .text("to see publications and ")
-      .attr("x",width + margin.right)
-      .attr("dy","1.2em")
-    .append("tspan")
-      .text("partnership details.")
-      .attr("x",width + margin.right)
-      .attr("dy","1.2em")
+          //link thickness
+          xIcon = width - 76 
+          yIcon += 90
 
-    //link thickness
-    xIcon = width - 76 
-    yIcon += 90
+          svg.append("svg")
+          .attr("x", xIcon)
+          .attr("y", yIcon)
+          .append("path")
+            .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
+            .attr("fill", "var(--gray)")
 
-    svg.append("svg")
-    .attr("x", xIcon)
-    .attr("y", yIcon)
-    .append("path")
-      .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-      .attr("fill", "var(--gray)")
+          svg.append("svg")
+          .attr("x", xIcon)
+          .attr("y", yIcon)
+          .append("path")
+          .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+          .attr("fill", "var(--gray)")
 
-    svg.append("svg")
-    .attr("x", xIcon)
-    .attr("y", yIcon)
-    .append("path")
-    .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-    .attr("fill", "var(--gray)")
+          svg
+          .append("text")
+          .text("The link thickness represents the")
+          .attr("class", "text-legend")
+          .attr("text-anchor", "end")
+          .style("opacity","0.6")
+          .attr("x", width + margin.right)
+          .attr("y", yIcon+13)
+          .attr("cursor","default")
+          .append("tspan")
+          .text("number of author's publications")
+          .attr("x",width + margin.right)
+          .attr("dy","1.2em")
+          .append("tspan")
+          .text("with " + surname(author_name.trim()))
+          .attr("x",width + margin.right)
+          .attr("dy","1.2em")
+      }
+          
+  })//end d3.json
 
-    svg
-    .append("text")
-    .text("The link thickness represents the")
-    .attr("class", "text-legend")
-    .attr("text-anchor", "end")
-    .style("opacity","0.6")
-    .attr("x", width + margin.right)
-    .attr("y", yIcon+13)
-    .attr("cursor","default")
-    .append("tspan")
-    .text("number of author's publications")
-    .attr("x",width + margin.right)
-    .attr("dy","1.2em")
-    .append("tspan")
-    .text("with " + surname(author_name.trim()))
-    .attr("x",width + margin.right)
-    .attr("dy","1.2em")
 
 
 
