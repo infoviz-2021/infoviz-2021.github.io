@@ -563,7 +563,7 @@ tr:nth-child(even) {
   background-color: var(--dark-gray);
   color: var(--white);
   padding: 1em;
-  top: 120px;
+  bottom: -405px;
   border-radius: 5px;
   white-space: pre;
   opacity: 0;
