@@ -312,3 +312,12 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   font-size: 11px;
   text-align: center;
 }
+
+.panel-column {
+  display: flex;
+  flex-direction: row;
+}
+
+.panel-column.centralized {
+  justify-content: center;
+}

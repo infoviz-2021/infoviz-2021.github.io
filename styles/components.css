@@ -592,3 +592,35 @@ tr:nth-child(even) {
   opacity: 1;
   z-index: 999;
 }
+
+.stats-and-pie-charts {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 1em;
+}
+
+.stats-in-column {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.stats-in-column .stats__stat {
+  margin: 0 0 1em 0;
+}
+
+.bar-graph-publication-per-year {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-link {
+  font-family: var(--font-family-theme);
+  text-align: center;
+}
+
+.button-link a {
+  color: var(--dark-purple-3);
+  text-decoration: none;
+}
