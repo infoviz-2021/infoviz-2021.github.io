@@ -630,3 +630,7 @@ tr:nth-child(even) {
   font-family: var(--font-family-theme);
   font-size: 0.75rem;
 }
+
+.margin-5 {
+  margin-top: 5em;
+}
