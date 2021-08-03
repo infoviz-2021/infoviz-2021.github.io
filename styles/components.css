@@ -170,9 +170,12 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   font-size: 0.75rem;
 }
 
+.card__body__countries__details__authors__title {
+  white-space: nowrap;
+}
+
 .card__body__countries__details__authors__title strong {
   color: var(--dark-magenta-2);
-  white-space: nowrap;
 }
 
 .card__body__countries__details__authors__list li {
@@ -274,9 +277,7 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   width: 100%;
   align-items: center;
   justify-content: center;
-  margin-top: 5rem;
-  /* border-color: black; */
-  /* border-style: dotted; */
+  margin-top: 1rem;
 }
 
 .wordcloud h2 {
