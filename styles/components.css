@@ -604,6 +604,7 @@ tr:nth-child(even) {
   display: flex;
   flex-direction: column;
   margin: 0;
+  max-width: 300px;
 }
 
 .stats-in-column .stats__stat {
