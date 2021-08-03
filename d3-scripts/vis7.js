@@ -151,7 +151,7 @@ svg.append("svg")
 
 svg.append("text")
     .text("Data collected from")
-    .attr("class", "text-legend")
+    .attr("class", "focus-contributions__vertical-bar-graph__info-label")
     .attr("text-anchor", "end")
     .style("opacity","0.6")
     .attr("x", width + margin.right)

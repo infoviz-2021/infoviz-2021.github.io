@@ -624,3 +624,8 @@ tr:nth-child(even) {
   color: var(--dark-purple-3);
   text-decoration: none;
 }
+
+.focus-contributions__vertical-bar-graph__info-label {
+  font-family: var(--font-family-theme);
+  font-size: 0.75rem;
+}
