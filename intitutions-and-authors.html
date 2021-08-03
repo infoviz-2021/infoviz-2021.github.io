@@ -145,14 +145,6 @@
       
       const geoPath = d3.geoPath()
         .projection(projection)
-
-      const zoom = d3.zoom()
-        .on('zoom', (event) => {
-          svg.attr('transform', event.transform);
-        })
-        .scaleExtent([1, 40]);
-      
-      svg.call(zoom);
       
       d3.json('./data/countries-institutions-authors.json').then(function (institutionsAuthorsList) {
         d3.json('./data/countries.json').then(function (mapFeatures) {
