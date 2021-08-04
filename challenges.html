@@ -43,48 +43,11 @@
     </header>
     <main>
       <div class="container">
-        <div class="panel-column centralized">
-          <section class="stats stats-in-column">
-            <div
-              class="stats__stat stats__stat--light-cornflower-blue tooltip"
-              data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;Co-riding With My eBike to Get Green Lights&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Embracing Companion Technologies&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-computer integration&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Seven HCI Grand Challenges&#013;&#010;The future's hybrid nature&#013;&#010;The Guts Game: Towards Designing Ingestible Games"
-            >
-              <div class="stats__stat__title">SLR Analyzed Publications</div>
-              <div class="stats__stat__value">
-                <span class="stats__stat__value__numeric">20</span>
-              </div>
-            </div>
-            <div>
-              <div class="container" style="border-radius: 15px; 
-              border-color: #ead1dcff;
-              border-style: groove;
-              border-width: 4px; 
-              width: 300px;">
-                <div class="container challeng_text" style="margin: 10px;">
-                  <p>Challenge Types of HInt</p>
-                  <p><strong>IH</strong>: HInt impacts on humans (IH)</p>
-                  <p><strong>DC</strong>: Design challenges</p>
-                  <p><strong>EC</strong>: Evaluation challenges</p>
-                  <p><strong>DT</strong>: Demands for new theories and methods</p>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section class="card">
-            <div class="card__header">
-              <h2>Focus of Publications</h2>
-            </div>
-            <div class="card__body card__body--no-overflow">
-              <div class="card__body__focus-of-publications__pie-graph"></div>
-            </div>
-          </section>
-        </div>
         <section class="card__body__challenge__group">
-          <section class="card" id="challenge_graph">
+          <section class="card">
             <div class="card__header">
               <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
             </div>
-  
             <div class="card__body__challenge__legend text-legend">
               <strong style="padding-right: 0.5em">Order publication by:</strong>
               <input type="radio" id="citation" style="padding-left: 0.5em" name="order" value="citation" onclick="updateChart('citation')" />
@@ -96,11 +59,20 @@
               <input type="radio" id="year" name="order" value="year" onclick="updateChart('year')" checked="checked" />
               <label for="year" onclick="updateChart('year')" style="padding-left: 0.2em">Year</label>
             </div>
-  
-            <!-- Create a div where vis. will take place -->
             <svg id="focus_legend"></svg>
             <div id="challenge_graph"></div>
             <div class="simple-tooltip"></div>
+            <section class="card__body__challenge__legend text-legend">
+              <div class="container" style="width: 300px;">
+                <div class="container challeng_text" style="margin: 10px;">
+                  <strong style="color: black;">Challenge Types of HInt</strong>
+                  <p><strong>IH</strong>: HInt impacts on humans (IH)</p>
+                  <p><strong>DC</strong>: Design challenges</p>
+                  <p><strong>EC</strong>: Evaluation challenges</p>
+                  <p><strong>DT</strong>: Demands for new theories and methods</p>
+                </div>
+              </div>
+            </section>
           </section>
   
           <section class="card__body__challenge" id="card-table">
@@ -324,11 +296,10 @@
                 //tooltip axis
                 d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
-                  .style('top', d == 'EC' || d == 'DT' ? e.pageY - 90 + 'px' : e.pageY + 'px')
-                  .style('left', 0.5 * e.pageX - 410 + 'px')
+                  .style('top', d == 'EC' || d == 'DT' ? e.layerY + 100 + 'px' : e.layerY + 125 + 'px')
+                  .style('left', e.layerX + 25 + 'px')
                   .style('min-width', '100px')
                   .style('max-width', '310px')
-
                   .html('<strong>Challenge type: </strong>' + foundImpact.name + ' (' + foundImpact.key + ')' + '</br></br><strong>Description: </strong>' + foundImpact.description);
               })
               .on('mouseleave', function (e, d) {
