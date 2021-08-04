@@ -572,6 +572,11 @@ tr:nth-child(even) {
   z-index: -1;
 }
 
+.tooltip.tooltip-no-bottom::before {
+  bottom: -55px;
+  left: 25px;
+}
+
 .tooltip::after {
   content: "";
   position: absolute;
@@ -649,4 +654,13 @@ tr:nth-child(even) {
   font-family: var(--font-family-theme);
   font-size: var(--caption-font-size);
   color: var(--gray);
+  position: relative;
+}
+
+.challeng_text p {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: relative;
 }
