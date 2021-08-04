@@ -59,8 +59,11 @@ g.append("g")
                     <strong> List of publications in this year: </strong>
                     <br>
                     ${articles.map(key => (
+                        // console.log(key)
                         `
-                        <br> <strong> - </strong> ${key.title}
+                        <br> <strong>Title: </strong> ${key.title}
+                        <br> <strong>Focus: </strong> HInt ${key.focus}
+                        <br> <strong>Citation: </strong> ${key.citation}
                         <br>`
                     )).join('')}
                 `);
