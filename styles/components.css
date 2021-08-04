@@ -644,3 +644,9 @@ tr:nth-child(even) {
   font-size: var(--caption-font-size);
   color: black;
 }
+
+.challeng_text {
+  font-family: var(--font-family-theme);
+  font-size: var(--caption-font-size);
+  color: var(--gray);
+}
