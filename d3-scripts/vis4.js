@@ -39,7 +39,7 @@ d3.json("/data/data_vis08.json", function(error, data) {
 
     v.append("text")             
         .attr("transform",
-            "translate(" + (width/2) + " ," + 
+            "translate(" + (width/2 - 150) + " ," + 
                         (height + margin.top + 10) + ")")
         .attr("class", "text-axis default-font-family text-color")
         .style("text-anchor", "middle")
