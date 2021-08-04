@@ -564,7 +564,7 @@ tr:nth-child(even) {
   background-color: var(--dark-gray);
   color: var(--white);
   padding: 1em;
-  bottom: -405px;
+  top: 7.5em;
   border-radius: 5px;
   white-space: pre;
   opacity: 0;
