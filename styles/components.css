@@ -635,3 +635,12 @@ tr:nth-child(even) {
 .margin-5 {
   margin-top: 5em;
 }
+
+.legend_title {
+  font-weight: bold;
+  margin-left: 40px;
+  margin-bottom: 10px;
+  font-family: var(--font-family-theme)!important;
+  font-size: var(--caption-font-size);
+  color: black;
+}
