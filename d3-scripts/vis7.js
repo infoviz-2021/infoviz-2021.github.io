@@ -132,7 +132,7 @@ g.append("g")
 var svg = d3.select("#vis7legend")
 
 //icon
-xIcon = width - 130 
+xIcon = width - 110 
 yIcon = 7
 
 svg.append("svg")
