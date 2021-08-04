@@ -324,11 +324,10 @@
                 //tooltip axis
                 d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
-                  .style('top', d == 'EC' || d == 'DT' ? e.pageY - 90 + 'px' : e.pageY + 'px')
-                  .style('left', 0.5 * e.pageX - 410 + 'px')
+                  .style('top', d == 'EC' || d == 'DT' ? e.layerY + 100 + 'px' : e.layerY + 125 + 'px')
+                  .style('left', e.layerX + 25 + 'px')
                   .style('min-width', '100px')
                   .style('max-width', '310px')
-
                   .html('<strong>Challenge type: </strong>' + foundImpact.name + ' (' + foundImpact.key + ')' + '</br></br><strong>Description: </strong>' + foundImpact.description);
               })
               .on('mouseleave', function (e, d) {
