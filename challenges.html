@@ -43,29 +43,11 @@
     </header>
     <main>
       <div class="container">
-        <div class="panel-column centralized">
-          <section class="stats stats-in-column">
-            <div class="container" style="border-radius: 15px; 
-            border-color: #ead1dcff;
-            border-style: groove;
-            border-width: 4px; 
-            width: 300px;">
-              <div class="container challeng_text" style="margin: 10px;">
-                <p>Challenge Types of HInt</p>
-                <p><strong>IH</strong>: HInt impacts on humans (IH)</p>
-                <p><strong>DC</strong>: Design challenges</p>
-                <p><strong>EC</strong>: Evaluation challenges</p>
-                <p><strong>DT</strong>: Demands for new theories and methods</p>
-              </div>
-            </div>
-          </section>
-        </div>
         <section class="card__body__challenge__group">
-          <section class="card" id="challenge_graph">
+          <section class="card">
             <div class="card__header">
               <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
             </div>
-  
             <div class="card__body__challenge__legend text-legend">
               <strong style="padding-right: 0.5em">Order publication by:</strong>
               <input type="radio" id="citation" style="padding-left: 0.5em" name="order" value="citation" onclick="updateChart('citation')" />
@@ -77,11 +59,20 @@
               <input type="radio" id="year" name="order" value="year" onclick="updateChart('year')" checked="checked" />
               <label for="year" onclick="updateChart('year')" style="padding-left: 0.2em">Year</label>
             </div>
-  
-            <!-- Create a div where vis. will take place -->
             <svg id="focus_legend"></svg>
             <div id="challenge_graph"></div>
             <div class="simple-tooltip"></div>
+            <section class="card__body__challenge__legend text-legend">
+              <div class="container" style="width: 300px;">
+                <div class="container challeng_text" style="margin: 10px;">
+                  <strong style="color: black;">Challenge Types of HInt</strong>
+                  <p><strong>IH</strong>: HInt impacts on humans (IH)</p>
+                  <p><strong>DC</strong>: Design challenges</p>
+                  <p><strong>EC</strong>: Evaluation challenges</p>
+                  <p><strong>DT</strong>: Demands for new theories and methods</p>
+                </div>
+              </div>
+            </section>
           </section>
   
           <section class="card__body__challenge" id="card-table">
