@@ -483,20 +483,24 @@ function updateDetail(author_name){
                   .style('visibility', 'hidden')
           }else{
               
-            content = `<strong>${d.qtPartner}</strong> of <strong>${d.qt}</strong>`
 
-            if(d.qtPartner === 1 ) 
-              content += " publication" 
-            else
-              content += " publications" 
+          if(d.qtPartner === 1 ){ 
+            content = `<strong>${d.qtPartner}</strong> publication in collaboration with ${surname(author.id)}` 
+          }else{
+            content = `<strong>${d.qtPartner}</strong> publications in collaboration with ${surname(author.id)}` 
+          }
+
+          if(d.qt === 1 ) 
+            content += ` <br><strong>${d.qt}</strong> publication in total`
+          else
+            content += ` <br><strong>${d.qt}</strong> publications in total`
             
-            content += ` with ${surname(author.id)}`
       
-            d3.select('.simple-tooltip')
-                  .style('visibility', 'visible')
-                  .style('top', d3.event.y + 10 + 'px')
-                  .style('left',d3.event.x + 10 + 'px')
-                  .html(content)
+          d3.select('.simple-tooltip')
+            .style('visibility', 'visible')
+            .style('top', d3.event.y + 10 + 'px')
+            .style('left',d3.event.x + 10 + 'px')
+            .html(content)
           }
         }
 
@@ -631,7 +635,7 @@ function updateDetail(author_name){
           .attr("x",width + margin.right)
           .attr("dy","1.2em")
           .append("tspan")
-          .text("with " + surname(author_name.trim()))
+          .text("in collaboration with " + surname(author_name.trim()))
           .attr("x",width + margin.right)
           .attr("dy","1.2em")
       }
