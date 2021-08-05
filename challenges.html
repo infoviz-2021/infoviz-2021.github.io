@@ -44,6 +44,7 @@
     <main>
       <div class="container">
         <section class="card__body__challenge__group">
+          <!-- GRAPH AREA -->
           <section class="card">
             <div class="card__header">
               <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
@@ -61,7 +62,7 @@
             </div>
             <svg id="focus_legend"></svg>
             <div id="challenge_graph"></div>
-            <div class="simple-tooltip"></div>
+            <div id="challenge-tooltip" class="simple-tooltip"></div>
             <section class="card__body__challenge__legend text-legend">
               <div class="container" style="width: 300px;">
                 <div class="container challeng_text" style="margin: 10px;">
@@ -75,11 +76,12 @@
             </section>
           </section>
   
-          <section class="card__body__challenge" id="card-table">
+          <!-- TABLE AREA -->
+          <section class="card" id="card-table">
             <div class="card__header">
               <h2 class="text-title">Examples of HInt challenges listed by analyzed publications</h2>
             </div>
-  
+            <section class="card">
             <div id="container">
               <div class="card__body__challenge__table__search">
                 <label for="challenge-select">Select challenge type:</label>
@@ -87,7 +89,6 @@
                 <br />
               </div>
               <div id="FilterableTable"></div>
-              <p id="label-filtered" style="padding-top: 1em"></p>
             </div>
           </section>
         </section>
@@ -110,6 +111,7 @@
       var clicks = [];
       var click = [];
       var challengeFiltered = '';
+      var focusSelected = ''
 
       var className = function (d) {
         var s = d.split(' ');
@@ -122,13 +124,17 @@
       // Initialize plot
       updateChart('year');
 
-      //---------------------------------------------------------------------------------------------------------------------
-      // FUNCTION: updateChart
-      //---------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------
+// FUNCTION: updateChart
+//---------------------------------------------------------------------------------------------------------------------
 
       function updateChart(orderBy) {
+        //update table to All
+        updateTable('All', 'select')
+
         d3.select('#svg_challenge_graph').remove();
         d3.selectAll('#svg_focus_legend').remove();
+       
 
         //legend: append the svg object to the body of the page
         var svg_legend = d3
@@ -220,11 +226,11 @@
               .selectAll('text')
               .attr('class', (d) => {
                 text = '';
-                const foundPaper = papers.find((element) => element.citation == d);
-                foundPaper.challenge_code.forEach((e) => (text += ' ' + e));
+                const foundPublication = papers.find((element) => element.citation == d);
+                foundPublication.challenge_code.forEach((e) => (text += ' ' + e));
 
                 classImpact = '';
-                foundPaper.impact.forEach((e) => (classImpact += ' label-axisX-' + e));
+                foundPublication.impact.forEach((e) => (classImpact += ' label-axisX-' + e));
 
                 return 'label-axisX ' + className(d) + ' ' + text + ' ' + classImpact;
               })
@@ -247,7 +253,12 @@
                   clicks.pop();
                   updateTable('All', 'select');
 
-                  d3.select('#label-filtered').text('');
+                  //label legend
+                  d3.selectAll('.label-' + focusSelected).attr('font-weight', 'normal');
+                  d3.select('.mycircle-legend' + focusSelected).style('fill', function (d) {
+                    return d3.rgb(color(focusSelected)).darker(0.0);
+                  });
+
                 } else {
                   //fix selection
                   clicks.pop();
@@ -257,7 +268,7 @@
 
                   highlight(e, d);
                   updateTable(d, 'publication');
-                  d3.select('#label-filtered').text('Filtered by ' + d);
+                  
                 }
               });
 
@@ -335,9 +346,9 @@
               .attr('class', function (d) {
                 text = '';
 
-                const foundPaper = papers.find((element) => element.id === d.id);
+                const foundPublication = papers.find((element) => element.id === d.id);
 
-                foundPaper.challenge_code.forEach((e) => {
+                foundPublication.challenge_code.forEach((e) => {
                   if (e.substring(0, 2) == d.impact) return (text += ' circle-' + e);
 
                   return '';
@@ -383,31 +394,27 @@
                   //Get Focus and Contribution description
                   const foundImpact = impacts.find((element) => element.key == d.impact);
                   const foundFocus = keys.find((element) => element.key == d.focus);
-                  const foundPaper = papers.find((element) => element.id === d.id);
+                  const foundPublication = papers.find((element) => element.id === d.id);
 
                   authors = '<strong>Authors: </strong>';
 
-                  if (foundPaper.qt_author === 1) {
+                  if (foundPublication.qt_author === 1) {
                     authors = '<strong>Author: </strong>';
                   }
 
-                  authors += foundPaper.citation_order;
+                  authors += foundPublication.citation_order;
 
-                  d3.select('.simple-tooltip')
+                  //show tooltip
+                  var tooltip = d3.select('.simple-tooltip')
                     .style('visibility', 'visible')
                     .style('top', function () {
-                      if (d.impact == 'EC' || d.impact == 'DT') return parseInt(y(d.impact)) + 150 + 'px';
+                      if (d.impact == 'EC' || d.impact == 'DT') return parseFloat(y(d.impact)) + 150 + 'px';
 
-                      return parseInt(y(d.impact)) + 270 + 'px';
-                    })
-                    .style('left', function () {
-                      if (x(d.citation) > 350) return parseInt(x(d.citation)) - 200 + 'px';
-
-                      return parseInt(x(d.citation)) + 150 + 'px';
+                      return parseFloat(y(d.impact)) + 270 + 'px';
                     })
                     .html(
                       '<strong>Publication title: </strong>' +
-                        foundPaper.title +
+                        foundPublication.title +
                         '</br><strong>Focus: </strong> HInt ' +
                         foundFocus.name +
                         ' (' +
@@ -419,12 +426,24 @@
                         foundImpact.key +
                         ')' +
                         '</br><strong>Event/Forum: </strong>' +
-                        foundPaper.event +
+                        foundPublication.event +
                         '</br>' +
                         authors
                     )
                     .style('min-width', '200px')
                     .style('max-width', '350px');
+
+                  //get tooltip width
+                  tooltip_width = parseFloat(tooltip.style('width').split('px')[0])
+                  
+                  tooltip
+                    .style('left', function () {
+                      x_limit = tooltip_width + parseFloat(x(d.citation))
+                      if(x_limit > 600) 
+                        return parseFloat(x(d.citation)) - 230 + 'px';
+
+                      return parseFloat(x(d.citation)) + 150 + 'px';
+                    })
 
                   //axisY bold
                   d3.select('.axisY-' + className(d.impact)).attr('font-weight', 'bold');
@@ -479,6 +498,9 @@
 
         // What to do when one group is hovered
         var highlight = function (e, d) {
+
+          
+
           if (typeof d == 'string') {
             if (clicks.length != 0) {
               //check if clicked is the same d
@@ -492,6 +514,27 @@
 
                 d3.selectAll('.label-axisX').style('opacity', '0.1');
                 d3.selectAll('.' + className(d)).style('opacity', '1');
+
+                
+                //check if any label is selected
+                if(focusSelected != '' ) {
+                  d3.selectAll('.label-' + focusSelected).attr('font-weight', 'normal');
+                  d3.select('.mycircle-legend' + focusSelected).style('fill', function (d) {
+                    return d3.rgb(color(focusSelected)).darker(0.0);
+                  });
+                }
+
+                //search publication
+                const foundPublication = papers.find((element) => element.citation === d);
+                focusSelected = foundPublication.focus;
+
+                //highlight Legend
+                d3.selectAll('.label-' + focusSelected).attr('font-weight', 'bold');
+                d3.select('.mycircle-legend' + focusSelected).style('fill', function (d) {
+                  return d3.rgb(color(focusSelected)).darker(0.5);
+                });
+
+
               }
             } else {
               d3.select('.' + className(d)).attr('font-weight', 'bold');
@@ -501,16 +544,25 @@
               });
             }
           } else {
-            //set font label to bold
-            d3.selectAll('.label-' + d.key).attr('font-weight', 'bold');
 
-            d3.select('.mycircle-legend' + d.key).style('fill', function (d) {
-              return d3.rgb(color(d.key)).darker(0.5);
-            });
-            // reduce opacity of all groups
-            d3.selectAll('.myArea').style('opacity', 0.1);
-            // expect the one that is hovered
-            d3.selectAll('.' + d.key).style('opacity', 1);
+            if (clicks.length == 0) {
+
+              //set font legend label to bold
+              d3.selectAll('.label-' + d.key).attr('font-weight', 'bold');
+
+              d3.select('.mycircle-legend' + d.key).style('fill', function (d) {
+                return d3.rgb(color(d.key)).darker(0.5);
+              });
+              // reduce opacity of all groups
+              d3.selectAll('.myArea').style('opacity', 0.1);
+
+              if(challengeFiltered != ''){
+                // expect the one that is hovered
+                d3.selectAll('.' + d.key+'.'+challengeFiltered).style('opacity', 1);
+              }else{
+                d3.selectAll('.' + d.key).style('opacity', 1);
+              }
+            }
           }
         };
 
@@ -521,11 +573,17 @@
               //axis X
               d3.selectAll('.label-axisX').attr('font-weight', 'normal');
 
-              if (clicks.length > 0) d3.selectAll('.' + className(clicks[0].key)).attr('font-weight', 'bold');
+                if (clicks.length > 0) {
+                  d3.selectAll('.' + className(clicks[0].key)).attr('font-weight', 'bold');
+                
+                }
 
               d3.selectAll('.circle-' + className(d)).style('fill', function (d) {
                 return color(d.focus);
               });
+
+             
+
             } else {
               d3.select('.' + className(d)).attr('font-weight', 'normal');
               d3.selectAll('.' + d).style('fill', function (d) {
@@ -533,19 +591,30 @@
               });
             }
           } else {
-            //set font label to normal
-            d3.selectAll('.label-' + d.key).attr('font-weight', 'normal');
 
-            d3.select('.mycircle-legend' + d.key).style('fill', function (d) {
-              return color(d.key);
-            });
+            if (clicks.length == 0) {
+              //set font label to normal
+              d3.selectAll('.label-' + d.key).attr('font-weight', 'normal');
 
-            d3.selectAll('.myArea').style('opacity', 1);
+              d3.select('.mycircle-legend' + d.key).style('fill', function (d) {
+                return color(d.key);
+              });
+
+              if(challengeFiltered != ''){
+                // expect the one that is hovered
+                d3.selectAll('.' + challengeFiltered).style('opacity', 1);
+
+              }else{
+
+                d3.selectAll('.myArea').style('opacity', 1);
+              }
+            }
+
           }
         };
 
         // --------------------------------------------------------------------------------------------------
-        //  LEGEND
+        //  SECTION: LEGEND
         // --------------------------------------------------------------------------------------------------
 
         // Add one dot in the legend for each name.
@@ -692,11 +761,11 @@
         .style('width', (d, i) => {
           if (i == 0)
             //second column
-            return '350px';
+            return '360px';
           if (i == 1)
             //second column
-            return '180px';
-          return '10px'; //last column
+            return '200px';
+          return '8px'; //last column
         })
         .style('text-align', (d, i) => {
           if (i == 2) return 'right';
@@ -796,9 +865,9 @@
                 return d.name == selectedOption;
               });
             } else if (type === 'publication') {
-              const foundPaper = papers.filter((p) => p.citation == selectedOption)[0];
+              const foundPublication = papers.filter((p) => p.citation == selectedOption)[0];
               dataFilter = data.filter(function (d) {
-                return d.citations.includes(foundPaper.id);
+                return d.citations.includes(foundPublication.id);
               });
             } else if (type === 'id') {
               if (typeof d === 'number')
@@ -806,22 +875,19 @@
                   return d.citations.includes(selectedOption);
                 });
             } else if (type === 'click') {
-              console.log(selectedOption);
 
               dataFilter = [];
 
               selectedOption.forEach((s) => {
-                const foundPaper = papers.filter((p) => p.citation == s.key)[0];
+                const foundPublication = papers.filter((p) => p.citation == s.key)[0];
                 dataFilter = dataFilter.concat(
                   data.filter(function (d) {
-                    return d.citations.includes(foundPaper.id);
+                    return d.citations.includes(foundPublication.id);
                   })
                 );
               });
 
               dataFilter = new Set(dataFilter);
-
-              console.log(dataFilter);
             }
 
             // data bind and enter the rows
@@ -837,7 +903,6 @@
 
                 if (clicks.length > 0) {
                   citation = clicks[0].key;
-                  console.log(citation);
                   //   d3.selectAll(".label-axisX." + d.id).style("opacity",".1")
                   d3.selectAll('.circle-' + className(citation)).style('opacity', '1');
                 } else {
@@ -854,7 +919,7 @@
                   d3.selectAll('.myArea').style('opacity', '1');
                 } else {
                   if (clicks.length > 0) {
-                    console.log(clicks[0].key);
+           
                   } else {
                     d3.selectAll('.label-axisX').style('opacity', '0.1');
                     d3.selectAll('.label-axisX-' + selectedKey).style('opacity', '1');
