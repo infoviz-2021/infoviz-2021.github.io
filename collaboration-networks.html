@@ -8,7 +8,10 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src= "collaboration-networks-detail.js"> </script>
+    <script src="scripts/util.js"></script>
+    <script src="data/keys.js"></script>
+    <script src= "d3-scripts/collaboration-networks-detail.js"> </script>
+    
     <link rel="stylesheet" href="styles/settings.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/generic.css">
@@ -113,34 +116,10 @@
 
         </section>
       </div>
-
-
       
     </main>
 
     <script>
-
-      /*var margin = {top: 50, right: 130, bottom: 10, left: 10},
-                  width = 1435 - margin.left - margin.right,
-                  height = 700 - margin.top - margin.bottom*/
-
-      
-      //legend: append the svg object to the body of the page
-    /*  var svg_legend = d3.select("#focus_legend")
-        .attr("width", 450)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-                "translate(" + 0 + "," + 0 + ")");*/
-
-     /* svg_legend.append("rect")
-      .attr("width", 450)
-      .attr("height", height + margin.top + margin.bottom)
-      .attr("x", 0)
-      .attr("y", 0)
-      .attr("fill", "none")
-      .attr("stroke", "blue")*/
-     // viewBox="0 0 300 300"
 
       var svg = d3.select("#my_dataviz")
         .attr("width",  width + margin.left + margin.right)
@@ -149,27 +128,6 @@
 
 
       const radius = 25;
-      //const color = d3.scaleOrdinal(d3.schemeSet2);
-      // 
-     // bgcolor = d3.rgb("#f6cb55") //tom de amarelo
-      //bgcolor = d3.rgb("#e5c494")
-     // bgcolor = d3.rgb(d3.schemeSet2[3])
-      //fill = [bgcolor.brighter(2),bgcolor,bgcolor.darker(1),bgcolor.darker(2)];
-      //fill = [bgcolor.brighter(0.5), bgcolor,bgcolor.darker(1),bgcolor.darker(1.5)];
-     // fill = [bgcolor.darker(0.1), bgcolor.darker(0.5),bgcolor.darker(1.5),bgcolor.darker(2)];
-      //fill = [bgcolor, bgcolor,bgcolor,bgcolor];
-
-      // cor padrão: #8e7bd7
-      // cor de destaque: #6443ea
-
-
-      //Focus
-      var keys = [
-        { "key": "FGR", "name":"from a general perspective (FGR)"},
-        { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
-        { "key": "FS", "name":"in a specific domain or context of use (FS)"}
-      ]; 
-              
 
       var size = 15;
       var shift = {x : 80, y : -20}
@@ -242,7 +200,7 @@
               return 2;
             return 1;
           }) ;
-          //.attr("stroke-width", d => Math.sqrt(d.qt) / 2); ;
+  
         
       /**************************** AUTHOR'S NODE *********************************/
       var node = svg.append("g")
@@ -259,12 +217,11 @@
               const getnode = nodes_paper.filter(e => d.paper.includes(e.id))
               
               getnode.forEach(e => (name_class = name_class + " " +e.focus))
-            // console.log("class node:", name_class)
+
               return name_class;
 
             })
             .attr("r", function(d){ return Math.sqrt(radius * d.qt)})
-            //.attr("fill", function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
             .attr("fill", function(d){ return (color(d.qt))})
             .attr("stroke",function(d){ return d3.rgb(color(d.qt)).darker(0.5)})
             .style("cursor", "pointer")
@@ -289,8 +246,6 @@
               .attr("height", size)
               .attr("rx", 1)
               .attr("ry", 1)
-            // .style("fill",  function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
-              //.style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(1.5)})
               .style("fill",  function(d){ return colorPaper(d.focus)})
               .style("stroke",function(d){ return d3.rgb(colorPaper(d.focus)).darker(0.5)})
               .on('mouseover', fade(0.1))
@@ -317,9 +272,6 @@
         simulation
             .nodes(nodes)
             .on("tick", ticked);
-
-      /* simulation.force("link")
-            .links(links_author);*/
         
         simulation.force("link")
             .links(links_paper);
@@ -354,7 +306,7 @@
             
             if(d.type == "paper"){
 
-              foundFocus = keys.filter(e => e.key === d.focus)[0]
+              foundFocus = key_focus.filter(e => e.key === d.focus)[0]
 
               content = `<strong>Publication title: </strong>${d.title} 
                         <br> <strong>Focus:</strong> on HInt ${foundFocus.name}<br>`
@@ -372,36 +324,7 @@
         }
 
 
-        /*********************************** FILTER AUTHOR *******************************************/
-
-      /*    function handleNodeMouseOver(d){
-      let currentNode = d3.select(this);
-      let currentData = currentNode.datum();
-
-      currentData.fx = currentData.x;
-      currentData.fy = currentData.y;
-      currentNode.datum(currentData);
-
-      currentNode.attr("r", 20);
-
-      sim.force("charge", d3.forceManyBody().strength(d =>  d === currentNode.datum() ? -500:-40));
-      sim.alphaTarget(0.3).restart();
-      }
-
-      function handleNodeMouseOut(d){
-        let currentNode = d3.select(this);
-        let currentData = currentNode.datum();
-
-        currentData.fx = null;
-        currentData.fy = null;
-        currentNode.datum(currentData);
-        
-        currentNode.attr("r", 5);
-        sim.force("charge", d3.forceManyBody().strength(-40));
-        sim.alphaTarget(0.3).restart();
-      }
-
-      */
+    
 
         function fade(opacity) {
 
@@ -573,6 +496,7 @@
           .attr("text-anchor", "left")
           .attr("font-weight", "bold")
           .style("alignment-baseline", "top")
+          .style("cursor","default")
         
         yAlign += 20
         xAlign += 5
@@ -605,6 +529,7 @@
           .attr("text-anchor", "left")
           .style("alignment-baseline", "middle")
           .attr("font-size", "10px")
+          .style("cursor","default")
    
 
       //---------------------------------------------------------------------------------------------------------------
@@ -623,11 +548,12 @@
           .attr("y", yAlign) // 100 is where the first dot appears. 25 is the distance between dots
           .attr("text-anchor", "left")
           .attr("font-weight", "bold")
+          .style("cursor","default")
      
 
         yAlign += 15  
         svg.selectAll("myrect")
-        .data(keys)
+        .data(key_focus)
         .enter()
         .append("rect")
             .attr("class", function(d) { return "label-rect" + d.key })
@@ -639,12 +565,13 @@
             .attr("ry", 1)
             .style("fill",  function(d){ return colorPaper(d.key)})
             .style("stroke",function(d){ return d3.rgb(colorPaper(d.key)).darker(0.5)})
+            .style("cursor","default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
 
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
-        .data(keys)
+        .data(key_focus)
         .enter()
         .append("text")
             .attr("class", function(d) { return "text-legend label-"+ d.key })
@@ -654,6 +581,7 @@
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
             .style("cursor", "default")
+            .style("cursor","default")
             .on("mouseover", highlightFocus)
             .on("mouseleave", noHighlightFocus)
 

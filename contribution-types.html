@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="data/keys.js"></script>
+    <script src="scripts/util.js"></script>
     <link rel="stylesheet" href="styles/settings.css" />
     <link rel="stylesheet" href="styles/base.css" />
     <link rel="stylesheet" href="styles/generic.css" />
@@ -127,32 +128,7 @@
 
     <script>
 
-
-
-      function breakText(d, maxWidth){
-
-      length = d.length;
-      words = d.split(" ");
-      phrase = ""
-      phrases = []
-
-      if(d.length <= maxWidth){
-        phrases = d
-      }else{
-
-        for(i in words){
-            if(phrase.length + words[i].length <= maxWidth){
-              phrase += words[i] + " ";
-            }else{
-              phrases.push(phrase.trim())
-              phrase = words[i] + " "       
-            }
-          }
-          phrases.push(phrase.trim())
-        }
-      return phrases
-      } 
-
+      
       // set the dimensions and margins of the graph
       var margin = { top: 10, right: 180, bottom: 120, left: 200 },
         width = 1000 - margin.left - margin.right,
@@ -204,16 +180,16 @@
         // Color scale: give me a focus, I return a color
         var color = d3
           .scaleOrdinal()
-          .domain(keys.map((d) => d.key))
+          .domain(key_focus.map((d) => d.key))
           .range(d3.schemeSet2);
-
+       
         var focus = d3
           .scaleOrdinal()
-          .domain(keys.map((d) => d.key))
-          .range(keys.map((d) => d.abbreviation));
+          .domain(key_focus.map((d) => d.key))
+          .range(key_focus.map((d) => d.order));
 
         //Read the data
-        var url = 'data/data_vis08.json';
+        var url = 'data/data_contribution-types.json';
 
         d3.json(url)
           .then(function (file) {
@@ -234,58 +210,48 @@
               limitHeight = 60;
             } else if (orderBy === 'focus') {
               //sort data by focus
-              sortedData = data.slice().sort((a, b) => d3.descending(a.focus, b.focus));
+              sortedData = data.slice().sort((a, b) => d3.descending(focus(a.focus), focus(b.focus)));
               mouseYSpace = 90;
               limitHeight = 50;
             }
 
-            // Add X axis
-            x.domain(contributions.map((d) => d.key));
-            xAxis.call(d3.axisBottom(x).tickSize(0))
-            .selectAll("text")
-              .attr("dy", "1.2em")
-         
-
-
+                
 //---------------------------------------------------------------------------------------------------------------------
 // Contribution label - Axis X axis
 //---------------------------------------------------------------------------------------------------------------------
-
+          // Add X axis
+          x.domain(key_contribution.map((d) => d.key));
+            xAxis.call(d3.axisBottom(x).tickSize(0))
+            .selectAll("text")
+              .attr("dy", "1.2em")
+              .attr("class", d => "axisX-" + d)
+              .style("cursor", "default")  
+              
           var labelAxisX = svg.append('g')
             .selectAll('text')
-            .data(contributions)
+            .data(key_contribution)
             .enter()
             .append('text')
               .attr("class", function(d) { return "text-legend label-" + d.key })
-             // .attr("x",  d => x(d.key) - 50)
               .attr("y",  height + 20)
               .attr("text-anchor","middle")
               .style("cursor", "default")  
-              .attr("fill", "#343a40")
+              .attr("fill", "var(--gray)")
 
-            contributions.forEach( function (d,i){
+          key_contribution.forEach( function (d,i){
 
-              textElement = d3.selectAll(".label-" + d.key)
-
-             
-              //if(d.name.length < x.bandwidth())
-                tspan = breakText(d.name, x.bandwidth()/5)
-            //  else
-             //   tspan = breakText(d.name, x.bandwidth())
+            textElement = d3.selectAll(".label-" + d.key)
+            tspan = breakText(d.name, x.bandwidth()/5)
       
-                
-              for(j in tspan){
-                textElement.append("tspan")
-                .text(tspan[j])
-                .attr("dy","1.3em")
-                .attr("x", x(d.key)+58)
-              }
-          
+            for(j in tspan){
+              textElement.append("tspan")
+              .text(tspan[j])
+              .attr("dy","1.3em")
+              .attr("x", x(d.key)+58)
+    
+            }
 
-
-            })
-
-
+          })
 
             // Add X axis title
             svg
@@ -296,12 +262,41 @@
               .attr('text-anchor', 'left')
               .text('Contribution types');
 
+//---------------------------------------------------------------------------------------------------------------------
+// PUBLICATION label - Axis Y 
+//---------------------------------------------------------------------------------------------------------------------
+
             // Add Y axis
             y.domain(sortedData.map((d) => d.citation));
 
             yAxis.call(d3.axisLeft(y).tickSize(0))
             .selectAll("text")
-              .attr("dx", "-0.5em");
+              .attr("dx", "-0.5em")
+              .attr("class", function(d){ 
+                const foundPublication = papers.find((element) => element.citation === d);
+                
+                return "myArea axisY-" + className(d) + " " + foundPublication.focus}
+              )
+              .style("cursor", "default")
+              .on("mouseover",function(e,d){ 
+               
+                d3.select(this)
+                  .attr('font-weight', 'bold');
+
+                d3.selectAll("." + className(d))
+                  .style("fill", function(d){
+                     return d3.rgb(color(d.focus)).darker(0.5)})  
+              })
+              .on("mouseout",function(e,d){ 
+                  d3.select(this)
+                  .attr('font-weight', 'normal');
+
+                  d3.selectAll("." + className(d))
+                    .style("fill", function(d){
+                      return d3.rgb(color(d.focus)).darker(0.0)})  
+              })
+             
+
 
             // Y axis title:
             svg
@@ -310,7 +305,13 @@
               .attr('transform', 'rotate(-90)')
               .attr('y', -margin.left + 20)
               .attr('x', -height / 2 + 50)
-              .text('Publication');
+              .text('Publication')
+              .style("cursor", "default");
+
+
+//---------------------------------------------------------------------------------------------------------------------
+// GRAPH 
+//---------------------------------------------------------------------------------------------------------------------
 
             // variable u: map data to existing rect
             var u = svg.selectAll('rect').data(sortedData, function (d) {
@@ -321,7 +322,7 @@
               .append('rect')
               .merge(u)
               .attr('class', function (d) {
-                return 'myArea ' + focus(d.focus);
+                return 'myArea ' + d.focus + ' ' + className(d.citation);
               })
               .attr('x', function (d) {
                 return x(d.contribution);
@@ -337,6 +338,7 @@
                 return color(d.focus);
               })
               .on('mouseover', function (e, d) {
+              
                 //change rect color
                 d3.select(this)
                   .style('fill', function (d) {
@@ -350,17 +352,17 @@
                   .attr('height', y.bandwidth() + 6);
 
                 //Get Focus and Contribution description
-                const foundContribution = contributions.find((element) => element.key == d.contribution);
-                const foundFocus = keys.find((element) => element.key == d.focus);
-                const foundPaper = papers.find((element) => element.id === d.id);
+                const foundContribution = key_contribution.find((element) => element.key == d.contribution);
+                const foundFocus = key_focus.find((element) => element.key == d.focus);
+                const foundPublication = papers.find((element) => element.id === d.id);
 
                 authors = '<strong>Authors: </strong>';
 
-                if (foundPaper.qt_author === 1) {
+                if (foundPublication.qt_author === 1) {
                   authors = '<strong>Author: </strong>';
                 }
 
-                authors += foundPaper.citation_order;
+                authors += foundPublication.citation_order;
 
                 d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
@@ -368,14 +370,13 @@
                     return (e.pageY < height + limitHeight ? e.pageY + 10 : e.pageY - mouseYSpace) + 'px';
                   })
                   .style('left', e.pageX + 10 + 'px')
-                  //.style('left',function(){ return ( e.pageX < (width) ?  e.pageX + 10 : e.pageX - 300 ) + 'px'})
                   .html(
                     '<strong>Publication title: </strong>' +
-                      foundPaper.title +
+                      foundPublication.title +
                       '</br><strong>Focus: </strong> HInt ' +
                       foundFocus.name +
                       ' (' +
-                      foundFocus.abbreviation +
+                      foundFocus.key_contribution +
                       ')' +
                       '</br><strong>Contribution: </strong>' +
                       foundContribution.name +
@@ -383,10 +384,19 @@
                       foundContribution.key +
                       ')' +
                       '</br><strong>Event/Forum: </strong>' +
-                      foundPaper.event +
+                      foundPublication.event +
                       '</br>' +
                       authors
                   );
+
+                  //highlight publication on Y axis
+
+                  //axisY bold
+                  d3.select('.axisY-' + className(d.citation)).attr('font-weight', 'bold');
+
+                  //axisX bold
+                  d3.select('.axisX-' + d.contribution).attr('font-weight', 'bold');
+
               })
               .on('mouseleave', function (e, d) {
                 d3.select('.simple-tooltip').style('visibility', 'hidden');
@@ -402,6 +412,15 @@
                   .attr('y', function (d) {
                     return y(d.citation);
                   });
+
+                  //no highlight publication on Y axis
+
+                  //axisY normal
+                  d3.select('.axisY-' + className(d.citation)).attr('font-weight', 'normal');
+
+                  //axisX normal
+                  d3.select('.axisX-' + d.contribution).attr('font-weight', 'normal');
+
               });
           })
           .catch((err) => console.log(err)); //end d3.json reading
@@ -411,23 +430,23 @@
         // What to do when one group is hovered
         var highlight = function (e, d) {
           //set font label to bold
-          d3.selectAll('.label-' + d.abbreviation).attr('font-weight', 'bold');
+          d3.selectAll('.label-' + d.key).attr('font-weight', 'bold');
 
-          d3.select('.label-rect' + d.abbreviation).style('fill', function (d) {
+          d3.select('.label-rect' + d.key).style('fill', function (d) {
             return d3.rgb(color(d.key)).darker(0.5);
           });
           // reduce opacity of all groups
           d3.selectAll('.myArea').style('opacity', 0.05);
           // expect the one that is hovered
-          d3.selectAll('.' + d.abbreviation).style('opacity', 1);
+          d3.selectAll('.' + d.key).style('opacity', 1);
         };
 
         // And when it is not hovered anymore
         var noHighlight = function (e, d) {
           //set font label to normal
-          d3.selectAll('.label-' + d.abbreviation).attr('font-weight', 'normal');
+          d3.selectAll('.label-' + d.key).attr('font-weight', 'normal');
 
-          d3.select('.label-rect' + d.abbreviation).style('fill', function (d) {
+          d3.select('.label-rect' + d.key).style('fill', function (d) {
             return color(d.key);
           });
 
@@ -449,15 +468,16 @@
           .attr('y', yAlign - 20) // 100 is where the first dot appears. 25 is the distance between dots
           .attr('text-anchor', 'left')
           .attr('font-weight', 'bold')
+          .attr('cursor', 'default')
           .style('alignment-baseline', 'middle');
 
         svg_legend
           .selectAll('myrect')
-          .data(keys)
+          .data(key_focus)
           .enter()
           .append('rect')
           .attr('class', function (d) {
-            return 'label-rect' + d.abbreviation;
+            return 'label-rect' + d.key;
           })
           .attr('x', function (d, i) {
             return xAlign + (i == 2 ? i * 340 : i * 230);
@@ -477,22 +497,23 @@
         // Add text in the legend for each name.
         svg_legend
           .selectAll('mylabels')
-          .data(keys)
+          .data(key_focus)
           .enter()
           .append('text')
           .attr('class', function (d) {
-            return 'text-legend label-' + d.abbreviation;
+            return 'text-legend label-' + d.key;
           })
           .attr('x', function (d, i) {
             return xAlign + size * 1.2 + (i == 2 ? i * 340 : i * 230);
           })
           //.attr("y", function(d,i){ return 36 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-          .attr('y', yAlign + size / 4)
+          .attr('y', yAlign + size / 4 + 2)
           .text(function (d) {
-            return d.name + ' (' + d.abbreviation + ')';
+            return d.name + ' (' + d.key + ')';
           })
           .attr('text-anchor', 'left')
           .style('alignment-baseline', 'middle')
+          .attr('cursor', 'default')
           .on('mouseover', highlight)
           .on('mouseleave', noHighlight);
       } //end function update()

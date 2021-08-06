@@ -8,7 +8,8 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="data/keys2.js"></script>
+    <script src="data/keys.js"></script>
+    <script src="scripts/util.js"></script>
     <link rel="stylesheet" href="styles/settings.css" />
     <link rel="stylesheet" href="styles/base.css" />
     <link rel="stylesheet" href="styles/generic.css" />
@@ -106,8 +107,6 @@
         height = 350 - margin.top - margin.bottom;
 
       var radius = 9;
-
-      //var clicks = [{key: "", type: "", value: false}];
       var clicks = [];
       var click = [];
       var challengeFiltered = '';
@@ -135,7 +134,6 @@
         d3.select('#svg_challenge_graph').remove();
         d3.selectAll('#svg_focus_legend').remove();
        
-
         //legend: append the svg object to the body of the page
         var svg_legend = d3
           .select('#focus_legend')
@@ -172,18 +170,13 @@
         // Color scale: give me a focus, I return a color
         var color = d3
           .scaleOrdinal()
-          .domain(keys.map((d) => d.key))
+          .domain(key_focus.map((d) => d.key))
           .range(d3.schemeSet2);
-
-        var focus = d3
-          .scaleOrdinal()
-          .domain(keys.map((d) => d.key))
-          .range(keys.map((d) => d.order));
 
         var challengeMap = d3
           .scaleOrdinal()
-          .domain(impacts.map((d) => d.key))
-          .range(impacts.map((d) => d.name));
+          .domain(key_challenge.map((d) => d.key))
+          .range(key_challenge.map((d) => d.name));
 
         //Read the data
         var url = 'data/data_vis09.json';
@@ -215,9 +208,9 @@
 
             shiftAxis = { x: radius * 1.8, y: radius * 2 };
 
-            //-----------------------------------------------------------------------------------------------------------------------
-            //  SECTION: AXIS
-            //-----------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------
+//  SECTION: AXIS
+//-----------------------------------------------------------------------------------------------------------------------
 
             // Add X axis
             x.domain(sortedData.map((d) => d.citation));
@@ -232,7 +225,7 @@
                 classImpact = '';
                 foundPublication.impact.forEach((e) => (classImpact += ' label-axisX-' + e));
 
-                return 'label-axisX ' + className(d) + ' ' + text + ' ' + classImpact;
+                return 'myArea label-axisX ' + className(d) + ' ' + text + ' ' + classImpact + ' ' + foundPublication.focus;
               })
               .attr('dy', '1.2em')
               .attr('dx', '-.20em')
@@ -281,7 +274,7 @@
               .attr('text-anchor', 'left')
               .text('Publication');
 
-            sortedChallenge = impacts.slice().sort((a, b) => d3.descending(a.order, b.order));
+            sortedChallenge = key_challenge.slice().sort((a, b) => d3.descending(a.order, b.order));
             // Add Y axis
             y.domain(sortedChallenge.map((d) => d.key));
             yAxis
@@ -290,8 +283,6 @@
               .attr('class', (d) => {
                 return 'axisY-' + d;
               })
-              //.text(d => { return challengeMap(d) + `(${d}) `})
-              //.text(d => { return challengeMap(d)})
               .attr('dx', '-0.2em')
               .attr('cursor', 'default')
               .on('mouseover', function (e, d) {
@@ -302,14 +293,14 @@
                 });
 
                 //Get Contribution description
-                const foundImpact = impacts.find((element) => element.key == d);
+                const foundImpact = key_challenge.find((element) => element.key == d);
 
                 //tooltip axis
                 d3.select('.simple-tooltip')
                   .style('visibility', 'visible')
-                  .style('top', d == 'EC' || d == 'DT' ? e.layerY + 100 + 'px' : e.layerY + 125 + 'px')
-                  .style('left', e.layerX + 25 + 'px')
-                  .style('min-width', '100px')
+                  .style('top', d == 'EC' || d == 'DT' ? e.pageY*0.60 + 'px' : e.pageY*0.50 + 50 + 'px')
+                  .style('left', e.pageX * 0.10 - 260 + 'px')
+                  .style('min-width', '200px')
                   .style('max-width', '310px')
                   .html('<strong>Challenge type: </strong>' + foundImpact.name + ' (' + foundImpact.key + ')' + '</br></br><strong>Description: </strong>' + foundImpact.description);
               })
@@ -392,8 +383,8 @@
                     .attr('r', radius + 2);
 
                   //Get Focus and Contribution description
-                  const foundImpact = impacts.find((element) => element.key == d.impact);
-                  const foundFocus = keys.find((element) => element.key == d.focus);
+                  const foundImpact = key_challenge.find((element) => element.key == d.impact);
+                  const foundFocus = key_focus.find((element) => element.key == d.focus);
                   const foundPublication = papers.find((element) => element.id === d.id);
 
                   authors = '<strong>Authors: </strong>';
@@ -498,8 +489,6 @@
 
         // What to do when one group is hovered
         var highlight = function (e, d) {
-
-          
 
           if (typeof d == 'string') {
             if (clicks.length != 0) {
@@ -635,7 +624,7 @@
         xAlign = 5;
         svg_legend
           .selectAll('mycircle-legend')
-          .data(keys)
+          .data(key_focus)
           .enter()
           .append('circle')
           .attr('class', function (d) {
@@ -659,7 +648,7 @@
         // Add text in the legend for each name.
         svg_legend
           .selectAll('mylabels')
-          .data(keys)
+          .data(key_focus)
           .enter()
           .append('text')
           .attr('cursor', 'default')
@@ -724,7 +713,7 @@
 
       //put challenges in select
       var allChallengeTypes = ['All'].concat(
-        impacts.map((d) => {
+        key_challenge.map((d) => {
           return d.name + ' (' + d.key + ')';
         })
       );
@@ -793,7 +782,7 @@
         challengeFiltered = '';
         if (type == 'publication')
           allChallengeTypes = ['Select an option', 'All'].concat(
-            impacts.map((d) => {
+            key_challenge.map((d) => {
               return d.name + ' (' + d.key + ')';
             })
           );
@@ -805,7 +794,7 @@
 
           if (selectedOption == 'All') {
             allChallengeTypes = ['All'].concat(
-              impacts.map((d) => {
+              key_challenge.map((d) => {
                 return d.name + ' (' + d.key + ')';
               })
             );
@@ -814,7 +803,7 @@
             d3.selectAll('.myArea').style('opacity', '1');
           } else {
             challengeFiltered = selectedOption.split('(')[1].split(')')[0];
-            filterImpact = impacts.filter((d) => {
+            filterImpact = key_challenge.filter((d) => {
               return d.name + ' (' + d.key + ')' != selectedOption;
             });
 
@@ -906,11 +895,14 @@
                   //   d3.selectAll(".label-axisX." + d.id).style("opacity",".1")
                   d3.selectAll('.circle-' + className(citation)).style('opacity', '1');
                 } else {
-                  //  d3.selectAll(".label-axisX").style("opacity","0.1")
-                  d3.selectAll('.label-axisX.' + d.id).style('opacity', '1');
-
+                  
+                  
                   d3.selectAll('.myArea').style('opacity', '0.1');
                   d3.selectAll('.circle-' + d.id).style('opacity', '1');
+
+                  console.log(d.id)
+                  //d3.selectAll(".label-axisX").style("opacity","0.1")
+                  d3.selectAll('.' + d.id).style('opacity', '1');
                 }
               })
               .on('mouseleave', (d) => {
