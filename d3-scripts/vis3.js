@@ -12,14 +12,14 @@ var myWords =[{word:"Transport", size:19, color:"#b5de2b", context:"Autonomous c
                 {word:"Informacional", size:11, color:"#b5de2b", context:"News recommender systems; Systems to weather forecast or traffic alert; Smart Chatbot", totalPublications:"13", examples:""},
                 {word:"Exertion", size:9, color:"#b5de2b", context:"Smart Bike", totalPublications:"11", examples:"9"},
                 {word:"Entertainment", size:6, color:"#b5de2b", context:"Video, movie or musics recommendation systems; Augmented Reality Games; Virtual Reality Games", totalPublications:"6", examples:""},
-                {word:"Social", size:5, color:"#b5de2b", context:"Contac recommendation systems on social media", totalPublications:"5", examples:""},
+                {word:"Social", size:5, color:"#b5de2b", context:"Contact recommendation systems on social media", totalPublications:"5", examples:""},
                 {word:"Event Management", size:4, color:"#b5de2b", context:"Smart event rescheduling", totalPublications:"4", examples:""},
                 {word:"Educational", size:4, color:"#b5de2b", context:"Augmented Reality Educational Games", totalPublications:"4", examples:""},
                 {word:"Smart Environment", size:3, color:"#b5de2b", context:"Smart House", totalPublications:"", examples:"3"},
                 {word:"e-Commerce", size:2, color:"#b5de2b", context:"Product or service recommendation systems", totalPublications:"2", examples:""},]
 
     var word_entries = Object.entries(myWords);
-
+    
     var xScale = d3.scaleLinear()
     .domain([0, d3.max(word_entries, function(d) {
         return d.size;
@@ -48,11 +48,11 @@ function fillColor(d,i){
 // Wordcloud features that are different from one word to the other must be here
 var layout = d3.layout.cloud()
     .size([width, height])
-    .words(myWords.map(function(d) { return {text: d.word, size:d.size, color:d.color, context:d.context,}; }))
+    .words(myWords.map(function(d) { console.log(d); return {text: d.word, size:d.size, color:d.color, context:d.context,}; }))
     .padding(0.5)        //space between words
     .rotate(function() { return 0; })
     .font('Impact') 
-    .fontSize(function(d) { return d.size * 5 ; })      // font size of words
+    .fontSize(function(d) { return d.size * 3; })      // font size of words
     .on("end", draw);
 layout.start();
 
@@ -77,7 +77,7 @@ svg
     .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
     })
-    .text(function(d) { return d.text; })
+    .text(function(d) { console.log(d.text); return d.text; })
     .on("mousemove", function(e){
             tooltip
                 .style("left", e.pageX + "px")
@@ -86,7 +86,7 @@ svg
                 .attr("class", "toolTip")
                 .html(//'<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 
                         // '</br><strong>HInt technology example: </strong>' + e.srcElement.getAttribute('context') +
-                        '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 5 +
+                        '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 3 +
                         '</br><strong>Examples of HInt technologies used in this area or domain: </strong>' + e.srcElement.getAttribute('context')
                 );
             })
