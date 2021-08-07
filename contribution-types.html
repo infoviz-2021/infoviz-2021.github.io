@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="styles/generic.css" />
     <link rel="stylesheet" href="styles/objects.css" />
     <link rel="stylesheet" href="styles/components.css" />
-    <link rel="stylesheet" href="vis06-08-styles.css" />
+    <link rel="stylesheet" href="styles/vis06-08-styles.css" />
+    <link rel="stylesheet" href="styles/vis10.css" />
 
     <title>Trabalho de InfoViz - Vis08</title>
   </head>
@@ -94,6 +95,7 @@
               <div class="simple-tooltip"></div>
               <div class="card__body__contribuition-types__label-axisX"></div>
             </div>
+           
           </div>
         </section>
         <div class="stats-and-pie-charts margin-5">
@@ -130,9 +132,9 @@
 
       
       // set the dimensions and margins of the graph
-      var margin = { top: 10, right: 180, bottom: 120, left: 200 },
+      var margin = { top: 10, right: 180, bottom: 180, left: 200 },
         width = 1000 - margin.left - margin.right,
-        height = 540 - margin.top - margin.bottom;
+        height = 600 - margin.top - margin.bottom;
 
       // Initialize plot
       update('year');
@@ -261,6 +263,28 @@
               .attr('y', height + 110)
               .attr('text-anchor', 'left')
               .text('Contribution types');
+
+            // link
+            svg
+              .append('text')
+              .attr('text-anchor', 'end')
+              .attr('x', width / 2 - 80)
+              .attr('y', height + 110)
+              .attr('text-anchor', 'left')
+              .text('Contribution types');
+            
+             svg
+              .append("svg:a").attr("xlink:href", "reference-list.html")
+              .append("svg:text")
+              .text("Click to see the reference list of publications")
+              .attr("class","text-legend")
+              .style("text-decoration","underline")
+              .attr("fill","#0000EE")
+              .attr("y", height + margin.bottom-20)
+              .attr("x", -margin.left+40)
+              .attr("text-anchor", "begin");
+
+
 
 //---------------------------------------------------------------------------------------------------------------------
 // PUBLICATION label - Axis Y 
@@ -485,7 +509,7 @@
           // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
           .attr('y', yAlign)
           .attr('width', size)
-          .attr('height', size / 2)
+          .attr('height', size/2)
           .attr('rx', 5)
           .attr('ry', 5)
           .style('fill', function (d) {

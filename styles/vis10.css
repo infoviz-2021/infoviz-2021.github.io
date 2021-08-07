@@ -10,21 +10,32 @@ table {
     color: var(--dark-gray) !important;
     font-size: var(--caption-font-size) !important;
     font-family: var(--font-family-theme) !important;
+    border-collapse: collapse;
+    cursor: default;
+    border: 0px; 
+    width: 100%;
 }
 
-table, th, td { border: 1px solid rgba(224, 224, 224, 0.842); cursor: default;}
 
 td, th {
-    padding: 5px;
+    padding: 8px;
     text-align: left;
-    height: 20px;
+    height: 32px;
+    border-top: 1px solid rgba(224, 224, 224, 0.842); 
+    border-bottom: 1px solid rgba(224, 224, 224, 0.842); 
+    cursor: default;
 }
 
 th {
-    background-color: #3C799C;
+    background-color: var(--deep-purple-200);
     color: white;
+    color: #343a40;
+    height: 36px;
 }
 
+tr:nth-child(even) {background-color: var(--gray-50);}
+
 tr:hover td { 
-    background-color:#e1e1e18c;
+    background-color: var(--gray-200);
 }
+

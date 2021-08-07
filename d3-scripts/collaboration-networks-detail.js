@@ -33,45 +33,11 @@ const colorPaper = d3.scaleOrdinal()
 
 const colorPaperLight = d3.scaleOrdinal()
   .domain(keys.map(d=>d.key))
-//  .range(["#b3e2cd94","#fdcdac94","#cbd5e894"])
   .range(["#b3e2cd50","#fdcdac50","#cbd5e850"])
 
 
- // ["#b3e2cd","#fdcdac","#cbd5e8","#f4cae4","#e6f5c9","#fff2ae","#f1e2cc","#cccccc"]
 
-var surname = function(author_name){
-  //separete names
-  names = author_name.split(" ")  
 
-  last = " " + names.pop() +", "
-  first_letter = names[0][0] + "."
-
-  return (last + first_letter)
-}
-
-function breakText(d, maxWidth){
-
-  length = d.length;
-  words = d.split(" ");
-  phrase = ""
-  phrases = []
-
-  if(d.length <= maxWidth){
-    phrases = d
-  }else{
-  
-    for(i in words){
-        if(phrase.length + words[i].length <= maxWidth){
-          phrase += words[i] + " ";
-        }else{
-          phrases.push(phrase.trim())
-          phrase = words[i] + " "       
-        }
-      }
-      phrases.push(phrase.trim())
-    }
-  return phrases
-} 
 
 function updateDetail(author_name){  
   

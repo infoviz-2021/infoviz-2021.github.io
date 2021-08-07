@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles/generic.css" />
     <link rel="stylesheet" href="styles/objects.css" />
     <link rel="stylesheet" href="styles/components.css" />
-    <link rel="stylesheet" href="vis06-08-styles.css" />
+    <link rel="stylesheet" href="styles/vis06-08-styles.css" />
 
     <title>Trabalho de InfoViz</title>
   </head>
@@ -75,6 +75,15 @@
                 </div>
               </div>
             </section>
+
+            <section class="card__body__challenge__legend text-legend">
+              <div class="container" style="width: 300px;">
+                <div class="container" style="margin: 10px;margin-top: 40px;">
+                  <p><a href="reference-list.html">Click to see the reference list of publications</a></p>  
+                </div>
+              </div>
+            </section>
+
           </section>
   
           <!-- TABLE AREA -->
@@ -898,10 +907,8 @@
                   
                   
                   d3.selectAll('.myArea').style('opacity', '0.1');
-                  d3.selectAll('.circle-' + d.id).style('opacity', '1');
 
-                  console.log(d.id)
-                  //d3.selectAll(".label-axisX").style("opacity","0.1")
+                  d3.selectAll('.circle-' + d.id).style('opacity', '1')
                   d3.selectAll('.' + d.id).style('opacity', '1');
                 }
               })

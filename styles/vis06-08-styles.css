@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import "settings.css";
 
 body {
     font-family: Roboto, sans-serif;
@@ -76,49 +77,24 @@ stroke-width: 1.5px;
     
     font-family: Roboto, sans-serif;
     color: #343a40;
-    background-color:#aaa ;
-    height: 36px;
+    background-color: var(--deep-purple-200);
+    height: 29px;
   }
 
     
   th, td {
     text-align: left;
-    padding: 10px;
-    height: 32px;
-
+    padding: 8px;
+    height: 26px;
     border-top: 1px solid rgba(224, 224, 224, 0.842); 
     border-bottom: 1px solid rgba(224, 224, 224, 0.842); 
     cursor: default;
   }
 
-  tr:nth-child(even) {background-color: #f5f5f5 ;}
 
+  tr:nth-child(even) {background-color: var(--gray-50);}
 
   tr:hover td { 
-    background-color:#e0e0e0 ;
-  }
-
-
- /* th, tr { 
-    border-top: 1px solid rgba(224, 224, 224, 0.842); 
-    border-bottom: 1px solid rgba(224, 224, 224, 0.842); 
-    cursor: default;
-  }*/
-
-  /*
-  td, th {
-    padding: 5px;
-    text-align: left;
-    height: 20px;
-  
+      background-color: var(--gray-200);
   }
   
-
-  
-  td { background-color: white; }
-  
-  
- 
-
-  
-  */
