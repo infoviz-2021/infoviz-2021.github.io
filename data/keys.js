@@ -1,7 +1,7 @@
 var key_focus = [
-    { "key": "FGR", "name":"from a general perspective", "order":1},
-    { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute", "order":2},
-    { "key": "FS", "name":"in a specific domain or context of use", "order": 3}
+    { "key": "FGR", "name":"from a general perspective", "order":1, "color": "#66c2a5"},
+    { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute", "order":2, "color": "#fc8d62"},
+    { "key": "FS", "name":"in a specific domain or context of use", "order": 3, "color": "#8da0cb"}
 ]
    
 var key_contribution = [

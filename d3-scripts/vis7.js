@@ -39,7 +39,7 @@ g.append("g")
     .selectAll("g")
     .data(d3.stack().keys(keys)(data_csv))
     .enter().append("g")
-    .attr("fill", function(d) { return z7(d.key); })
+    .attr("fill", function(d) {return z7(d.key); })
     .selectAll("rect")
     .data(function(d) { return d; })
     .enter().append("rect")
@@ -50,6 +50,8 @@ g.append("g")
     .attr("class", "text-axis default-font-family text-color")
     .on("mousemove", function(e){
             var articles = data.filter(d => d.year == e.data.Ano);
+            var referenceArray = ['in a specific domain or context of use', 'from a general perspective with emphasis on a quality attribute', 'from a general perspective']
+            articles = articles.sort((a, b) => referenceArray.indexOf(a.focus) - referenceArray.indexOf(b.focus))
             tooltip
                 .style("left", (d3.event.pageX ) + "px")
                 .style("top", (d3.event.pageY) + "px")
@@ -59,16 +61,19 @@ g.append("g")
                     <strong> List of publications in this year: </strong>
                     <br>
                     ${articles.map(key => (
-                        // console.log(key)
+                        `<div style="border-left: 4px solid; border-color:${key_focus.find(k => k.name == key.focus).color}; padding: 5px; margin: 5px;">
+                            <strong>Title: </strong> ${key.title}
+                            <br> <strong>Citation: </strong> ${key.citation}
+                            <br> <strong>Focus: </strong> HInt ${key.focus} (${key_focus.find(k => k.name == key.focus).key})
+                        </div>
                         `
-                        <br> <strong>Title: </strong> ${key.title}
-                        <br> <strong>Focus: </strong> HInt ${key.focus}
-                        <br> <strong>Citation: </strong> ${key.citation}
-                        <br>`
                     )).join('')}
                 `);
             })
     .on("mouseout", function(d){ tooltip.style("display", "none").attr("class", "tollTip");});
+
+    // <span style="height: 10px;width: 10px;background-color: ;border-radius: 0%; display: inline-block;"></span>
+
 
 var data2 = [
     { x: 2015, y: 0 },
