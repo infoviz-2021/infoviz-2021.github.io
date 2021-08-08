@@ -1,4 +1,3 @@
-
 const totalArticles = 20;
 const data2 = [
   { abbreviation: 'FGR', name: 'Publications focused on HInt in a general perspective (FGR)', value: 6 },
@@ -50,19 +49,29 @@ svgPieChart
   .on('mouseover', function (e, d) {
     d3.select(this).transition().duration('50').attr('opacity', '.85');
  
+    tooltip = d3.select('.tooltip-vis')
+    console.log(tooltip)
     //tooltip 
-    d3.select('.simple-tooltip')
+    d3.select('.tooltip-vis')
       .style('visibility', 'visible')
-      .style('top', e.pageY + 10 + 'px')
-      .style('left', e.pageX + 10 +'px')
-     
+      .style('top', e.pageY + 5 +'px')
+      .style('left', e.pageX + 5 +'px')
       .style('max-width', '300px')
-      .html(` <strong>${d.data.name} </strong> <br>${d.data.value.toLocaleString()}  of ${totalArticles} analyzed publications`)
-      //.html('<strong>Challenge type: </strong>' + foundImpact.name + ' (' + foundImpact.key + ')' + '</br></br><strong>Description: </strong>' + foundImpact.description);
+      .html(`
+      
+        <div style="border-left: 4px solid; border-color:${color(d.data.name)}; padding: 5px;">
+          <strong>${d.data.name}</strong>
+          <div style="margin-top: 4px;">
+            <i>${d.data.value.toLocaleString()}  of ${totalArticles} analyzed publications</i>
+          </div>
+        </div>`
+      )
+    
+     
   })
   .on('mouseout', function (d, i) {
     d3.select(this).transition().duration('50').attr('opacity', '1');
-    d3.select('.simple-tooltip')
+    d3.select('.tooltip-vis')
     .style('visibility', 'hidden')
   })
  // .append('title')

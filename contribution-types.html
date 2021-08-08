@@ -92,7 +92,7 @@
               </div>
               <div id="focus_legend"></div>
               <div id="my_dataviz"></div>
-              <div class="simple-tooltip"></div>
+              <div class="tooltip-vis"></div>
               <div class="card__body__contribuition-types__label-axisX"></div>
             </div>
            
@@ -386,7 +386,7 @@
 
                 authors += foundPublication.citation_order;
 
-                d3.select('.simple-tooltip')
+                d3.select('.tooltip-vis')
                   .style('visibility', 'visible')
                   .style('top', function () {
                     return (e.pageY < height + limitHeight ? e.pageY + 10 : e.pageY - mouseYSpace) + 'px';
@@ -394,22 +394,21 @@
                   .style('max-width', '400px')
                   .style('left', e.pageX + 10 + 'px')
                   .html(
-                    '<strong>Publication title: </strong>' +
-                      foundPublication.title +
-                      '</br><strong>Focus: </strong> HInt ' +
-                      foundFocus.name +
-                      ' (' +
-                      foundFocus.key_contribution +
-                      ')' +
-                      '</br><strong>Contribution: </strong>' +
-                      foundContribution.name +
-                      ' (' +
-                      foundContribution.key +
-                      ')' +
-                      '</br><strong>Event/Forum: </strong>' +
-                      foundPublication.event +
-                      '</br>' +
-                      authors
+                    `
+                      <strong>Publication title: </strong> ${foundPublication.title}
+                        <div style="margin-top: 4px;">
+                          <strong>Focus: </strong> HInt ${foundFocus.name} ( ${foundFocus.key})
+                        </div>
+                        <div style="margin-top: 4px;">
+                          <strong>Contribution: </strong>${foundContribution.name} (${foundContribution.key}) 
+                        </div>
+                        <div style="margin-top: 4px;">
+                          <strong>Event/Forum: </strong> ${foundPublication.event}
+                        </div>
+                        <div style="margin-top: 4px;">
+                          ${authors}
+                        </div>
+                     `
                   );
 
                   //highlight publication on Y axis
@@ -422,7 +421,7 @@
 
               })
               .on('mouseleave', function (e, d) {
-                d3.select('.simple-tooltip').style('visibility', 'hidden');
+                d3.select('.tooltip-vis').style('visibility', 'hidden');
 
                 d3.select(this)
                   .style('stroke', 'none')

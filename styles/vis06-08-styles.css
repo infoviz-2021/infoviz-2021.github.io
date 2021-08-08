@@ -42,19 +42,6 @@ stroke-width: 1.5px;
 }
 
 
-.simple-tooltip{
-    position: absolute;
-    visibility: hidden;
-    max-width: 400px;
-    height: auto;
-    font-size: 80%;
-   /* opacity: .95;*/
-    background-color: white !important;
-    padding: 5px;   
-    border: 1px solid #343a40;
-    color: #343a40;
-
-  }
 
   #container {
     width: 100%;

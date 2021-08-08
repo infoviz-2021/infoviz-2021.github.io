@@ -558,21 +558,26 @@ tr:nth-child(even) {
   column-gap: 40px;
 }
 
-/*.simple-tooltip{
+.tooltip-vis{
   position: absolute;
   visibility: hidden;
-  min-width: 390px;
   max-width: 400px;
   height: auto;
   font-size: 80%;
- /* opacity: .95;
-  opacity: 0;
-  background-color: var(--white);
+  opacity: .95;
+  /*background-color: #e6dedf;*/
+  /*background-color: var(--gray-tooltip);*/
+  background-color: var(--gray-100);
   padding: 5px;   
-  border: 1px solid var(--dark-gray);
+  /*border: 1px solid #343a40;*/
+  border-radius: 1px;
   color: var(--dark-gray);
+  /*box-shadow: 0 0 2px var(--dark-gray);*/
+  /* offset-x | offset-y | blur-radius | color */
+  box-shadow: 1px 1px 3px var(--gray);
+
 }
-*/
+
 .tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
