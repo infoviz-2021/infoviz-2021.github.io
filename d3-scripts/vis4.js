@@ -3,7 +3,7 @@ var svg4 = d3.select("#vis4"),
     width = +svg4.attr("width") - margin.left - margin.right,
     height = +svg4.attr("height") - margin.top - margin.bottom;
     
-var tooltip4 = d3.select("body").append("div").attr("class", "toolTip");
+var tooltip4 = d3.select("body").append("div").attr("class", "tooltip-data-v4");
     
 var x4 = d3.scaleLinear().range([0, width]);
 var y4 = d3.scaleBand().range([height, 0]);
@@ -67,16 +67,17 @@ d3.json("/data/data_vis08.json", function(error, data) {
                 .style("left", d3.event.pageX - 50 + "px")
                 .style("top", d3.event.pageY - 70 + "px")
                 .style("display", "inline-block")
-                .attr("class", "toolTip")
+                .attr("class", "tooltip-data-v4")
+                .attr("min-width","80px")
                 .html(`
                     <strong> List of publications in this event/forum: </strong>
                     <br>
                     ${d[1].sort((a,b) => b.year - a.year).map(key => (
-                    `
-                    <br> <strong>Publication title: </strong> ${key.title}
+                    `<div style="border-left: 4px solid; border-color:${  keys.find(k => k.key == key.focus).color}; padding: 5px; margin: 5px;">
+                    <strong>Publication title: </strong> ${key.title}
                     <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
                     <br> <strong>Citation: </strong> ${key.citation}
-                    <br>`
+                    </div>`
                     )).join('')}
                 `);
         })

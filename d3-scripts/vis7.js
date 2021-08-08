@@ -1,4 +1,4 @@
-var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+var tooltip = d3.select("body").append("div").attr("class", "tooltip-data-v4");
 
 var svgVis7 = d3.select("#vis7"),
     margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -56,9 +56,11 @@ g.append("g")
                 .style("left", (d3.event.pageX ) + "px")
                 .style("top", (d3.event.pageY) + "px")
                 .style("display", "inline-block")
-                .attr("class", "toolTip")
+                .attr("class", "tooltip-data-v4")
+                .style("min-width","300px")
+                .style("max-width","500px")
                 .html(`
-                    <strong> List of publications in this year: </strong>
+                    <strong> List of publications in ${articles[0].year}:</strong>
                     <br>
                     ${articles.map(key => (
                         `<div style="border-left: 4px solid; border-color:${key_focus.find(k => k.name == key.focus).color}; padding: 5px; margin: 5px;">
@@ -106,7 +108,9 @@ data2.forEach(function(p) {
 g.append("g")
     .attr("class", "text-axis default-font-family text-color")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x7));
+    .call(d3.axisBottom(x7).tickSize(0))
+    .selectAll("text")
+    .attr('dy', '1.05em');
 
 // text label for the x axis
 g.append("text")             

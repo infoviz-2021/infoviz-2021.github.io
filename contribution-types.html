@@ -92,7 +92,7 @@
               </div>
               <div id="focus_legend"></div>
               <div id="my_dataviz"></div>
-              <div class="tooltip-vis"></div>
+              <div class="tooltip-data"></div>
               <div class="card__body__contribuition-types__label-axisX"></div>
             </div>
            
@@ -386,26 +386,27 @@
 
                 authors += foundPublication.citation_order;
 
-                d3.select('.tooltip-vis')
+                d3.select('.tooltip-data')
                   .style('visibility', 'visible')
                   .style('top', function () {
                     return (e.pageY < height + limitHeight ? e.pageY + 10 : e.pageY - mouseYSpace) + 'px';
                   })
-                  .style('max-width', '400px')
+                  .style('max-width', '350px')
+                  .style('max-width', '500px')
                   .style('left', e.pageX + 10 + 'px')
                   .html(
                     `
                       <strong>Publication title: </strong> ${foundPublication.title}
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 2px;">
                           <strong>Focus: </strong> HInt ${foundFocus.name} ( ${foundFocus.key})
                         </div>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 2px;">
                           <strong>Contribution: </strong>${foundContribution.name} (${foundContribution.key}) 
                         </div>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 2px;">
                           <strong>Event/Forum: </strong> ${foundPublication.event}
                         </div>
-                        <div style="margin-top: 4px;">
+                        <div style="margin-top: 2px;">
                           ${authors}
                         </div>
                      `
@@ -421,7 +422,7 @@
 
               })
               .on('mouseleave', function (e, d) {
-                d3.select('.tooltip-vis').style('visibility', 'hidden');
+                d3.select('.tooltip-data').style('visibility', 'hidden');
 
                 d3.select(this)
                   .style('stroke', 'none')

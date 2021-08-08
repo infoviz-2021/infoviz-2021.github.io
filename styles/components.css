@@ -494,13 +494,15 @@ div.card__body__countries__tooltip {
   flex-direction: column;
   position: absolute;
   visibility: hidden;
-  font-size: 100%;
-  color: #333333;
-  background-color: #e6e6e6;
-  opacity: 0.9;
+  font-size: 80%;
+  color: var(--dark-gray);
+  background-color: var(--gray-100);
+  opacity: 0. 95;
   padding: 0.3em;
   font-family: var(--font-family-theme);
-  font-size: 13px;
+  /*font-size: 13px;*/
+  border-radius: 1px;
+  box-shadow: 1px 1px 3px var(--gray);
   white-space: nowrap;
 }
 
@@ -558,26 +560,6 @@ tr:nth-child(even) {
   column-gap: 40px;
 }
 
-.tooltip-vis{
-  position: absolute;
-  visibility: hidden;
-  max-width: 400px;
-  height: auto;
-  font-size: 80%;
-  opacity: .95;
-  /*background-color: #e6dedf;*/
-  /*background-color: var(--gray-tooltip);*/
-  background-color: var(--gray-100);
-  padding: 5px;   
-  /*border: 1px solid #343a40;*/
-  border-radius: 1px;
-  color: var(--dark-gray);
-  /*box-shadow: 0 0 2px var(--dark-gray);*/
-  /* offset-x | offset-y | blur-radius | color */
-  box-shadow: 1px 1px 3px var(--gray);
-
-}
-
 .tooltip::before {
   content: attr(data-tooltip);
   position: absolute;
@@ -618,6 +600,43 @@ tr:nth-child(even) {
   opacity: 1;
   z-index: 999;
 }
+
+
+.tooltip-data{
+  position: absolute;
+  visibility: hidden;
+  max-width: 400px;
+  height: auto;
+  font-size: 80%;
+  /*opacity: .95;*/
+  background-color: var(--gray-100);
+  padding: 8px;   
+  border-radius: 1px;
+  color: var(--dark-gray);
+  /* offset-x | offset-y | blur-radius | color */
+  box-shadow: 1px 1px 3px var(--gray);
+
+}
+
+.tooltip-data-v4{
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  min-width: 80px;
+  height: auto;
+  /*font-size: 80%;*/
+  /*opacity: .95;*/
+  background-color: var(--gray-100);
+  padding: 8px;
+  border-radius: 1px;
+  text-align: center;
+  color: var(--dark-gray);
+  font-size: var(--caption-font-size);
+  font-family: var(--font-family-theme);
+  text-align: left;
+  box-shadow: 1px 1px 3px var(--gray);
+}
+
 
 .stats-and-pie-charts {
   display: flex;

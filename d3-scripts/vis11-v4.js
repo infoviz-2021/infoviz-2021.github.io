@@ -1,4 +1,4 @@
-var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+var tooltip = d3.select("body").append("div").attr("class", "tooltip-data-v4");
 
 const totalArticles = 20;
 const data2 = [
@@ -50,14 +50,21 @@ svgPieChart
   .attr('d', arc())
   .on('mouseover', function (d,i) {
     d3.select(this).transition().duration('50').attr('opacity', '.85');
-
     tooltip
-    .style("left", (d3.event.pageX ) + 5+"px")
+    .style("left", (d3.event.pageX ) + 5 +"px")
     .style("top", (d3.event.pageY) + 5 + "px")
     .style("display", "inline-block")
-    .attr("class", "toolTip")
+    .attr("class", "tooltip-data-v4")
     .style('max-width', '300px')
-    .html(` <strong>${d.data.name} </strong> <br>${d.value.toLocaleString()}  of ${totalArticles} analyzed publications`)
+    .html(`
+      
+        <div style="border-left: 4px solid; border-color:${color(d.data.name)}; padding: 5px;">
+          <strong>${d.data.name}</strong>
+          <div style="margin-top: 3px;">
+            <i>${d.data.value.toLocaleString()}  of ${totalArticles} analyzed publications</i>
+          </div>
+        </div>`
+      )
   })
   .on('mouseout', function (d, i) {
     d3.select(this).transition().duration('50').attr('opacity', '1');

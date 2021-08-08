@@ -116,7 +116,7 @@
           </div>
        
        
-          <div class='tooltip-vis'></div>
+          <div class='tooltip-data'></div>
 
         </section>
       </div>
@@ -303,7 +303,7 @@
 
         function tooltip(d, visibility){
           if(visibility === "hidden"){
-            d3.select('.tooltip-vis')
+            d3.select('.tooltip-data')
                   .style('visibility', 'hidden')
           }else{
         
@@ -313,13 +313,16 @@
               foundFocus = key_focus.filter(e => e.key === d.focus)[0]
 
               content = `<strong>Publication title: </strong>${d.title} 
-                        <br> <strong>Focus:</strong> on HInt ${foundFocus.name}<br>`
+                        <div style="margin-top: 2px; margin-bottom: 4px;">
+                          <strong>Focus:</strong> HInt ${foundFocus.name} (${foundFocus.key})
+                        </div>`
+
               content += d.qt === 1 ? "<strong>#author:</strong> " : "<strong>#authors:</strong> "
               content += d.qt
 
             }
         
-            d3.select('.tooltip-vis')
+            d3.select('.tooltip-data')
                   .style('visibility', 'visible')
                   .style('top', d3.event.y + 10 + 'px')
                   .style('left',d3.event.x + 10 + 'px')

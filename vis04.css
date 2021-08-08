@@ -15,7 +15,7 @@
 .x path {
     display: none;
 }
-.toolTip {
+/*.toolTip {
     position: absolute;
     display: none;
     pointer-events: none;
@@ -29,7 +29,8 @@
     font-size: var(--caption-font-size);
     font-family: var(--font-family-theme);
     text-align: left;
-}
+}*/
+
 
 .card__header__vis04{
     display: flex;

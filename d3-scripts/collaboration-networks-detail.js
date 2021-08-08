@@ -445,7 +445,7 @@ function updateDetail(author_name){
 
         function tooltip_qt(d, visibility){
           if(visibility === "hidden"){
-            d3.select('.tooltip-vis')
+            d3.select('.tooltip-data')
                   .style('visibility', 'hidden')
           }else{
               
@@ -462,7 +462,7 @@ function updateDetail(author_name){
             content += ` <br><strong>${d.qt}</strong> publications in total`
             
       
-          d3.select('.tooltip-vis')
+          d3.select('.tooltip-data')
             .style('visibility', 'visible')
             .style('top', d3.event.y + 10 + 'px')
             .style('left',d3.event.x + 10 + 'px')

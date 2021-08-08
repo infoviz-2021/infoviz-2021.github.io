@@ -49,10 +49,11 @@ svgPieChart
   .on('mouseover', function (e, d) {
     d3.select(this).transition().duration('50').attr('opacity', '.85');
  
-    tooltip = d3.select('.tooltip-vis')
+    tooltip = d3.select('.tooltip-data')
     console.log(tooltip)
+    
     //tooltip 
-    d3.select('.tooltip-vis')
+    d3.select('.tooltip-data')
       .style('visibility', 'visible')
       .style('top', e.pageY + 5 +'px')
       .style('left', e.pageX + 5 +'px')
@@ -61,7 +62,7 @@ svgPieChart
       
         <div style="border-left: 4px solid; border-color:${color(d.data.name)}; padding: 5px;">
           <strong>${d.data.name}</strong>
-          <div style="margin-top: 4px;">
+          <div style="margin-top: 3px;">
             <i>${d.data.value.toLocaleString()}  of ${totalArticles} analyzed publications</i>
           </div>
         </div>`
@@ -71,7 +72,7 @@ svgPieChart
   })
   .on('mouseout', function (d, i) {
     d3.select(this).transition().duration('50').attr('opacity', '1');
-    d3.select('.tooltip-vis')
+    d3.select('.tooltip-data')
     .style('visibility', 'hidden')
   })
  // .append('title')

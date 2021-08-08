@@ -64,7 +64,7 @@
             </div>
             <svg id="focus_legend"></svg>
             <div id="challenge_graph"></div>
-            <div id="challenge-tooltip" class="tooltip-vis"></div>
+            <div id="challenge-tooltip" class="tooltip-data"></div>
           
 
             <section class="card__body__challenge__legend text-legend">
@@ -291,14 +291,21 @@
                 const foundImpact = key_challenge.find((element) => element.key == d);
 
                 //tooltip axis
-                d3.select('.tooltip-vis')
+                d3.select('.tooltip-data')
                   .style('visibility', 'visible')
                   .style('top', d == 'EC' || d == 'DT' ? e.pageY*0.60 + 'px' : e.pageY*0.50 + 50 + 'px')
                   .style('left', e.pageX * 0.10 - 260 + 'px')
                   .style('min-width', '200px')
                   .style('max-width', '310px')
-                  .html('<strong>Challenge type: </strong>' + foundImpact.name + ' (' + foundImpact.key + ')' + '</br></br><strong>Description: </strong>' + foundImpact.description);
-              })
+                  .html(`
+                        <strong>Challenge type: </strong> ${foundImpact.name} (${foundImpact.key})
+                        <div style="margin-top: 4px;">
+                          <strong>Description: </strong> ${foundImpact.description}
+                        </div>`
+                    );
+             
+             
+                })
               .on('mouseleave', function (e, d) {
                 d3.select('.axisY-' + d).attr('font-weight', 'normal');
 
@@ -306,7 +313,7 @@
                   return color(d.focus);
                 });
 
-                d3.select('.tooltip-vis').style('visibility', 'hidden');
+                d3.select('.tooltip-data').style('visibility', 'hidden');
               });
 
             // Y axis title:
@@ -391,7 +398,7 @@
                   authors += foundPublication.citation_order;
 
                   //show tooltip
-                  var tooltip = d3.select('.tooltip-vis')
+                  var tooltip = d3.select('.tooltip-data')
                     .style('visibility', 'visible')
                     .style('top', function () {
                       if (d.impact == 'EC' || d.impact == 'DT') return parseFloat(y(d.impact)) + 150 + 'px';
@@ -439,7 +446,7 @@
                 }
               })
               .on('mouseleave', function (e, d) {
-                d3.select('.tooltip-vis').style('visibility', 'hidden');
+                d3.select('.tooltip-data').style('visibility', 'hidden');
 
                 d3.select(this)
                   .style('stroke', 'none')
@@ -682,7 +689,7 @@
         .on('mouseover', function (e, d) {
         
         //tooltip axis
-        d3.select('.tooltip-vis')
+        d3.select('.tooltip-data')
           .style('visibility', 'visible')
           .style('top', e.pageY-120 +'px' )
           .style('left', e.pageX - 270+'px')
@@ -692,7 +699,7 @@
      })
       .on('mouseleave', function (e, d) {
     
-        d3.select('.tooltip-vis').style('visibility', 'hidden');
+        d3.select('.tooltip-data').style('visibility', 'hidden');
       })
       .append('tspan')
           .text(d => d.key + ": ")
