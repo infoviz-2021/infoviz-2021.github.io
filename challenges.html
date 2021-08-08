@@ -9,6 +9,7 @@
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="data/keys.js"></script>
+    <script src="data/challenges.js"></script>
     <script src="scripts/util.js"></script>
     <link rel="stylesheet" href="styles/settings.css" />
     <link rel="stylesheet" href="styles/base.css" />
@@ -64,21 +65,12 @@
             <svg id="focus_legend"></svg>
             <div id="challenge_graph"></div>
             <div id="challenge-tooltip" class="simple-tooltip"></div>
-            <section class="card__body__challenge__legend text-legend">
-              <div class="container" style="width: 300px;">
-                <div class="container challeng_text" style="margin: 10px;">
-                  <strong style="color: black;">Challenge Types of HInt</strong>
-                  <p class="tooltip tooltip-no-bottom" data-tooltip="HInt impacts on humans (IH): Demands to identify and to explore the Human-Computer Integration (HInt)&#013;&#010;phenomena and effects on the individual, society and the environment"><strong>IH</strong>: HInt impacts on humans (IH)</p>
-                  <p class="tooltip tooltip-no-bottom" data-tooltip="Design challenges (DC): Demands to review and to propose methods, techniques and tools to the partner&#013;&#010;technologies design centered on both Interaction and Human-Computer Integration (HInt), considering the human,&#013;&#010; cultural, social and ethic values of the users"><strong>DC</strong>: Design challenges</p>
-                  <p class="tooltip tooltip-no-bottom" data-tooltip="Evaluation challenges (EC): Descrição: Demands to review and to propose methods and techniques to the&#013;&#010;partner technologies evaluation centered on both Interaction and Human-Computer Integration (HInt), considering the human,&#013;&#010; cultural, social and ethic values of the users"><strong>EC</strong>: Evaluation challenges</p>
-                  <p class="tooltip tooltip-no-bottom" data-tooltip="Demands for new theories and methods (DT): Demands to review and to propose empirical and theoretical&#013;&#010;approaches (e.g., theories and methods) to design and to evaluate technologies that promote Human-Computer Integration (HInt)&#013;&#010; focused on the benefits of the partnership between humans and technologies"><strong>DT</strong>: Demands for new theories and methods</p>
-                </div>
-              </div>
-            </section>
+          
 
             <section class="card__body__challenge__legend text-legend">
+              
               <div class="container" style="width: 300px;">
-                <div class="container" style="margin: 10px;margin-top: 40px;">
+                <div class="container" style="margin-top: 40px;">
                   <p><a href="reference-list.html">Click to see the reference list of publications</a></p>  
                 </div>
               </div>
@@ -111,9 +103,9 @@
     <script src="d3-scripts/vis11.js"></script>
     <script>
       // set the dimensions and margins of the graph
-      var margin = { top: 0, right: 0, bottom: 200, left: 100 },
+      var margin = { top: 0, right: 0, bottom: 300, left: 100 },
         width = 650 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+        height = 450 - margin.top - margin.bottom;
 
       var radius = 9;
       var clicks = [];
@@ -121,15 +113,9 @@
       var challengeFiltered = '';
       var focusSelected = ''
 
-      var className = function (d) {
-        var s = d.split(' ');
-        newClass = '';
-        s.forEach((e) => (newClass += e));
-        s = newClass.replace('.', '').replace(',', '');
-        return s;
-      };
+  
 
-      // Initialize plot
+   // Initialize plot
       updateChart('year');
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -676,12 +662,62 @@
           .on('mouseover', highlight)
           .on('mouseleave', noHighlight);
 
+
+        //---------------------------------------------------------------------------------------------------------------------
+        // CHALLENGE LEGEND
+        //---------------------------------------------------------------------------------------------------------------------
+      ySpacing = 17
+      xAlign = -margin.left
+      yAlign = height + 190 + ySpacing*1.5
+
+      svg
+        .selectAll('text')
+        .data(key_challenge)
+        .enter()
+        .append('text')
+        .attr('class','text-legend')
+        .attr('x',xAlign)
+        .attr('y', function(d,i){ return yAlign + i*ySpacing})
+        .style('cursor',"default")
+        .on('mouseover', function (e, d) {
+        
+        //tooltip axis
+        d3.select('.simple-tooltip')
+          .style('visibility', 'visible')
+          .style('top', e.pageY-120 +'px' )
+          .style('left', e.pageX - 270+'px')
+          .style('max-width', '500px')
+          .html(d.description);
+         
+     })
+      .on('mouseleave', function (e, d) {
+    
+        d3.select('.simple-tooltip').style('visibility', 'hidden');
+      })
+      .append('tspan')
+          .text(d => d.key + ": ")
+          .style('font-weight','bold')
+        .append('tspan')
+          .text(d => d.name)
+          .style('font-weight','normal')
+
+      yAlign = height + 190
+      svg.append("text")
+        .attr('x',xAlign)
+        .attr('y',yAlign)
+        .attr('class','text-legend')
+        .style('font-weight','bold')
+        .text("Challenge Types of HInt")
+        .style('cursor',"default")
+  
+
+
         //---------------------------------------------------------------------------------------------------------------------
         // INFORMATION
         //---------------------------------------------------------------------------------------------------------------------
 
         //icon
-        xIcon = -100;
+        xIcon = width/2 + 73;
         yIcon = height + 180;
 
         svg.append('svg').attr('x', xIcon).attr('y', yIcon).append('path').attr('d', 'M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z').attr('fill', 'var(--gray)');
@@ -697,21 +733,22 @@
         //text
         svg
           .append('text')
-          .text('Click on the publication citation to filter challenges on table. Click again to remove filter.')
+          .text('Click on the publication citation ')
           .attr('class', 'text-legend')
-          .attr('text-anchor', 'begin')
+          .attr('text-anchor', 'end')
           .style('opacity', '0.6')
-          .attr('x', xIcon + 20)
+          .attr('x', width + margin.right)
           .attr('y', yIcon + 13)
           .attr('cursor', 'default')
           .append('tspan')
-          .text('')
+          .text('to filter challenges on table.')
           .attr('x', width + margin.right)
-          .attr('dy', '1.2em')
+          .attr('dy', '1.4em')
           .append('tspan')
-          .text('')
+          .text('Click again to remove the filter.')
           .attr('x', width + margin.right)
-          .attr('dy', '1.2em');
+          .attr('dy', '1.4em');
+
       } //end function update()
 
       // --------------------------------------------------------------------------------------------------
@@ -796,6 +833,7 @@
             })
           );
         else {
+          //remove publication filter
           if (clicks.length > 0) {
             clicks.pop();
             d3.selectAll('.label-axisX').attr('font-weight', 'normal');
@@ -810,7 +848,9 @@
 
             d3.selectAll('.label-axisX').style('opacity', '1');
             d3.selectAll('.myArea').style('opacity', '1');
+
           } else {
+            //check challenge type
             challengeFiltered = selectedOption.split('(')[1].split(')')[0];
             filterImpact = key_challenge.filter((d) => {
               return d.name + ' (' + d.key + ')' != selectedOption;
@@ -822,13 +862,10 @@
               })
             );
 
-            var selectedKey = selectedOption.split('(')[1].split(')')[0];
-
-            d3.selectAll('.label-axisX').style('opacity', '0.1');
-            d3.selectAll('.label-axisX-' + selectedKey).style('opacity', '1');
-
             d3.selectAll('.myArea').style('opacity', '0.1');
-            d3.selectAll('.' + selectedKey).style('opacity', '1');
+
+            d3.selectAll('.' + challengeFiltered).style('opacity', '1');
+            d3.selectAll('.label-axisX-' + challengeFiltered).style('opacity', '1');
           }
         }
 
@@ -920,11 +957,10 @@
                   if (clicks.length > 0) {
            
                   } else {
-                    d3.selectAll('.label-axisX').style('opacity', '0.1');
-                    d3.selectAll('.label-axisX-' + selectedKey).style('opacity', '1');
-
                     d3.selectAll('.myArea').style('opacity', '0.1');
-                    d3.selectAll('.' + selectedKey).style('opacity', '1');
+
+                    d3.selectAll('.' + challengeFiltered).style('opacity', '1');
+                    d3.selectAll('.label-axisX-' + challengeFiltered).style('opacity', '1');
                   }
                 }
               });
@@ -953,6 +989,8 @@
           })
           .catch((err) => console.log(err)); //end d3.json reading
       }
+
+
     </script>
   </body>
 </html>

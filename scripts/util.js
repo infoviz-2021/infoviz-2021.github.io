@@ -44,3 +44,4 @@ var surname = function(author_name){
 
     return (last + first_letter)
 }
+

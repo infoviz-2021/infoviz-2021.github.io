@@ -23,7 +23,7 @@
     height: auto;
     background: none repeat scroll 0 0 #ffffff;
     border: 1px solid black;
-    padding: 14px;
+    padding: 8px;
     text-align: center;
     color: var(--dark-gray);
     font-size: var(--caption-font-size);

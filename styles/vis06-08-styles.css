@@ -20,7 +20,8 @@ body {
 
 .text-tooltip {
     font-size: .50rem;
-    stroke: steelblue"
+    stroke: steelblue";
+    
 }
 
 div.label-axisX {
@@ -44,15 +45,14 @@ stroke-width: 1.5px;
 .simple-tooltip{
     position: absolute;
     visibility: hidden;
-    min-width: 390px;
     max-width: 400px;
     height: auto;
     font-size: 80%;
-    background-color: #fff;
-    background: none repeat scroll 0 0 #ffffff;
-    opacity: .95;
+   /* opacity: .95;*/
+    background-color: white !important;
     padding: 5px;   
-    border: 1px solid #343a40;;
+    border: 1px solid #343a40;
+    color: #343a40;
 
   }
 
@@ -71,12 +71,12 @@ stroke-width: 1.5px;
     border: 0px; 
     width: 100%;
     font-size: 14px;
+    color: var(--dark-gray);
   }
   
   th {
     
     font-family: Roboto, sans-serif;
-    color: #343a40;
     background-color: var(--deep-purple-200);
     height: 29px;
   }

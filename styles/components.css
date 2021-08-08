@@ -558,6 +558,21 @@ tr:nth-child(even) {
   column-gap: 40px;
 }
 
+/*.simple-tooltip{
+  position: absolute;
+  visibility: hidden;
+  min-width: 390px;
+  max-width: 400px;
+  height: auto;
+  font-size: 80%;
+ /* opacity: .95;
+  opacity: 0;
+  background-color: var(--white);
+  padding: 5px;   
+  border: 1px solid var(--dark-gray);
+  color: var(--dark-gray);
+}
+*/
 .tooltip::before {
   content: attr(data-tooltip);
   position: absolute;

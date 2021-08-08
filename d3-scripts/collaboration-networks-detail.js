@@ -19,20 +19,20 @@ const colorPartner = d3.scaleOrdinal()
 .domain([1,2,3,6])
 .range(fill);
 
-//Focus
+/*/Focus
 var keys = [
   { "key": "FGR", "name":"from a general perspective (FGR)"},
   { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
   { "key": "FS", "name":"in a specific domain or context of use (FS)"}
-]; 
+]; */
 
 // Color scale: give me a focus, I return a color
 const colorPaper = d3.scaleOrdinal()
-      .domain(keys.map(d => d.key))
+      .domain(key_focus.map(d => d.key))
       .range(d3.schemeSet2);
 
 const colorPaperLight = d3.scaleOrdinal()
-  .domain(keys.map(d=>d.key))
+  .domain(key_focus.map(d=>d.key))
   .range(["#b3e2cd50","#fdcdac50","#cbd5e850"])
 
 
@@ -684,7 +684,7 @@ function updateDetail(author_name){
      
         yAlign += 15  
         svg.selectAll("myrect")
-        .data(keys)
+        .data(key_focus)
         .enter()
         .append("rect")
             .attr("class", function(d) { return "label-rect" + d.key })
@@ -699,13 +699,13 @@ function updateDetail(author_name){
 
         // Add one dot in the legend for each name.
         svg.selectAll("mylabels")
-        .data(keys)
+        .data(key_focus)
         .enter()
         .append("text")
             .attr("class", function(d) { return "text-legend label-"+ d.key })
             .attr("x", xAlign + size*1.4)
             .attr("y", function(d,i){ return yAlign +2 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .text(function(d){ return d.name})
+            .text(function(d){ return d.name + ` (${d.key})`})
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
             .style("cursor", "default")
