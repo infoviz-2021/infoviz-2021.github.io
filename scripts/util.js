@@ -37,7 +37,7 @@ var focus = d3
 
 var surname = function(author_name){
     //separete names
-    names = author_name.split(" ")  
+    names = author_name.trim().split(" ")  
 
     last = " " + names.pop() +", "
     first_letter = names[0][0] + "."

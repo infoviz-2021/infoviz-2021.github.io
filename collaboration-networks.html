@@ -102,19 +102,16 @@
             <h2 class="text-title">Authors' colaboration network</h2>
           </div>
         
-          <!--div class="card__body  card__body--end ">
-            <div class = "card__body__network__details text-legend">
-              <p>Click on the desired author node to see details of publications and partnership.</p>
-            </div>
-          </div-->
-
-          <div class="card__body card__body--center">
-            
-            <svg id="my_dataviz"></svg>
-            <div id="my_dataviz_detail"></div>
+          <div class="card__body  card__body--center text-legend">
+      
+              <label for="author-select" style="margin-right: 4px;">Select an author:</label>
+              <select id = "author-select" name = "author-select"></select> <br>
             
           </div>
-       
+
+          <div id ="graph-area" class="card__body card__body--center">
+            <svg id="my_dataviz"></svg>
+          </div>
        
           <div class='tooltip-data'></div>
 
@@ -161,6 +158,42 @@
 
         var click_loked = false
         
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//  SELECT AUTHOR
+//-----------------------------------------------------------------------------------------------------------------------------------------
+      
+        authorSelection = nodes_author.sort((a,b) => d3.ascending(surname(a.id).toUpperCase(), surname(b.id).toUpperCase()))
+
+        //empty option
+        d3.select('#author-select')
+          .append('option')
+          .text("")
+          .attr('value', "empty");
+
+        //include other options
+        authorSelection.forEach( function(d){
+         
+          d3.select('#author-select')
+          .append('option')
+          .text(surname(d.id))
+          .attr('value', d.id)
+
+        });
+      
+        // When the button is changed, run the updateChart function
+        d3.select('#author-select').on('change', function (d) {
+          // recover the option that has been chosen
+          var authorId = d3.select(this).property('value');
+          // run the updateTable function with this selected option
+          if(authorId != "empty"){
+            updateDetail(authorId);
+          }
+        });
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//  
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
         var simulation = d3.forceSimulation()
         .force("charge", d3.forceManyBody().strength(-60))

@@ -36,9 +36,6 @@ const colorPaperLight = d3.scaleOrdinal()
   .range(["#b3e2cd50","#fdcdac50","#cbd5e850"])
 
 
-
-
-
 function updateDetail(author_name){  
   
 
@@ -47,11 +44,10 @@ function updateDetail(author_name){
 
   /******************** UPDATE CHART *******************************************/
   d3.select("#my_dataviz").remove();
-  d3.select("#my_dataviz_detail").remove();
   d3.selectAll(".node-paper-div").remove();
 
   // append the svg object to the body of the page
-  var svg = d3.select(".card__body")
+  var svg = d3.select("#graph-area")
       .append("div")
       //.attr("id","my_dataviz_detail")
       .attr("id","my_dataviz")
@@ -67,7 +63,20 @@ function updateDetail(author_name){
   
   //set title
   d3.select(".text-title")
-  .text("Scientific production and publishing partners of " + author_name.trim())
+    .text("Scientific production and publishing partners of " + author_name.trim())
+
+  document.getElementById("author-select").value = author_name
+  
+  //set select
+  /*d3.select("#author-select")
+    .
+    .text(surname(author_name.trim()))
+    .attr('value', surname(author_name.trim()))*/
+
+  /*d3.select('#author-select')
+  .append('option')
+  .text("")
+  .attr('value', "empty");*/
 
 //---------------------------------------------------------------------------------------------------------------------
 //  READING DATA
@@ -427,21 +436,6 @@ function updateDetail(author_name){
     
         /************************** Links  ****************************/
 
-        function sortPartner(papers, partner){
-
-          let sorted_partner = []
-          
-          const sorted = partner.slice().sort((a, b) => d3.ascending(a.id, b.id))
-
-          papers.forEach(function(d){
-            //const paper_filter = nodes.filter(d => d.type =="paper" &&  author.paper.includes(d.id)) 
-            const founded = sorted.filter(e => e.paper.includes(d.id))
-            sorted_partner.push(founded)
-          })
-
-          return sorted_partner
-
-        }
 
         function tooltip_qt(d, visibility){
           if(visibility === "hidden"){
