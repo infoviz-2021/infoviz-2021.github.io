@@ -1,7 +1,7 @@
 
 Math.seedrandom('hello.');
 
-var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+var tooltip = d3.select("body").append("div").attr("class", "tooltip-data-v4");
 var colors = ['#0A2463', '#D8315B', '#607196', '#026C7C', '#E88EED', '#FFC759', '#034748', '#E77728', '#8BB8A8', '#CC998D', '#550C18', '#786452', '#119DA4'];
 
 var myWords =[{word:"Transport", size:19, color:"#b5de2b", context:"Autonomous car; Smart eBikes", totalPublications:"19", examples:""},
@@ -80,10 +80,10 @@ svg
     .text(function(d) { console.log(d.text); return d.text; })
     .on("mousemove", function(e){
             tooltip
-                .style("left", e.pageX + "px")
-                .style("top", e.pageY + "px")
+                .style("left", e.pageX + 5 + "px")
+                .style("top", e.pageY + 5 + "px")
                 .style("display", "inline-block")
-                .attr("class", "toolTip")
+                .attr("class", "tooltip-data-v4")
                 .html(//'<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 
                         // '</br><strong>HInt technology example: </strong>' + e.srcElement.getAttribute('context') +
                         '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 3 +
