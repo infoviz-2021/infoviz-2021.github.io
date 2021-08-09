@@ -9,6 +9,12 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   color: var(--dark-gray);
 }
 
+.card__body__group--horizontal {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
 .card__body__challenge__group {
   display: flex;
   flex-direction: row;
@@ -616,6 +622,18 @@ tr:nth-child(even) {
   /* offset-x | offset-y | blur-radius | color */
   box-shadow: 1px 1px 3px var(--gray);
 
+}
+
+.card__body__collaboration-networks__select{
+  position: absolute;
+  height: auto;
+  font-size: 80%;
+  max-width: 250px;
+  /*opacity: .95;*/
+  padding: 8px;   
+  color: var(--gray);
+  text-align: end;
+  line-height: 1.6
 }
 
 .tooltip-data-v4{

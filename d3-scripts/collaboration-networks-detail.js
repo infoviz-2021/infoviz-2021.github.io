@@ -66,7 +66,7 @@ function updateDetail(author_name){
     .text("Scientific production and publishing partners of " + author_name.trim())
 
   document.getElementById("author-select").value = author_name
-  
+ 
   //set select
   /*d3.select("#author-select")
     .
@@ -524,80 +524,51 @@ function updateDetail(author_name){
       if(nodes_paper.length === 1){
         if(nodes_paper[0].qt === 1){
           showInfo = false;
+
+          d3.select('#card-info-thickness')
+            .style('visibility', 'hidden')
         }
       }
       
       if(showInfo){
-        xIcon = width - 82 
-        yIcon = 400
+        d3.select('#card-info-thickness')
+        .style('visibility', 'visible')
+       /* .text(`The link thickness represents the number of author's publications in collaboration with selected author.` )
+
 
         svg.append("svg")
-            .attr("x", xIcon)
-            .attr("y", yIcon)
-            .append("path")
-              .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-              .attr("fill", "var(--gray)")
-        
-          svg.append("svg")
-            .attr("x", xIcon)
-            .attr("y", yIcon)
-            .append("path")
-            .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
-            .attr("fill", "var(--gray)")
-        
-        svg
-          .append("text")
-            .text("Click on the desired author's node")
-            .attr("class", "text-legend")
-            .attr("text-anchor", "end")
-            .style("opacity","0.6")
-            .attr("x", width + margin.right)
-            .attr("y", yIcon + 13)
-            .attr("cursor","default")
-          .append("tspan")
-            .text("to see publications and ")
-            .attr("x",width + margin.right)
-            .attr("dy","1.2em")
-          .append("tspan")
-            .text("partnership details.")
-            .attr("x",width + margin.right)
-            .attr("dy","1.2em")
-
-          //link thickness
-          xIcon = width - 76 
-          yIcon += 90
-
-          svg.append("svg")
-          .attr("x", xIcon)
-          .attr("y", yIcon)
-          .append("path")
-            .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
-            .attr("fill", "var(--gray)")
-
-          svg.append("svg")
-          .attr("x", xIcon)
-          .attr("y", yIcon)
-          .append("path")
-          .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+        .attr("x", xIcon)
+        .attr("y", yIcon)
+        .append("path")
+          .attr("d","M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z")
           .attr("fill", "var(--gray)")
-
-          svg
-          .append("text")
-          .text("The link thickness represents the")
+    
+      svg.append("svg")
+        .attr("x", xIcon)
+        .attr("y", yIcon)
+        .append("path")
+        .attr("d", "M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z")
+        .attr("fill", "var(--gray)")
+      
+      svg
+        .append("text")
+          .text("To see publications and partnership ")
           .attr("class", "text-legend")
           .attr("text-anchor", "end")
           .style("opacity","0.6")
           .attr("x", width + margin.right)
-          .attr("y", yIcon+13)
+          .attr("y", yIcon + 13)
           .attr("cursor","default")
-          .append("tspan")
-          .text("number of author's publications")
-          .attr("x",width + margin.right)
-          .attr("dy","1.2em")
-          .append("tspan")
-          .text("in collaboration with " + surname(author_name.trim()))
-          .attr("x",width + margin.right)
-          .attr("dy","1.2em")
+        .append("tspan")
+          .text("details, click on the desired author's node")
+          .attr("x",width + margin.right )
+          .attr("dy","1.5em")
+        .append("tspan")
+        .text("or select here: ")
+        .attr("x",width + margin.right - 150)
+        .attr("dy","1.5em")*/
+
+      
       }
           
   })//end d3.json

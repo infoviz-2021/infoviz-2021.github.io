@@ -101,18 +101,34 @@
           <div class="card__header">
             <h2 class="text-title">Authors' colaboration network</h2>
           </div>
-        
-          <div class="card__body  card__body--center text-legend">
-      
-              <label for="author-select" style="margin-right: 4px;">Select an author:</label>
-              <select id = "author-select" name = "author-select"></select> <br>
-            
-          </div>
-
-          <div id ="graph-area" class="card__body card__body--center">
+    
+          <div id ="graph-area" class="card__body">
             <svg id="my_dataviz"></svg>
           </div>
        
+          <div id = "card-info-thickness" class="card__body__collaboration-networks__select text-legend" style = "visibility:hidden;top:700px;left:1400px;">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+              <path id="path1" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path id="paht2" d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>
+      
+            The link thickness represents the number of partners' publications in collaboration with the selected author.
+         
+          </div>
+            
+          <div id = "card-info-select" class="card__body__collaboration-networks__select text-legend" style = "top:800px;left:1400px;">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+            </svg>
+      
+            To see publications and partnership details, click on the desired author's node or select here:
+            <select id = "author-select" name = "author-select"></select> 
+         
+          </div>
+
           <div class='tooltip-data'></div>
 
         </section>
@@ -126,7 +142,6 @@
         .attr("width",  width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr("transform", "translate(" + 0 + "," + 0 + ")");
-
 
       const radius = 25;
 
@@ -163,6 +178,8 @@
 //  SELECT AUTHOR
 //-----------------------------------------------------------------------------------------------------------------------------------------
       
+       
+
         authorSelection = nodes_author.sort((a,b) => d3.ascending(surname(a.id).toUpperCase(), surname(b.id).toUpperCase()))
 
         //empty option
@@ -479,14 +496,16 @@
           }
 
 
-        // Add
+//-------------------------------------------------------------------------------------------------------------
+// INFORMATION 
+//-------------------------------------------------------------------------------------------------------------
 
 
       //icon
-      xIcon = width - 120
-      yIcon = 500
+      xIcon = width - 100
+      yIcon = 480
 
-      svg.append("svg")
+  /*    svg.append("svg")
         .attr("x", xIcon)
         .attr("y", yIcon)
         .append("path")
@@ -502,7 +521,7 @@
       
       svg
         .append("text")
-          .text("Click on the desired author's node to see")
+          .text("To see publications and partnership ")
           .attr("class", "text-legend")
           .attr("text-anchor", "end")
           .style("opacity","0.6")
@@ -510,11 +529,20 @@
           .attr("y", yIcon + 13)
           .attr("cursor","default")
         .append("tspan")
-          .text("publications and partnership details.")
-          .attr("x",width + margin.right)
-          .attr("dy","1.3em")
-      
+          .text("details, click on the desired author's node")
+          .attr("x",width + margin.right )
+          .attr("dy","1.5em")
+        .append("tspan")
+        .text("or select here: ")
+        .attr("x",width + margin.right - 150)
+        .attr("dy","1.5em")
+*/
+        /*
 
+      d3.select('#card-select')
+        .style('visibility', 'visible')
+        .style('top', yIcon + 380 +'px')
+        .style('left', xIcon + 390 + 'px')*/
 
         //-------------------------------------------------------------------------------------------------------------
         // QT PUBLICATION LEGEND
