@@ -169,13 +169,21 @@
             svg.append("g")
               .selectAll("g")
               .data(mapFeatures.features)
-              .enter()                
+              .enter()
+              .filter(d => d.id === 'CYP')
               .append("circle")
               .attr('r', 2)
               .attr("transform", d => `translate(${geoPath.centroid(d)})`)
-              .attr('class', getCountryPinHighlightedClass)
+              .attr('class', getCountryHighlightedClass)
               .on('mouseover', showTooltip(institutionsAuthorsList))
-              .on('mouseout', hideTooltip)
+              .on('mouseout', (event) => {
+                const countryTarget = event.target
+                if (!countryTarget.dataset.selected) {
+                  d3.select(countryTarget).attr('class', 'country country-highlighted')
+                }
+                d3.select('.card__body__countries__tooltip')
+                  .style('visibility','hidden')
+              })
               .on('click', onCountryClick(institutionsAuthorsList))
         })
       })
@@ -241,19 +249,16 @@
             return 'country'
         }
       }
+
+      function getCountryPinHighlightedClass(event) {
+        event.target.classList.toggle('country')
+      }
       
       function getCountryHighlightedClass(svgElement) {
         if (svgElement.properties.articles > 0)
           return 'country country-highlighted'
         else 
           return 'country'
-      }
-
-      function getCountryPinHighlightedClass(svgElement) {
-        if (svgElement.properties.articles > 0)
-          return 'country-pin country-highlighted-pin'
-        else 
-          return 'country-pin'
       }
 
       function showTooltip (institutionsAuthorsList) {
@@ -305,7 +310,7 @@
             const countryTarget = event.target
             d3.selectAll('[data-selected=true]')
               .attr('data-selected', false)
-              .attr('class', 'country-pin country-highlighted-pin')
+              .attr('class', 'country country-highlighted')
             d3.select(this).attr('data-selected', true)
             d3.select(this).attr('class', getCountryClassOnHover(countryTarget.dataset.selected, svgElement.properties.articles > 0))
   
