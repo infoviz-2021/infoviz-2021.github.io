@@ -29,8 +29,8 @@ var myWords =[{word:"Transport", size:19, color:"#b5de2b", context:"Autonomous c
 
 // set the dimensions and margins of the graph
 var margin = {top: 1, right: 1, bottom: 1, left: 1},
-    width = 600 - margin.left - margin.right,
-    height = 315 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz").append("svg")
@@ -38,7 +38,8 @@ var svg = d3.select("#my_dataviz").append("svg")
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        "translate(" + margin.left + "," + margin.top + ")")
+    .attr("margin-left", "-100px");
 
 function fillColor(d,i){
     return d.color;
@@ -52,7 +53,7 @@ var layout = d3.layout.cloud()
     .padding(0.5)        //space between words
     .rotate(function() { return 0; })
     .font('Impact') 
-    .fontSize(function(d) { return d.size * 3; })      // font size of words
+    .fontSize(function(d) { return d.size * 5; })      // font size of words
     .on("end", draw);
 layout.start();
 
@@ -86,7 +87,7 @@ svg
                 .attr("class", "tooltip-data-v4")
                 .html(//'<strong>Citations: </strong>'+ e.srcElement.getAttribute('size') + 
                         // '</br><strong>HInt technology example: </strong>' + e.srcElement.getAttribute('context') +
-                        '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 3 +
+                        '<strong>Total of analyzed publications that cited this area or domain: </strong>' + parseInt(e.srcElement.getAttribute('size')) / 5 +
                         '</br><strong>Examples of HInt technologies used in this area or domain: </strong>' + e.srcElement.getAttribute('context')
                 );
             })
