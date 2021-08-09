@@ -484,7 +484,8 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
 
 .card__body__countries__map .country {
   stroke: #fff;
-  fill: #aaa;
+  stroke-width: 0.2;
+  fill: var(--light-gray-1);
 }
 
 .card__body__countries__map .country-highlighted {
@@ -578,6 +579,10 @@ tr:nth-child(even) {
   opacity: 0;
   transition: all .4s ease;
   z-index: -1;
+}
+
+.tooltip.tooltip-right::before {
+  right: 105%;
 }
 
 .tooltip.tooltip-no-bottom::before {
