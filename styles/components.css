@@ -580,6 +580,10 @@ tr:nth-child(even) {
   z-index: -1;
 }
 
+.tooltip.tooltip-right::before {
+  right: 105%;
+}
+
 .tooltip.tooltip-no-bottom::before {
   bottom: -55px;
   left: 25px;
