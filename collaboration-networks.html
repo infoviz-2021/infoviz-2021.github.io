@@ -103,7 +103,10 @@
           </div>
     
           <div id ="graph-area" class="card__body card__body--no-overflow">
-            <svg id="my_dataviz" style="overflow: visible;"></svg>
+            <!--div id="my_dataviz" style="overflow: visible;"--> 
+              <svg id="my_dataviz" style="overflow: visible;"></svg>
+
+           <!--/div-->
           </div>
        
           <div id = "card-info-thickness" class="card__body__collaboration-networks__select text-legend" style = "visibility:hidden;top:700px;left:1400px;">
@@ -138,10 +141,30 @@
 
     <script>
 
-      var svg = d3.select("#my_dataviz")
+      const svg = d3.select("#my_dataviz")
         .attr("width",  width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr("transform", "translate(" + 0 + "," + 0 + ")");
+        //.attr("transform", "translate(" + 0 + "," + 0 + ")")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        
+
+     /* const svg =  d3.select("#my_dataviz")
+          .append("div")
+          // Container class to make it responsive.
+          .classed("svg-container", true) 
+          .append("svg")
+          // Responsive SVG needs these 2 attributes and no width and height attr.
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+          // Class to make it responsive.
+          .classed("svg-content-responsive", true)
+          // Fill with a rectangle for visualization.*/
+         
+
+
+      /*  const svg = d3.select('.card__body__countries__map')
+        .append('svg')
+        .attr("viewBox", `0 0 ${width} ${height}`)*/
 
       const radius = 25;
 

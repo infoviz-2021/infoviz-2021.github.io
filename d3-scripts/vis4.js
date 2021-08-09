@@ -75,8 +75,8 @@ d3.json("/data/data_vis08.json", function(error, data) {
                     ${d[1].sort((a,b) => b.year - a.year).map(key => (
                     `<div style="border-left: 4px solid; border-color:${  keys.find(k => k.key == key.focus).color}; padding: 5px; margin: 5px;">
                     <strong>Publication title: </strong> ${key.title}
-                    <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
                     <br> <strong>Citation: </strong> ${key.citation}
+                    <br> <strong>Focus: </strong> HInt ${keys.find(element => element.key == key.focus).name} (${keys.find(element => element.key == key.focus).abbreviation})
                     </div>`
                     )).join('')}
                 `);

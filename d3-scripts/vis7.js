@@ -64,7 +64,7 @@ g.append("g")
                     <br>
                     ${articles.map(key => (
                         `<div style="border-left: 4px solid; border-color:${key_focus.find(k => k.name == key.focus).color}; padding: 5px; margin: 5px;">
-                            <strong>Title: </strong> ${key.title}
+                            <strong>Publication title: </strong> ${key.title}
                             <br> <strong>Citation: </strong> ${key.citation}
                             <br> <strong>Focus: </strong> HInt ${key.focus} (${key_focus.find(k => k.name == key.focus).key})
                         </div>
