@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="styles/components.css">
 
     <title>Trabalho de InfoViz</title>
+    <style>
+      .marker {
+        fill: #31558d;
+        fill-opacity: .75;
+        transition: all .2s ease-in-out;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -158,6 +165,18 @@
             .on('mouseover', showTooltip(institutionsAuthorsList))
             .on('mouseout', hideTooltip)
             .on('click', onCountryClick(institutionsAuthorsList))
+
+            svg.append("g")
+              .selectAll("g")
+              .data(mapFeatures.features)
+              .enter()                
+              .append("circle")
+              .attr('r', 1)
+              .attr("transform", d => `translate(${geoPath.centroid(d)})`)
+              .attr('class', getCountryPinHighlightedClass)
+              .on('mouseover', showTooltip(institutionsAuthorsList))
+              .on('mouseout', hideTooltip)
+              .on('click', onCountryClick(institutionsAuthorsList))
         })
       })
 
@@ -230,6 +249,13 @@
           return 'country'
       }
 
+      function getCountryPinHighlightedClass(svgElement) {
+        if (svgElement.properties.articles > 0)
+          return 'country-pin country-highlighted-pin'
+        else 
+          return 'country-pin'
+      }
+
       function showTooltip (institutionsAuthorsList) {
         return (event, data) => {
           if (data.properties.articles > 0) {
@@ -279,7 +305,7 @@
             const countryTarget = event.target
             d3.selectAll('[data-selected=true]')
               .attr('data-selected', false)
-              .attr('class', 'country country-highlighted')
+              .attr('class', 'country-pin country-highlighted-pin')
             d3.select(this).attr('data-selected', true)
             d3.select(this).attr('class', getCountryClassOnHover(countryTarget.dataset.selected, svgElement.properties.articles > 0))
   

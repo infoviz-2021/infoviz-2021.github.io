@@ -482,6 +482,18 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   background-image: var(--usa-flag);
 }
 
+.card__body__countries__map .country-pin {
+  stroke-width: 0;
+  visibility: hidden;
+}
+
+.card__body__countries__map .country-highlighted-pin {
+  visibility: visible;
+  stroke-width: 0;
+  stroke-opacity: 0;
+  fill: var(--light-purple);
+}
+
 .card__body__countries__map .country {
   stroke: #fff;
   stroke-width: 0.2;
