@@ -49,7 +49,7 @@ function fillColor(d,i){
 // Wordcloud features that are different from one word to the other must be here
 var layout = d3.layout.cloud()
     .size([width, height])
-    .words(myWords.map(function(d) { console.log(d); return {text: d.word, size:d.size, color:d.color, context:d.context,}; }))
+    .words(myWords.map(function(d) { return {text: d.word, size:d.size, color:d.color, context:d.context,}; }))
     .padding(0.5)        //space between words
     .rotate(function() { return 0; })
     .font('Impact') 
@@ -78,7 +78,7 @@ svg
     .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
     })
-    .text(function(d) { console.log(d.text); return d.text; })
+    .text(function(d) { return d.text; })
     .on("mousemove", function(e){
             tooltip
                 .style("left", e.pageX + 5 + "px")
