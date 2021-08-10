@@ -102,7 +102,8 @@
             <h2 class="text-title">Authors' colaboration network</h2>
           </div>
     
-          <div id ="graph-area" class="card__body card__body--no-overflow">
+          <!--div id ="graph-area" class="card__body card__body--no-overflow"-->
+          <div id ="graph-area" class="svg-container">
             <!--div id="my_dataviz" style="overflow: visible;"--> 
               <svg id="my_dataviz" style="overflow: visible;"></svg>
 
@@ -145,8 +146,10 @@
         .attr("width",  width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         //.attr("transform", "translate(" + 0 + "," + 0 + ")")
+        // Responsive SVG needs these 2 attributes and no width and height attr.
+        .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-        
+         
 
      /* const svg =  d3.select("#my_dataviz")
           .append("div")
@@ -385,7 +388,9 @@
 
               foundFocus = key_focus.filter(e => e.key === d.focus)[0]
 
-              content = `<strong>Publication title: </strong>${d.title} 
+              content = `
+                      <div style="border-left: 4px solid; border-color:${color(d.data.name)}; padding: 5px;">
+                        <strong>Publication title: </strong>${d.title} 
                         <div style="margin-top: 2px; margin-bottom: 4px;">
                           <strong>Focus:</strong> HInt ${foundFocus.name} (${foundFocus.key})
                         </div>`
