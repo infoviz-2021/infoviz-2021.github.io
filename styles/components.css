@@ -126,10 +126,6 @@ Normalmente, aqui ficarão listas específicas como de produtos, cards específi
   margin-top: .5em;
 }
 
-.card__body__countries__details__click-to-display-info {
-  
-}
-
 .card__body__countries__details__click-to-display-info--hidden {
   display: none;
 }
@@ -757,4 +753,26 @@ tr:nth-child(even) {
 
 .card__body__countries__details__click-to-display-info .icon-information {
   transform: rotate(180deg);
+}
+
+.header__top-alert {
+  background-color: var(--light-magenta-3);
+  padding: 1em;
+}
+
+.header__top-alert--closed {
+  display: none;
+}
+
+.icon--transparent {
+  background-color: transparent;
+  opacity: 1;
+}
+
+.icon-close {
+  background-image: var(--icon-close);
+}
+
+.icon-button {
+  cursor: pointer;
 }

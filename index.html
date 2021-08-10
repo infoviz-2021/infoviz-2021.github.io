@@ -17,6 +17,11 @@
   </head>
   <body>
     <header>
+      <div class="header__top-alert">
+        <span class="icon icon-information icon--transparent"></span>
+        <span>This website is better visualized on resolution 1920 x 1080</span>
+        <span class="icon icon-close icon--transparent icon-button" style="right: 0px;position: absolute;margin-right: 1em;"></span>
+      </div>
       <div class="header__top">
         <div class="header__logo">
           <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
@@ -142,6 +147,10 @@
         })
       })
 
+      const alertResolution = document.querySelector('.header__top-alert')
+      alertResolution.addEventListener('click', function (event) {
+        alertResolution.classList.toggle('header__top-alert--closed')
+      })
     </script>
     
     
