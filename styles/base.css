@@ -2,6 +2,32 @@
 Portanto aqui ficarão estilos para os headings h1-h6, blockquotes, a, buttons, etc. 
 Mas lembre-se são estilizações BÁSICAS, nada de estilizar tudo aqui! */
 
+@media only screen and (max-device-width: 1920px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+  }
+  
+}
+
+@media only screen and (max-device-width: 1440px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+  }
+}
+
+@media only screen and (max-device-width: 1280) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+  }
+  
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -23,11 +49,7 @@ main {
   align-items: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 70vw;
-}
+
 
 .default-font-family{
   font-family: var(--font-family-theme);
