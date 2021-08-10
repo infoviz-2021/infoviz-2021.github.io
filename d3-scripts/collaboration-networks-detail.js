@@ -126,7 +126,7 @@ function updateDetail(author_name){
         //define centers
         const spacing = {h:180, v:80}
         const paper_size = {w: 280, h:72}
-        const shift_x = width/12
+        const shift_x = width/10
         const shift_y = 20
         const xCenter = {'author': width/2 -  spacing.h - shift_x, 'paper': width/2 - shift_x, 'partner': width/2 +  spacing.h + paper_size.w - shift_x } 
   
@@ -584,7 +584,16 @@ function updateDetail(author_name){
         // Add one dot in the legend for each name.
         var size = 12
         //var xAlign = width - margin.right
-        var xAlign = width + 20
+       
+        var xAlign = width + 40
+
+        if(screen.width === 1440)
+          xAlign = 0.80 * screen.width
+  
+        else if(screen.width === 1280)
+          xAlign = 0.85 * screen.width 
+    
+
        // var xAlign = 10
         var yAlign = 10
 

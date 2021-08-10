@@ -322,6 +322,10 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
   justify-content: center;
 }
 
+.panel-column.left {
+  justify-content: left;
+}
+
 .panel-row {
   display: flex;
   flex-direction: column;
