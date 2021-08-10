@@ -389,14 +389,16 @@
               foundFocus = key_focus.filter(e => e.key === d.focus)[0]
 
               content = `
-                      <div style="border-left: 4px solid; border-color:${color(d.data.name)}; padding: 5px;">
+                      <div style="border-left: 4px solid; border-color:${colorPaper(foundFocus.key)}; padding: 5px;">
                         <strong>Publication title: </strong>${d.title} 
                         <div style="margin-top: 2px; margin-bottom: 4px;">
                           <strong>Focus:</strong> HInt ${foundFocus.name} (${foundFocus.key})
-                        </div>`
+                        </div>
+                      `
 
               content += d.qt === 1 ? "<strong>#author:</strong> " : "<strong>#authors:</strong> "
-              content += d.qt
+              content += d.qt + "</div>"
+              
 
             }
         

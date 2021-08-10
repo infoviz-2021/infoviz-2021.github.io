@@ -395,19 +395,20 @@
                   .style('max-width', '500px')
                   .style('left', e.pageX + 10 + 'px')
                   .html(
-                    `
-                      <strong>Publication title: </strong> ${foundPublication.title}
-                        <div style="margin-top: 2px;">
-                          <strong>Focus: </strong> HInt ${foundFocus.name} ( ${foundFocus.key})
-                        </div>
-                        <div style="margin-top: 2px;">
-                          <strong>Contribution: </strong>${foundContribution.name} (${foundContribution.key}) 
-                        </div>
-                        <div style="margin-top: 2px;">
-                          <strong>Event/Forum: </strong> ${foundPublication.event}
-                        </div>
-                        <div style="margin-top: 2px;">
-                          ${authors}
+                    `  <div style="border-left: 4px solid; border-color:${color(foundFocus.key)}; padding: 5px;">
+                        <strong>Publication title: </strong> ${foundPublication.title}
+                          <div style="margin-top: 2px;">
+                            <strong>Focus: </strong> HInt ${foundFocus.name} ( ${foundFocus.key})
+                          </div>
+                          <div style="margin-top: 2px;">
+                            <strong>Contribution: </strong>${foundContribution.name} (${foundContribution.key}) 
+                          </div>
+                          <div style="margin-top: 2px;">
+                            <strong>Event/Forum: </strong> ${foundPublication.event}
+                          </div>
+                          <div style="margin-top: 2px;">
+                            ${authors}
+                          </div>
                         </div>
                      `
                   );

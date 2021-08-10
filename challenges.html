@@ -408,22 +408,24 @@
                       return parseFloat(y(d.impact)) + 270 + 'px';
                     })
                     .html(
-                      '<strong>Publication title: </strong>' +
-                        foundPublication.title +
-                        '</br><strong>Focus: </strong> HInt ' +
-                        foundFocus.name +
-                        ' (' +
-                        foundFocus.key +
-                        ')' +
-                        '</br><strong>Challenge: </strong>' +
-                        foundImpact.name +
-                        ' (' +
-                        foundImpact.key +
-                        ')' +
-                        '</br><strong>Event/Forum: </strong>' +
-                        foundPublication.event +
-                        '</br>' +
-                        authors
+                      `<div style="border-left: 4px solid; border-color:${color(foundFocus.key)}; padding: 5px;">`+
+                        '<strong>Publication title: </strong>' +
+                          foundPublication.title +
+                          '</br><strong>Focus: </strong> HInt ' +
+                          foundFocus.name +
+                          ' (' +
+                          foundFocus.key +
+                          ')' +
+                          '</br><strong>Challenge: </strong>' +
+                          foundImpact.name +
+                          ' (' +
+                          foundImpact.key +
+                          ')' +
+                          '</br><strong>Event/Forum: </strong>' +
+                          foundPublication.event +
+                          '</br>' +
+                          authors
+                        + '</div>'
                     )
                     .style('min-width', '200px')
                     .style('max-width', '350px');
