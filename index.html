@@ -154,7 +154,13 @@
       const alertResolution = document.querySelector('.header__top-alert')
       alertResolution.addEventListener('click', function (event) {
         alertResolution.classList.toggle('header__top-alert--closed')
+        window.localStorage.setItem('infovis.show-alert', true)
       })
+
+      const isAlertExibited = window.localStorage.getItem('infovis.show-alert')
+      if (isAlertExibited) {
+        alertResolution.classList.add('header__top-alert--closed')
+      }
     </script>
     
     
