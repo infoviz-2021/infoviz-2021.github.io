@@ -22,10 +22,7 @@
       <div class="header__top">
         <div class="header__logo">
           <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
-          <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point
-            <span class="icon-with-label icon-information-label-white icon--transparent" style="fill:white;" 
-              data-title="This website is not mobile friendly and it is best viewed in a 1920x1080 display resolution. If your resolution is different, we recommend adjusting the browser zoom property for a better browsing experience on the Portal."></span>
-          </p>
+          <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
           <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
         </div>
         <div class="header__left-side">
@@ -63,9 +60,8 @@
       </div>
     </header>
     <main>
-
-      <div class="container">
-      <div class="card__body__challenge__group">
+      <!-- <div class="container"> -->
+      <div class="panel-column centralized">
         <!-- <section class="stats">
           <div class="stats__stat stats__stat--light-cornflower-blue tooltip" data-tooltip="A Survey of Incorporating Affective Computing for Human-System Co-adaptation&#013;&#010;Augmented Human and Human-Machine Co-evolution: Efficiency and Ethics&#013;&#010;Beyond Confluence, Integration and Symbiosis: Creating More Aware Relationships in Smart Cities&#013;&#010;Body-Borne Computers as Extensions of Self&#013;&#010;Co-riding With My eBike to Get Green Lights&#013;&#010;Computer as Partner: A Critique Perspective of Interaction Design for Social Sustainability&#013;&#010;Designing human-in-the-loop autonomous Cyber-Physical Systems&#013;&#010;Embracing Companion Technologies&#013;&#010;Engineering human-in-the-loop interactions in cyber-physical systems&#013;&#010;Human augmentation: Past, present and future&#013;&#010;Human-computer integration&#013;&#010;Human-Computer Integration (Dagstuhl Seminar 18322)&#013;&#010;Human-Engaged Computing: the future of Human–Computer Interaction&#013;&#010;'I had super-powers when eBike riding' Towards Understanding the Design of Integrated Exertion&#013;&#010;Introducing Peripheral Awareness as a Neurological State for Human-computer Integration&#013;&#010;Manifesting the Cyborg through Techno-Body Modification: From Human-Computer Interaction to Integration&#013;&#010;Next Steps for Human-Computer Integration&#013;&#010;Seven HCI Grand Challenges&#013;&#010;The future's hybrid nature&#013;&#010;The Guts Game: Towards Designing Ingestible Games">
             <div class="stats__stat__title">SLR Analyzed Publications</div>
@@ -95,7 +91,9 @@
                
               </div>
               <div id="focus_legend"></div>
+              <div id="my_dataviz"></div>
               <div class="tooltip-data"></div>
+              <div class="card__body__contribuition-types__label-axisX"></div>
             </div>
            
           </div>
@@ -122,7 +120,6 @@
           </section>
         </div>
       </div>
-    </div>
     </main>
 
     <script type="text/javascript">
@@ -135,8 +132,8 @@
 
       
       // set the dimensions and margins of the graph
-      var margin = { top: 10, right: 100, bottom: 180, left: 200 },
-        width = 920 - margin.left - margin.right,
+      var margin = { top: 10, right: 180, bottom: 180, left: 200 },
+        width = 1000 - margin.left - margin.right,
         height = 600 - margin.top - margin.bottom;
 
       // Initialize plot
@@ -155,7 +152,7 @@
           .attr('width', width + margin.left + margin.right)
           .attr('height', 70)
           .append('g')
-          .attr('transform', 'translate(' + 0 + ',' + 0 + ')');
+          .attr('transform', 'translate(' + 10 + ',' + 10 + ')');
           // usar o html para nao precisar remover os elementos  ao ordernar
 
         //graph: append the svg object to the body of the page
@@ -484,7 +481,7 @@
 
         // Add one dot in the legend for each name.
         var size = 20;
-        var xAlign = 0;
+        var xAlign = -10;
         var yAlign = 40;
 
         svg_legend
@@ -507,7 +504,7 @@
             return 'label-rect' + d.key;
           })
           .attr('x', function (d, i) {
-            return xAlign + (i == 2 ? i * 328 : i * 220);
+            return xAlign + (i == 2 ? i * 340 : i * 230);
           })
           // .attr("y", function(d,i){ return 30 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
           .attr('y', yAlign)
@@ -531,7 +528,7 @@
             return 'text-legend label-' + d.key;
           })
           .attr('x', function (d, i) {
-            return xAlign + size * 1.2 + (i == 2 ? i * 328 : i * 220);
+            return xAlign + size * 1.2 + (i == 2 ? i * 340 : i * 230);
           })
           .attr('y', yAlign + size / 4 + 2)
           .text(function (d) {
