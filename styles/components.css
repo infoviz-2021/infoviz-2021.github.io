@@ -757,8 +757,8 @@ tr:nth-child(even) {
 }
 
 .header__top-alert {
-  background-color: var(--warning-dark);
-  /*background-color: var(--warning-lighter);*/
+  /* background-color: var(--warning-dark); */
+  background-color: var(--warning-lighter);
   padding: 1em;
 }
 
