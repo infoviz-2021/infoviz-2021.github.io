@@ -19,13 +19,6 @@ const colorPartner = d3.scaleOrdinal()
 .domain([1,2,3,6])
 .range(fill);
 
-/*/Focus
-var keys = [
-  { "key": "FGR", "name":"from a general perspective (FGR)"},
-  { "key": "FGQA", "name":"from a general perspective with emphasis on a quality attribute (FGQA)" },
-  { "key": "FS", "name":"in a specific domain or context of use (FS)"}
-]; */
-
 // Color scale: give me a focus, I return a color
 const colorPaper = d3.scaleOrdinal()
       .domain(key_focus.map(d => d.key))
@@ -56,6 +49,7 @@ function updateDetail(author_name){
       .attr("height", height + margin.top + margin.bottom)
       .style("display","block")
       .style("margin", "auto")
+      .style("overflow","visible")
       .append("g")
       .attr("transform",
               "translate(" + 0 + "," + 0 + ")");
@@ -587,12 +581,12 @@ function updateDetail(author_name){
        
         var xAlign = width + 40
 
-        if(screen.width === 1440)
+        /*if(screen.width === 1440)
           xAlign = 0.80 * screen.width
   
         else if(screen.width === 1280)
           xAlign = 0.85 * screen.width 
-    
+    */
 
        // var xAlign = 10
         var yAlign = 10

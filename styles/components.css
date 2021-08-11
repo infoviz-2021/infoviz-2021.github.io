@@ -654,11 +654,11 @@ tr:nth-child(even) {
 
 }
 
-.card__body__collaboration-networks__select{
+.card__body__collaboration-network{
   position: absolute;
   height: auto;
   font-size: 80%;
-  max-width: 200px;
+  max-width: 250px;
   /*opacity: .95;*/
   padding: 8px;   
   color: var(--gray);

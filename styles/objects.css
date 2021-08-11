@@ -220,6 +220,11 @@ Aqui é onde fazemos os padrões de botões, listas, paineis, etc. Nesse momento
 
 }
 
+.icon-information-label-white {
+  background-image: var(--icon-information-label-white);
+
+}
+
 .stats {
   display: flex;
   flex-direction: row;

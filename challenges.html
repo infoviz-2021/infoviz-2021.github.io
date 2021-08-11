@@ -25,7 +25,10 @@
       <div class="header__top">
         <div class="header__logo">
           <h3 class="header__title">HInt within the HCI scope - Definition, State-of-the-Art and Challenges</h3>
-          <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point</p>
+          <p class="header__subtitle">A Visual Survey of Human-Computer Integration (HInt) in the HCI view point
+            <span class="icon-with-label icon-information-label-white icon--transparent" style="fill:white;" 
+              data-title="This website is not mobile friendly and it is best viewed in a 1920x1080 display resolution. If your resolution is different, we recommend adjusting the browser zoom property for a better browsing experience on the Portal."></span>
+          </p>
           <p class="header__authors">By Glívia A. R. Barbosa, Elizabeth D. S. da Costa, Felipe S. A. de Freitas and Eduardo H. R. da Silva</p>
         </div>
         <div class="header__left-side">
@@ -48,10 +51,8 @@
         <section class="card__body__challenge__group">
           <!-- GRAPH AREA -->
           <section class="card">
-            <div class="card__header" style="flex-direction: column;margin-bottom: 20px;">
-              <h2 class="text-title title1--visibility" >Challenge types of HInt presented by the analyzed publications</h2>
-              <h2 class="text-title title2--visibility" >Challenge types of HInt presented <br> by the analyzed publications</h2>
-
+            <div class="card__header">
+              <h2 class="text-title">Challenge types of HInt presented by the analyzed publications</h2>
             </div>
             <div class="card__body__challenge__legend text-legend">
               <strong style="padding-right: 0.5em">Order publication by:</strong>
@@ -81,13 +82,11 @@
             </section>
 
           </section>
-         
-         
+  
           <!-- TABLE AREA -->
           <section class="card" id="card-table">
-            <div class="card__header"  style="display: flex;flex-direction: column;">
-              <h2 class="text-title title1--visibility">Examples of HInt challenges listed by analyzed publications</h2>
-              <h2 class="text-title title2--visibility">Examples of HInt challenges listed <br> by analyzed publications</h2>
+            <div class="card__header">
+              <h2 class="text-title">Examples of HInt challenges listed by analyzed publications</h2>
             </div>
             <section class="card">
             <div id="container">
@@ -96,7 +95,7 @@
                 <select id="challenge-select" name="challenge-select"></select>
                 <br />
               </div>
-              <div id="FilterableTable" ></div>
+              <div id="FilterableTable"></div>
             </div>
           </section>
         </section>
@@ -109,8 +108,8 @@
     <script src="d3-scripts/vis11.js"></script>
     <script>
       // set the dimensions and margins of the graph
-      var margin = { top: 0, right: 5, bottom: 300, left: 100 },
-        width = 600 - margin.left - margin.right,
+      var margin = { top: 0, right: 0, bottom: 300, left: 100 },
+        width = 650 - margin.left - margin.right,
         height = 450 - margin.top - margin.bottom;
 
       var radius = 9;
@@ -732,7 +731,7 @@
         //---------------------------------------------------------------------------------------------------------------------
 
         //icon
-        xIcon = width/2 + 50;
+        xIcon = width/2 + 73;
         yIcon = height + 180;
 
         svg.append('svg').attr('x', xIcon).attr('y', yIcon).append('path').attr('d', 'M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z').attr('fill', 'var(--gray)');
@@ -811,14 +810,11 @@
         .style('width', (d, i) => {
           if (i == 0)
             //second column
-            return '25vw';
-           // return '360px';
+            return '360px';
           if (i == 1)
             //second column
-            return '15vw';
-           // return '200px';
-         // return '8px'; //last column
-          return '2vw';
+            return '200px';
+          return '8px'; //last column
         })
         .style('text-align', (d, i) => {
           if (i == 2) return 'right';

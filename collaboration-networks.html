@@ -102,17 +102,15 @@
             <h2 class="text-title">Authors' colaboration network</h2>
           </div>
     
-          <!--div id ="graph-area" class="card__body card__body--no-overflow"-->
-          <div id ="graph-area" class="svg-container">
+          <div id ="graph-area" class="card__body card__body--no-overflow">
+          <!--div id ="graph-area" class="svg-container"-->
             <!--div id="my_dataviz" style="overflow: visible;"--> 
               <svg id="my_dataviz" style="overflow: visible;"></svg>
 
            <!--/div-->
           </div>
-
-         
        
-          <div id = "card-info-thickness" class="card__body__collaboration-networks__select text-legend right-align" style = "visibility:hidden;top:700px;">
+          <div id = "card-info-thickness" class="card__body__collaboration-network text-legend" style = "visibility:hidden;top:600px;left:1400px;">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
               <path id="path1" d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -123,7 +121,7 @@
          
           </div>
             
-          <div id = "card-info-select" class="card__body__collaboration-networks__select text-legend right-align" style = "top:800px;">
+          <div id = "card-info-select" class="card__body__collaboration-network text-legend" style = "top:800px;left:1400px;">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -174,7 +172,7 @@
       const radius = 25;
 
       var size = 15;
-      var shift = {x : 20, y : -20}
+      var shift = {x : 80, y : -20}
 
       /************************************ READ DATA ******************************************/
 
@@ -580,23 +578,11 @@
         // QT PUBLICATION LEGEND
         //-------------------------------------------------------------------------------------------------------------
 
-        console.log(screen.width + 'x' + screen.height);
-        console.log(width);
-
-       // var xAlign = width + 20
-
-      var xAlign = width + 40
-
-      if(screen.width === 1440)
-        xAlign = 0.80 * screen.width
-
-      else if(screen.width === 1280)
-        xAlign = 0.85 * screen.width 
 
         // Add one dot in the legend for each name.
         var size = 12
-        //
-        //
+        //var xAlign = width - margin.right
+        var xAlign = width + 20
        // var xAlign = 10
         var yAlign = 10
 
